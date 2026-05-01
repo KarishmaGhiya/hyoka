@@ -216,3 +216,25 @@ All reviewers use the same 3-model panel: `claude-opus-4.6`, `gemini-3-pro-previ
 - **Claude Sonnet is slowest overall** despite being a smaller model — likely due to longer review times
 - **MCP configs add ~30s overhead** on average compared to their baseline counterparts
 - **With the recommended 4-config set**, estimated run time per language: ~4 configs × 14 prompts × 4 min = **~56 eval-minutes** (sequential wall time ~30 min with parallelism)
+
+## Recommendation — Generator vs Reviewer Models
+
+### Rationale
+
+- **Self-review bias**: Using the same model for generation and review leads to inflated scores — models tend to rate their own output more favorably
+- **Review cost**: Review takes ~60% of total eval time; trimming from 3 to 2 reviewers saves ~30-40s per eval
+- **Model diversity**: Keeping reviewers from different model families provides more robust scoring
+
+### Changes Applied
+
+| Role | Previous | Updated |
+|---|---|---|
+| Generator | claude-opus-4.6 / claude-sonnet-4.5 / gpt-5.4 | **claude-opus-4.6 / claude-sonnet-4.5** (drop gpt-5.4) |
+| Reviewer panel | claude-opus-4.6 + gemini-3-pro-preview + gpt-4.1 | **claude-sonnet-4.5 + gemini-3-pro-preview** |
+
+### Key Principles
+
+1. **Avoid overlap between primary generator and reviewer** — claude-opus-4.6 is the top generator, so it was removed from the reviewer panel and replaced with claude-sonnet-4.5
+2. **Trim to 2 reviewers** — dropped gpt-4.1 (oldest model in the panel) to reduce review time
+3. **Keep model family diversity** — Anthropic (sonnet) + Google (gemini) ensures independent perspectives
+4. **Re-evaluate after next run** — compare scoring consistency with the 2-reviewer panel vs the previous 3-reviewer panel
