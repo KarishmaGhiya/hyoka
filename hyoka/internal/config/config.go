@@ -350,9 +350,8 @@ func InstallSkillsAndPlugins(configs []ToolConfig) error {
 			if _, err := reg.Get(p); err == nil {
 				continue
 			}
-			// Skip npx install if the plugin is already installed locally
 			if dir := resolveInstalledPlugin(p); dir != "" {
-				slog.Info("Plugin already installed locally, skipping npx install", "plugin", p, "path", dir)
+				slog.Info("Plugin already installed locally, skipping install", "plugin", p, "path", dir)
 				continue
 			}
 			if !seen["plugin:"+p] {
@@ -367,15 +366,9 @@ func InstallSkillsAndPlugins(configs []ToolConfig) error {
 	}
 
 	for _, e := range entries {
+		name, args := pluginInstallCommand(e.value)
 		fmt.Printf("Installing %s: %s\n", e.kind, e.value)
-		var cmd *exec.Cmd
-		if strings.Contains(e.value, "/") {
-			// GitHub repo plugin (e.g. "heaths/azsdk-samples-mcp")
-			cmd = exec.Command("copilot", "plugin", "install", e.value)
-		} else {
-			// npm-based skill package
-			cmd = exec.Command("npx", "skills", "add", e.value)
-		}
+		cmd := exec.Command(name, args...)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Run(); err != nil {
@@ -387,4 +380,10 @@ func InstallSkillsAndPlugins(configs []ToolConfig) error {
 	}
 
 	return nil
+}
+
+// pluginInstallCommand returns the command name and arguments to install a plugin.
+// All plugins entries use the Copilot CLI installer (copilot plugin install).
+func pluginInstallCommand(ref string) (string, []string) {
+	return "copilot", []string{"plugin", "install", ref}
 }

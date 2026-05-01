@@ -454,6 +454,34 @@ func TestInstallSkillsAndPluginsEmpty(t *testing.T) {
 	}
 }
 
+func TestPluginInstallCommand(t *testing.T) {
+	tests := []struct {
+		ref      string
+		wantName string
+		wantArgs []string
+	}{
+		{"azure-sdk-typescript@skills", "copilot", []string{"plugin", "install", "azure-sdk-typescript@skills"}},
+		{"heaths/azsdk-samples-mcp", "copilot", []string{"plugin", "install", "heaths/azsdk-samples-mcp"}},
+		{"azure-sdk-java@skills", "copilot", []string{"plugin", "install", "azure-sdk-java@skills"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.ref, func(t *testing.T) {
+			name, args := pluginInstallCommand(tt.ref)
+			if name != tt.wantName {
+				t.Errorf("pluginInstallCommand(%q) name = %q, want %q", tt.ref, name, tt.wantName)
+			}
+			if len(args) != len(tt.wantArgs) {
+				t.Fatalf("pluginInstallCommand(%q) args = %v, want %v", tt.ref, args, tt.wantArgs)
+			}
+			for i, a := range args {
+				if a != tt.wantArgs[i] {
+					t.Errorf("pluginInstallCommand(%q) args[%d] = %q, want %q", tt.ref, i, a, tt.wantArgs[i])
+				}
+			}
+		})
+	}
+}
+
 func TestParseNewFormatGeneratorReviewer(t *testing.T) {
 	data := []byte(`
 configs:
