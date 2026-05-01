@@ -130,6 +130,21 @@ func resolveInstalledPlugin(ref string) string {
 		return dir
 	}
 
+	// Fallback: scan _direct/ directory for matching plugin name.
+	// Copilot CLI stores repo-installed plugins under _direct/ with munged names
+	// like "owner--repo---path-segments-pluginname".
+	directDir := filepath.Join(basePath, "_direct")
+	if entries, err := os.ReadDir(directDir); err == nil {
+		for _, e := range entries {
+			if e.IsDir() && strings.HasSuffix(e.Name(), plugin) {
+				dir := filepath.Join(directDir, e.Name(), "skills")
+				if info, err := os.Stat(dir); err == nil && info.IsDir() {
+					return dir
+				}
+			}
+		}
+	}
+
 	return ""
 }
 
