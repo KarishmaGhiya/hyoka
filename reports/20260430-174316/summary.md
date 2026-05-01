@@ -229,8 +229,8 @@ All reviewers use the same 3-model panel: `claude-opus-4.6`, `gemini-3-pro-previ
 
 | Role | Previous | Updated |
 |---|---|---|
-| Generator | claude-opus-4.6 / claude-sonnet-4.5 / gpt-5.4 | **claude-opus-4.6 / claude-sonnet-4.5** (drop gpt-5.4) |
-| Reviewer panel | claude-opus-4.6 + gemini-3-pro-preview + gpt-4.1 | **claude-sonnet-4.5 + gemini-3-pro-preview** |
+| Generator | claude-opus-4.6 / claude-sonnet-4.5 / gpt-5.4 | **claude-opus-4.6 / claude-sonnet-4.5** (dropped gpt-5.4 — 4 configs removed) |
+| Reviewer panel | claude-opus-4.6 + gemini-3-pro-preview + gpt-4.1 | **claude-sonnet-4.5 + gemini-3-pro-preview** (dropped opus to avoid self-review, dropped gpt-4.1) |
 
 ### Key Principles
 
