@@ -1,0 +1,3279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: event-hubs-dp-js-ts-streaming / azure-mcp/claude-opus-4.6</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 event-hubs-dp-js-ts-streaming</h1>
+  <div class="subtitle">Config: <strong>azure-mcp/claude-opus-4.6</strong> · 2026-05-01T01:10:22Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#f97316">16/23</strong></span>
+  <span class="meta-item">Duration: <strong>285.9s</strong></span>
+  <span class="meta-item">Files: <strong>4</strong></span>
+  <span class="meta-item">Tool Calls: <strong>16</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer send and receive events using Azure Event Hubs with the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>event-hubs</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>streaming</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/event-hubs</code></td></tr>
+      <tr><td>Tags</td><td>event-hubs, streaming, producer, consumer</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-opus-4.6</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=503887 out=5361</td></tr>
+    <tr><td>Turn Count</td><td>13</td></tr>
+    
+    <tr><td>Generation Duration</td><td>127.8s</td></tr>
+    <tr><td>Review Duration</td><td>157.9s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>8</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>create</td>
+      <td>4</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>edit</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program
+that demonstrates sending and receiving events with Azure Event Hubs:
+1. Create an EventHubProducerClient using a connection string
+2. Create a batch with createBatch() and add 10 events with custom properties
+3. Send the batch using sendBatch()
+4. Create an EventHubConsumerClient with a BlobCheckpointStore
+5. Subscribe to events using subscribe() with processEvents and processError handlers
+6. Print received event bodies and update checkpoints
+7. Implement graceful shutdown with close()
+
+Show required npm packages (@azure/event-hubs and
+@azure/eventhubs-checkpointstore-blob) and proper async/await patterns.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants a TypeScript program demonstrating Azure Event Hubs send/receive.…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants a TypeScript program demonstrating Azure Event Hubs send/receive. Let me create the project structure.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Event Hubs demo&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>6.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;event-hubs-streaming-demo\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Event Hubs send/receive demo with blob checkpoint store\&#34;,\n  \&#34;main\&#34;: \&#34;dist/index.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;\n  },\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/event-hubs\&#34;: \&#34;^5.13.0\&#34;,\n    \&#34;@azure/eventhubs-checkpointstore-blob\&#34;: \&#34;^1.1.0\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.26.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;typescript\&#34;: \&#34;^5.4.0\&#34;,\n    \&#34;@types/node\&#34;: \&#34;^20.0.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;declaration\&#34;: true\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import {\n  EventHubProducerClient,\n  EventHubConsumerClient,\n  earliestEventPosition,\n  ReceivedEventData,\n  PartitionContext,\n  Subscription,\n} from \&#34;@azure/event-hubs\&#34;;\nimport { ContainerClient } from \&#34;@azure/storage-blob\&#34;;\nimport { BlobCheckpointStore } from \&#34;@azure/eventhubs-checkpointstore-blob\&#34;;\n\n// ---------------------------------------------------------------------------\n// Configuration – replace with your own values or set environment variables\n// ---------------------------------------------------------------------------\nconst EVENT_HUB_CONNECTION_STRING =\n  process.env.EVENT_HUB_CONNECTION_STRING || \&#34;\u003cyour-event-hub-connection-string\u003e\&#34;;\nconst EVENT_HUB_NAME =\n  process.env.EVENT_HUB_NAME || \&#34;\u003cyour-event-hub-name\u003e\&#34;;\nconst CONSUMER_GROUP =\n  process.env.CONSUMER_GROUP || EventHubConsumerClient.defaultConsumerGroupName;\nconst STORAGE_CONNECTION_STRING =\n  process.env.STORAGE_CONNECTION_STRING || \&#34;\u003cyour-storage-connection-string\u003e\&#34;;\nconst STORAGE_CONTAINER_NAME =\n  process.env.STORAGE_CONTAINER_NAME || \&#34;event-hub-checkpoints\&#34;;\n\n// ---------------------------------------------------------------------------\n// 1 \u0026 2 \u0026 3  –  Send a batch of 10 events\n// ---------------------------------------------------------------------------\nasync function sendEvents(): Promise\u003cvoid\u003e {\n  const producer = new EventHubProducerClient(\n    EVENT_HUB_CONNECTION_STRING,\n    EVENT_HUB_NAME\n  );\n\n  try {\n    const batch = await producer.createBatch();\n\n    for (let i = 0; i \u003c 10; i&#43;&#43;) {\n      const event = {\n        body: { message: `Event #${i}`, timestamp: new Date().toISOString() },\n        properties: {\n          source: \&#34;streaming-demo\&#34;,\n          index: i,\n          priority: i \u003c 3 ? \&#34;high\&#34; : \&#34;normal\&#34;,\n        },\n      };\n\n      if (!batch.tryAdd(event)) {\n        throw new Error(`Event #${i} is too large for the batch.`);\n      }\n    }\n\n    await producer.sendBatch(batch);\n    console.log(`✓ Sent batch of ${batch.count} events.`);\n  } finally {\n    await producer.close();\n    console.log(\&#34;  Producer closed.\&#34;);\n  }\n}\n\n// ---------------------------------------------------------------------------\n// 4 \u0026 5 \u0026 6 \u0026 7  –  Receive events with checkpoint store \u0026 graceful shutdown\n// ---------------------------------------------------------------------------\nasync function receiveEvents(): Promise\u003cvoid\u003e {\n  // 4 – Create a BlobCheckpointStore backed by Azure Blob Storage\n  const containerClient = new ContainerClient(\n    STORAGE_CONNECTION_STRING,\n    STORAGE_CONTAINER_NAME\n  );\n  const checkpointStore = new BlobCheckpointStore(containerClient);\n\n  const consumer = new EventHubConsumerClient(\n    CONSUMER_GROUP,\n    EVENT_HUB_CONNECTION_STRING,\n    EVENT_HUB_NAME,\n    checkpointStore\n  );\n\n  // 5 – Subscribe with processEvents and processError handlers\n  const subscription: Subscription = consumer.subscribe(\n    {\n      processEvents: async (\n        events: ReceivedEventData[],\n        context: PartitionContext\n      ) =\u003e {\n        if (events.length === 0) return;\n\n        for (const event of events) {\n          // 6 – Print received event bodies\n          console.log(\n            `  Partition ${context.partitionId} | Offset ${event.offset} | ` &#43;\n              `Body: ${JSON.stringify(event.body)}`\n          );\n        }\n\n        // 6 – Update checkpoint after processing the batch\n        await context.updateCheckpoint(events[events.length - 1]);\n        console.log(\n          `  ✓ Checkpoint updated for partition ${context.partitionId}`\n        );\n      },\n\n      processError: async (err: Error, context: PartitionContext) =\u003e {\n        console.error(\n          `  ✗ Error on partition ${context.partitionId}: ${err.message}`\n        );\n      },\n    },\n    { startPosition: earliestEventPosition }\n  );\n\n  // 7 – Graceful shutdown on SIGINT / SIGTERM\n  const shutdown = async (): Promise\u003cvoid\u003e =\u003e {\n    console.log(\&#34;\\nShutting down…\&#34;);\n    await subscription.close();\n    await consumer.close();\n    console.log(\&#34;Consumer closed. Goodbye!\&#34;);\n    process.exit(0);\n  };\n\n  process.on(\&#34;SIGINT\&#34;, shutdown);\n  process.on(\&#34;SIGTERM\&#34;, shutdown);\n\n  console.log(\&#34;Listening for events (Ctrl&#43;C to stop)…\&#34;);\n}\n\n// ---------------------------------------------------------------------------\n// Main\n// ---------------------------------------------------------------------------\nasync function main(): Promise\u003cvoid\u003e {\n  console.log(\&#34;=== Azure Event Hubs Streaming Demo ===\\n\&#34;);\n\n  await sendEvents();\n\n  console.log();\n\n  await receiveEvents();\n}\n\nmain().catch((err) =\u003e {\n  console.error(\&#34;Fatal error:\&#34;, err);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>10.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;mkdir \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\\src\&#34;&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>12.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>13.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import {\n  EventHubProducerClient,\n  EventHubConsumerClient,\n  earliestEventPosition,\n  ReceivedEventData,\n  PartitionContext,\n  Subscription,\n} from \&#34;@azure/event-hubs\&#34;;\nimport { ContainerClient } from \&#34;@azure/storage-blob\&#34;;\nimport { BlobCheckpointStore } from \&#34;@azure/eventhubs-checkpointstore-blob\&#34;;\n\n// ---------------------------------------------------------------------------\n// Configuration – replace with your own values or set environment variables\n// ---------------------------------------------------------------------------\nconst EVENT_HUB_CONNECTION_STRING =\n  process.env.EVENT_HUB_CONNECTION_STRING || \&#34;\u003cyour-event-hub-connection-string\u003e\&#34;;\nconst EVENT_HUB_NAME =\n  process.env.EVENT_HUB_NAME || \&#34;\u003cyour-event-hub-name\u003e\&#34;;\nconst CONSUMER_GROUP =\n  process.env.CONSUMER_GROUP || EventHubConsumerClient.defaultConsumerGroupName;\nconst STORAGE_CONNECTION_STRING =\n  process.env.STORAGE_CONNECTION_STRING || \&#34;\u003cyour-storage-connection-string\u003e\&#34;;\nconst STORAGE_CONTAINER_NAME =\n  process.env.STORAGE_CONTAINER_NAME || \&#34;event-hub-checkpoints\&#34;;\n\n// ---------------------------------------------------------------------------\n// 1 \u0026 2 \u0026 3  –  Send a batch of 10 events\n// ---------------------------------------------------------------------------\nasync function sendEvents(): Promise\u003cvoid\u003e {\n  // 1 – Create an EventHubProducerClient using a connection string\n  const producer = new EventHubProducerClient(\n    EVENT_HUB_CONNECTION_STRING,\n    EVENT_HUB_NAME\n  );\n\n  try {\n    // 2 – Create a batch and add 10 events with custom properties\n    const batch = await producer.createBatch();\n\n    for (let i = 0; i \u003c 10; i&#43;&#43;) {\n      const event = {\n        body: { message: `Event #${i}`, timestamp: new Date().toISOString() },\n        properties: {\n          source: \&#34;streaming-demo\&#34;,\n          index: i,\n          priority: i \u003c 3 ? \&#34;high\&#34; : \&#34;normal\&#34;,\n        },\n      };\n\n      if (!batch.tryAdd(event)) {\n        throw new Error(`Event #${i} is too large for the batch.`);\n      }\n    }\n\n    // 3 – Send the batch\n    await producer.sendBatch(batch);\n    console.log(`✓ Sent batch of ${batch.count} events.`);\n  } finally {\n    await producer.close();\n    console.log(\&#34;  Producer closed.\&#34;);\n  }\n}\n\n// ---------------------------------------------------------------------------\n// 4 \u0026 5 \u0026 6 \u0026 7  –  Receive events with checkpoint store \u0026 graceful shutdown\n// ---------------------------------------------------------------------------\nasync function receiveEvents(): Promise\u003cvoid\u003e {\n  // 4 – Create an EventHubConsumerClient with a BlobCheckpointStore\n  const containerClient = new ContainerClient(\n    STORAGE_CONNECTION_STRING,\n    STORAGE_CONTAINER_NAME\n  );\n  const checkpointStore = new BlobCheckpointStore(containerClient);\n\n  const consumer = new EventHubConsumerClient(\n    CONSUMER_GROUP,\n    EVENT_HUB_CONNECTION_STRING,\n    EVENT_HUB_NAME,\n    checkpointStore\n  );\n\n  // 5 – Subscribe to events with processEvents and processError handlers\n  const subscription: Subscription = consumer.subscribe(\n    {\n      processEvents: async (\n        events: ReceivedEventData[],\n        context: PartitionContext\n      ) =\u003e {\n        if (events.length === 0) return;\n\n        for (const event of events) {\n          // 6 – Print received event bodies\n          console.log(\n            `  Partition ${context.partitionId} | Offset ${event.offset} | ` &#43;\n              `Body: ${JSON.stringify(event.body)}`\n          );\n        }\n\n        // 6 – Update checkpoint after processing the batch\n        await context.updateCheckpoint(events[events.length - 1]);\n        console.log(\n          `  ✓ Checkpoint updated for partition ${context.partitionId}`\n        );\n      },\n\n      processError: async (err: Error, context: PartitionContext) =\u003e {\n        console.error(\n          `  ✗ Error on partition ${context.partitionId}: ${err.message}`\n        );\n      },\n    },\n    { startPosition: earliestEventPosition }\n  );\n\n  // 7 – Graceful shutdown on SIGINT / SIGTERM\n  const shutdown = async (): Promise\u003cvoid\u003e =\u003e {\n    console.log(\&#34;\\nShutting down…\&#34;);\n    await subscription.close();\n    await consumer.close();\n    console.log(\&#34;Consumer closed. Goodbye!\&#34;);\n    process.exit(0);\n  };\n\n  process.on(\&#34;SIGINT\&#34;, shutdown);\n  process.on(\&#34;SIGTERM\&#34;, shutdown);\n\n  console.log(\&#34;Listening for events (Ctrl&#43;C to stop)…\&#34;);\n}\n\n// ---------------------------------------------------------------------------\n// Main\n// ---------------------------------------------------------------------------\nasync function main(): Promise\u003cvoid\u003e {\n  console.log(\&#34;=== Azure Event Hubs Streaming Demo ===\\n\&#34;);\n\n  await sendEvents();\n\n  console.log();\n\n  await receiveEvents();\n}\n\nmain().catch((err) =\u003e {\n  console.error(\&#34;Fatal error:\&#34;, err);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>14.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>15.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Installing and building project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>16.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\&#34; \u0026\u0026 npm install --quiet 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>17.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>18.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\&#34; \u0026\u0026 npm view @azure/event-hubs versions --json 2\u003e\u00261 | Select-Object -Last 5&#34;,&#34;description&#34;:&#34;Check available versions&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>19.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>20.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\&#34; \u0026\u0026 npm view @azure/eventhubs-checkpointstore-blob versions --json 2\u003e\u00261 | Select-Object -Last 3&#34;,&#34;description&#34;:&#34;Check checkpoint store versions&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>21.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>The latest stable versions are `6.0.4` and `2.0.x`. Let me update the package.json and check for any API changes.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>22.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\&#34; \u0026\u0026 npm view @azure/eventhubs-checkpointstore-blob dist-tags --json 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Check latest stable tag&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>23.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>24.</span>
+          <span class="tool-name">Tool call: edit</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;new_str&#34;:&#34;    \&#34;@azure/event-hubs\&#34;: \&#34;^6.0.4\&#34;,\n    \&#34;@azure/eventhubs-checkpointstore-blob\&#34;: \&#34;^2.0.0\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.26.0\&#34;&#34;,&#34;old_str&#34;:&#34;    \&#34;@azure/event-hubs\&#34;: \&#34;^5.13.0\&#34;,\n    \&#34;@azure/eventhubs-checkpointstore-blob\&#34;: \&#34;^1.1.0\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.26.0\&#34;&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>25.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>26.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\&#34; \u0026\u0026 npm install --quiet 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>27.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>28.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\&#34; \u0026\u0026 npx tsc --noEmit 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Type-check the project&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>29.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>30.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-azure-mcp-claude-opus-4.6-651280011\&#34; \u0026\u0026 npx tsc 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Build the project&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>31.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Project compiles cleanly. Here&#39;s the final structure:
+
+```
+event-hubs-streaming-demo/
+├── package.json          # @azure/event-hubs ^6.0.4, @azure/eventhubs-checkpointstore-blob ^2.0.0
+├── tsconfig.json
+└── src/
+    └── index.ts          # Full send &#43; receive demo
+```
+
+**`src/index.ts` covers all 7 requirements:**
+
+1. **Producer** – `EventHubProducerClient` from a connection string
+2. **Batch** – `createBatch()` &#43; `tryAdd()` for 10 events with `properties` (source, index, priority)
+3. **Send** – `sendBatch()` then `producer.close()`
+4. **Consumer** – `EventHubConsumerClient` backed by `BlobCheckpointStore`
+5. **Subscribe** – `subscribe()` with `processEvents` and `processError`
+6. **Print &amp; checkpoint** – logs each event body, calls `updateCheckpoint()`
+7. **Graceful shutdown** – `SIGINT`/`SIGTERM` handlers close subscription then consumer
+
+**To run:** set env vars `EVENT_HUB_CONNECTION_STRING`, `EVENT_HUB_NAME`, `STORAGE_CONNECTION_STRING`, and `STORAGE_CONTAINER_NAME`, then `npm run build &amp;&amp; npm start`.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>32.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 16/23 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#f97316">16/23</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree the code is structurally sound with correct imports, tsconfig.json, and package.json. Lock file shows successful dependency resolution.</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Reviewer 1 verified via npm registry: @azure/event-hubs 6.0.4 (latest), @azure/eventhubs-checkpointstore-blob 2.0.0 (latest), @azure/storage-blob 12.31.0 (latest). Reviewer 2 claimed outdated but provided no evidence; registry data confirms packages are current.</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: uses connection strings instead of @azure/identity with DefaultAzureCredential. Missing @azure/logger integration.</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: only generic Error handling in processError. No RestError inspection, no retry logic, no timeout configuration.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: clean, readable, well-structured TypeScript with proper type annotations and good comments.</td>
+          </tr>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: all dependencies use @azure/ scoped packages with no deprecated unscoped packages.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: does not include @azure/identity. Uses connection strings for both Event Hubs and Storage clients.</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: all clients constructed with connection strings rather than endpoint URL &#43; credential object pattern.</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: properly uses async/await throughout all functions and handlers. Top-level main() with .catch() for entry point.</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: not applicable for Event Hubs send/receive scenario — no list/query operations present.</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: not applicable — Event Hubs operations are not long-running operations requiring the LRO pattern.</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: no RestError import or statusCode-based error handling. Only generic Error caught in processError handler.</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: all packages are current @azure/* track with no deprecated or legacy packages.</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: no @azure/logger import or setLogLevel() call. Uses only console.log/console.error.</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Reviewer 2 passed this (package.json has all required deps and devDeps). Reviewer 1 failed it only because @azure/identity is missing, but that is covered by a separate criterion. The package.json itself is valid and correctly structured. Majority/consensus: passed.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/event-hubs and @azure/eventhubs-checkpointstore-blob packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: both packages are present in package.json with correct versions.</td>
+          </tr>
+          
+          <tr>
+            <td>EventHubProducerClient constructor</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: EventHubProducerClient is correctly constructed with connection string and hub name.</td>
+          </tr>
+          
+          <tr>
+            <td>createBatch() and EventDataBatch.tryAdd()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: createBatch() and tryAdd() are used correctly for 10 events with custom properties.</td>
+          </tr>
+          
+          <tr>
+            <td>sendBatch() for publishing</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: sendBatch() is used to send the event batch.</td>
+          </tr>
+          
+          <tr>
+            <td>EventHubConsumerClient with BlobCheckpointStore</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: EventHubConsumerClient is constructed with BlobCheckpointStore from ContainerClient.</td>
+          </tr>
+          
+          <tr>
+            <td>subscribe() with SubscriptionEventHandlers</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: subscribe() is called with processEvents and processError async handlers.</td>
+          </tr>
+          
+          <tr>
+            <td>updateCheckpoint() in processEvents handler</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: updateCheckpoint() is called on the last event in each batch within processEvents.</td>
+          </tr>
+          
+          <tr>
+            <td>close() for cleanup</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: close() is called for producer (in finally), subscription, and consumer. SIGINT/SIGTERM handlers registered.</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>The code correctly implements all Event Hubs-specific functionality — sending batches with custom properties, receiving with BlobCheckpointStore, checkpoint updates, and graceful shutdown — with clean TypeScript and proper async/await patterns. All Azure SDK packages are the latest stable versions (verified against npm registry). However, it fails on several Azure SDK best practice criteria: it uses connection strings instead of @azure/identity token-based authentication, lacks RestError exception handling with statusCode inspection, omits @azure/logger for SDK diagnostic logging, and is missing @azure/identity from dependencies.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>All prompt-specific Event Hubs requirements fully implemented (send, receive, checkpoint, shutdown)</li><li>Latest Azure SDK package versions confirmed via npm registry</li><li>Clean, well-organized TypeScript with proper type annotations</li><li>Proper async/await patterns throughout with no .then() chains</li><li>Graceful shutdown with SIGINT/SIGTERM handlers and proper close() calls</li><li>Custom event properties (source, index, priority) add realism</li><li>Good error boundary with tryAdd() overflow check</li><li>Valid package.json with tsconfig.json and appropriate devDependencies</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>Uses connection strings instead of @azure/identity with DefaultAzureCredential or specific token credentials</li><li>No RestError import or statusCode-based error handling in processError or producer try/catch</li><li>Missing @azure/logger with setLogLevel() for SDK diagnostic logging</li><li>Missing @azure/identity in package.json dependencies</li><li>ContainerClient also uses connection string instead of endpoint &#43; credential</li><li>No retry logic or timeout configuration</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (2 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{&#34;scores&#34;:{&#34;criteria&#34;:[{&#34;name&#34;:&#34;Code Builds&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree the code is structurally sound with correct imports, tsconfig.json, and package.json. Lock file shows successful dependency resolution.&#34;},{&#34;name&#34;:&#34;Latest Package Versions&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Reviewer 1 verified via npm registry: @azure/event-hubs 6.0.4 (latest), @azure/eventhubs-checkpointstore-blob 2.0.0 (latest), @azure/storage-blob 12.31.0 (latest). Reviewer 2 claimed outdated but provided no evidence; registry data confirms packages are current.&#34;},{&#34;name&#34;:&#34;Best Practices&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Both reviewers agree: uses connection strings instead of @azure/identity with DefaultAzureCredential. Missing @azure/logger integration.&#34;},{&#34;name&#34;:&#34;Error Handling&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Both reviewers agree: only generic Error handling in processError. No RestError inspection, no retry logic, no timeout configuration.&#34;},{&#34;name&#34;:&#34;Code Quality&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree: clean, readable, well-structured TypeScript with proper type annotations and good comments.&#34;},{&#34;name&#34;:&#34;Correct @azure/ Scoped Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree: all dependencies use @azure/ scoped packages with no deprecated unscoped packages.&#34;},{&#34;name&#34;:&#34;@azure/identity for Authentication&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Both reviewers agree: does not include @azure/identity. Uses connection strings for both Event Hubs and Storage clients.&#34;},{&#34;name&#34;:&#34;Client Constructor with Endpoint and Credential&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Both reviewers agree: all clients constructed with connection strings rather than endpoint URL &#43; credential object pattern.&#34;},{&#34;name&#34;:&#34;Async/Await Pattern&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree: properly uses async/await throughout all functions and handlers. Top-level main() with .catch() for entry point.&#34;},{&#34;name&#34;:&#34;Pagination with for-await-of&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree: not applicable for Event Hubs send/receive scenario …</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Synthesize the two reviews into a consensus.
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Synthesize the two reviews into a consensus.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (2 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-opus-4.6</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#f97316">15/23</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="Code is structurally sound: imports match @azure/event-hubs v6 API surface, tsconfig.json targets ES2020/commonjs, package.json has all needed dependencies, and lock file shows successful resolution. Unable to execute build due to environment restrictions, but no obvious compilation issues detected.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Verified via npm registry: @azure/event-hubs 6.0.4 (latest), @azure/eventhubs-checkpointstore-blob 2.0.0 (latest), @azure/storage-blob 12.31.0 resolved in lock (latest). All Azure SDK packages are current.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Uses hardcoded connection strings instead of @azure/identity with DefaultAzureCredential or a specific token credential. No resource disposal pattern beyond close() in finally. Missing @azure/logger integration.">❌ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Only has try/finally for producer and a basic processError handler. No RestError inspection, no retry logic, no timeout configuration. The throw in tryAdd is good but insufficient overall.">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Well-structured with clear sections, good comments mapping to prompt requirements, proper TypeScript types, clean async/await patterns, and graceful shutdown handling via SIGINT/SIGTERM.">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="All dependencies use @azure/ scoped packages: @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob. No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Does not include @azure/identity as a dependency. Uses connection strings (EVENT_HUB_CONNECTION_STRING, STORAGE_CONNECTION_STRING) for both Event Hubs and Storage clients instead of token-based authentication.">❌ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="EventHubProducerClient, EventHubConsumerClient, and ContainerClient are all constructed with connection strings rather than endpoint URL &#43; credential object pattern.">❌ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Properly uses async/await throughout: sendEvents(), receiveEvents(), main(), processEvents handler, processError handler, and shutdown function. Top-level main() with .catch() for entry point.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable for Event Hubs send/receive scenario — no list/query operations are used. The subscribe() pattern with processEvents callback is the correct approach for Event Hubs consumption.">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable — Event Hubs operations (sendBatch, subscribe, close) are not long-running operations requiring the LRO pattern.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="No RestError import or handling. The processError handler catches generic Error. No statusCode inspection for error-specific handling (e.g., 401 unauthorized, 429 throttled).">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="All packages are current @azure/* track: @azure/event-hubs v6, @azure/eventhubs-checkpointstore-blob v2, @azure/storage-blob v12. No deprecated or legacy packages.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="No @azure/logger import or setLogLevel() call. Uses only console.log/console.error for output. Should use @azure/logger for SDK diagnostic logging.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Has package.json with tsconfig.json and @types/node, but is missing @azure/identity (required per criteria). Also missing @azure/logger. The existing dependencies are correctly versioned.">❌ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both packages are present in package.json: @azure/event-hubs ^6.0.4 and @azure/eventhubs-checkpointstore-blob ^2.0.0.">✅ @azure/event-hubs and @azure/eventhubs-checkpointstore-blob packages</span> <span style="display:inline-block;margin:2px 4px" title="Line 33-36: new EventHubProducerClient(EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME) correctly creates the producer client.">✅ EventHubProducerClient constructor</span> <span style="display:inline-block;margin:2px 4px" title="Line 39: producer.createBatch() creates the batch. Lines 41-52: batch.tryAdd(event) is called for each of 10 events with custom properties including source, index, and priority.">✅ createBatch() and EventDataBatch.tryAdd()</span> <span style="display:inline-block;margin:2px 4px" title="Line 58: await producer.sendBatch(batch) correctly sends the batch.">✅ sendBatch() for publishing</span> <span style="display:inline-block;margin:2px 4px" title="Lines 69-78: ContainerClient and BlobCheckpointStore are created, then passed to new EventHubConsumerClient(CONSUMER_GROUP, CONNECTION_STRING, EVENT_HUB_NAME, checkpointStore).">✅ EventHubConsumerClient with BlobCheckpointStore</span> <span style="display:inline-block;margin:2px 4px" title="Lines 81-110: consumer.subscribe() is called with an object containing both processEvents and processError async handlers, plus startPosition option.">✅ subscribe() with SubscriptionEventHandlers</span> <span style="display:inline-block;margin:2px 4px" title="Line 98: await context.updateCheckpoint(events[events.length - 1]) correctly checkpoints the last event in each batch.">✅ updateCheckpoint() in processEvents handler</span> <span style="display:inline-block;margin:2px 4px" title="Lines 113-119: Graceful shutdown function calls subscription.close() and consumer.close(). Producer close is in finally block at line 61. SIGINT/SIGTERM handlers are registered.">✅ close() for cleanup</span> </td>
+        </tr>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>gpt-4.1</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#f97316">16/23</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="Project includes tsconfig.json, package.json, and code is syntactically correct.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="@azure/event-hubs and @azure/eventhubs-checkpointstore-blob are not the latest versions.">❌ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Uses connection strings for authentication instead of DefaultAzureCredential.">❌ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="No RestError handling; only generic Error is caught.">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Code is clean, readable, and well-structured.">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="All Azure SDK dependencies use @azure/ scoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Does not use @azure/identity or DefaultAzureCredential; uses connection strings.">❌ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="Clients are constructed with connection strings, not endpoint and credential.">❌ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="All async operations use async/await.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable; no paged operations present.">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable; no LROs in this scenario.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="No RestError-specific handling; only generic Error.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="No deprecated or legacy Azure packages used.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Does not use @azure/logger for diagnostic logging.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="package.json includes all required dependencies and devDependencies.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both packages are present in package.json.">✅ Prompt: @azure/event-hubs and @azure/eventhubs-checkpointstore-blob npm packages</span> <span style="display:inline-block;margin:2px 4px" title="EventHubProducerClient is constructed.">✅ Prompt: EventHubProducerClient constructor</span> <span style="display:inline-block;margin:2px 4px" title="createBatch() and tryAdd() are used.">✅ Prompt: createBatch() and EventDataBatch.tryAdd()</span> <span style="display:inline-block;margin:2px 4px" title="sendBatch() is used to send events.">✅ Prompt: sendBatch() for publishing</span> <span style="display:inline-block;margin:2px 4px" title="EventHubConsumerClient is constructed with BlobCheckpointStore.">✅ Prompt: EventHubConsumerClient with BlobCheckpointStore</span> <span style="display:inline-block;margin:2px 4px" title="subscribe() uses processEvents and processError handlers.">✅ Prompt: subscribe() with SubscriptionEventHandlers (processEvents, processError)</span> <span style="display:inline-block;margin:2px 4px" title="updateCheckpoint() is called in processEvents.">✅ Prompt: updateCheckpoint() in the processEvents handler</span> <span style="display:inline-block;margin:2px 4px" title="close() is called for producer, consumer, and subscription.">✅ Prompt: close() for cleanup</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#f97316">16/23</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="Both reviewers agree the code is structurally sound with correct imports, tsconfig.json, and package.json. Lock file shows successful dependency resolution.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Reviewer 1 verified via npm registry: @azure/event-hubs 6.0.4 (latest), @azure/eventhubs-checkpointstore-blob 2.0.0 (latest), @azure/storage-blob 12.31.0 (latest). Reviewer 2 claimed outdated but provided no evidence; registry data confirms packages are current.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: uses connection strings instead of @azure/identity with DefaultAzureCredential. Missing @azure/logger integration.">❌ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: only generic Error handling in processError. No RestError inspection, no retry logic, no timeout configuration.">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: clean, readable, well-structured TypeScript with proper type annotations and good comments.">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: all dependencies use @azure/ scoped packages with no deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: does not include @azure/identity. Uses connection strings for both Event Hubs and Storage clients.">❌ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: all clients constructed with connection strings rather than endpoint URL &#43; credential object pattern.">❌ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: properly uses async/await throughout all functions and handlers. Top-level main() with .catch() for entry point.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: not applicable for Event Hubs send/receive scenario — no list/query operations present.">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: not applicable — Event Hubs operations are not long-running operations requiring the LRO pattern.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: no RestError import or statusCode-based error handling. Only generic Error caught in processError handler.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: all packages are current @azure/* track with no deprecated or legacy packages.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: no @azure/logger import or setLogLevel() call. Uses only console.log/console.error.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Reviewer 2 passed this (package.json has all required deps and devDeps). Reviewer 1 failed it only because @azure/identity is missing, but that is covered by a separate criterion. The package.json itself is valid and correctly structured. Majority/consensus: passed.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: both packages are present in package.json with correct versions.">✅ @azure/event-hubs and @azure/eventhubs-checkpointstore-blob packages</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: EventHubProducerClient is correctly constructed with connection string and hub name.">✅ EventHubProducerClient constructor</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: createBatch() and tryAdd() are used correctly for 10 events with custom properties.">✅ createBatch() and EventDataBatch.tryAdd()</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: sendBatch() is used to send the event batch.">✅ sendBatch() for publishing</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: EventHubConsumerClient is constructed with BlobCheckpointStore from ContainerClient.">✅ EventHubConsumerClient with BlobCheckpointStore</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: subscribe() is called with processEvents and processError async handlers.">✅ subscribe() with SubscriptionEventHandlers</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: updateCheckpoint() is called on the last event in each batch within processEvents.">✅ updateCheckpoint() in processEvents handler</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: close() is called for producer (in finally), subscription, and consumer. SIGINT/SIGTERM handlers registered.">✅ close() for cleanup</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-opus-4.6</code> — The code correctly implements all Event Hubs-specific functionality (sending batches, receiving with checkpoint store, graceful shutdown) with clean TypeScript and proper async/await patterns. However, it fails on several Azure SDK best practice criteria: it uses connection strings instead of @azure/identity token-based auth, lacks RestError exception handling, omits @azure/logger for diagnostics, and is missing @azure/identity from dependencies.</summary>
+      <p><strong>Issues:</strong></p><ul><li>Uses connection strings instead of @azure/identity with DefaultAzureCredential or specific token credentials</li><li>No RestError import or statusCode-based error handling in processError or producer try/catch</li><li>Missing @azure/logger with setLogLevel() for SDK diagnostic logging</li><li>Missing @azure/identity in package.json dependencies</li><li>ContainerClient also uses connection string instead of endpoint &#43; credential</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>All prompt-specific Event Hubs requirements fully implemented</li><li>Latest Azure SDK package versions used (verified against npm registry)</li><li>Clean, well-organized TypeScript with proper type annotations</li><li>Proper async/await patterns throughout with no .then() chains</li><li>Graceful shutdown with SIGINT/SIGTERM handlers and proper close() calls</li><li>Custom event properties (source, index, priority) add realism</li><li>Good error boundary with tryAdd() overflow check</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (22 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>1.</span>
+              Let me review the generated code against all criteria and check if it builds pro…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me review the generated code against all criteria and check if it builds properly.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>2.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Reviewing generated code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: skill</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;skill&#34;:&#34;reviewer-build&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>4.</span>
+              Let me build the TypeScript project and check package versions, then provide my …
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me build the TypeScript project and check package versions, then provide my review.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Building TypeScript project&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>6.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-4244066192 \u0026\u0026 npm install 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>7.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-4244066192; npm install 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>8.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Set-Location C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-4244066192; npm install&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60,&#34;shellId&#34;:&#34;build&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>9.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-Location&#34;,&#34;description&#34;:&#34;Check current directory&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>10.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm install&#34;,&#34;description&#34;:&#34;Install npm deps&#34;,&#34;initial_wait&#34;:60,&#34;shellId&#34;:&#34;build1&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>11.</span>
+              <span class="tool-name">Tool call: skill</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;skill&#34;:&#34;sdk-version-check&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>12.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Checking SDK versions&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>13.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm view @azure/event-hubs version 2\u003e\u00261; npm view @azure/eventhubs-checkpointstore-blob version 2\u003e\u00261; npm view @azure/storage-blob version 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Check latest Azure SDK versions&#34;,&#34;initial_wait&#34;:30}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>14.</span>
+              It seems like powershell is blocked. Let me try using web_fetch to check npm ver…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>It seems like powershell is blocked. Let me try using web_fetch to check npm versions, and I&#39;ll do my review based on what I can see in the code.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>15.</span>
+              <span class="tool-name">Tool call: web_fetch</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;max_length&#34;:500,&#34;url&#34;:&#34;https://registry.npmjs.org/@azure/event-hubs/latest&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>16.</span>
+              <span class="tool-name">Tool call: web_fetch</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;max_length&#34;:500,&#34;url&#34;:&#34;https://registry.npmjs.org/@azure/eventhubs-checkpointstore-blob/latest&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>17.</span>
+              <span class="tool-name">Tool call: web_fetch</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;max_length&#34;:500,&#34;url&#34;:&#34;https://registry.npmjs.org/@azure/storage-blob/latest&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>18.</span>
+              Now I have the latest versions:
+- @azure/event-hubs: 6.0.4 (code has ^6.0.4 ✓)…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Now I have the latest versions:
+- @azure/event-hubs: 6.0.4 (code has ^6.0.4 ✓)
+- @azure/eventhubs-checkpointstore-blob: 2.0.0 (code has ^2.0.0 ✓)
+- @azure/storage-blob: 12.31.0 (code has ^12.26.0, lock has 12.31.0 ✓)
+
+Now let me try to build. Since powershell is failing with permission issues, let me try a different approach.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>19.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Set-Location &#39;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-4244066192&#39;\nnpm install 2\u003e\u00261 | Select-Object -Last 5&#34;,&#34;description&#34;:&#34;Install deps and build&#34;,&#34;initial_wait&#34;:60,&#34;mode&#34;:&#34;sync&#34;,&#34;shellId&#34;:&#34;builder&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>20.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;node --version&#34;,&#34;description&#34;:&#34;Check node version&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>21.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ve verified the latest package versions via npm registry. PowerShell is unavailable for building, so I&#39;ll complete the review based on code analysis.
+
+{&#34;scores&#34;:{&#34;criteria&#34;:[{&#34;name&#34;:&#34;Code Builds&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Code is structurally sound: imports match @azure/event-hubs v6 API surface, tsconfig.json targets ES2020/commonjs, package.json has all needed dependencies, and lock file shows successful resolution. Unable to execute build due to environment restrictions, but no obvious compilation issues detected.&#34;},{&#34;name&#34;:&#34;Latest Package Versions&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Verified via npm registry: @azure/event-hubs 6.0.4 (latest), @azure/eventhubs-checkpointstore-blob 2.0.0 (latest), @azure/storage-blob 12.31.0 resolved in lock (latest). All Azure SDK packages are current.&#34;},{&#34;name&#34;:&#34;Best Practices&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Uses hardcoded connection strings instead of @azure/identity with DefaultAzureCredential or a specific token credential. No resource disposal pattern beyond close() in finally. Missing @azure/logger integration.&#34;},{&#34;name&#34;:&#34;Error Handling&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Only has try/finally for producer and a basic processError handler. No RestError inspection, no retry logic, no timeout configuration. The throw in tryAdd is good but insufficient overall.&#34;},{&#34;name&#34;:&#34;Code Quality&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Well-structured with clear sections, good comments mapping to prompt requirements, proper TypeScript types, clean async/await patterns, and graceful shutdown handling via SIGINT/SIGTERM.&#34;},{&#34;name&#34;:&#34;Correct @azure/ Scoped Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All dependencies use @azure/ scoped packages: @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob. No deprecated unscoped packages.&#34;},{&#34;name&#34;:&#34;@azure/identity for Authentication&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Does not include @azure/identity as a dependency. Uses connection strings (EVENT_HUB_CONNECTION_STRING, STORAGE_CONNECTION_STRING) for both Event Hubs and Storage clients i…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>22.</span>
+              PowerShell is completely blocked. I&#39;ll proceed with a thorough code review based…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>PowerShell is completely blocked. I&#39;ll proceed with a thorough code review based on what I can see and the version checks I was able to do via web_fetch. Let me analyze everything carefully.
+
+Let me review each criterion:
+
+**General Criteria:**
+
+1. **Code Builds** — Can&#39;t verify via build, but looking at the code:
+   - The imports look correct for @azure/event-hubs v6
+   - TypeScript types are used properly
+   - tsconfig.json looks valid
+   - package.json has all needed dependencies
+   - The lock file shows successful resolution
+   - I&#39;ll note I couldn&#39;t verify the build but it looks structurally correct
+   
+2. **Latest Package Versions** — I&#39;ve confirmed through the npm registry that all dependencies are at their latest versions: @azure/event-hubs at 6.0.4, @azure/eventhubs-checkpointstore-blob at 2.0.0, and @azure/storage-blob at 12.31.0.
+
+3. **Best Practices** — The code relies on connection strings rather than using DefaultAzureCredential, which is a notable gap since the criteria emphasize identity-based authentication without @azure/identity.
+
+4. **Error Handling** — The producer has basic try/finally protection and the consumer includes an error handler, though coverage appears incomplete.
+
+5. **Code Quality** — The implementation is clean and well-organized with good comments throughout.
+
+Now I&#39;m checking against the specific criteria: the code correctly uses @azure/-scoped packages and implements async/await properly, but it fails on authentication since it uses connection strings instead of @azure/identity with endpoint and credential constructors. Pagination and LRO patterns don&#39;t apply to Event Hubs, so those are N/A. The main gaps are the lack of RestError handling and the authentication approach.
+
+Looking at the remaining criteria, the code is missing @azure/logger integration and @azure/identity in the dependencies, though the package.json is otherwise well-structured. However, it does successfully implement all the Event Hubs-specific requi…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>gpt-4.1</code> — The code demonstrates core Event Hubs send/receive with checkpointing and async/await, but fails on authentication best practices, error handling, and diagnostic logging. It uses connection strings instead of DefaultAzureCredential and lacks RestError handling and @azure/logger usage.</summary>
+      <p><strong>Issues:</strong></p><ul><li>Uses connection strings instead of DefaultAzureCredential.</li><li>No RestError-specific error handling.</li><li>Does not use @azure/logger for diagnostic logging.</li><li>SDK packages are not the latest versions.</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Implements all core Event Hubs send/receive and checkpointing logic.</li><li>Clean, readable, and idiomatic TypeScript.</li><li>All required npm packages and TypeScript config are present.</li><li>Proper async/await usage throughout.</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (1 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Code Builds&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Project includes tsconfig.json, package.json, and code is syntactically correct.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Latest Package Versions&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;@azure/event-hubs and @azure/eventhubs-checkpointstore-blob are not the latest versions.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Best Practices&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Uses connection strings for authentication instead of DefaultAzureCredential.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Error Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;No RestError handling; only generic Error is caught.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Code Quality&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Code is clean, readable, and well-structured.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All Azure SDK dependencies use @azure/ scoped packages.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Does not use @azure/identity or DefaultAzureCredential; uses connection strings.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Clients are constructed with connection strings, not endpoint and credential.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All async operations use async/await.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Not applicable; no paged operations present.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Not applicable; no LROs in this scenario.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;No RestError…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (3 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-opus-4.6</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code correctly implements all Event Hubs-specific functionality (sending batches, receiving with checkpoint store, graceful shutdown) with clean TypeScript and proper async/await patterns. However, it fails on several Azure SDK best practice criteria: it uses connection strings instead of @azure/identity token-based auth, lacks RestError exception handling, omits @azure/logger for diagnostics, and is missing @azure/identity from dependencies.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">gpt-4.1</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code demonstrates core Event Hubs send/receive with checkpointing and async/await, but fails on authentication best practices, error handling, and diagnostic logging. It uses connection strings instead of DefaultAzureCredential and lacks RestError handling and @azure/logger usage.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">consensus</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code correctly implements all Event Hubs-specific functionality — sending batches with custom properties, receiving with BlobCheckpointStore, checkpoint updates, and graceful shutdown — with clean TypeScript and proper async/await patterns. All Azure SDK packages are the latest stable versions (verified against npm registry). However, it fails on several Azure SDK best practice criteria: it uses connection strings instead of @azure/identity token-based authentication, lacks RestError exception handling with statusCode inspection, omits @azure/logger for SDK diagnostic logging, and is missing @azure/identity from dependencies.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (4)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">3 .json, 1 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package-lock.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;event-hubs-streaming-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;lockfileVersion&#34;: 3,
+  &#34;requires&#34;: true,
+  &#34;packages&#34;: {
+    &#34;&#34;: {
+      &#34;name&#34;: &#34;event-hubs-streaming-demo&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/event-hubs&#34;: &#34;^6.0.4&#34;,
+        &#34;@azure/eventhubs-checkpointstore-blob&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/storage-blob&#34;: &#34;^12.26.0&#34;
+      },
+      &#34;devDependencies&#34;: {
+        &#34;@types/node&#34;: &#34;^20.0.0&#34;,
+        &#34;typescript&#34;: &#34;^5.4.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-amqp&#34;: {
+      &#34;version&#34;: &#34;4.4.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-amqp/-/core-amqp-4.4.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-O&#43;WbJ6WnYsfjEL2rb3PXgS0wHJ33r7sjmYikBOj9ohd6rCV8ld&#43;77mSHoxwuC6d/21vfUbVXn9i6t69ADPr0Nw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;buffer&#34;: &#34;^6.0.3&#34;,
+        &#34;events&#34;: &#34;^3.3.0&#34;,
+        &#34;process&#34;: &#34;^0.11.10&#34;,
+        &#34;rhea&#34;: &#34;^3.0.0&#34;,
+        &#34;rhea-promise&#34;: &#34;^3.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;,
+        &#34;util&#34;: &#34;^0.12.5&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-auth&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-auth/-/core-auth-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ykRMW8PjVAn&#43;RS6ww5cmK9U2CyH9p4Q88YJwvUslfuMmN98w/2rdGRLPqJYObapBCdzBVeDgYWdJnFPFb7qzpg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-client&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-client/-/core-client-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Nh5PhEOeY6PrnxNPsEHRr9eimxLwgLlpmguQaHKBinFYA/RU9&#43;kOYVOQqOrTsCL&#43;KSxrLLl1gD8Dk5BFW/7l/w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-http-compat&#34;: {
+      &#34;version&#34;: &#34;2.4.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-http-compat/-/core-http-compat-2.4.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-f1P96IB399YiN2ARYHP7EpZi3Bf3wH4SN2lGzrw7JVwm7bbsVYtf2iKSBwTywD2P62NOPZGHFSZi&#43;6jjb75JuA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      },
+      &#34;peerDependencies&#34;: {
+        &#34;@azure/core-client&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-lro&#34;: {
+      &#34;version&#34;: &#34;2.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-lro/-/core-lro-2.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0YIpccoX8m/k00O7mDDMdJpbr6mf1yWo2dfmxt5A8XVZVVMz2SSKaEbMCeJRvgQ0IaSlqhjT47p4hVIRRy90xw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-paging&#34;: {
+      &#34;version&#34;: &#34;1.6.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-paging/-/core-paging-1.6.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YKWi9YuCU04B55h25cnOYZHxXYtEvQEbKST5vqRga7hWY9ydd3FZHdeQF8pyh&#43;acWZvppw13M/LMGx0LABUVMA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-rest-pipeline&#34;: {
+      &#34;version&#34;: &#34;1.23.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-rest-pipeline/-/core-rest-pipeline-1.23.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Evs1INHo&#43;jUjwHi1T6SG6Ua/LHOQBCLuKEEE6efIpt4ZOoNonaT1kP32GoOcdNDbfqsD2445CPri3MubBy5DEQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.4&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-tracing&#34;: {
+      &#34;version&#34;: &#34;1.3.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-tracing/-/core-tracing-1.3.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-9MWKevR7Hz8kNzzPLfX4EAtGM2b8mr50HPDBvio96bURP/9C&#43;HjdH3sBlLSNNrvRAr5/k/svoH457gB5IKpmwQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-util&#34;: {
+      &#34;version&#34;: &#34;1.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-util/-/core-util-1.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-XPArKLzsvl0Hf0CaGyKHUyVgF7oDnhKoP85Xv6M4StF/1AhfORhZudHtOyf2s&#43;FcbuQ9dPRAjB8J2KvRRMUK2A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-xml&#34;: {
+      &#34;version&#34;: &#34;1.5.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-xml/-/core-xml-1.5.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-xcNRHqCoSp4AunOALEae6A8f3qATb83gSrm31Iqb01OzblvC3/W/bfXozcq78EzIdzZzuH1bZ2NvRR0TdX709w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;fast-xml-parser&#34;: &#34;^5.5.9&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/event-hubs&#34;: {
+      &#34;version&#34;: &#34;6.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/event-hubs/-/event-hubs-6.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iP1I3Le8xNi/1z24pIQlZM2sRp/gE4jXxcXtvkYpU4K28FO0p4lu06yz1lFEN2VOh7ycjJNlOUgEaHjqymc7ng==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-amqp&#34;: &#34;^4.3.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.9.1&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;buffer&#34;: &#34;^6.0.3&#34;,
+        &#34;is-buffer&#34;: &#34;^2.0.5&#34;,
+        &#34;process&#34;: &#34;^0.11.10&#34;,
+        &#34;rhea-promise&#34;: &#34;^3.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;,
+        &#34;util&#34;: &#34;^0.12.5&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/eventhubs-checkpointstore-blob&#34;: {
+      &#34;version&#34;: &#34;2.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/eventhubs-checkpointstore-blob/-/eventhubs-checkpointstore-blob-2.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-PJqX3zOludqNxn&#43;&#43;zM8tK6cn0cGel3nBlDAVujuc84r61vDLes0FhyOBXKx6Im44H2vyMJv9YTrcH&#43;bGYck8zA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-paging&#34;: &#34;^1.6.2&#34;,
+        &#34;@azure/event-hubs&#34;: &#34;6.0.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;@azure/storage-blob&#34;: &#34;^12.26.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/eventhubs-checkpointstore-blob/node_modules/@azure/event-hubs&#34;: {
+      &#34;version&#34;: &#34;6.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/event-hubs/-/event-hubs-6.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-f&#43;1jHPdqIU&#43;sle6yoBM&#43;RXubLYFYyaLgl&#43;pkgBgGYwoYqkLS1YVB7HfTT1n7v7vnLhXMrkYV7wZBbOyZ8dejFg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-amqp&#34;: &#34;^4.3.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.9.1&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;buffer&#34;: &#34;^6.0.3&#34;,
+        &#34;is-buffer&#34;: &#34;^2.0.5&#34;,
+        &#34;process&#34;: &#34;^0.11.10&#34;,
+        &#34;rhea-promise&#34;: &#34;^3.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/logger&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/logger/-/logger-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-fCqPIfOcLE&#43;CGqGPd66c8bZpwAji98tZ4JI9i/mlTNTlsIWslCfpg48s/ypyLxZTump5sypjrKn2/kY7q8oAbA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/storage-blob&#34;: {
+      &#34;version&#34;: &#34;12.31.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/storage-blob/-/storage-blob-12.31.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DBgNv10aCSxopt92DkTDD0o9xScXeBqPKGmR50FPZQaEcH4JLQ&#43;GEOGEDv19V5BMkB7kxr&#43;m4h6il/cCDPvmHg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-client&#34;: &#34;^1.9.3&#34;,
+        &#34;@azure/core-http-compat&#34;: &#34;^2.2.0&#34;,
+        &#34;@azure/core-lro&#34;: &#34;^2.2.0&#34;,
+        &#34;@azure/core-paging&#34;: &#34;^1.6.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.1&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/core-xml&#34;: &#34;^1.4.5&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;@azure/storage-common&#34;: &#34;^12.3.0&#34;,
+        &#34;events&#34;: &#34;^3.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/storage-common&#34;: {
+      &#34;version&#34;: &#34;12.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/storage-common/-/storage-common-12.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-/OFHhy86aG5Pe8dP5tsp&#43;BuJ25JOAl9yaMU3WZbkeoiFMHFtJ7tu5ili7qEdBXNW9G5lDB19trwyI6V49F/8iQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-http-compat&#34;: &#34;^2.2.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.1&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;events&#34;: &#34;^3.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@nodable/entities&#34;: {
+      &#34;version&#34;: &#34;2.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@nodable/entities/-/entities-2.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nyT7T3nbMyBI/lvr6L5TyWbFJAI9FTgVRakNoBqCD&#43;PmID8DzFrrNdLLtHMwMszOtqZa8PAOV24ZqDnQrhQINA==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/nodable&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@types/node&#34;: {
+      &#34;version&#34;: &#34;20.19.39&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@types/node/-/node-20.19.39.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-orrrD74MBUyK8jOAD/r0&#43;lfa1I2MO6I&#43;vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;undici-types&#34;: &#34;~6.21.0&#34;
+      }
+    },
+    &#34;node_modules/@typespec/ts-http-runtime&#34;: {
+      &#34;version&#34;: &#34;0.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@typespec/ts-http-runtime/-/ts-http-runtime-0.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-yURCknZhvywvQItHMMmFSo&#43;fq5arCUIyz/CVk7jD89MSai7dkaX8ufjCWp3NttLojoTVbcE72ri&#43;be/TnEbMHw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;http-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;https-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/agent-base&#34;: {
+      &#34;version&#34;: &#34;7.1.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MnA&#43;YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7&#43;jMO&#43;CUovTQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/available-typed-arrays&#34;: {
+      &#34;version&#34;: &#34;1.0.7&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.7.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-wvUjBtSGN7&#43;7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW&#43;BJ&#43;D090e4hIIZLBcTDWe4Mh4jvUDajzQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;possible-typed-array-names&#34;: &#34;^1.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/base64-js&#34;: {
+      &#34;version&#34;: &#34;1.5.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-AKpaYlHn8t4SVbOHCy&#43;b5&#43;KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/buffer&#34;: {
+      &#34;version&#34;: &#34;6.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;base64-js&#34;: &#34;^1.3.1&#34;,
+        &#34;ieee754&#34;: &#34;^1.2.1&#34;
+      }
+    },
+    &#34;node_modules/call-bind&#34;: {
+      &#34;version&#34;: &#34;1.0.9&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/call-bind/-/call-bind-1.0.9.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-a/hy&#43;pNsFUTR&#43;Iz8TCJvXudKVLAnz/DyeSUo10I5yvFDQJBFU2s9uqQpoSrJlroHUKoKqzg&#43;epxyP9lqFdzfBQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bind-apply-helpers&#34;: &#34;^1.0.2&#34;,
+        &#34;es-define-property&#34;: &#34;^1.0.1&#34;,
+        &#34;get-intrinsic&#34;: &#34;^1.3.0&#34;,
+        &#34;set-function-length&#34;: &#34;^1.2.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/call-bind-apply-helpers&#34;: {
+      &#34;version&#34;: &#34;1.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/call-bind-apply-helpers/-/call-bind-apply-helpers-1.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Sp1ablJ0ivDkSzjcaJdxEunN5/XvksFJ2sMBFfq6x0ryhQV/2b/KwFe21cMpmHtPOSij8K99/wSfoEuTObmuMQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;es-errors&#34;: &#34;^1.3.0&#34;,
+        &#34;function-bind&#34;: &#34;^1.1.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/call-bound&#34;: {
+      &#34;version&#34;: &#34;1.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/call-bound/-/call-bound-1.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-&#43;ys997U96po4Kx/ABpBCqhA9EuxJaQWDQg7295H4hBphv3IZg0boBKuwYpt4YXp6MZ5AmZQnU/tyMTlRpaSejg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bind-apply-helpers&#34;: &#34;^1.0.2&#34;,
+        &#34;get-intrinsic&#34;: &#34;^1.3.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/debug&#34;: {
+      &#34;version&#34;: &#34;4.4.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/debug/-/debug-4.4.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-RGwwWnwQvkVfavKVt22FGLw&#43;xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;ms&#34;: &#34;^2.1.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;supports-color&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/define-data-property&#34;: {
+      &#34;version&#34;: &#34;1.1.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/define-data-property/-/define-data-property-1.1.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-rBMvIzlpA8v6E&#43;SJZoo&#43;&#43;HAYqsLrkg7MSfIinMPFhmkorw7X&#43;dOXVJQs&#43;QT69zGkzMyfDnIMN2Wid1&#43;NbL3T&#43;A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;es-define-property&#34;: &#34;^1.0.0&#34;,
+        &#34;es-errors&#34;: &#34;^1.3.0&#34;,
+        &#34;gopd&#34;: &#34;^1.0.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/dunder-proto&#34;: {
+      &#34;version&#34;: &#34;1.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/dunder-proto/-/dunder-proto-1.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct&#43;A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bind-apply-helpers&#34;: &#34;^1.0.1&#34;,
+        &#34;es-errors&#34;: &#34;^1.3.0&#34;,
+        &#34;gopd&#34;: &#34;^1.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/es-define-property&#34;: {
+      &#34;version&#34;: &#34;1.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/es-define-property/-/es-define-property-1.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-e3nRfgfUZ4rNGL232gUgX06QNyyez04KdjFrF&#43;LTRoOXmrOgFKDg4BCdsjW8EnT69eqdYGmRpJwiPVYNrCaW3g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/es-errors&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/es-errors/-/es-errors-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j&#43;hAmMzIlypy4xcBg1vKVnx89Wy0GbS&#43;kf5cwCVFFzdCFh2XSCFNULS6csw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/es-object-atoms&#34;: {
+      &#34;version&#34;: &#34;1.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/es-object-atoms/-/es-object-atoms-1.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm&#43;c2gQSYePhpaG5&#43;esrLODihIorn&#43;Pe6FGJzWhXQotPv73jTaldXA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;es-errors&#34;: &#34;^1.3.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/events&#34;: {
+      &#34;version&#34;: &#34;3.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/events/-/events-3.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-mQw&#43;2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.x&#34;
+      }
+    },
+    &#34;node_modules/fast-xml-builder&#34;: {
+      &#34;version&#34;: &#34;1.1.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/fast-xml-builder/-/fast-xml-builder-1.1.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-4TJn/8FKLeslLAH3dnohXqE3QSoxkhvaMzepOIZytwJXZO69Bfz0HBdDHzOTOon6G59Zrk6VQ2bEiv1t61rfkA==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;path-expression-matcher&#34;: &#34;^1.1.3&#34;
+      }
+    },
+    &#34;node_modules/fast-xml-parser&#34;: {
+      &#34;version&#34;: &#34;5.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/fast-xml-parser/-/fast-xml-parser-5.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-P7oW7tLbYnhOLQk/Gv7cZgzgMPP/XN03K02/Jy6Y/NHzyIAIpxuZIM/YqAkfiXFPxA2CTm7NtCijK9EDu09u2w==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@nodable/entities&#34;: &#34;^2.1.0&#34;,
+        &#34;fast-xml-builder&#34;: &#34;^1.1.5&#34;,
+        &#34;path-expression-matcher&#34;: &#34;^1.5.0&#34;,
+        &#34;strnum&#34;: &#34;^2.2.3&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;fxparser&#34;: &#34;src/cli/cli.js&#34;
+      }
+    },
+    &#34;node_modules/for-each&#34;: {
+      &#34;version&#34;: &#34;0.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/for-each/-/for-each-0.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-callable&#34;: &#34;^1.2.7&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/function-bind&#34;: {
+      &#34;version&#34;: &#34;1.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr&#43;oVO0F744iUgR82nJMfG2SA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/generator-function&#34;: {
+      &#34;version&#34;: &#34;2.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/generator-function/-/generator-function-2.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-SFdFmIJi&#43;ybC0vjlHN0ZGVGHc3lgE0DxPAT0djjVg&#43;kjOnSqclqmj0KQ7ykTOLP6YxoqOvuAODGdcHJn&#43;43q3g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/get-intrinsic&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-9fSjSaos/fRIVIp&#43;xSJlE6lfwhES7LNtKaCBIamHsjr2na1BiABJPo0mOjjz8GJDURarmCPGqaiVg5mfjb98CQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bind-apply-helpers&#34;: &#34;^1.0.2&#34;,
+        &#34;es-define-property&#34;: &#34;^1.0.1&#34;,
+        &#34;es-errors&#34;: &#34;^1.3.0&#34;,
+        &#34;es-object-atoms&#34;: &#34;^1.1.1&#34;,
+        &#34;function-bind&#34;: &#34;^1.1.2&#34;,
+        &#34;get-proto&#34;: &#34;^1.0.1&#34;,
+        &#34;gopd&#34;: &#34;^1.2.0&#34;,
+        &#34;has-symbols&#34;: &#34;^1.1.0&#34;,
+        &#34;hasown&#34;: &#34;^2.0.2&#34;,
+        &#34;math-intrinsics&#34;: &#34;^1.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/get-proto&#34;: {
+      &#34;version&#34;: &#34;1.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/get-proto/-/get-proto-1.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/&#43;l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;dunder-proto&#34;: &#34;^1.0.1&#34;,
+        &#34;es-object-atoms&#34;: &#34;^1.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/gopd&#34;: {
+      &#34;version&#34;: &#34;1.2.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/gopd/-/gopd-1.2.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx&#43;BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/has-property-descriptors&#34;: {
+      &#34;version&#34;: &#34;1.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/has-property-descriptors/-/has-property-descriptors-1.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-55JNKuIW&#43;vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS&#43;erby5ipJdgrg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;es-define-property&#34;: &#34;^1.0.0&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/has-symbols&#34;: {
+      &#34;version&#34;: &#34;1.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/has-symbols/-/has-symbols-1.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-1cDNdwJ2Jaohmb3sg4OmKaMBwuC48sYni5HUw2DvsC8LjGTLK9h&#43;eb1X6RyuOHe4hT0ULCW68iomhjUoKUqlPQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/has-tostringtag&#34;: {
+      &#34;version&#34;: &#34;1.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/has-tostringtag/-/has-tostringtag-1.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo&#43;ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;has-symbols&#34;: &#34;^1.0.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/hasown&#34;: {
+      &#34;version&#34;: &#34;2.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/hasown/-/hasown-2.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9&#43;PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA&#43;WnnhJ5pghSvSg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;function-bind&#34;: &#34;^1.1.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/http-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ&#43;veqSOHci/PxBcDabeUNCzpOODJZig==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.0&#34;,
+        &#34;debug&#34;: &#34;^4.3.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/https-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vK9P5/iUfdl95AI&#43;JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.2&#34;,
+        &#34;debug&#34;: &#34;4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/ieee754&#34;: {
+      &#34;version&#34;: &#34;1.2.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-dcyqhDvX1C46lXZcVqCpK&#43;FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC&#43;7KYK29KdXOLHdu9zL4sFnoVQnqaA==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;BSD-3-Clause&#34;
+    },
+    &#34;node_modules/inherits&#34;: {
+      &#34;version&#34;: &#34;2.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K&#43;EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==&#34;,
+      &#34;license&#34;: &#34;ISC&#34;
+    },
+    &#34;node_modules/is-arguments&#34;: {
+      &#34;version&#34;: &#34;1.2.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-arguments/-/is-arguments-1.2.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-7bVbi0huj/wrIAOzb8U1aszg9kdi3KN/CyU19CTI7tAoZYEZoL9yCDXpbXN&#43;uPsuWnP02cyug1gleqq&#43;TU&#43;YCA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bound&#34;: &#34;^1.0.2&#34;,
+        &#34;has-tostringtag&#34;: &#34;^1.0.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/is-buffer&#34;: {
+      &#34;version&#34;: &#34;2.0.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-buffer/-/is-buffer-2.0.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=4&#34;
+      }
+    },
+    &#34;node_modules/is-callable&#34;: {
+      &#34;version&#34;: &#34;1.2.7&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-callable/-/is-callable-1.2.7.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-1BC0BVFhS/p0qtw6enp8e&#43;8OD0UrK0oFLztSjNzhcKA3WDuJxxAPXzPuPtKkjEY9UUoEWlX/8fgKeu2S8i9JTA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/is-generator-function&#34;: {
+      &#34;version&#34;: &#34;1.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-generator-function/-/is-generator-function-1.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-upqt1SkGkODW9tsGNG5mtXTXtECizwtS2kA161M&#43;gJPc1xdb/Ax629af6YrTwcOeQHbewrPNlE5Dx7kzvXTizA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bound&#34;: &#34;^1.0.4&#34;,
+        &#34;generator-function&#34;: &#34;^2.0.0&#34;,
+        &#34;get-proto&#34;: &#34;^1.0.1&#34;,
+        &#34;has-tostringtag&#34;: &#34;^1.0.2&#34;,
+        &#34;safe-regex-test&#34;: &#34;^1.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/is-regex&#34;: {
+      &#34;version&#34;: &#34;1.2.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-regex/-/is-regex-1.2.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MjYsKHO5O7mCsmRGxWcLWheFqN9DJ/2TmngvjKXihe6efViPqc274&#43;Fx/4fYj/r03&#43;ESvBdTXK0V6tA3rgez1g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bound&#34;: &#34;^1.0.2&#34;,
+        &#34;gopd&#34;: &#34;^1.2.0&#34;,
+        &#34;has-tostringtag&#34;: &#34;^1.0.2&#34;,
+        &#34;hasown&#34;: &#34;^2.0.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/is-typed-array&#34;: {
+      &#34;version&#34;: &#34;1.1.15&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-typed-array/-/is-typed-array-1.1.15.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-p3EcsicXjit7SaskXHs1hA91QxgTw46Fv6EFKKGS5DRFLD8yKnohjF3hxoju94b/OcMZoQukzpPpBE9uLVKzgQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;which-typed-array&#34;: &#34;^1.1.16&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/math-intrinsics&#34;: {
+      &#34;version&#34;: &#34;1.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/math-intrinsics/-/math-intrinsics-1.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B&#43;ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/ms&#34;: {
+      &#34;version&#34;: &#34;2.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ms/-/ms-2.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/path-expression-matcher&#34;: {
+      &#34;version&#34;: &#34;1.5.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/path-expression-matcher/-/path-expression-matcher-1.5.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-cbrerZV&#43;6rvdQrrD&#43;iGMcZFEiiSrbv9Tfdkvnusy6y0x0GKBXREFg/Y65GhIfm0tnLntThhzCnfKwp1WRjeCyQ==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.0.0&#34;
+      }
+    },
+    &#34;node_modules/possible-typed-array-names&#34;: {
+      &#34;version&#34;: &#34;1.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/possible-typed-array-names/-/possible-typed-array-names-1.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-/&#43;5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/process&#34;: {
+      &#34;version&#34;: &#34;0.11.10&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/process/-/process-0.11.10.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-cdGef/drWFoydD1JsMzuFf8100nZl&#43;GT&#43;yacc2bEced5f9Rjk4z&#43;WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.6.0&#34;
+      }
+    },
+    &#34;node_modules/rhea&#34;: {
+      &#34;version&#34;: &#34;3.0.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/rhea/-/rhea-3.0.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Ye1gzqH9DoCGMTaSfLfGmDdoderMshyVU5rdFES&#43;D3N1U5PASZcNCKqhWJJUOOj8INtdrIPOfDALrRcoRRL7jw==&#34;,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;debug&#34;: &#34;^4.3.3&#34;
+      }
+    },
+    &#34;node_modules/rhea-promise&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/rhea-promise/-/rhea-promise-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-a875P5YcMkePSTEWMsnmCQS7Y4v/XvIw7ZoMtJxqtQRZsqSA6PsZxuz4vktyRykPuUgdNsA6F84dS3iEXZoYnQ==&#34;,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;debug&#34;: &#34;^4.0.0&#34;,
+        &#34;rhea&#34;: &#34;^3.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.0&#34;
+      }
+    },
+    &#34;node_modules/safe-regex-test&#34;: {
+      &#34;version&#34;: &#34;1.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/safe-regex-test/-/safe-regex-test-1.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-x/&#43;Cz4YrimQxQccJf5mKEbIa1NzeCRNI5Ecl/ekmlYaampdNLPalVyIcCZNNH3MvmqBugV5TMYZXv0ljslUlaw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;call-bound&#34;: &#34;^1.0.2&#34;,
+        &#34;es-errors&#34;: &#34;^1.3.0&#34;,
+        &#34;is-regex&#34;: &#34;^1.2.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    },
+    &#34;node_modules/set-function-length&#34;: {
+      &#34;version&#34;: &#34;1.2.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/set-function-length/-/set-function-length-1.2.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz&#43;MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;define-data-property&#34;: &#34;^1.1.4&#34;,
+        &#34;es-errors&#34;: &#34;^1.3.0&#34;,
+        &#34;function-bind&#34;: &#34;^1.1.2&#34;,
+        &#34;get-intrinsic&#34;: &#34;^1.2.4&#34;,
+        &#34;gopd&#34;: &#34;^1.0.1&#34;,
+        &#34;has-property-descriptors&#34;: &#34;^1.0.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      }
+    },
+    &#34;node_modules/strnum&#34;: {
+      &#34;version&#34;: &#34;2.2.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/strnum/-/strnum-2.2.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oKx6RUCuHfT3oyVjtnrmn19H1SiCqgJSg&#43;54XqURKp5aCMbrXrhLjRN9TjuwMjiYstZ0MzDrHqkGZ5dFTKd&#43;zg==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/tslib&#34;: {
+      &#34;version&#34;: &#34;2.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oJFu94HQb&#43;KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==&#34;,
+      &#34;license&#34;: &#34;0BSD&#34;
+    },
+    &#34;node_modules/typescript&#34;: {
+      &#34;version&#34;: &#34;5.9.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;bin&#34;: {
+        &#34;tsc&#34;: &#34;bin/tsc&#34;,
+        &#34;tsserver&#34;: &#34;bin/tsserver&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.17&#34;
+      }
+    },
+    &#34;node_modules/undici-types&#34;: {
+      &#34;version&#34;: &#34;6.21.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp&#43;7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/util&#34;: {
+      &#34;version&#34;: &#34;0.12.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/util/-/util-0.12.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-kZf/K6hEIrWHI6XqOFUiiMa&#43;79wE/D8Q&#43;NCNAWclkyg3b4d2k7s0QGepNjiABc&#43;aR3N1PAyHL7p6UcLY6LmrnA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;inherits&#34;: &#34;^2.0.3&#34;,
+        &#34;is-arguments&#34;: &#34;^1.0.4&#34;,
+        &#34;is-generator-function&#34;: &#34;^1.0.7&#34;,
+        &#34;is-typed-array&#34;: &#34;^1.1.3&#34;,
+        &#34;which-typed-array&#34;: &#34;^1.1.2&#34;
+      }
+    },
+    &#34;node_modules/which-typed-array&#34;: {
+      &#34;version&#34;: &#34;1.1.20&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/which-typed-array/-/which-typed-array-1.1.20.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-LYfpUkmqwl0h9A2HL09Mms427Q1RZWuOHsukfVcKRq9q95iQxdw0ix1JQrqbcDR9PH1QDwf5Qo8OZb5lksZ8Xg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;available-typed-arrays&#34;: &#34;^1.0.7&#34;,
+        &#34;call-bind&#34;: &#34;^1.0.8&#34;,
+        &#34;call-bound&#34;: &#34;^1.0.4&#34;,
+        &#34;for-each&#34;: &#34;^0.3.5&#34;,
+        &#34;get-proto&#34;: &#34;^1.0.1&#34;,
+        &#34;gopd&#34;: &#34;^1.2.0&#34;,
+        &#34;has-tostringtag&#34;: &#34;^1.0.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 0.4&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/ljharb&#34;
+      }
+    }
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;event-hubs-streaming-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Azure Event Hubs send/receive demo with blob checkpoint store&#34;,
+  &#34;main&#34;: &#34;dist/index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/index.js&#34;
+  },
+  &#34;dependencies&#34;: {
+    &#34;@azure/event-hubs&#34;: &#34;^6.0.4&#34;,
+    &#34;@azure/eventhubs-checkpointstore-blob&#34;: &#34;^2.0.0&#34;,
+    &#34;@azure/storage-blob&#34;: &#34;^12.26.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;typescript&#34;: &#34;^5.4.0&#34;,
+    &#34;@types/node&#34;: &#34;^20.0.0&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\index.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import {
+  EventHubProducerClient,
+  EventHubConsumerClient,
+  earliestEventPosition,
+  ReceivedEventData,
+  PartitionContext,
+  Subscription,
+} from &#34;@azure/event-hubs&#34;;
+import { ContainerClient } from &#34;@azure/storage-blob&#34;;
+import { BlobCheckpointStore } from &#34;@azure/eventhubs-checkpointstore-blob&#34;;
+
+// ---------------------------------------------------------------------------
+// Configuration – replace with your own values or set environment variables
+// ---------------------------------------------------------------------------
+const EVENT_HUB_CONNECTION_STRING =
+  process.env.EVENT_HUB_CONNECTION_STRING || &#34;&lt;your-event-hub-connection-string&gt;&#34;;
+const EVENT_HUB_NAME =
+  process.env.EVENT_HUB_NAME || &#34;&lt;your-event-hub-name&gt;&#34;;
+const CONSUMER_GROUP =
+  process.env.CONSUMER_GROUP || EventHubConsumerClient.defaultConsumerGroupName;
+const STORAGE_CONNECTION_STRING =
+  process.env.STORAGE_CONNECTION_STRING || &#34;&lt;your-storage-connection-string&gt;&#34;;
+const STORAGE_CONTAINER_NAME =
+  process.env.STORAGE_CONTAINER_NAME || &#34;event-hub-checkpoints&#34;;
+
+// ---------------------------------------------------------------------------
+// 1 &amp; 2 &amp; 3  –  Send a batch of 10 events
+// ---------------------------------------------------------------------------
+async function sendEvents(): Promise&lt;void&gt; {
+  // 1 – Create an EventHubProducerClient using a connection string
+  const producer = new EventHubProducerClient(
+    EVENT_HUB_CONNECTION_STRING,
+    EVENT_HUB_NAME
+  );
+
+  try {
+    // 2 – Create a batch and add 10 events with custom properties
+    const batch = await producer.createBatch();
+
+    for (let i = 0; i &lt; 10; i&#43;&#43;) {
+      const event = {
+        body: { message: `Event #${i}`, timestamp: new Date().toISOString() },
+        properties: {
+          source: &#34;streaming-demo&#34;,
+          index: i,
+          priority: i &lt; 3 ? &#34;high&#34; : &#34;normal&#34;,
+        },
+      };
+
+      if (!batch.tryAdd(event)) {
+        throw new Error(`Event #${i} is too large for the batch.`);
+      }
+    }
+
+    // 3 – Send the batch
+    await producer.sendBatch(batch);
+    console.log(`✓ Sent batch of ${batch.count} events.`);
+  } finally {
+    await producer.close();
+    console.log(&#34;  Producer closed.&#34;);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 4 &amp; 5 &amp; 6 &amp; 7  –  Receive events with checkpoint store &amp; graceful shutdown
+// ---------------------------------------------------------------------------
+async function receiveEvents(): Promise&lt;void&gt; {
+  // 4 – Create an EventHubConsumerClient with a BlobCheckpointStore
+  const containerClient = new ContainerClient(
+    STORAGE_CONNECTION_STRING,
+    STORAGE_CONTAINER_NAME
+  );
+  const checkpointStore = new BlobCheckpointStore(containerClient);
+
+  const consumer = new EventHubConsumerClient(
+    CONSUMER_GROUP,
+    EVENT_HUB_CONNECTION_STRING,
+    EVENT_HUB_NAME,
+    checkpointStore
+  );
+
+  // 5 – Subscribe to events with processEvents and processError handlers
+  const subscription: Subscription = consumer.subscribe(
+    {
+      processEvents: async (
+        events: ReceivedEventData[],
+        context: PartitionContext
+      ) =&gt; {
+        if (events.length === 0) return;
+
+        for (const event of events) {
+          // 6 – Print received event bodies
+          console.log(
+            `  Partition ${context.partitionId} | Offset ${event.offset} | ` &#43;
+              `Body: ${JSON.stringify(event.body)}`
+          );
+        }
+
+        // 6 – Update checkpoint after processing the batch
+        await context.updateCheckpoint(events[events.length - 1]);
+        console.log(
+          `  ✓ Checkpoint updated for partition ${context.partitionId}`
+        );
+      },
+
+      processError: async (err: Error, context: PartitionContext) =&gt; {
+        console.error(
+          `  ✗ Error on partition ${context.partitionId}: ${err.message}`
+        );
+      },
+    },
+    { startPosition: earliestEventPosition }
+  );
+
+  // 7 – Graceful shutdown on SIGINT / SIGTERM
+  const shutdown = async (): Promise&lt;void&gt; =&gt; {
+    console.log(&#34;\nShutting down…&#34;);
+    await subscription.close();
+    await consumer.close();
+    console.log(&#34;Consumer closed. Goodbye!&#34;);
+    process.exit(0);
+  };
+
+  process.on(&#34;SIGINT&#34;, shutdown);
+  process.on(&#34;SIGTERM&#34;, shutdown);
+
+  console.log(&#34;Listening for events (Ctrl&#43;C to stop)…&#34;);
+}
+
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
+async function main(): Promise&lt;void&gt; {
+  console.log(&#34;=== Azure Event Hubs Streaming Demo ===\n&#34;);
+
+  await sendEvents();
+
+  console.log();
+
+  await receiveEvents();
+}
+
+main().catch((err) =&gt; {
+  console.error(&#34;Fatal error:&#34;, err);
+  process.exit(1);
+});
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2020&#34;],
+    &#34;outDir&#34;: &#34;dist&#34;,
+    &#34;rootDir&#34;: &#34;src&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;declaration&#34;: true
+  },
+  &#34;include&#34;: [&#34;src/**/*&#34;]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">56 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (56 actions, 16 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>56</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>16</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>13</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">15</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">1</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id event-hubs-dp-js-ts-streaming --config azure-mcp/claude-opus-4.6</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

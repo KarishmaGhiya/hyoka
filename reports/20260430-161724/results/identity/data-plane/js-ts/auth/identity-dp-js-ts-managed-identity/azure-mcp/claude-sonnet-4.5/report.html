@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: identity-dp-js-ts-managed-identity / azure-mcp/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 identity-dp-js-ts-managed-identity</h1>
+  <div class="subtitle">Config: <strong>azure-mcp/claude-sonnet-4.5</strong> · 2026-04-30T23:21:46Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item" style="color:#6b7280">Generator made 5 file-write attempts but no files appeared in the workspace — files may have been written to the wrong location</span>
+  <span class="meta-item">Duration: <strong>220.4s</strong></span>
+  <span class="meta-item">Files: <strong>0</strong></span>
+  <span class="meta-item">Tool Calls: <strong>6</strong></span>
+  
+</div>
+
+
+<div class="error-box">
+  <h3>❌ Error</h3>
+  <p>0 files generated despite 5 file-write tool attempts</p>
+  
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer use Managed Identity to authenticate Azure SDK clients using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>identity</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>auth</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/identity</code></td></tr>
+      <tr><td>Tags</td><td>authentication, managed-identity, azure-hosted</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=96060 out=18286</td></tr>
+    <tr><td>Turn Count</td><td>2</td></tr>
+    
+    <tr><td>Generation Duration</td><td>220.3s</td></tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Show me how to
+use Managed Identity to authenticate Azure SDK clients in Node.js. Cover:
+1. System-assigned vs user-assigned managed identity
+2. How to create a ManagedIdentityCredential for each type
+3. Using it with Azure SDK clients
+4. Local development fallback strategies
+5. Common pitfalls and error handling
+
+Provide TypeScript examples for both identity types.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create comprehensive TypeScript examples showing how to use Managed Identity with Azure SDK clients in Node.js.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants to learn how to use Managed Identity to authenticate Azure SDK cl…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants to learn how to use Managed Identity to authenticate Azure SDK clients in Node.js, with comprehensive coverage including system-assigned vs user-assigned identity, local development fallback, and error handling.
+
+This is a straightforward documentation/example request. I should:
+1. Create TypeScript code examples showing both types of managed identities
+2. Show how to use them with Azure SDK clients
+3. Provide local development fallback strategies
+4. Include error handling and common pitfalls
+
+I&#39;ll create practical, runnable examples in the temp directory to demonstrate this comprehensively.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating managed identity examples&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;/**\n * System-Assigned Managed Identity Example\n * \n * System-assigned identities are tied to the lifecycle of the Azure resource.\n * When the resource is deleted, the identity is automatically deleted.\n */\n\nimport { ManagedIdentityCredential, DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { BlobServiceClient } from \&#34;@azure/storage-blob\&#34;;\nimport { CosmosClient } from \&#34;@azure/cosmos\&#34;;\n\n// ============================================================================\n// 1. BASIC SYSTEM-ASSIGNED MANAGED IDENTITY\n// ============================================================================\n\n/**\n * Creates a ManagedIdentityCredential for system-assigned identity.\n * No parameters needed - uses the identity attached to the Azure resource.\n */\nfunction createSystemAssignedCredential(): ManagedIdentityCredential {\n  return new ManagedIdentityCredential();\n}\n\n// ============================================================================\n// 2. USING WITH AZURE SDK CLIENTS\n// ============================================================================\n\n/**\n * Example: Using system-assigned identity with Key Vault\n */\nasync function accessKeyVaultWithSystemIdentity(): Promise\u003cvoid\u003e {\n  const credential = new ManagedIdentityCredential();\n  const vaultUrl = \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  \n  const client = new SecretClient(vaultUrl, credential);\n  \n  try {\n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(\&#34;Secret retrieved:\&#34;, secret.name);\n    console.log(\&#34;Secret value:\&#34;, secret.value);\n  } catch (error) {\n    console.error(\&#34;Error accessing Key Vault:\&#34;, error);\n    throw error;\n  }\n}\n\n/**\n * Example: Using system-assigned identity with Blob Storage\n */\nasync function accessBlobStorageWithSystemIdentity(): Promise\u003cvoid\u003e {\n  const credential = new ManagedIdentityCredential();\n  const storageAccountUrl = \&#34;https://mystorageaccount.blob.core.windows.net\&#34;;\n  \n  const blobServiceClient = new BlobServiceClient(\n    storageAccountUrl,\n    credential\n  );\n  \n  try {\n    const containerClient = blobServiceClient.getContainerClient(\&#34;my-container\&#34;);\n    \n    // List blobs in the container\n    for await (const blob of containerClient.listBlobsFlat()) {\n      console.log(`Blob: ${blob.name}`);\n    }\n  } catch (error) {\n    console.error(\&#34;Error accessing Blob Storage:\&#34;, error);\n    throw error;\n  }\n}\n\n/**\n * Example: Using system-assigned identity with Cosmos DB\n */\nasync function accessCosmosDBWithSystemIdentity(): Promise\u003cvoid\u003e {\n  const credential = new ManagedIdentityCredential();\n  const endpoint = \&#34;https://mycosmosdb.documents.azure.com:443/\&#34;;\n  \n  const client = new CosmosClient({\n    endpoint,\n    aadCredentials: credential\n  });\n  \n  try {\n    const { database } = await client.databases.createIfNotExists({\n      id: \&#34;my-database\&#34;\n    });\n    console.log(\&#34;Database accessed:\&#34;, database.id);\n  } catch (error) {\n    console.error(\&#34;Error accessing Cosmos DB:\&#34;, error);\n    throw error;\n  }\n}\n\n// ============================================================================\n// 3. LOCAL DEVELOPMENT FALLBACK - DEFAULT AZURE CREDENTIAL\n// ============================================================================\n\n/**\n * DefaultAzureCredential provides automatic fallback for local development.\n * It tries credentials in this order:\n * 1. EnvironmentCredential (env variables)\n * 2. WorkloadIdentityCredential (Kubernetes)\n * 3. ManagedIdentityCredential (Azure resources)\n * 4. AzureCliCredential (local Azure CLI)\n * 5. AzurePowerShellCredential (local Azure PowerShell)\n * 6. AzureDeveloperCliCredential (local azd)\n */\nasync function useDefaultAzureCredential(): Promise\u003cvoid\u003e {\n  // This works both in Azure (managed identity) and locally (Azure CLI)\n  const credential = new DefaultAzureCredential();\n  const vaultUrl = \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  \n  const client = new SecretClient(vaultUrl, credential);\n  \n  try {\n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(\&#34;Secret retrieved:\&#34;, secret.name);\n  } catch (error) {\n    console.error(\&#34;Authentication failed:\&#34;, error);\n    throw error;\n  }\n}\n\n// ============================================================================\n// 4. MANUAL LOCAL DEVELOPMENT FALLBACK\n// ============================================================================\n\n/**\n * Manual fallback strategy - try managed identity first, then Azure CLI\n */\nasync function manualFallbackStrategy(): Promise\u003cvoid\u003e {\n  const { AzureCliCredential } = require(\&#34;@azure/identity\&#34;);\n  \n  // Detect if running in Azure (common env variables)\n  const isRunningInAzure = \n    process.env.WEBSITE_INSTANCE_ID || // App Service\n    process.env.CONTAINER_APP_NAME ||  // Container Apps\n    process.env.FUNCTIONS_WORKER_RUNTIME; // Functions\n  \n  const credential = isRunningInAzure\n    ? new ManagedIdentityCredential()\n    : new AzureCliCredential();\n  \n  const vaultUrl = \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  const client = new SecretClient(vaultUrl, credential);\n  \n  try {\n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(\&#34;Secret retrieved using:\&#34;, isRunningInAzure ? \&#34;Managed Identity\&#34; : \&#34;Azure CLI\&#34;);\n  } catch (error) {\n    console.error(\&#34;Authentication failed:\&#34;, error);\n    throw error;\n  }\n}\n\n// ============================================================================\n// 5. ERROR HANDLING AND COMMON PITFALLS\n// ============================================================================\n\n/**\n * Comprehensive error handling for managed identity\n */\nasync function robustManagedIdentityUsage(): Promise\u003cvoid\u003e {\n  const vaultUrl = \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  \n  try {\n    const credential = new ManagedIdentityCredential();\n    const client = new SecretClient(vaultUrl, credential);\n    \n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(\&#34;Success:\&#34;, secret.name);\n    \n  } catch (error: any) {\n    // Handle specific error scenarios\n    if (error.code === \&#34;ManagedIdentityCredential_Timeout\&#34;) {\n      console.error(\&#34;Timeout: Managed identity endpoint not responding\&#34;);\n      console.error(\&#34;Possible cause: Not running on Azure resource with managed identity enabled\&#34;);\n    } else if (error.code === \&#34;CredentialUnavailable\&#34;) {\n      console.error(\&#34;Managed identity not available\&#34;);\n      console.error(\&#34;Ensure managed identity is enabled on your Azure resource\&#34;);\n    } else if (error.statusCode === 403) {\n      console.error(\&#34;Access denied: Managed identity lacks required permissions\&#34;);\n      console.error(\&#34;Grant appropriate RBAC role to the managed identity\&#34;);\n    } else if (error.statusCode === 404) {\n      console.error(\&#34;Resource not found or managed identity lacks access\&#34;);\n    } else {\n      console.error(\&#34;Unexpected error:\&#34;, error.message);\n      console.error(\&#34;Full error:\&#34;, error);\n    }\n    \n    throw error;\n  }\n}\n\n/**\n * Testing managed identity availability\n */\nasync function testManagedIdentityAvailability(): Promise\u003cboolean\u003e {\n  try {\n    const credential = new ManagedIdentityCredential();\n    \n    // Try to get a token for Azure Resource Manager\n    const token = await credential.getToken(\&#34;https://management.azure.com/.default\&#34;);\n    \n    if (token \u0026\u0026 token.token) {\n      console.log(\&#34;✓ Managed identity is available and working\&#34;);\n      console.log(\&#34;Token expires at:\&#34;, new Date(token.expiresOnTimestamp));\n      return true;\n    }\n    \n    return false;\n  } catch (error: any) {\n    console.log(\&#34;✗ Managed identity is not available:\&#34;, error.message);\n    return false;\n  }\n}\n\n// ============================================================================\n// 6. COMMON PITFALLS\n// ============================================================================\n\n/**\n * PITFALL #1: Not enabling managed identity on the Azure resource\n * Solution: Enable it via Azure Portal, CLI, or ARM template\n */\n\n/**\n * PITFALL #2: Missing RBAC permissions\n * Solution: Assign appropriate role (e.g., \&#34;Key Vault Secrets User\&#34;)\n * Example Azure CLI command:\n * \n * az role assignment create \\\n *   --assignee \u003cmanaged-identity-principal-id\u003e \\\n *   --role \&#34;Key Vault Secrets User\&#34; \\\n *   --scope /subscriptions/\u003csub-id\u003e/resourceGroups/\u003crg\u003e/providers/Microsoft.KeyVault/vaults/\u003cvault\u003e\n */\n\n/**\n * PITFALL #3: Using wrong endpoint in multi-cloud scenarios\n * Solution: Use DefaultAzureCredential with explicit options\n */\nfunction multiCloudCredential(): ManagedIdentityCredential {\n  return new ManagedIdentityCredential({\n    // For Azure Government\n    // authorityHost: \&#34;https://login.microsoftonline.us\&#34;\n    \n    // For Azure China\n    // authorityHost: \&#34;https://login.chinacloudapi.cn\&#34;\n  });\n}\n\n/**\n * PITFALL #4: Forgetting token caching\n * Good news: @azure/identity handles token caching automatically!\n * Tokens are cached and refreshed automatically before expiration.\n */\n\n/**\n * PITFALL #5: Long startup time on first request\n * Solution: Warm up the credential during app initialization\n */\nasync function warmUpCredential(credential: ManagedIdentityCredential): Promise\u003cvoid\u003e {\n  try {\n    console.log(\&#34;Warming up managed identity credential...\&#34;);\n    await credential.getToken(\&#34;https://management.azure.com/.default\&#34;);\n    console.log(\&#34;Credential ready!\&#34;);\n  } catch (error) {\n    console.warn(\&#34;Failed to warm up credential:\&#34;, error);\n  }\n}\n\n// ============================================================================\n// COMPLETE EXAMPLE: AZURE FUNCTION WITH SYSTEM-ASSIGNED IDENTITY\n// ============================================================================\n\ninterface HttpRequest {\n  query: { secretName?: string };\n}\n\ninterface HttpResponse {\n  status: number;\n  body: string;\n}\n\n/**\n * Azure Function example using system-assigned managed identity\n */\nexport async function httpTrigger(\n  context: any,\n  req: HttpRequest\n): Promise\u003cHttpResponse\u003e {\n  const secretName = req.query.secretName || \&#34;default-secret\&#34;;\n  \n  try {\n    // Use DefaultAzureCredential for both Azure and local development\n    const credential = new DefaultAzureCredential();\n    const vaultUrl = process.env.KEY_VAULT_URL || \&#34;https://my-keyvault.vault.azure.net\&#34;;\n    \n    const client = new SecretClient(vaultUrl, credential);\n    const secret = await client.getSecret(secretName);\n    \n    return {\n      status: 200,\n      body: JSON.stringify({\n        message: \&#34;Secret retrieved successfully\&#34;,\n        secretName: secret.name,\n        // Never return the actual secret value in production!\n        hasValue: !!secret.value\n      })\n    };\n    \n  } catch (error: any) {\n    console.error(\&#34;Error retrieving secret:\&#34;, error);\n    \n    return {\n      status: error.statusCode || 500,\n      body: JSON.stringify({\n        error: \&#34;Failed to retrieve secret\&#34;,\n        message: error.message\n      })\n    };\n  }\n}\n\n// Export examples\nexport {\n  createSystemAssignedCredential,\n  accessKeyVaultWithSystemIdentity,\n  accessBlobStorageWithSystemIdentity,\n  accessCosmosDBWithSystemIdentity,\n  useDefaultAzureCredential,\n  manualFallbackStrategy,\n  robustManagedIdentityUsage,\n  testManagedIdentityAvailability,\n  warmUpCredential\n};\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-azure-mcp-claude-sonnet-4.5-2340698639\\system-assigned-identity.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;/**\n * User-Assigned Managed Identity Example\n * \n * User-assigned identities are standalone Azure resources that can be\n * assigned to multiple Azure resources and have an independent lifecycle.\n */\n\nimport { ManagedIdentityCredential, DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { BlobServiceClient } from \&#34;@azure/storage-blob\&#34;;\n\n// ============================================================================\n// 1. BASIC USER-ASSIGNED MANAGED IDENTITY\n// ============================================================================\n\n/**\n * Creates a ManagedIdentityCredential using CLIENT ID\n * This is the most common way to specify user-assigned identity\n */\nfunction createUserAssignedCredentialByClientId(clientId: string): ManagedIdentityCredential {\n  return new ManagedIdentityCredential({\n    clientId: clientId  // The Application (client) ID of the managed identity\n  });\n}\n\n/**\n * Creates a ManagedIdentityCredential using RESOURCE ID\n * Use when you have the full Azure Resource Manager resource ID\n */\nfunction createUserAssignedCredentialByResourceId(resourceId: string): ManagedIdentityCredential {\n  return new ManagedIdentityCredential({\n    resourceId: resourceId\n    // Example: /subscriptions/{sub-id}/resourceGroups/{rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{name}\n  });\n}\n\n/**\n * Creates a ManagedIdentityCredential using OBJECT ID (Principal ID)\n * Less common, but useful in some scenarios\n */\nfunction createUserAssignedCredentialByObjectId(objectId: string): ManagedIdentityCredential {\n  return new ManagedIdentityCredential({\n    // Note: The SDK might not support objectId directly in all versions\n    // Use clientId instead when possible\n    clientId: objectId\n  });\n}\n\n// ============================================================================\n// 2. USING USER-ASSIGNED IDENTITY WITH AZURE SDK CLIENTS\n// ============================================================================\n\n/**\n * Example: Using user-assigned identity with Key Vault\n */\nasync function accessKeyVaultWithUserAssignedIdentity(): Promise\u003cvoid\u003e {\n  // Get the client ID from environment variable (recommended)\n  const clientId = process.env.MANAGED_IDENTITY_CLIENT_ID;\n  \n  if (!clientId) {\n    throw new Error(\&#34;MANAGED_IDENTITY_CLIENT_ID environment variable not set\&#34;);\n  }\n  \n  const credential = new ManagedIdentityCredential({ clientId });\n  const vaultUrl = \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  \n  const client = new SecretClient(vaultUrl, credential);\n  \n  try {\n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(\&#34;Secret retrieved:\&#34;, secret.name);\n    console.log(\&#34;Using user-assigned identity:\&#34;, clientId);\n  } catch (error) {\n    console.error(\&#34;Error accessing Key Vault:\&#34;, error);\n    throw error;\n  }\n}\n\n/**\n * Example: Multiple user-assigned identities on the same resource\n * Choose which identity to use based on the operation\n */\nasync function useMultipleUserAssignedIdentities(): Promise\u003cvoid\u003e {\n  // Different identities for different services\n  const keyVaultIdentityClientId = process.env.KEYVAULT_IDENTITY_CLIENT_ID!;\n  const storageIdentityClientId = process.env.STORAGE_IDENTITY_CLIENT_ID!;\n  \n  // Access Key Vault with one identity\n  const kvCredential = new ManagedIdentityCredential({ \n    clientId: keyVaultIdentityClientId \n  });\n  const kvClient = new SecretClient(\n    \&#34;https://my-keyvault.vault.azure.net\&#34;, \n    kvCredential\n  );\n  \n  // Access Storage with another identity\n  const storageCredential = new ManagedIdentityCredential({ \n    clientId: storageIdentityClientId \n  });\n  const blobClient = new BlobServiceClient(\n    \&#34;https://mystorageaccount.blob.core.windows.net\&#34;,\n    storageCredential\n  );\n  \n  try {\n    const secret = await kvClient.getSecret(\&#34;my-secret\&#34;);\n    console.log(\&#34;Secret retrieved with identity:\&#34;, keyVaultIdentityClientId);\n    \n    const containerClient = blobClient.getContainerClient(\&#34;my-container\&#34;);\n    const exists = await containerClient.exists();\n    console.log(\&#34;Container accessed with identity:\&#34;, storageIdentityClientId);\n  } catch (error) {\n    console.error(\&#34;Error:\&#34;, error);\n    throw error;\n  }\n}\n\n// ============================================================================\n// 3. LOCAL DEVELOPMENT FALLBACK\n// ============================================================================\n\n/**\n * DefaultAzureCredential with user-assigned identity hint\n * Works in Azure with user-assigned identity, falls back to Azure CLI locally\n */\nasync function useDefaultWithUserAssignedHint(): Promise\u003cvoid\u003e {\n  const clientId = process.env.MANAGED_IDENTITY_CLIENT_ID;\n  \n  // If clientId is provided, DefaultAzureCredential will use it for managed identity\n  const credential = new DefaultAzureCredential({\n    managedIdentityClientId: clientId\n  });\n  \n  const vaultUrl = \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  const client = new SecretClient(vaultUrl, credential);\n  \n  try {\n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(\&#34;Secret retrieved successfully\&#34;);\n  } catch (error) {\n    console.error(\&#34;Authentication failed:\&#34;, error);\n    throw error;\n  }\n}\n\n/**\n * Environment-based credential selection\n * Uses user-assigned identity in Azure, Azure CLI locally\n */\nfunction createEnvironmentAwareCredential(): ManagedIdentityCredential | any {\n  const { AzureCliCredential } = require(\&#34;@azure/identity\&#34;);\n  \n  const isRunningInAzure = \n    process.env.WEBSITE_INSTANCE_ID || \n    process.env.CONTAINER_APP_NAME ||\n    process.env.FUNCTIONS_WORKER_RUNTIME;\n  \n  if (isRunningInAzure) {\n    const clientId = process.env.MANAGED_IDENTITY_CLIENT_ID;\n    \n    if (!clientId) {\n      throw new Error(\n        \&#34;Running in Azure but MANAGED_IDENTITY_CLIENT_ID not set. \&#34; &#43;\n        \&#34;Set this environment variable to your user-assigned identity client ID.\&#34;\n      );\n    }\n    \n    console.log(\&#34;Using user-assigned managed identity:\&#34;, clientId);\n    return new ManagedIdentityCredential({ clientId });\n  } else {\n    console.log(\&#34;Using Azure CLI credential for local development\&#34;);\n    return new AzureCliCredential();\n  }\n}\n\n// ============================================================================\n// 4. CONFIGURATION PATTERNS\n// ============================================================================\n\n/**\n * Configuration interface for managed identity\n */\ninterface ManagedIdentityConfig {\n  type: \&#34;system-assigned\&#34; | \&#34;user-assigned\&#34;;\n  clientId?: string;\n  resourceId?: string;\n}\n\n/**\n * Factory function to create appropriate credential based on configuration\n */\nfunction createManagedIdentityFromConfig(\n  config: ManagedIdentityConfig\n): ManagedIdentityCredential {\n  if (config.type === \&#34;system-assigned\&#34;) {\n    console.log(\&#34;Creating system-assigned managed identity credential\&#34;);\n    return new ManagedIdentityCredential();\n  }\n  \n  if (config.type === \&#34;user-assigned\&#34;) {\n    if (config.clientId) {\n      console.log(\&#34;Creating user-assigned managed identity with client ID:\&#34;, config.clientId);\n      return new ManagedIdentityCredential({ clientId: config.clientId });\n    } else if (config.resourceId) {\n      console.log(\&#34;Creating user-assigned managed identity with resource ID\&#34;);\n      return new ManagedIdentityCredential({ resourceId: config.resourceId });\n    } else {\n      throw new Error(\n        \&#34;User-assigned identity requires either clientId or resourceId\&#34;\n      );\n    }\n  }\n  \n  throw new Error(`Unknown identity type: ${config.type}`);\n}\n\n/**\n * Load configuration from environment variables\n */\nfunction loadManagedIdentityConfigFromEnv(): ManagedIdentityConfig {\n  const identityType = process.env.MANAGED_IDENTITY_TYPE || \&#34;system-assigned\&#34;;\n  \n  if (identityType === \&#34;user-assigned\&#34;) {\n    const clientId = process.env.MANAGED_IDENTITY_CLIENT_ID;\n    const resourceId = process.env.MANAGED_IDENTITY_RESOURCE_ID;\n    \n    if (!clientId \u0026\u0026 !resourceId) {\n      throw new Error(\n        \&#34;User-assigned identity requires MANAGED_IDENTITY_CLIENT_ID \&#34; &#43;\n        \&#34;or MANAGED_IDENTITY_RESOURCE_ID environment variable\&#34;\n      );\n    }\n    \n    return {\n      type: \&#34;user-assigned\&#34;,\n      clientId,\n      resourceId\n    };\n  }\n  \n  return { type: \&#34;system-assigned\&#34; };\n}\n\n// ============================================================================\n// 5. ERROR HANDLING SPECIFIC TO USER-ASSIGNED IDENTITY\n// ============================================================================\n\n/**\n * Comprehensive error handling for user-assigned managed identity\n */\nasync function robustUserAssignedIdentityUsage(): Promise\u003cvoid\u003e {\n  const clientId = process.env.MANAGED_IDENTITY_CLIENT_ID;\n  \n  if (!clientId) {\n    throw new Error(\n      \&#34;MANAGED_IDENTITY_CLIENT_ID environment variable is required for user-assigned identity\&#34;\n    );\n  }\n  \n  const vaultUrl = \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  \n  try {\n    const credential = new ManagedIdentityCredential({ clientId });\n    const client = new SecretClient(vaultUrl, credential);\n    \n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(\&#34;Success:\&#34;, secret.name);\n    \n  } catch (error: any) {\n    if (error.code === \&#34;ManagedIdentityCredential_Timeout\&#34;) {\n      console.error(\&#34;Timeout: Managed identity endpoint not responding\&#34;);\n      console.error(\&#34;Possible causes:\&#34;);\n      console.error(\&#34;  - Not running on Azure resource with managed identity enabled\&#34;);\n      console.error(\&#34;  - User-assigned identity not assigned to this resource\&#34;);\n      console.error(\&#34;  - Incorrect client ID\&#34;);\n    } else if (error.code === \&#34;CredentialUnavailable\&#34;) {\n      console.error(\&#34;User-assigned managed identity not available\&#34;);\n      console.error(\&#34;Ensure the identity is assigned to your Azure resource\&#34;);\n      console.error(\&#34;Client ID used:\&#34;, clientId);\n    } else if (error.statusCode === 403) {\n      console.error(\&#34;Access denied: User-assigned identity lacks required permissions\&#34;);\n      console.error(\&#34;Grant appropriate RBAC role to the identity:\&#34;, clientId);\n    } else if (error.message?.includes(\&#34;Invalid client ID\&#34;)) {\n      console.error(\&#34;Invalid client ID format:\&#34;, clientId);\n      console.error(\&#34;Client ID should be a GUID (e.g., 12345678-1234-1234-1234-123456789abc)\&#34;);\n    } else {\n      console.error(\&#34;Unexpected error:\&#34;, error.message);\n      console.error(\&#34;Full error:\&#34;, error);\n    }\n    \n    throw error;\n  }\n}\n\n/**\n * Validate user-assigned identity configuration\n */\nfunction validateUserAssignedIdentityConfig(clientId: string): void {\n  // Basic GUID format validation\n  const guidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;\n  \n  if (!guidPattern.test(clientId)) {\n    throw new Error(\n      `Invalid client ID format: ${clientId}. ` &#43;\n      `Expected a GUID (e.g., 12345678-1234-1234-1234-123456789abc)`\n    );\n  }\n  \n  console.log(\&#34;✓ Client ID format is valid\&#34;);\n}\n\n/**\n * Test user-assigned identity availability and configuration\n */\nasync function testUserAssignedIdentity(clientId: string): Promise\u003cboolean\u003e {\n  try {\n    validateUserAssignedIdentityConfig(clientId);\n    \n    const credential = new ManagedIdentityCredential({ clientId });\n    \n    // Try to get a token\n    const token = await credential.getToken(\&#34;https://management.azure.com/.default\&#34;);\n    \n    if (token \u0026\u0026 token.token) {\n      console.log(\&#34;✓ User-assigned managed identity is working\&#34;);\n      console.log(\&#34;Client ID:\&#34;, clientId);\n      console.log(\&#34;Token expires at:\&#34;, new Date(token.expiresOnTimestamp));\n      return true;\n    }\n    \n    return false;\n  } catch (error: any) {\n    console.log(\&#34;✗ User-assigned managed identity test failed:\&#34;, error.message);\n    return false;\n  }\n}\n\n// ============================================================================\n// 6. COMMON PITFALLS (USER-ASSIGNED SPECIFIC)\n// ============================================================================\n\n/**\n * PITFALL #1: Using client ID of the wrong identity\n * Solution: Double-check the client ID in Azure Portal or using Azure CLI:\n * \n * az identity show --name \u003cidentity-name\u003e --resource-group \u003crg\u003e --query clientId -o tsv\n */\n\n/**\n * PITFALL #2: Identity not assigned to the Azure resource\n * Solution: Assign the user-assigned identity to your resource:\n * \n * For App Service:\n * az webapp identity assign \\\n *   --name \u003capp-name\u003e \\\n *   --resource-group \u003crg\u003e \\\n *   --identities /subscriptions/\u003csub\u003e/resourceGroups/\u003crg\u003e/providers/Microsoft.ManagedIdentity/userAssignedIdentities/\u003cname\u003e\n * \n * For VM:\n * az vm identity assign \\\n *   --name \u003cvm-name\u003e \\\n *   --resource-group \u003crg\u003e \\\n *   --identities /subscriptions/\u003csub\u003e/resourceGroups/\u003crg\u003e/providers/Microsoft.ManagedIdentity/userAssignedIdentities/\u003cname\u003e\n */\n\n/**\n * PITFALL #3: Multiple identities assigned but not specifying which to use\n * Solution: Always specify clientId when using user-assigned identity\n */\n\n/**\n * PITFALL #4: Confusing client ID with object ID (principal ID)\n * Solution: Use CLIENT ID (Application ID), not Object ID, with ManagedIdentityCredential\n */\n\n// ============================================================================\n// COMPLETE EXAMPLE: EXPRESS APP WITH USER-ASSIGNED IDENTITY\n// ============================================================================\n\nimport express from \&#34;express\&#34;;\n\n/**\n * Express.js application using user-assigned managed identity\n */\nfunction createExpressApp(): express.Application {\n  const app = express();\n  \n  // Load identity configuration at startup\n  const identityConfig = loadManagedIdentityConfigFromEnv();\n  const credential = createManagedIdentityFromConfig(identityConfig);\n  \n  const vaultUrl = process.env.KEY_VAULT_URL || \&#34;https://my-keyvault.vault.azure.net\&#34;;\n  const secretClient = new SecretClient(vaultUrl, credential);\n  \n  // Warm up the credential during startup\n  (async () =\u003e {\n    try {\n      console.log(\&#34;Warming up managed identity credential...\&#34;);\n      await credential.getToken(\&#34;https://management.azure.com/.default\&#34;);\n      console.log(\&#34;✓ Credential ready\&#34;);\n    } catch (error) {\n      console.error(\&#34;✗ Failed to initialize credential:\&#34;, error);\n    }\n  })();\n  \n  // Endpoint to retrieve a secret\n  app.get(\&#34;/api/secrets/:name\&#34;, async (req, res) =\u003e {\n    const secretName = req.params.name;\n    \n    try {\n      const secret = await secretClient.getSecret(secretName);\n      \n      res.json({\n        success: true,\n        secretName: secret.name,\n        hasValue: !!secret.value,\n        identityType: identityConfig.type,\n        clientId: identityConfig.clientId\n      });\n    } catch (error: any) {\n      console.error(\&#34;Error retrieving secret:\&#34;, error);\n      \n      res.status(error.statusCode || 500).json({\n        success: false,\n        error: error.message,\n        identityType: identityConfig.type\n      });\n    }\n  });\n  \n  // Health check endpoint\n  app.get(\&#34;/health\&#34;, (req, res) =\u003e {\n    res.json({\n      status: \&#34;healthy\&#34;,\n      identityType: identityConfig.type,\n      clientId: identityConfig.clientId || \&#34;N/A\&#34;\n    });\n  });\n  \n  return app;\n}\n\n// Start the Express app\nif (require.main === module) {\n  const app = createExpressApp();\n  const port = process.env.PORT || 3000;\n  \n  app.listen(port, () =\u003e {\n    console.log(`Server listening on port ${port}`);\n  });\n}\n\n// Export examples\nexport {\n  createUserAssignedCredentialByClientId,\n  createUserAssignedCredentialByResourceId,\n  createUserAssignedCredentialByObjectId,\n  accessKeyVaultWithUserAssignedIdentity,\n  useMultipleUserAssignedIdentities,\n  useDefaultWithUserAssignedHint,\n  createEnvironmentAwareCredential,\n  createManagedIdentityFromConfig,\n  loadManagedIdentityConfigFromEnv,\n  robustUserAssignedIdentityUsage,\n  validateUserAssignedIdentityConfig,\n  testUserAssignedIdentity,\n  createExpressApp\n};\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-azure-mcp-claude-sonnet-4.5-2340698639\\user-assigned-identity.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;/**\n * System-Assigned vs User-Assigned Managed Identity\n * Comparison, Best Practices, and Decision Guide\n */\n\nimport { ManagedIdentityCredential, DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\n\n// ============================================================================\n// COMPARISON: SYSTEM-ASSIGNED VS USER-ASSIGNED\n// ============================================================================\n\n/**\n * SYSTEM-ASSIGNED MANAGED IDENTITY\n * \n * Pros:\n * - Simpler to set up (no need to specify identity)\n * - Automatically created with the resource\n * - Automatically deleted when resource is deleted\n * - No separate Azure resource to manage\n * - Perfect for 1:1 resource-to-identity relationships\n * \n * Cons:\n * - Tied to the lifecycle of a single resource\n * - Cannot be shared across multiple resources\n * - Loses all permissions when resource is deleted\n * - Harder to pre-configure permissions before resource creation\n * - Cannot be created separately from the resource\n * \n * Use When:\n * - Single Azure resource needs its own identity\n * - Identity permissions are specific to that resource\n * - Resource lifecycle matches identity lifecycle\n * - Simplicity is preferred over flexibility\n */\nfunction createSystemAssignedExample() {\n  // No parameters needed - uses the identity attached to the resource\n  return new ManagedIdentityCredential();\n}\n\n/**\n * USER-ASSIGNED MANAGED IDENTITY\n * \n * Pros:\n * - Can be shared across multiple resources\n * - Independent lifecycle (survives resource deletion)\n * - Can be pre-created with permissions before assigning to resources\n * - Better for multi-resource scenarios\n * - Easier to rotate or update permissions centrally\n * - Can be used in disaster recovery scenarios\n * \n * Cons:\n * - Requires explicit client ID specification\n * - Additional Azure resource to manage\n * - Must be explicitly assigned to resources\n * - Slightly more complex configuration\n * \n * Use When:\n * - Multiple resources need the same identity\n * - Identity should persist beyond resource lifecycle\n * - Need to pre-configure permissions before resource creation\n * - Want to centrally manage identity permissions\n * - Implementing blue/green deployments\n */\nfunction createUserAssignedExample(clientId: string) {\n  return new ManagedIdentityCredential({ clientId });\n}\n\n// ============================================================================\n// DECISION MATRIX\n// ============================================================================\n\ninterface IdentityRequirements {\n  multipleResources: boolean;\n  persistBeyondResourceDeletion: boolean;\n  preConfigurePermissions: boolean;\n  simplicity: boolean;\n  blueGreenDeployment: boolean;\n}\n\nfunction recommendIdentityType(requirements: IdentityRequirements): string {\n  // User-assigned if any of these are true\n  if (\n    requirements.multipleResources ||\n    requirements.persistBeyondResourceDeletion ||\n    requirements.preConfigurePermissions ||\n    requirements.blueGreenDeployment\n  ) {\n    return \&#34;user-assigned\&#34;;\n  }\n  \n  // System-assigned for simplicity\n  if (requirements.simplicity) {\n    return \&#34;system-assigned\&#34;;\n  }\n  \n  // Default to system-assigned for single-resource scenarios\n  return \&#34;system-assigned\&#34;;\n}\n\n// Example usage\nconst recommendation1 = recommendIdentityType({\n  multipleResources: false,\n  persistBeyondResourceDeletion: false,\n  preConfigurePermissions: false,\n  simplicity: true,\n  blueGreenDeployment: false\n});\nconsole.log(\&#34;Recommendation:\&#34;, recommendation1); // \&#34;system-assigned\&#34;\n\nconst recommendation2 = recommendIdentityType({\n  multipleResources: true,\n  persistBeyondResourceDeletion: true,\n  preConfigurePermissions: true,\n  simplicity: false,\n  blueGreenDeployment: true\n});\nconsole.log(\&#34;Recommendation:\&#34;, recommendation2); // \&#34;user-assigned\&#34;\n\n// ============================================================================\n// BEST PRACTICES\n// ============================================================================\n\n/**\n * BEST PRACTICE #1: Use DefaultAzureCredential for maximum flexibility\n * Works both in Azure and local development\n */\nfunction bestPracticeDefaultCredential() {\n  // Works with both system-assigned and user-assigned identities\n  // Falls back to Azure CLI for local development\n  const credential = new DefaultAzureCredential({\n    // Optional: Specify client ID if using user-assigned identity\n    managedIdentityClientId: process.env.MANAGED_IDENTITY_CLIENT_ID\n  });\n  \n  return credential;\n}\n\n/**\n * BEST PRACTICE #2: Store configuration in environment variables\n */\nconst MANAGED_IDENTITY_CONFIG = {\n  // Type of identity\n  type: process.env.MANAGED_IDENTITY_TYPE || \&#34;system-assigned\&#34;,\n  \n  // Client ID for user-assigned identity\n  clientId: process.env.MANAGED_IDENTITY_CLIENT_ID,\n  \n  // Resource ID for user-assigned identity (alternative)\n  resourceId: process.env.MANAGED_IDENTITY_RESOURCE_ID\n} as const;\n\n/**\n * BEST PRACTICE #3: Create a credential factory function\n */\nfunction createCredential() {\n  if (MANAGED_IDENTITY_CONFIG.type === \&#34;user-assigned\&#34;) {\n    if (MANAGED_IDENTITY_CONFIG.clientId) {\n      return new ManagedIdentityCredential({\n        clientId: MANAGED_IDENTITY_CONFIG.clientId\n      });\n    }\n    if (MANAGED_IDENTITY_CONFIG.resourceId) {\n      return new ManagedIdentityCredential({\n        resourceId: MANAGED_IDENTITY_CONFIG.resourceId\n      });\n    }\n    throw new Error(\n      \&#34;User-assigned identity requires MANAGED_IDENTITY_CLIENT_ID or MANAGED_IDENTITY_RESOURCE_ID\&#34;\n    );\n  }\n  \n  // Default to system-assigned\n  return new ManagedIdentityCredential();\n}\n\n/**\n * BEST PRACTICE #4: Implement proper error handling\n */\nasync function properErrorHandling() {\n  const credential = createCredential();\n  \n  try {\n    const token = await credential.getToken(\&#34;https://management.azure.com/.default\&#34;);\n    return token;\n  } catch (error: any) {\n    // Log detailed error information\n    console.error(\&#34;Managed Identity Error:\&#34;, {\n      message: error.message,\n      code: error.code,\n      statusCode: error.statusCode,\n      identityType: MANAGED_IDENTITY_CONFIG.type,\n      clientId: MANAGED_IDENTITY_CONFIG.clientId\n    });\n    \n    // Provide actionable error messages\n    if (error.code === \&#34;CredentialUnavailable\&#34;) {\n      throw new Error(\n        \&#34;Managed identity is not available. Ensure it is enabled on the Azure resource.\&#34;\n      );\n    }\n    \n    if (error.statusCode === 403) {\n      throw new Error(\n        \&#34;Access denied. Grant the required RBAC permissions to the managed identity.\&#34;\n      );\n    }\n    \n    throw error;\n  }\n}\n\n/**\n * BEST PRACTICE #5: Warm up credentials during application startup\n */\nasync function warmUpCredentials(credential: ManagedIdentityCredential) {\n  const startTime = Date.now();\n  \n  try {\n    console.log(\&#34;Warming up managed identity credential...\&#34;);\n    await credential.getToken(\&#34;https://management.azure.com/.default\&#34;);\n    \n    const duration = Date.now() - startTime;\n    console.log(`✓ Credential warmed up in ${duration}ms`);\n    \n    return true;\n  } catch (error: any) {\n    console.error(\&#34;✗ Failed to warm up credential:\&#34;, error.message);\n    return false;\n  }\n}\n\n/**\n * BEST PRACTICE #6: Implement retry logic for transient failures\n */\nasync function getTokenWithRetry(\n  credential: ManagedIdentityCredential,\n  scope: string,\n  maxRetries: number = 3\n): Promise\u003cany\u003e {\n  let lastError: Error | undefined;\n  \n  for (let attempt = 1; attempt \u003c= maxRetries; attempt&#43;&#43;) {\n    try {\n      const token = await credential.getToken(scope);\n      return token;\n    } catch (error: any) {\n      lastError = error;\n      \n      // Only retry on transient errors\n      if (error.code === \&#34;ManagedIdentityCredential_Timeout\&#34; \u0026\u0026 attempt \u003c maxRetries) {\n        const delay = Math.pow(2, attempt) * 1000; // Exponential backoff\n        console.log(`Retry ${attempt}/${maxRetries} after ${delay}ms...`);\n        await new Promise(resolve =\u003e setTimeout(resolve, delay));\n        continue;\n      }\n      \n      // Don&#39;t retry on permanent errors\n      if (error.statusCode === 403 || error.statusCode === 404) {\n        throw error;\n      }\n    }\n  }\n  \n  throw lastError;\n}\n\n/**\n * BEST PRACTICE #7: Use least privilege principle\n * Grant only the minimum required permissions to the managed identity\n */\nconst RBAC_ROLES_BY_SERVICE = {\n  keyVault: [\n    \&#34;Key Vault Secrets User\&#34;,      // Read secrets\n    \&#34;Key Vault Secrets Officer\&#34;    // Manage secrets\n  ],\n  storage: [\n    \&#34;Storage Blob Data Reader\&#34;,    // Read blobs\n    \&#34;Storage Blob Data Contributor\&#34; // Read/write blobs\n  ],\n  cosmosDb: [\n    \&#34;Cosmos DB Account Reader Role\&#34;, // Read account metadata\n    \&#34;Cosmos DB Built-in Data Reader\&#34; // Read data\n  ],\n  sql: [\n    \&#34;SQL DB Contributor\&#34;,           // Manage databases\n    \&#34;SQL Server Contributor\&#34;        // Manage servers\n  ]\n};\n\n/**\n * BEST PRACTICE #8: Monitor managed identity usage\n */\ninterface IdentityUsageMetrics {\n  tokenRequests: number;\n  successfulAuths: number;\n  failedAuths: number;\n  lastUsed: Date;\n  averageTokenDuration: number;\n}\n\nclass ManagedIdentityMonitor {\n  private metrics: IdentityUsageMetrics = {\n    tokenRequests: 0,\n    successfulAuths: 0,\n    failedAuths: 0,\n    lastUsed: new Date(),\n    averageTokenDuration: 0\n  };\n  \n  async getTokenWithMonitoring(\n    credential: ManagedIdentityCredential,\n    scope: string\n  ) {\n    const startTime = Date.now();\n    this.metrics.tokenRequests&#43;&#43;;\n    \n    try {\n      const token = await credential.getToken(scope);\n      \n      const duration = Date.now() - startTime;\n      this.metrics.successfulAuths&#43;&#43;;\n      this.metrics.lastUsed = new Date();\n      this.metrics.averageTokenDuration = \n        (this.metrics.averageTokenDuration &#43; duration) / 2;\n      \n      console.log(\&#34;Token acquired successfully:\&#34;, {\n        duration: `${duration}ms`,\n        expiresAt: new Date(token.expiresOnTimestamp)\n      });\n      \n      return token;\n    } catch (error) {\n      this.metrics.failedAuths&#43;&#43;;\n      console.error(\&#34;Token acquisition failed:\&#34;, error);\n      throw error;\n    }\n  }\n  \n  getMetrics(): IdentityUsageMetrics {\n    return { ...this.metrics };\n  }\n  \n  logMetrics(): void {\n    console.log(\&#34;Managed Identity Metrics:\&#34;, {\n      ...this.metrics,\n      successRate: `${(this.metrics.successfulAuths / this.metrics.tokenRequests * 100).toFixed(2)}%`\n    });\n  }\n}\n\n/**\n * BEST PRACTICE #9: Test locally before deploying\n */\nasync function testLocalDevelopmentSetup() {\n  console.log(\&#34;Testing local development setup...\&#34;);\n  console.log(\&#34;Current environment:\&#34;, {\n    isAzure: !!(process.env.WEBSITE_INSTANCE_ID || process.env.CONTAINER_APP_NAME),\n    hasAzureCli: await checkAzureCliAvailable(),\n    identityType: MANAGED_IDENTITY_CONFIG.type,\n    clientId: MANAGED_IDENTITY_CONFIG.clientId\n  });\n  \n  // Test DefaultAzureCredential\n  try {\n    const credential = new DefaultAzureCredential();\n    const token = await credential.getToken(\&#34;https://management.azure.com/.default\&#34;);\n    console.log(\&#34;✓ DefaultAzureCredential working\&#34;);\n    return true;\n  } catch (error) {\n    console.error(\&#34;✗ DefaultAzureCredential failed:\&#34;, error);\n    return false;\n  }\n}\n\nasync function checkAzureCliAvailable(): Promise\u003cboolean\u003e {\n  try {\n    const { execSync } = require(\&#34;child_process\&#34;);\n    execSync(\&#34;az account show\&#34;, { stdio: \&#34;ignore\&#34; });\n    return true;\n  } catch {\n    return false;\n  }\n}\n\n/**\n * BEST PRACTICE #10: Document identity requirements\n */\nconst IDENTITY_DOCUMENTATION = {\n  service: \&#34;MyApplication\&#34;,\n  identityType: \&#34;user-assigned\&#34;,\n  clientId: \&#34;12345678-1234-1234-1234-123456789abc\&#34;,\n  requiredPermissions: [\n    {\n      resource: \&#34;Key Vault\&#34;,\n      role: \&#34;Key Vault Secrets User\&#34;,\n      scope: \&#34;/subscriptions/xxx/resourceGroups/xxx/providers/Microsoft.KeyVault/vaults/my-vault\&#34;\n    },\n    {\n      resource: \&#34;Storage Account\&#34;,\n      role: \&#34;Storage Blob Data Reader\&#34;,\n      scope: \&#34;/subscriptions/xxx/resourceGroups/xxx/providers/Microsoft.Storage/storageAccounts/my-storage\&#34;\n    }\n  ],\n  assignedTo: [\n    \&#34;App Service: my-app-prod\&#34;,\n    \&#34;App Service: my-app-staging\&#34;\n  ],\n  notes: [\n    \&#34;This identity is shared between prod and staging\&#34;,\n    \&#34;Permissions are read-only for security\&#34;,\n    \&#34;Created on: 2024-01-15\&#34;,\n    \&#34;Owner: Platform Team\&#34;\n  ]\n};\n\n// ============================================================================\n// COMPLETE EXAMPLE: PRODUCTION-READY MANAGED IDENTITY USAGE\n// ============================================================================\n\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\n\nclass ManagedIdentityService {\n  private credential: ManagedIdentityCredential;\n  private monitor: ManagedIdentityMonitor;\n  private isWarmedUp: boolean = false;\n  \n  constructor() {\n    this.credential = createCredential();\n    this.monitor = new ManagedIdentityMonitor();\n  }\n  \n  async initialize(): Promise\u003cvoid\u003e {\n    console.log(\&#34;Initializing Managed Identity Service...\&#34;);\n    this.isWarmedUp = await warmUpCredentials(this.credential);\n    \n    if (!this.isWarmedUp) {\n      console.warn(\&#34;Warning: Failed to warm up credential\&#34;);\n    }\n  }\n  \n  async getKeyVaultSecret(vaultUrl: string, secretName: string): Promise\u003cstring\u003e {\n    const client = new SecretClient(vaultUrl, this.credential);\n    \n    try {\n      // Get token with monitoring\n      await this.monitor.getTokenWithMonitoring(\n        this.credential,\n        \&#34;https://vault.azure.net/.default\&#34;\n      );\n      \n      const secret = await client.getSecret(secretName);\n      \n      if (!secret.value) {\n        throw new Error(\&#34;Secret value is empty\&#34;);\n      }\n      \n      return secret.value;\n    } catch (error: any) {\n      console.error(\&#34;Failed to retrieve secret:\&#34;, {\n        vaultUrl,\n        secretName,\n        error: error.message\n      });\n      throw error;\n    }\n  }\n  \n  getHealthStatus() {\n    return {\n      initialized: this.isWarmedUp,\n      identityType: MANAGED_IDENTITY_CONFIG.type,\n      metrics: this.monitor.getMetrics()\n    };\n  }\n}\n\n// Export everything\nexport {\n  createSystemAssignedExample,\n  createUserAssignedExample,\n  recommendIdentityType,\n  bestPracticeDefaultCredential,\n  createCredential,\n  properErrorHandling,\n  warmUpCredentials,\n  getTokenWithRetry,\n  ManagedIdentityMonitor,\n  ManagedIdentityService,\n  testLocalDevelopmentSetup,\n  RBAC_ROLES_BY_SERVICE,\n  IDENTITY_DOCUMENTATION\n};\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-azure-mcp-claude-sonnet-4.5-2340698639\\comparison-and-best-practices.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-managed-identity-examples\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Comprehensive examples of using Azure Managed Identity with Node.js/TypeScript\&#34;,\n  \&#34;main\&#34;: \&#34;index.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;test\&#34;: \&#34;echo \\\&#34;No tests specified\\\&#34; \u0026\u0026 exit 0\&#34;\n  },\n  \&#34;keywords\&#34;: [\n    \&#34;azure\&#34;,\n    \&#34;managed-identity\&#34;,\n    \&#34;authentication\&#34;,\n    \&#34;typescript\&#34;,\n    \&#34;nodejs\&#34;\n  ],\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;,\n    \&#34;@azure/keyvault-secrets\&#34;: \&#34;^4.8.0\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.17.0\&#34;,\n    \&#34;@azure/cosmos\&#34;: \&#34;^4.0.0\&#34;,\n    \&#34;express\&#34;: \&#34;^4.18.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.0.0\&#34;,\n    \&#34;@types/express\&#34;: \&#34;^4.17.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.0.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-azure-mcp-claude-sonnet-4.5-2340698639\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-azure-mcp-claude-sonnet-4.5-2340698639\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>10.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I see the directory has content exclusion policies that are preventing file creation. Let me provide you with the comprehensive guide directly in the response instead:
+
+## Azure Managed Identity Authentication in Node.js/TypeScript
+
+### **1. System-Assigned vs User-Assigned Managed Identity**
+
+**System-Assigned Identity:**
+- ✅ Tied to a single Azure resource lifecycle
+- ✅ Simpler setup (no client ID needed)
+- ✅ Auto-deleted when resource is deleted
+- ❌ Cannot be shared across resources
+- **Use when:** Single resource needs its own unique identity
+
+**User-Assigned Identity:**
+- ✅ Can be shared across multiple resources
+- ✅ Independent lifecycle (survives resource deletion)
+- ✅ Pre-configurable before resource creation
+- ❌ Requires client ID specification
+- **Use when:** Multiple resources need same identity or blue/green deployments
+
+---
+
+### **2. Creating ManagedIdentityCredential**
+
+#### **System-Assigned Identity:**
+```typescript
+import { ManagedIdentityCredential } from &#34;@azure/identity&#34;;
+
+// No parameters needed
+const credential = new ManagedIdentityCredential();
+```
+
+#### **User-Assigned Identity:**
+```typescript
+// Option 1: Using Client ID (most common)
+const credential = new ManagedIdentityCredential({
+  clientId: &#34;12345678-1234-1234-1234-123456789abc&#34;
+});
+
+// Option 2: Using Resource ID
+const credential = new ManagedIdentityCredential({
+  resourceId: &#34;/subscriptions/{sub-id}/resourceGroups/{rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{name}&#34;
+});
+
+// Option 3: From environment variables
+const credential = new ManagedIdentityCredential({
+  clientId: process.env.MANAGED_IDENTITY_CLIENT_ID
+});
+```
+
+---
+
+### **3. Using with Azure SDK Clients**
+
+```typescript
+import { SecretClient } from &#34;@azure/keyvault-secrets&#34;;
+import { BlobServiceClient } from &#34;@azure/storage-blob&#34;;
+import { CosmosClient } from &#34;@azure/cosmos&#34;;
+
+// Key Vault
+const kvClient = new SecretClient(
+  &#34;https://my-vault.vault.azure.net&#34;,
+  credential
+);
+const secret = await kvClient.getSecret(&#34;my-secret&#34;);
+
+// Blob Storage
+const blobClient = new BlobServiceClient(
+  &#34;https://mystorageaccount.blob.core.windows.net&#34;,
+  credential
+);
+
+// Cosmos DB
+const cosmosClient = new CosmosClient({
+  endpoint: &#34;https://mycosmosdb.documents.azure.com:443/&#34;,
+  aadCredentials: credential
+});
+```
+
+---
+
+### **4. Local Development Fallback Strategies**
+
+#### **Strategy 1: DefaultAzureCredential (Recommended)**
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+
+// Auto-fallback: Managed Identity → Azure CLI → Other methods
+const credential = new DefaultAzureCredential({
+  // Optional: Specify client ID for user-assigned identity
+  managedIdentityClientId: process.env.MANAGED_IDENTITY_CLIENT_ID
+});
+
+const client = new SecretClient(vaultUrl, credential);
+```
+
+**Credential chain order:**
+1. Environment variables
+2. Workload Identity (Kubernetes)
+3. **Managed Identity** (in Azure)
+4. **Azure CLI** (local dev)
+5. Azure PowerShell
+6. Azure Developer CLI
+
+#### **Strategy 2: Environment-Based Selection**
+```typescript
+import { ManagedIdentityCredential, AzureCliCredential } from &#34;@azure/identity&#34;;
+
+const isRunningInAzure = 
+  process.env.WEBSITE_INSTANCE_ID ||      // App Service
+  process.env.CONTAINER_APP_NAME ||       // Container Apps
+  process.env.FUNCTIONS_WORKER_RUNTIME;   // Functions
+
+const credential = isRunningInAzure
+  ? new ManagedIdentityCredential({ 
+      clientId: process.env.MANAGED_IDENTITY_CLIENT_ID 
+    })
+  : new AzureCliCredential();
+```
+
+#### **Strategy 3: Configuration Factory**
+```typescript
+function createCredential() {
+  const identityType = process.env.MANAGED_IDENTITY_TYPE || &#34;system-assigned&#34;;
+  
+  if (identityType === &#34;user-assigned&#34;) {
+    const clientId = process.env.MANAGED_IDENTITY_CLIENT_ID;
+    if (!clientId) throw new Error(&#34;MANAGED_IDENTITY_CLIENT_ID required&#34;);
+    return new ManagedIdentityCredential({ clientId });
+  }
+  
+  return new ManagedIdentityCredential();
+}
+```
+
+---
+
+### **5. Common Pitfalls and Error Handling**
+
+#### **Comprehensive Error Handling:**
+```typescript
+async function accessKeyVaultSafely() {
+  try {
+    const credential = new ManagedIdentityCredential();
+    const client = new SecretClient(vaultUrl, credential);
+    const secret = await client.getSecret(&#34;my-secret&#34;);
+    
+    return secret.value;
+  } catch (error: any) {
+    // Timeout - not running on Azure or identity not enabled
+    if (error.code === &#34;ManagedIdentityCredential_Timeout&#34;) {
+      console.error(&#34;❌ Managed identity endpoint not responding&#34;);
+      console.error(&#34;Ensure identity is enabled on your Azure resource&#34;);
+    }
+    
+    // Identity not available
+    else if (error.code === &#34;CredentialUnavailable&#34;) {
+      console.error(&#34;❌ Managed identity not available&#34;);
+      console.error(&#34;Check: Identity enabled? Correct client ID?&#34;);
+    }
+    
+    // Permission denied
+    else if (error.statusCode === 403) {
+      console.error(&#34;❌ Access denied - missing RBAC permissions&#34;);
+      console.error(&#34;Grant &#39;Key Vault Secrets User&#39; role to the identity&#34;);
+    }
+    
+    // Invalid client ID format
+    else if (error.message?.includes(&#34;Invalid client ID&#34;)) {
+      console.error(&#34;❌ Invalid client ID format (must be GUID)&#34;);
+    }
+    
+    else {
+      console.error(&#34;❌ Unexpected error:&#34;, error.message);
+    }
+    
+    throw error;
+  }
+}
+```
+
+#### **Common Pitfalls:**
+
+**❌ Pitfall 1: Identity Not Enabled**
+```bash
+# Enable system-assigned identity
+az webapp identity assign --name &lt;app-name&gt; --resource-group &lt;rg&gt;
+
+# Assign user-assigned identity
+az webapp identity assign \
+  --name &lt;app-name&gt; \
+  --resource-group &lt;rg&gt; \
+  --identities &lt;user-identity-resource-id&gt;
+```
+
+**❌ Pitfall 2: Missing RBAC Permissions**
+```bash
+# Grant Key Vault access
+az role assignment create \
+  --assignee &lt;identity-principal-id&gt; \
+  --role &#34;Key Vault Secrets User&#34; \
+  --scope &lt;key-vault-resource-id&gt;
+```
+
+**❌ Pitfall 3: Wrong Client ID**
+```bash
+# Get correct client ID for user-assigned identity
+az identity show \
+  --name &lt;identity-name&gt; \
+  --resource-group &lt;rg&gt; \
+  --query clientId -o tsv
+```
+
+**❌ Pitfall 4: Not Testing Locally**
+```bash
+# Login with Azure CLI for local development
+az login
+az account set --subscription &lt;subscription-id&gt;
+```
+
+#### **Best Practices:**
+
+**✅ Warm up credentials at startup:**
+```typescript
+async function warmUpCredential(credential: ManagedIdentityCredential) {
+  try {
+    await credential.getToken(&#34;https://management.azure.com/.default&#34;);
+    console.log(&#34;✓ Credential ready&#34;);
+  } catch (error) {
+    console.warn(&#34;⚠ Failed to warm up credential&#34;);
+  }
+}
+```
+
+**✅ Implement retry logic:**
+```typescript
+async function getTokenWithRetry(credential, scope, maxRetries = 3) {
+  for (let attempt = 1; attempt &lt;= maxRetries; attempt&#43;&#43;) {
+    try {
+      return await credential.getToken(scope);
+    } catch (error) {
+      if (error.code === &#34;ManagedIdentityCredential_Timeout&#34; &amp;&amp; attempt &lt; maxRetries) {
+        const delay = Math.pow(2, attempt) * 1000;
+        await new Promise(resolve =&gt; setTimeout(resolve, delay));
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+```
+
+**✅ Test identity availability:**
+```typescript
+async function testManagedIdentity(clientId?: string): Promise&lt;boolean&gt; {
+  try {
+    const credential = clientId 
+      ? new ManagedIdentityCredential({ clientId })
+      : new ManagedIdentityCredential();
+    
+    const token = await credential.getToken(
+      &#34;https://management.azure.com/.default&#34;
+    );
+    
+    console.log(&#34;✓ Identity working, expires:&#34;, new Date(token.expiresOnTimestamp));
+    return true;
+  } catch (error) {
+    console.log(&#34;✗ Identity test failed:&#34;, error.message);
+    return false;
+  }
+}
+```
+
+This covers the complete workflow for using Managed Identity in Node.js with TypeScript!</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>11.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">13 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (13 actions, 6 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>13</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>6</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>2</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">1</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">5</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id identity-dp-js-ts-managed-identity --config azure-mcp/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

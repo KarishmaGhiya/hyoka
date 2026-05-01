@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: key-vault-dp-js-ts-crud / baseline-skills/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 key-vault-dp-js-ts-crud</h1>
+  <div class="subtitle">Config: <strong>baseline-skills/claude-sonnet-4.5</strong> · 2026-04-30T23:25:39Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item" style="color:#6b7280">Generator made 5 file-write attempts but no files appeared in the workspace — files may have been written to the wrong location</span>
+  <span class="meta-item">Duration: <strong>59.1s</strong></span>
+  <span class="meta-item">Files: <strong>0</strong></span>
+  <span class="meta-item">Tool Calls: <strong>7</strong></span>
+  
+</div>
+
+
+<div class="error-box">
+  <h3>❌ Error</h3>
+  <p>0 files generated despite 5 file-write tool attempts</p>
+  
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer create, read, update, and delete secrets in Azure Key Vault using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>basic</td></tr>
+      <tr><td>Service</td><td>key-vault</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>crud</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/keyvault-secrets</code></td></tr>
+      <tr><td>Tags</td><td>secrets, crud, getting-started</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=38681 out=4537</td></tr>
+    <tr><td>Turn Count</td><td>2</td></tr>
+    
+    <tr><td>Generation Duration</td><td>59.0s</td></tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a Node.js script
+(TypeScript preferred) that performs all four CRUD operations on Azure Key Vault secrets:
+1. Create a new secret called &#34;my-secret&#34; with value &#34;my-secret-value&#34;
+2. Read the secret back and print its value
+3. Update the secret to a new value &#34;updated-value&#34;
+4. Delete the secret and purge it (soft-delete enabled vault)
+
+Use DefaultAzureCredential for authentication. Show required npm packages
+and include proper error handling with try/catch.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a TypeScript script that performs all CRUD operations on Azure Key Vault secrets with proper error handling.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants a Node.js TypeScript script that performs CRUD operations on Azur…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants a Node.js TypeScript script that performs CRUD operations on Azure Key Vault secrets. I need to:
+
+1. Create a TypeScript file with the CRUD operations
+2. Show the required npm packages
+3. Include proper error handling
+4. Use DefaultAzureCredential for authentication
+
+Let me create a comprehensive script that demonstrates all four operations:
+- Create a secret
+- Read a secret
+- Update a secret
+- Delete and purge a secret
+
+I&#39;ll also create a package.json or at least document the dependencies needed.
+
+Let me start by creating the TypeScript file and a package.json file.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure Key Vault CRUD script&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-keyvault-crud\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Key Vault CRUD operations example\&#34;,\n  \&#34;main\&#34;: \&#34;index.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node src/index.ts\&#34;\n  },\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/keyvault-secrets\&#34;: \&#34;^4.8.0\&#34;,\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.1\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.11.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.3.3\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.2\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-key-vault-dp-js-ts-crud-baseline-skills-claude-sonnet-4.5-2555907606\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-key-vault-dp-js-ts-crud-baseline-skills-claude-sonnet-4.5-2555907606\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -Path \&#34;src\&#34; -ItemType Directory -Force | Out-Null&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\n\n/**\n * Azure Key Vault CRUD Operations Demo\n * \n * Prerequisites:\n * - Set AZURE_KEY_VAULT_NAME environment variable to your Key Vault name\n * - Ensure you&#39;re authenticated via Azure CLI, Managed Identity, or environment variables\n * - Your identity needs Key Vault permissions: Get, List, Set, Delete, Purge\n */\n\nasync function main() {\n  // Get Key Vault name from environment variable\n  const keyVaultName = process.env.AZURE_KEY_VAULT_NAME;\n  \n  if (!keyVaultName) {\n    throw new Error(\&#34;AZURE_KEY_VAULT_NAME environment variable is not set\&#34;);\n  }\n\n  const keyVaultUrl = `https://${keyVaultName}.vault.azure.net`;\n  \n  console.log(`Connecting to Key Vault: ${keyVaultUrl}`);\n  console.log(\&#34;Using DefaultAzureCredential for authentication\\n\&#34;);\n\n  // Initialize the SecretClient with DefaultAzureCredential\n  const credential = new DefaultAzureCredential();\n  const client = new SecretClient(keyVaultUrl, credential);\n\n  const secretName = \&#34;my-secret\&#34;;\n\n  try {\n    // ========================================\n    // 1. CREATE - Set a new secret\n    // ========================================\n    console.log(\&#34;1. CREATE Operation\&#34;);\n    console.log(\&#34;-------------------\&#34;);\n    \n    const createResult = await client.setSecret(secretName, \&#34;my-secret-value\&#34;);\n    console.log(`✓ Created secret: ${createResult.name}`);\n    console.log(`  Value: ${createResult.value}`);\n    console.log(`  Version: ${createResult.properties.version}`);\n    console.log(`  Created: ${createResult.properties.createdOn}\\n`);\n\n    // ========================================\n    // 2. READ - Get the secret\n    // ========================================\n    console.log(\&#34;2. READ Operation\&#34;);\n    console.log(\&#34;-----------------\&#34;);\n    \n    const readResult = await client.getSecret(secretName);\n    console.log(`✓ Retrieved secret: ${readResult.name}`);\n    console.log(`  Value: ${readResult.value}`);\n    console.log(`  Version: ${readResult.properties.version}`);\n    console.log(`  Updated: ${readResult.properties.updatedOn}\\n`);\n\n    // ========================================\n    // 3. UPDATE - Update the secret value\n    // ========================================\n    console.log(\&#34;3. UPDATE Operation\&#34;);\n    console.log(\&#34;-------------------\&#34;);\n    \n    const updateResult = await client.setSecret(secretName, \&#34;updated-value\&#34;);\n    console.log(`✓ Updated secret: ${updateResult.name}`);\n    console.log(`  New Value: ${updateResult.value}`);\n    console.log(`  New Version: ${updateResult.properties.version}`);\n    console.log(`  Updated: ${updateResult.properties.updatedOn}\\n`);\n\n    // Verify the update by reading again\n    const verifyResult = await client.getSecret(secretName);\n    console.log(`✓ Verified updated value: ${verifyResult.value}\\n`);\n\n    // ========================================\n    // 4. DELETE - Delete and purge the secret\n    // ========================================\n    console.log(\&#34;4. DELETE Operation\&#34;);\n    console.log(\&#34;-------------------\&#34;);\n    \n    // Start the delete operation\n    const deletePoller = await client.beginDeleteSecret(secretName);\n    console.log(`✓ Started deletion of secret: ${secretName}`);\n    \n    // Wait for the deletion to complete\n    const deletedSecret = await deletePoller.pollUntilDone();\n    console.log(`✓ Secret deleted: ${deletedSecret.name}`);\n    console.log(`  Deleted on: ${deletedSecret.properties.deletedOn}`);\n    console.log(`  Scheduled purge date: ${deletedSecret.properties.scheduledPurgeDate}\\n`);\n\n    // Purge the deleted secret (permanently removes it)\n    console.log(\&#34;Purging deleted secret...\&#34;);\n    await client.purgeDeletedSecret(secretName);\n    console.log(`✓ Secret purged permanently: ${secretName}\\n`);\n\n    console.log(\&#34;========================================\&#34;);\n    console.log(\&#34;All CRUD operations completed successfully!\&#34;);\n    console.log(\&#34;========================================\&#34;);\n\n  } catch (error) {\n    console.error(\&#34;\\n❌ Error occurred during Key Vault operations:\&#34;);\n    \n    if (error instanceof Error) {\n      console.error(`Error: ${error.message}`);\n      \n      // Handle specific Azure SDK errors\n      if (&#39;statusCode&#39; in error) {\n        const azureError = error as any;\n        console.error(`Status Code: ${azureError.statusCode}`);\n        \n        if (azureError.statusCode === 401) {\n          console.error(\&#34;\\nAuthentication failed. Please ensure:\&#34;);\n          console.error(\&#34;- You&#39;re logged in via Azure CLI: az login\&#34;);\n          console.error(\&#34;- Or set AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET\&#34;);\n          console.error(\&#34;- Your identity has the required Key Vault permissions\&#34;);\n        } else if (azureError.statusCode === 403) {\n          console.error(\&#34;\\nAuthorization failed. Please ensure:\&#34;);\n          console.error(\&#34;- Your identity has Key Vault access policy permissions:\&#34;);\n          console.error(\&#34;  Get, List, Set, Delete, and Purge secrets\&#34;);\n          console.error(\&#34;- Or has the appropriate RBAC role (Key Vault Secrets Officer)\&#34;);\n        } else if (azureError.statusCode === 404) {\n          console.error(\&#34;\\nKey Vault not found. Please ensure:\&#34;);\n          console.error(\&#34;- AZURE_KEY_VAULT_NAME is set correctly\&#34;);\n          console.error(\&#34;- The Key Vault exists and is accessible\&#34;);\n        }\n      }\n      \n      console.error(`\\nStack trace:\\n${error.stack}`);\n    } else {\n      console.error(\&#34;Unknown error:\&#34;, error);\n    }\n    \n    process.exit(1);\n  }\n}\n\n// Run the main function\nmain().catch((error) =\u003e {\n  console.error(\&#34;Unhandled error in main:\&#34;, error);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-key-vault-dp-js-ts-crud-baseline-skills-claude-sonnet-4.5-2555907606\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Key Vault CRUD Operations (TypeScript)\n\nThis project demonstrates all four CRUD operations on Azure Key Vault secrets using Node.js and TypeScript.\n\n## Prerequisites\n\n1. **Azure Key Vault**: You need an existing Key Vault with soft-delete enabled\n2. **Authentication**: One of the following:\n   - Azure CLI: `az login`\n   - Managed Identity (when running in Azure)\n   - Service Principal (set environment variables)\n3. **Permissions**: Your identity needs Key Vault access with:\n   - Get, List, Set, Delete, Purge secrets permissions (Access Policy)\n   - OR \&#34;Key Vault Secrets Officer\&#34; role (RBAC)\n\n## Installation\n\n```bash\nnpm install\n```\n\n## Required Packages\n\n- `@azure/keyvault-secrets` (^4.8.0) - Azure Key Vault Secrets client library\n- `@azure/identity` (^4.0.1) - Azure authentication with DefaultAzureCredential\n\n## Configuration\n\nSet the Key Vault name as an environment variable:\n\n```bash\n# Windows (PowerShell)\n$env:AZURE_KEY_VAULT_NAME=\&#34;your-keyvault-name\&#34;\n\n# Windows (CMD)\nset AZURE_KEY_VAULT_NAME=your-keyvault-name\n\n# Linux/macOS\nexport AZURE_KEY_VAULT_NAME=\&#34;your-keyvault-name\&#34;\n```\n\n## Usage\n\n### Run with ts-node (development)\n\n```bash\nnpm run dev\n```\n\n### Build and run (production)\n\n```bash\nnpm run build\nnpm start\n```\n\n## What the Script Does\n\n1. **CREATE**: Creates a new secret named \&#34;my-secret\&#34; with value \&#34;my-secret-value\&#34;\n2. **READ**: Retrieves the secret and prints its value\n3. **UPDATE**: Updates the secret to a new value \&#34;updated-value\&#34;\n4. **DELETE**: Deletes the secret (soft-delete) and purges it permanently\n\n## Authentication Methods (DefaultAzureCredential)\n\nDefaultAzureCredential tries multiple authentication methods in order:\n\n1. **Environment Variables**: `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`\n2. **Managed Identity**: Available when running in Azure (App Service, VM, etc.)\n3. **Azure CLI**: Use `az login` for local development\n4. **Azure PowerShell**: If authenticated via PowerShell\n5. **Interactive Browser**: Falls back to browser-based login\n\n## Error Handling\n\nThe script includes comprehensive error handling for:\n- Missing environment variables\n- Authentication failures (401)\n- Authorization/permission issues (403)\n- Key Vault not found (404)\n- General Azure SDK errors\n\n## Granting Permissions\n\n### Using Access Policies (Classic)\n\n```bash\naz keyvault set-policy --name your-keyvault-name \\\n  --object-id \u003cyour-user-or-sp-object-id\u003e \\\n  --secret-permissions get list set delete purge\n```\n\n### Using RBAC\n\n```bash\naz role assignment create \\\n  --role \&#34;Key Vault Secrets Officer\&#34; \\\n  --assignee \u003cyour-email-or-sp-app-id\u003e \\\n  --scope /subscriptions/\u003csubscription-id\u003e/resourceGroups/\u003crg-name\u003e/providers/Microsoft.KeyVault/vaults/\u003cvault-name\u003e\n```\n\n## Notes\n\n- The Key Vault must have **soft-delete enabled** for the purge operation to work\n- Purging a secret permanently removes it and cannot be undone\n- Each secret update creates a new version (previous versions are retained)\n- The script uses long-running operations (LRO) for delete operations with polling\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-key-vault-dp-js-ts-crud-baseline-skills-claude-sonnet-4.5-2555907606\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;node_modules/\ndist/\n*.log\n.env\n.DS_Store\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-key-vault-dp-js-ts-crud-baseline-skills-claude-sonnet-4.5-2555907606\\.gitignore&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>11.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I see there are permission issues with the current directory. Let me display the complete TypeScript script and package requirements directly:
+
+## Azure Key Vault CRUD Script (TypeScript)
+
+### Required npm packages:
+
+```json
+{
+  &#34;dependencies&#34;: {
+    &#34;@azure/keyvault-secrets&#34;: &#34;^4.8.0&#34;,
+    &#34;@azure/identity&#34;: &#34;^4.0.1&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.11.0&#34;,
+    &#34;typescript&#34;: &#34;^5.3.3&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.2&#34;
+  }
+}
+```
+
+### TypeScript Script (`index.ts`):
+
+```typescript
+import { SecretClient } from &#34;@azure/keyvault-secrets&#34;;
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+
+async function main() {
+  // Get Key Vault name from environment variable
+  const keyVaultName = process.env.AZURE_KEY_VAULT_NAME;
+  
+  if (!keyVaultName) {
+    throw new Error(&#34;AZURE_KEY_VAULT_NAME environment variable is not set&#34;);
+  }
+
+  const keyVaultUrl = `https://${keyVaultName}.vault.azure.net`;
+  console.log(`Connecting to Key Vault: ${keyVaultUrl}\n`);
+
+  // Initialize the SecretClient with DefaultAzureCredential
+  const credential = new DefaultAzureCredential();
+  const client = new SecretClient(keyVaultUrl, credential);
+  const secretName = &#34;my-secret&#34;;
+
+  try {
+    // 1. CREATE - Set a new secret
+    console.log(&#34;1. CREATE Operation&#34;);
+    const createResult = await client.setSecret(secretName, &#34;my-secret-value&#34;);
+    console.log(`✓ Created: ${createResult.name} = ${createResult.value}\n`);
+
+    // 2. READ - Get the secret
+    console.log(&#34;2. READ Operation&#34;);
+    const readResult = await client.getSecret(secretName);
+    console.log(`✓ Retrieved: ${readResult.name} = ${readResult.value}\n`);
+
+    // 3. UPDATE - Update the secret value
+    console.log(&#34;3. UPDATE Operation&#34;);
+    const updateResult = await client.setSecret(secretName, &#34;updated-value&#34;);
+    console.log(`✓ Updated: ${updateResult.name} = ${updateResult.value}\n`);
+
+    // 4. DELETE - Delete and purge the secret
+    console.log(&#34;4. DELETE Operation&#34;);
+    const deletePoller = await client.beginDeleteSecret(secretName);
+    const deletedSecret = await deletePoller.pollUntilDone();
+    console.log(`✓ Deleted: ${deletedSecret.name}`);
+    
+    await client.purgeDeletedSecret(secretName);
+    console.log(`✓ Purged permanently\n`);
+
+    console.log(&#34;All CRUD operations completed successfully!&#34;);
+
+  } catch (error) {
+    console.error(&#34;Error:&#34;, error instanceof Error ? error.message : error);
+    if (&#39;statusCode&#39; in (error as any)) {
+      const statusCode = (error as any).statusCode;
+      if (statusCode === 401) console.error(&#34;Authentication failed - run &#39;az login&#39;&#34;);
+      if (statusCode === 403) console.error(&#34;Permission denied - need Key Vault access&#34;);
+    }
+    process.exit(1);
+  }
+}
+
+main().catch(console.error);
+```
+
+### Setup:
+1. **Install**: `npm install @azure/keyvault-secrets @azure/identity`
+2. **Set env**: `$env:AZURE_KEY_VAULT_NAME=&#34;your-vault-name&#34;`
+3. **Auth**: `az login`
+4. **Run**: `ts-node index.ts`
+
+The script performs all 4 CRUD operations with DefaultAzureCredential authentication and comprehensive error handling for common Azure issues (401, 403, 404).</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>12.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">14 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (14 actions, 7 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>14</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>7</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>2</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">1</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">6</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id key-vault-dp-js-ts-crud --config baseline-skills/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

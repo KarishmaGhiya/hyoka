@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: identity-dp-js-ts-default-credential / baseline/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 identity-dp-js-ts-default-credential</h1>
+  <div class="subtitle">Config: <strong>baseline/claude-sonnet-4.5</strong> · 2026-04-30T23:21:19Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item" style="color:#6b7280">Generator made 3 file-write attempts but no files appeared in the workspace — files may have been written to the wrong location</span>
+  <span class="meta-item">Duration: <strong>98.0s</strong></span>
+  <span class="meta-item">Files: <strong>0</strong></span>
+  <span class="meta-item">Tool Calls: <strong>4</strong></span>
+  
+</div>
+
+
+<div class="error-box">
+  <h3>❌ Error</h3>
+  <p>0 files generated despite 3 file-write tool attempts</p>
+  
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer set up DefaultAzureCredential for Azure SDK clients using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>basic</td></tr>
+      <tr><td>Service</td><td>identity</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>auth</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/identity</code></td></tr>
+      <tr><td>Tags</td><td>authentication, default-azure-credential, getting-started</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=44665 out=7331</td></tr>
+    <tr><td>Turn Count</td><td>2</td></tr>
+    
+    <tr><td>Generation Duration</td><td>97.9s</td></tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>3</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Show me how to
+authenticate an Azure SDK client using DefaultAzureCredential. Explain:
+1. What npm packages are needed
+2. How to create and use a DefaultAzureCredential instance
+3. The credential chain order and which credentials are tried
+4. How it works in local dev (VS Code, Azure CLI) vs Azure-hosted environments
+5. How to troubleshoot authentication failures
+
+Provide a complete TypeScript example that creates a SecretClient using
+DefaultAzureCredential.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a comprehensive TypeScript example demonstrating Azure DefaultAzureCredential authentication with detailed explanations.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user is asking for a detailed explanation and example of how to use DefaultA…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user is asking for a detailed explanation and example of how to use DefaultAzureCredential from Azure SDK for JavaScript/TypeScript. This is a documentation/tutorial request rather than a code modification task, so I should provide a comprehensive explanation with code examples.
+
+Let me break down what they&#39;re asking for:
+1. Required npm packages
+2. How to create and use DefaultAzureCredential
+3. The credential chain order
+4. Local dev vs Azure-hosted environments
+5. Troubleshooting tips
+6. A complete TypeScript example with SecretClient
+
+I should create a comprehensive example file that demonstrates this. I&#39;ll create a TypeScript file with detailed comments and explanations.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure authentication example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;/**\n * Azure DefaultAzureCredential Authentication Example\n * \n * This example demonstrates how to authenticate Azure SDK clients using DefaultAzureCredential,\n * which provides a simplified authentication experience across different environments.\n */\n\n// ============================================================================\n// 1. REQUIRED NPM PACKAGES\n// ============================================================================\n// Install these packages:\n// npm install @azure/identity @azure/keyvault-secrets\n\nimport { DefaultAzureCredential, ChainedTokenCredential } from &#39;@azure/identity&#39;;\nimport { SecretClient } from &#39;@azure/keyvault-secrets&#39;;\n\n// ============================================================================\n// 2. CREATING AND USING DefaultAzureCredential\n// ============================================================================\n\n/**\n * Basic usage: Create a DefaultAzureCredential instance and use it with any Azure SDK client\n */\nasync function basicExample() {\n  // Step 1: Create the credential\n  const credential = new DefaultAzureCredential();\n\n  // Step 2: Use it with an Azure SDK client (SecretClient example)\n  const keyVaultUrl = \&#34;https://your-keyvault-name.vault.azure.net\&#34;;\n  const client = new SecretClient(keyVaultUrl, credential);\n\n  // Step 3: Make API calls - authentication happens automatically\n  try {\n    const secret = await client.getSecret(\&#34;my-secret-name\&#34;);\n    console.log(`Secret value: ${secret.value}`);\n  } catch (error) {\n    console.error(\&#34;Error retrieving secret:\&#34;, error);\n  }\n}\n\n// ============================================================================\n// 3. CREDENTIAL CHAIN ORDER\n// ============================================================================\n/**\n * DefaultAzureCredential attempts credentials in this order:\n * \n * 1. EnvironmentCredential\n *    - Checks for environment variables:\n *      AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET (Service Principal)\n *      or AZURE_CLIENT_ID, AZURE_CLIENT_CERTIFICATE_PATH (Certificate-based)\n *      or AZURE_CLIENT_ID, AZURE_USERNAME, AZURE_PASSWORD (Username/Password)\n * \n * 2. WorkloadIdentityCredential\n *    - For Azure Kubernetes Service (AKS) workload identity\n *    - Checks AZURE_FEDERATED_TOKEN_FILE, AZURE_TENANT_ID, AZURE_CLIENT_ID\n * \n * 3. ManagedIdentityCredential\n *    - For Azure-hosted resources (VMs, App Service, Functions, AKS, etc.)\n *    - Uses system-assigned or user-assigned managed identity\n *    - No credentials needed - automatically available in Azure\n * \n * 4. AzureCliCredential\n *    - Uses the Azure CLI&#39;s logged-in account\n *    - Run: az login\n *    - Requires Azure CLI installed\n * \n * 5. AzurePowerShellCredential\n *    - Uses Azure PowerShell&#39;s logged-in account\n *    - Run: Connect-AzAccount\n *    - Requires Azure PowerShell module installed\n * \n * 6. AzureDeveloperCliCredential\n *    - Uses Azure Developer CLI&#39;s logged-in account\n *    - Run: azd auth login\n *    - Requires Azure Developer CLI installed\n * \n * The first credential that succeeds is used. If all fail, an error is thrown.\n */\n\n// ============================================================================\n// 4. LOCAL DEV vs AZURE-HOSTED ENVIRONMENTS\n// ============================================================================\n\n/**\n * LOCAL DEVELOPMENT (VS Code, Local Machine):\n * - Most commonly uses AzureCliCredential\n * - Developers run: az login\n * - Or use Visual Studio Code Azure Account extension\n * - Or set environment variables for Service Principal\n * \n * AZURE-HOSTED ENVIRONMENTS (App Service, Functions, VMs, AKS):\n * - Most commonly uses ManagedIdentityCredential\n * - Enable Managed Identity in Azure portal\n * - No code changes needed - same DefaultAzureCredential works\n * - No secrets to manage or rotate\n * \n * CI/CD PIPELINES (GitHub Actions, Azure DevOps):\n * - Typically uses EnvironmentCredential with Service Principal\n * - Set secrets in pipeline configuration\n * - Or use Workload Identity Federation (recommended, no secrets)\n */\n\nasync function environmentAwareExample() {\n  const credential = new DefaultAzureCredential();\n\n  // You can optionally configure logging to see which credential is used\n  const credentialWithLogging = new DefaultAzureCredential({\n    loggingOptions: {\n      logLevel: &#39;info&#39;\n    }\n  });\n\n  // The same code works everywhere - no environment detection needed!\n  const keyVaultUrl = process.env.KEY_VAULT_URL || \&#34;https://your-keyvault-name.vault.azure.net\&#34;;\n  const client = new SecretClient(keyVaultUrl, credential);\n\n  return client;\n}\n\n// ============================================================================\n// 5. TROUBLESHOOTING AUTHENTICATION FAILURES\n// ============================================================================\n\n/**\n * Enable detailed logging to diagnose authentication issues\n */\nasync function troubleshootingExample() {\n  // Enable logging to see which credentials are attempted\n  const credential = new DefaultAzureCredential({\n    loggingOptions: {\n      logLevel: &#39;verbose&#39;, // or &#39;info&#39;, &#39;warning&#39;, &#39;error&#39;\n      allowLoggingAccountIdentifiers: true\n    }\n  });\n\n  try {\n    const keyVaultUrl = \&#34;https://your-keyvault-name.vault.azure.net\&#34;;\n    const client = new SecretClient(keyVaultUrl, credential);\n    const secret = await client.getSecret(\&#34;test-secret\&#34;);\n    console.log(\&#34;Authentication successful!\&#34;);\n  } catch (error: any) {\n    console.error(\&#34;Authentication failed!\&#34;);\n    console.error(\&#34;Error name:\&#34;, error.name);\n    console.error(\&#34;Error message:\&#34;, error.message);\n    console.error(\&#34;Error code:\&#34;, error.code);\n    \n    // Common error codes:\n    // - CredentialUnavailableError: No credentials in the chain succeeded\n    // - ENOENT: Azure CLI not installed or not logged in\n    // - AADSTS*: Azure AD authentication errors\n    \n    console.error(\&#34;\\nTroubleshooting steps:\&#34;);\n    console.error(\&#34;1. For local dev: Run &#39;az login&#39; to authenticate with Azure CLI\&#34;);\n    console.error(\&#34;2. For Azure-hosted: Enable Managed Identity on your resource\&#34;);\n    console.error(\&#34;3. Check environment variables (AZURE_TENANT_ID, AZURE_CLIENT_ID, etc.)\&#34;);\n    console.error(\&#34;4. Verify resource permissions (RBAC roles assigned)\&#34;);\n    console.error(\&#34;5. Check firewall rules on target resource (Key Vault, Storage, etc.)\&#34;);\n  }\n}\n\n/**\n * Common troubleshooting checklist:\n * \n * LOCAL DEVELOPMENT:\n * ✓ Is Azure CLI installed? (az --version)\n * ✓ Are you logged in? (az login)\n * ✓ Is the correct subscription set? (az account show)\n * ✓ Do you have permissions on the resource? (check Azure RBAC)\n * \n * AZURE-HOSTED:\n * ✓ Is Managed Identity enabled on the resource?\n * ✓ Does the Managed Identity have the right RBAC role?\n * ✓ Is the Key Vault URL correct?\n * ✓ Are there network restrictions (firewall, private endpoints)?\n * \n * ENVIRONMENT VARIABLES:\n * ✓ Are all required variables set? (AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET)\n * ✓ Are the values correct? (no extra spaces, quotes, etc.)\n * ✓ Is the Service Principal valid and has permissions?\n */\n\n// ============================================================================\n// ADVANCED: CUSTOMIZING THE CREDENTIAL CHAIN\n// ============================================================================\n\n/**\n * You can customize which credentials to try and in what order\n */\nasync function customChainExample() {\n  // Option 1: Exclude certain credentials\n  const credential = new DefaultAzureCredential({\n    excludeEnvironmentCredential: false,\n    excludeManagedIdentityCredential: false,\n    excludeAzureCliCredential: false,\n    excludeAzurePowerShellCredential: true, // Skip PowerShell\n    excludeAzureDeveloperCliCredential: true, // Skip azd\n    excludeWorkloadIdentityCredential: false\n  });\n\n  // Option 2: Specify managed identity client ID (for user-assigned identity)\n  const userAssignedCredential = new DefaultAzureCredential({\n    managedIdentityClientId: \&#34;your-user-assigned-identity-client-id\&#34;\n  });\n\n  // Option 3: Set timeout for each credential attempt\n  const fastFailCredential = new DefaultAzureCredential({\n    authorityHost: \&#34;https://login.microsoftonline.com\&#34;,\n    // Each credential in the chain will timeout faster\n  });\n\n  return credential;\n}\n\n// ============================================================================\n// COMPLETE WORKING EXAMPLE\n// ============================================================================\n\n/**\n * Complete example: Retrieve a secret from Azure Key Vault\n */\nasync function completeExample() {\n  console.log(\&#34;=== Azure DefaultAzureCredential Example ===\\n\&#34;);\n\n  // 1. Create credential (works in all environments)\n  console.log(\&#34;Creating DefaultAzureCredential...\&#34;);\n  const credential = new DefaultAzureCredential({\n    loggingOptions: {\n      logLevel: &#39;info&#39;\n    }\n  });\n\n  // 2. Configure Key Vault client\n  const keyVaultUrl = process.env.KEY_VAULT_URL;\n  if (!keyVaultUrl) {\n    throw new Error(\&#34;KEY_VAULT_URL environment variable not set\&#34;);\n  }\n\n  console.log(`Connecting to Key Vault: ${keyVaultUrl}`);\n  const secretClient = new SecretClient(keyVaultUrl, credential);\n\n  // 3. Retrieve a secret\n  const secretName = \&#34;my-secret\&#34;;\n  try {\n    console.log(`Retrieving secret: ${secretName}`);\n    const secret = await secretClient.getSecret(secretName);\n    console.log(`✓ Secret retrieved successfully`);\n    console.log(`  Name: ${secret.name}`);\n    console.log(`  Value: ${secret.value?.substring(0, 10)}...`); // Show first 10 chars\n    console.log(`  Enabled: ${secret.properties.enabled}`);\n    console.log(`  Created: ${secret.properties.createdOn}`);\n  } catch (error: any) {\n    console.error(`✗ Failed to retrieve secret: ${error.message}`);\n    throw error;\n  }\n\n  // 4. List all secrets\n  console.log(\&#34;\\nListing all secrets...\&#34;);\n  try {\n    let count = 0;\n    for await (const secretProperties of secretClient.listPropertiesOfSecrets()) {\n      count&#43;&#43;;\n      console.log(`  - ${secretProperties.name}`);\n    }\n    console.log(`✓ Found ${count} secrets`);\n  } catch (error: any) {\n    console.error(`✗ Failed to list secrets: ${error.message}`);\n  }\n}\n\n// ============================================================================\n// USAGE INSTRUCTIONS\n// ============================================================================\n\n/**\n * TO RUN THIS EXAMPLE:\n * \n * 1. Install dependencies:\n *    npm install @azure/identity @azure/keyvault-secrets typescript ts-node @types/node\n * \n * 2. FOR LOCAL DEVELOPMENT:\n *    a. Install Azure CLI: https://docs.microsoft.com/cli/azure/install-azure-cli\n *    b. Login: az login\n *    c. Set environment variable: export KEY_VAULT_URL=\&#34;https://your-keyvault.vault.azure.net\&#34;\n *    d. Grant yourself permissions:\n *       az keyvault set-policy --name your-keyvault --upn your@email.com --secret-permissions get list\n * \n * 3. FOR AZURE-HOSTED (App Service, Functions, etc.):\n *    a. Enable Managed Identity in Azure portal\n *    b. Grant the Managed Identity permissions on Key Vault:\n *       az keyvault set-policy --name your-keyvault --object-id \u003cmanaged-identity-object-id\u003e --secret-permissions get list\n *    c. Set application setting: KEY_VAULT_URL=\&#34;https://your-keyvault.vault.azure.net\&#34;\n * \n * 4. FOR CI/CD (Service Principal):\n *    a. Create Service Principal: az ad sp create-for-rbac --name my-app\n *    b. Set environment variables (in GitHub Secrets, Azure DevOps, etc.):\n *       AZURE_TENANT_ID=\&#34;...\&#34;\n *       AZURE_CLIENT_ID=\&#34;...\&#34;\n *       AZURE_CLIENT_SECRET=\&#34;...\&#34;\n *       KEY_VAULT_URL=\&#34;https://your-keyvault.vault.azure.net\&#34;\n *    c. Grant the Service Principal permissions on Key Vault\n * \n * 5. Run:\n *    npx ts-node azure-default-credential-example.ts\n */\n\n// Run the example if this file is executed directly\nif (require.main === module) {\n  completeExample()\n    .then(() =\u003e {\n      console.log(\&#34;\\n✓ Example completed successfully\&#34;);\n      process.exit(0);\n    })\n    .catch((error) =\u003e {\n      console.error(\&#34;\\n✗ Example failed:\&#34;, error.message);\n      process.exit(1);\n    });\n}\n\nexport {\n  basicExample,\n  environmentAwareExample,\n  troubleshootingExample,\n  customChainExample,\n  completeExample\n};\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-baseline-claude-sonnet-4.5-1066904991\\azure-default-credential-example.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-default-credential-example\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Example demonstrating Azure DefaultAzureCredential authentication\&#34;,\n  \&#34;main\&#34;: \&#34;azure-default-credential-example.ts\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;start\&#34;: \&#34;ts-node azure-default-credential-example.ts\&#34;,\n    \&#34;build\&#34;: \&#34;tsc\&#34;\n  },\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;,\n    \&#34;@azure/keyvault-secrets\&#34;: \&#34;^4.8.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.0.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.0.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-baseline-claude-sonnet-4.5-1066904991\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure DefaultAzureCredential Authentication Guide\n\nThis example demonstrates how to authenticate Azure SDK clients using `DefaultAzureCredential`, which provides a simplified and unified authentication experience across different environments.\n\n## 📦 Required NPM Packages\n\n```bash\nnpm install @azure/identity @azure/keyvault-secrets\n```\n\n- **@azure/identity**: Core authentication library containing DefaultAzureCredential\n- **@azure/keyvault-secrets**: Example SDK client (can be replaced with any Azure SDK)\n\n## 🔑 What is DefaultAzureCredential?\n\n`DefaultAzureCredential` is a smart credential chain that automatically tries multiple authentication methods in sequence, making your code work seamlessly across:\n- Local development environments\n- Azure-hosted services\n- CI/CD pipelines\n\n**Key benefit**: Write once, authenticate anywhere - no environment-specific code needed!\n\n## 🔗 Credential Chain Order\n\nDefaultAzureCredential tries credentials in this order (stops at first success):\n\n1. **EnvironmentCredential** - Service Principal from environment variables\n2. **WorkloadIdentityCredential** - Azure Kubernetes workload identity\n3. **ManagedIdentityCredential** - Azure-hosted resources (VMs, App Service, Functions)\n4. **AzureCliCredential** - Azure CLI logged-in account (`az login`)\n5. **AzurePowerShellCredential** - Azure PowerShell logged-in account\n6. **AzureDeveloperCliCredential** - Azure Developer CLI logged-in account\n\n## 🖥️ Local Development vs Azure-Hosted\n\n### Local Development (VS Code, Terminal)\n**Most common**: Azure CLI authentication\n```bash\n# Login once\naz login\n\n# Your code automatically uses this account\n```\n\n**How it works**:\n- `DefaultAzureCredential` detects Azure CLI is installed and logged in\n- Uses your personal Azure account credentials\n- No secrets in code or config files\n- Perfect for development and testing\n\n### Azure-Hosted Environments (Production)\n**Most common**: Managed Identity\n```bash\n# Enable in Azure Portal or CLI\naz webapp identity assign --name myapp --resource-group mygroup\n```\n\n**How it works**:\n- `DefaultAzureCredential` automatically detects Managed Identity\n- Azure provides credentials internally (no secrets needed)\n- Secure and automatically rotated\n- Best practice for production\n\n### CI/CD Pipelines\n**Most common**: Service Principal with environment variables\n```bash\n# Set in GitHub Secrets, Azure DevOps Variables, etc.\nAZURE_TENANT_ID=your-tenant-id\nAZURE_CLIENT_ID=your-client-id\nAZURE_CLIENT_SECRET=your-client-secret\n```\n\n**Modern alternative**: Workload Identity Federation (no secrets!)\n\n## 🚀 Quick Start Example\n\n```typescript\nimport { DefaultAzureCredential } from &#39;@azure/identity&#39;;\nimport { SecretClient } from &#39;@azure/keyvault-secrets&#39;;\n\n// 1. Create credential (works everywhere)\nconst credential = new DefaultAzureCredential();\n\n// 2. Use with any Azure SDK client\nconst keyVaultUrl = \&#34;https://your-keyvault.vault.azure.net\&#34;;\nconst client = new SecretClient(keyVaultUrl, credential);\n\n// 3. Make API calls - authentication is automatic!\nconst secret = await client.getSecret(\&#34;my-secret\&#34;);\nconsole.log(secret.value);\n```\n\n## 🔧 Troubleshooting Authentication Failures\n\n### Enable Detailed Logging\n```typescript\nconst credential = new DefaultAzureCredential({\n  loggingOptions: {\n    logLevel: &#39;verbose&#39;,\n    allowLoggingAccountIdentifiers: true\n  }\n});\n```\n\n### Common Issues and Solutions\n\n#### Local Development\n| Issue | Solution |\n|-------|----------|\n| \&#34;CredentialUnavailableError\&#34; | Run `az login` to authenticate |\n| \&#34;Azure CLI not found\&#34; | Install Azure CLI: https://aka.ms/install-azure-cli |\n| \&#34;Access denied\&#34; | Check RBAC permissions on the resource |\n| \&#34;Wrong subscription\&#34; | Run `az account set --subscription \u003cid\u003e` |\n\n#### Azure-Hosted\n| Issue | Solution |\n|-------|----------|\n| \&#34;ManagedIdentity not available\&#34; | Enable Managed Identity in Azure Portal |\n| \&#34;Access denied\&#34; | Grant Managed Identity appropriate RBAC role |\n| \&#34;Connection timeout\&#34; | Check firewall rules and private endpoints |\n\n#### Service Principal (CI/CD)\n| Issue | Solution |\n|-------|----------|\n| \&#34;Invalid client secret\&#34; | Verify AZURE_CLIENT_SECRET is correct |\n| \&#34;Missing environment variables\&#34; | Set all three: TENANT_ID, CLIENT_ID, CLIENT_SECRET |\n| \&#34;Client secret expired\&#34; | Rotate secret in Azure AD and update pipeline |\n\n### Debug Checklist\n```bash\n# ✓ Check Azure CLI\naz --version\naz account show\n\n# ✓ Check environment variables\necho $AZURE_TENANT_ID\necho $AZURE_CLIENT_ID\n# Don&#39;t echo CLIENT_SECRET (it&#39;s sensitive!)\n\n# ✓ Test Key Vault access\naz keyvault secret show --vault-name mykeyvault --name mysecret\n\n# ✓ Check your permissions\naz role assignment list --assignee $(az account show --query user.name -o tsv)\n```\n\n## 📚 Additional Examples\n\nSee `azure-default-credential-example.ts` for:\n- Custom credential chain configuration\n- User-assigned managed identity\n- Multiple Azure services\n- Error handling patterns\n- Best practices\n\n## 🎯 Best Practices\n\n1. **Use DefaultAzureCredential** - Don&#39;t hardcode authentication methods\n2. **Never commit secrets** - Use environment variables or Managed Identity\n3. **Enable logging during development** - Makes debugging much easier\n4. **Grant least privilege** - Use RBAC to limit access scope\n5. **Use Managed Identity in Azure** - Most secure option for production\n6. **Rotate secrets regularly** - If using Service Principals\n\n## 📖 Further Reading\n\n- [Azure Identity SDK Docs](https://learn.microsoft.com/javascript/api/@azure/identity)\n- [DefaultAzureCredential Overview](https://learn.microsoft.com/javascript/api/@azure/identity/defaultazurecredential)\n- [Managed Identity Guide](https://learn.microsoft.com/azure/active-directory/managed-identities-azure-resources/overview)\n- [Azure CLI Installation](https://learn.microsoft.com/cli/azure/install-azure-cli)\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-baseline-claude-sonnet-4.5-1066904991\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>8.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I apologize - I&#39;m unable to create files in this directory. Let me provide you with a comprehensive guide directly:
+
+## 📦 **1. Required NPM Packages**
+
+```bash
+npm install @azure/identity @azure/keyvault-secrets
+```
+
+- **@azure/identity**: Core authentication library
+- **@azure/keyvault-secrets**: Example Azure SDK (works with any Azure service)
+
+---
+
+## 🔑 **2. Creating and Using DefaultAzureCredential**
+
+```typescript
+import { DefaultAzureCredential } from &#39;@azure/identity&#39;;
+import { SecretClient } from &#39;@azure/keyvault-secrets&#39;;
+
+// Step 1: Create credential (one line!)
+const credential = new DefaultAzureCredential();
+
+// Step 2: Use with any Azure SDK client
+const keyVaultUrl = &#34;https://your-keyvault.vault.azure.net&#34;;
+const client = new SecretClient(keyVaultUrl, credential);
+
+// Step 3: Make calls - authentication is automatic
+const secret = await client.getSecret(&#34;my-secret&#34;);
+console.log(secret.value);
+```
+
+---
+
+## 🔗 **3. Credential Chain Order**
+
+DefaultAzureCredential tries these in sequence (stops at first success):
+
+1. **EnvironmentCredential** → Service Principal from env vars (`AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`)
+2. **WorkloadIdentityCredential** → Azure Kubernetes workload identity
+3. **ManagedIdentityCredential** → Azure-hosted resources (VMs, App Service, Functions, AKS)
+4. **AzureCliCredential** → `az login` account
+5. **AzurePowerShellCredential** → `Connect-AzAccount` session
+6. **AzureDeveloperCliCredential** → `azd auth login` account
+
+---
+
+## 🖥️ **4. Local Dev vs Azure-Hosted**
+
+### **Local Development** (VS Code, Terminal)
+**Most common**: Azure CLI
+
+```bash
+# Login once
+az login
+
+# Your code automatically uses this account
+```
+
+✅ No secrets in code  
+✅ Uses your personal Azure identity  
+✅ Perfect for dev/testing
+
+### **Azure-Hosted** (Production)
+**Most common**: Managed Identity
+
+```bash
+# Enable on App Service/Function/VM
+az webapp identity assign --name myapp --resource-group mygroup
+
+# Grant permissions
+az role assignment create \
+  --assignee &lt;managed-identity-object-id&gt; \
+  --role &#34;Key Vault Secrets User&#34; \
+  --scope /subscriptions/.../resourceGroups/.../providers/Microsoft.KeyVault/vaults/myvault
+```
+
+✅ No secrets to manage  
+✅ Automatically rotated  
+✅ Most secure for production  
+✅ **Same code works - just deploy!**
+
+### **CI/CD Pipelines**
+**Most common**: Service Principal environment variables
+
+```bash
+# Set in GitHub Secrets, Azure DevOps, etc.
+AZURE_TENANT_ID=&#34;...&#34;
+AZURE_CLIENT_ID=&#34;...&#34;
+AZURE_CLIENT_SECRET=&#34;...&#34;
+```
+
+---
+
+## 🔧 **5. Troubleshooting Authentication Failures**
+
+### **Enable Logging**
+```typescript
+const credential = new DefaultAzureCredential({
+  loggingOptions: {
+    logLevel: &#39;verbose&#39;,
+    allowLoggingAccountIdentifiers: true
+  }
+});
+```
+
+### **Common Issues**
+
+| Environment | Issue | Solution |
+|-------------|-------|----------|
+| **Local** | &#34;CredentialUnavailableError&#34; | Run `az login` |
+| **Local** | &#34;Azure CLI not found&#34; | Install: https://aka.ms/install-azure-cli |
+| **Local** | &#34;Access denied&#34; | Check RBAC: `az role assignment list --assignee $(az account show --query user.name -o tsv)` |
+| **Azure** | &#34;Managed Identity unavailable&#34; | Enable in Portal: Identity → System assigned → On |
+| **Azure** | &#34;Access denied&#34; | Grant RBAC role to Managed Identity |
+| **CI/CD** | &#34;Invalid client secret&#34; | Check `AZURE_CLIENT_SECRET` is correct |
+| **CI/CD** | &#34;Missing variables&#34; | Set all 3: `TENANT_ID`, `CLIENT_ID`, `CLIENT_SECRET` |
+
+### **Debug Commands**
+```bash
+# Check CLI status
+az --version
+az account show
+
+# Test Key Vault access
+az keyvault secret show --vault-name myvault --name mysecret
+
+# Verify permissions
+az role assignment list --scope /subscriptions/YOUR_SUB/resourceGroups/YOUR_RG
+```
+
+---
+
+## 🚀 **Complete TypeScript Example**
+
+```typescript
+import { DefaultAzureCredential } from &#39;@azure/identity&#39;;
+import { SecretClient } from &#39;@azure/keyvault-secrets&#39;;
+
+async function main() {
+  // Works in ALL environments - local, Azure, CI/CD
+  const credential = new DefaultAzureCredential({
+    loggingOptions: { logLevel: &#39;info&#39; }
+  });
+
+  const keyVaultUrl = process.env.KEY_VAULT_URL || 
+    &#34;https://your-keyvault.vault.azure.net&#34;;
+  
+  const secretClient = new SecretClient(keyVaultUrl, credential);
+
+  try {
+    // Get a secret
+    const secret = await secretClient.getSecret(&#34;my-secret&#34;);
+    console.log(`✓ Secret retrieved: ${secret.name}`);
+    console.log(`  Value: ${secret.value}`);
+
+    // List all secrets
+    console.log(&#34;\nAll secrets:&#34;);
+    for await (const props of secretClient.listPropertiesOfSecrets()) {
+      console.log(`  - ${props.name}`);
+    }
+  } catch (error: any) {
+    console.error(&#34;❌ Authentication failed:&#34;, error.message);
+    console.error(&#34;\nTroubleshooting:&#34;);
+    console.error(&#34;1. Run &#39;az login&#39; for local dev&#34;);
+    console.error(&#34;2. Enable Managed Identity for Azure&#34;);
+    console.error(&#34;3. Check RBAC permissions&#34;);
+  }
+}
+
+main();
+```
+
+---
+
+## 🎯 **Best Practices**
+
+1. ✅ **Always use DefaultAzureCredential** - works everywhere
+2. ✅ **Never commit secrets** - use env vars or Managed Identity
+3. ✅ **Enable logging during development** - easier debugging
+4. ✅ **Use Managed Identity in production** - most secure
+5. ✅ **Grant least privilege RBAC** - principle of least access
+
+---
+
+This approach gives you **one authentication pattern that works everywhere** - no environment detection needed! 🎉</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>9.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">11 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (11 actions, 4 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>11</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>4</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>2</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">1</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">3</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id identity-dp-js-ts-default-credential --config baseline/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,3455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: storage-dp-js-ts-blob-manager / baseline-skills/gpt-5.4</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 storage-dp-js-ts-blob-manager</h1>
+  <div class="subtitle">Config: <strong>baseline-skills/gpt-5.4</strong> · 2026-05-01T01:38:45Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#f97316">20/27</strong></span>
+  <span class="meta-item">Duration: <strong>344.1s</strong></span>
+  <span class="meta-item">Files: <strong>6</strong></span>
+  <span class="meta-item">Tool Calls: <strong>22</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can an agent generate a complete, production-ready Azure Blob Storage management utility in TypeScript with streaming upload for large files, download with Node.js stream handling, blob leasing for concurrency control, index tags, retry configuration, and SDK logging?
+</td></tr>
+      <tr><td>Difficulty</td><td>advanced</td></tr>
+      <tr><td>Service</td><td>storage</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>crud</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/storage-blob</code></td></tr>
+      <tr><td>Tags</td><td>identity, default-azure-credential, blob-storage, streaming, retry, lease, index-tags, logging</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>gpt-5.4</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=267696 out=7787</td></tr>
+    <tr><td>Turn Count</td><td>11</td></tr>
+    
+    <tr><td>Generation Duration</td><td>138.7s</td></tr>
+    <tr><td>Review Duration</td><td>205.3s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>7</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>apply_patch</td>
+      <td>3</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>rg</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Create a TypeScript Node.js project that provides a reusable Azure Blob Storage management utility.
+
+The project needs:
+
+- A **service class** that wraps blob operations: upload (with optional metadata and blob index tags for later querying), download, list blobs in a container, and delete. The upload method should handle large files efficiently using streaming — uploading a multi-gigabyte file should not load the entire thing into memory. The service should also prevent concurrent writers from overwriting each other&#39;s changes when updating the same blob by acquiring a lease before writing.
+
+- A **configuration module** that connects to Azure securely using the storage account endpoint (from an environment variable). No connection strings or account keys should be used — the app will run in Azure with managed identity. The configuration should set up a custom retry policy (exponential backoff, configurable max retries and delay) and enable SDK logging at a configurable level for debugging.
+
+- A **main script** that wires everything together and demos each operation: uploads a sample file with some index tags, lists all blobs in the container, downloads the file back and prints its content, acquires a lease and overwrites the blob, then finally deletes it. Print status at each step.
+
+Include a complete `package.json` with the necessary Azure SDK dependencies and a `tsconfig.json`.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Scaffolding project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-ChildItem -Force&#34;,&#34;description&#34;:&#34;List workspace files&#34;,&#34;initial_wait&#34;:30,&#34;mode&#34;:&#34;sync&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>6.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I’ve got the project shape. Next I’m writing the TypeScript files and package metadata, then I’ll install dependencies and make sure it builds cleanly.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>7.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: apply_patch</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>&#34;*** Begin Patch\n*** Add File: package.json\n&#43;{\n&#43;  \&#34;name\&#34;: \&#34;azure-blob-manager\&#34;,\n&#43;  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n&#43;  \&#34;description\&#34;: \&#34;Reusable Azure Blob Storage management utility for Node.js and TypeScript.\&#34;,\n&#43;  \&#34;private\&#34;: true,\n&#43;  \&#34;main\&#34;: \&#34;dist/index.js\&#34;,\n&#43;  \&#34;types\&#34;: \&#34;dist/index.d.ts\&#34;,\n&#43;  \&#34;scripts\&#34;: {\n&#43;    \&#34;build\&#34;: \&#34;tsc -p tsconfig.json\&#34;,\n&#43;    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;\n&#43;  },\n&#43;  \&#34;engines\&#34;: {\n&#43;    \&#34;node\&#34;: \&#34;\u003e=18.18.0\&#34;\n&#43;  },\n&#43;  \&#34;dependencies\&#34;: {\n&#43;    \&#34;@azure/identity\&#34;: \&#34;^4.7.0\&#34;,\n&#43;    \&#34;@azure/logger\&#34;: \&#34;^1.1.4\&#34;,\n&#43;    \&#34;@azure/storage-blob\&#34;: \&#34;^12.27.0\&#34;\n&#43;  },\n&#43;  \&#34;devDependencies\&#34;: {\n&#43;    \&#34;@types/node\&#34;: \&#34;^22.15.21\&#34;,\n&#43;    \&#34;typescript\&#34;: \&#34;^5.8.3\&#34;\n&#43;  }\n&#43;}\n*** Add File: tsconfig.json\n&#43;{\n&#43;  \&#34;compilerOptions\&#34;: {\n&#43;    \&#34;target\&#34;: \&#34;ES2022\&#34;,\n&#43;    \&#34;module\&#34;: \&#34;CommonJS\&#34;,\n&#43;    \&#34;moduleResolution\&#34;: \&#34;Node\&#34;,\n&#43;    \&#34;rootDir\&#34;: \&#34;src\&#34;,\n&#43;    \&#34;outDir\&#34;: \&#34;dist\&#34;,\n&#43;    \&#34;strict\&#34;: true,\n&#43;    \&#34;esModuleInterop\&#34;: true,\n&#43;    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n&#43;    \&#34;skipLibCheck\&#34;: true,\n&#43;    \&#34;resolveJsonModule\&#34;: true,\n&#43;    \&#34;declaration\&#34;: true,\n&#43;    \&#34;sourceMap\&#34;: true,\n&#43;    \&#34;types\&#34;: [\n&#43;      \&#34;node\&#34;\n&#43;    ]\n&#43;  },\n&#43;  \&#34;include\&#34;: [\n&#43;    \&#34;src/**/*.ts\&#34;\n&#43;  ]\n&#43;}\n*** Add File: src/config.ts\n&#43;import { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\n&#43;import { AzureLogger, AzureLogLevel, setLogLevel } from \&#34;@azure/logger\&#34;;\n&#43;import {\n&#43;  BlobServiceClient,\n&#43;  StorageRetryPolicyType,\n&#43;  BlobServiceClientOptions\n&#43;} from \&#34;@azure/storage-blob\&#34;;\n&#43;\n&#43;const SUPPORTED_LOG_LEVELS: AzureLogLevel[] = [\&#34;verbose\&#34;, \&#34;info\&#34;, \&#34;warning\&#34;, \&#34;error\&#34;];\n&#43;\n&#43;export interface BlobStorageConfig {\n&#43;  endpoint: string;\n&#43;  containerName: string;\n&#43;  retryMaxTries: number;\n&#43;  retryDelayInMs: number;\n&#43;  retryMaxDelayInMs: number;\n&#43;  sdkLogLevel: AzureLogLevel;\n&#43;}\n&#43;\n&#43;export function loadBlobStorageConfig(): BlobStorageConfig {\n&#43;  const endpoint = process.env.AZURE_STORAGE_BLOB_ENDPOINT;\n&#43;\n&#43;  if (!endpoint) {\n&#43;    throw new Error(\&#34;AZURE_STORAGE_BLOB_ENDPOINT must be set to the Blob service endpoint.\&#34;);\n&#43;  }\n&#43;\n&#43;  const sdkLogLevel = parseLogLevel(process.env.AZURE_SDK_LOG_LEVEL);\n&#43;\n&#43;  return {\n&#43;    endpoint,\n&#43;    containerName: process.env.AZURE_STORAGE_CONTAINER_NAME ?? \&#34;blob-demo\&#34;,\n&#43;    retryMaxTries: parsePositiveInteger(process.env.AZURE_STORAGE_RETRY_MAX_TRIES, 5),\n&#43;    retryDelayInMs: parsePositiveInteger(process.env.AZURE_STORAGE_RETRY_DELAY_MS, 800),\n&#43;    retryMaxDelayInMs: parsePositiveInteger(process.env.AZURE_STORAGE_RETRY_MAX_DELAY_MS, 8_000),\n&#43;    sdkLogLevel\n&#43;  };\n&#43;}\n&#43;\n&#43;export function createBlobServiceClient(config: BlobStorageConfig): BlobServiceClient {\n&#43;  setLogLevel(config.sdkLogLevel);\n&#43;  AzureLogger.log = (...args: unknown[]) =\u003e {\n&#43;    console.log(\&#34;[azure-sdk]\&#34;, ...args);\n&#43;  };\n&#43;\n&#43;  const credential = new DefaultAzureCredential();\n&#43;\n&#43;  const options: BlobServiceClientOptions = {\n&#43;    retryOptions: {\n&#43;      maxTries: config.retryMaxTries,\n&#43;      retryDelayInMs: config.retryDelayInMs,\n&#43;      maxRetryDelayInMs: config.retryMaxDelayInMs,\n&#43;      retryPolicyType: StorageRetryPolicyType.EXPONENTIAL\n&#43;    }\n&#43;  };\n&#43;\n&#43;  return new BlobServiceClient(config.endpoint, credential, options);\n&#43;}\n&#43;\n&#43;function parsePositiveInteger(value: string | undefined, fallback: number): number {\n&#43;  if (!value) {\n&#43;    return fallback;\n&#43;  }\n&#43;\n&#43;  const parsed = Number.parseInt(value, 10);\n&#43;\n&#43;  if (!Number.isInteger(parsed) || parsed \u003c= 0) {\n&#43;    throw new Error(`Expected a positive integer but received \&#34;${value}\&#34;.`);\n&#43;  }\n&#43;\n&#43;  return parsed;\n&#43;}\n&#43;\n&#43;function parseLogLevel(value: string | undefined): AzureLogLevel {\n&#43;  if (!value) {\n&#43;    return \&#34;info\&#34;;\n&#43;  }\n&#43;\n&#43;  if (SUPPORTED_LOG_LEVELS.includes(value as AzureLogLevel)) {\n&#43;    return value as AzureLogLevel;\n&#43;  }\n&#43;\n&#43;  throw new Error(\n&#43;    `Unsupported AZURE_SDK_LOG_LEVEL \&#34;${value}\&#34;. Supported values: ${SUPPORTED_LOG_LEVELS.join(\&#34;, \&#34;)}.`\n&#43;  );\n&#43;}\n*** Add File: src/blobStorageService.ts\n&#43;import { createReadStream } from \&#34;node:fs\&#34;;\n&#43;import { promises as fs } from \&#34;node:fs\&#34;;\n&#43;import { dirname } from \&#34;node:path\&#34;;\n&#43;import {\n&#43;  BlobServiceClient,\n&#43;  BlobDownloadResponseParsed,\n&#43;  BlobItem,\n&#43;  BlobTags,\n&#43;  BlockBlobParallelUploadOptions,\n&#43;  ContainerClient\n&#43;} from \&#34;@azure/storage-blob\&#34;;\n&#43;\n&#43;export interface UploadBlobOptions {\n&#43;  metadata?: Record\u003cstring, string\u003e;\n&#43;  tags?: BlobTags;\n&#43;  blockSize?: number;\n&#43;  concurrency?: number;\n&#43;  leaseDurationSeconds?: number;\n&#43;}\n&#43;\n&#43;export interface UploadBlobResult {\n&#43;  etag?: string;\n&#43;  lastModified?: Date;\n&#43;  usedLease: boolean;\n&#43;}\n&#43;\n&#43;export class BlobStorageService {\n&#43;  constructor(private readonly blobServiceClient: BlobServiceClient) {}\n&#43;\n&#43;  async ensureContainer(containerName: string): Promise\u003cvoid\u003e {\n&#43;    await this.getContainerClient(containerName).createIfNotExists();\n&#43;  }\n&#43;\n&#43;  async uploadBlob(\n&#43;    containerName: string,\n&#43;    blobName: string,\n&#43;    filePath: string,\n&#43;    options: UploadBlobOptions = {}\n&#43;  ): Promise\u003cUploadBlobResult\u003e {\n&#43;    const containerClient = this.getContainerClient(containerName);\n&#43;    const blockBlobClient = containerClient.getBlockBlobClient(blobName);\n&#43;\n&#43;    const uploadOptions: BlockBlobParallelUploadOptions = {\n&#43;      metadata: options.metadata,\n&#43;      tags: options.tags\n&#43;    };\n&#43;\n&#43;    const streamOptions = {\n&#43;      bufferSize: options.blockSize ?? 8 * 1024 * 1024,\n&#43;      maxConcurrency: options.concurrency ?? 5\n&#43;    };\n&#43;\n&#43;    const blobExists = await blockBlobClient.exists();\n&#43;    let usedLease = false;\n&#43;\n&#43;    if (blobExists) {\n&#43;      const leaseClient = blockBlobClient.getBlobLeaseClient();\n&#43;      const leaseDurationSeconds = options.leaseDurationSeconds ?? 60;\n&#43;      const leaseResponse = await leaseClient.acquireLease(leaseDurationSeconds);\n&#43;\n&#43;      usedLease = true;\n&#43;      uploadOptions.conditions = { leaseId: leaseResponse.leaseId };\n&#43;\n&#43;      try {\n&#43;        const uploadResponse = await blockBlobClient.uploadStream(\n&#43;          createReadStream(filePath),\n&#43;          streamOptions.bufferSize,\n&#43;          streamOptions.maxConcurrency,\n&#43;          uploadOptions\n&#43;        );\n&#43;\n&#43;        return {\n&#43;          etag: uploadResponse.etag,\n&#43;          lastModified: uploadResponse.lastModified,\n&#43;          usedLease\n&#43;        };\n&#43;      } finally {\n&#43;        await leaseClient.releaseLease();\n&#43;      }\n&#43;    }\n&#43;\n&#43;    uploadOptions.conditions = { ifNoneMatch: \&#34;*\&#34; };\n&#43;\n&#43;    try {\n&#43;      const uploadResponse = await blockBlobClient.uploadStream(\n&#43;        createReadStream(filePath),\n&#43;        streamOptions.bufferSize,\n&#43;        streamOptions.maxConcurrency,\n&#43;        uploadOptions\n&#43;      );\n&#43;\n&#43;      return {\n&#43;        etag: uploadResponse.etag,\n&#43;        lastModified: uploadResponse.lastModified,\n&#43;        usedLease\n&#43;      };\n&#43;    } catch (error) {\n&#43;      if (!isBlobAlreadyExistsError(error)) {\n&#43;        throw error;\n&#43;      }\n&#43;\n&#43;      return this.uploadBlob(containerName, blobName, filePath, options);\n&#43;    }\n&#43;  }\n&#43;\n&#43;  async downloadBlob(containerName: string, blobName: string, destinationPath: string): Promise\u003cvoid\u003e {\n&#43;    await fs.mkdir(dirname(destinationPath), { recursive: true });\n&#43;\n&#43;    const blockBlobClient = this.getContainerClient(containerName).getBlockBlobClient(blobName);\n&#43;    await blockBlobClient.downloadToFile(destinationPath);\n&#43;  }\n&#43;\n&#43;  async listBlobs(containerName: string): Promise\u003cBlobItem[]\u003e {\n&#43;    const containerClient = this.getContainerClient(containerName);\n&#43;    const blobs: BlobItem[] = [];\n&#43;\n&#43;    for await (const blob of containerClient.listBlobsFlat({ includeMetadata: true, includeTags: true })) {\n&#43;      blobs.push(blob);\n&#43;    }\n&#43;\n&#43;    return blobs;\n&#43;  }\n&#43;\n&#43;  async deleteBlob(containerName: string, blobName: string): Promise\u003cvoid\u003e {\n&#43;    const blockBlobClient = this.getContainerClient(containerName).getBlockBlobClient(blobName);\n&#43;    await blockBlobClient.deleteIfExists({ deleteSnapshots: \&#34;include\&#34; });\n&#43;  }\n&#43;\n&#43;  private getContainerClient(containerName: string): ContainerClient {\n&#43;    return this.blobServiceClient.getContainerClient(containerName);\n&#43;  }\n&#43;}\n&#43;\n&#43;function isBlobAlreadyExistsError(error: unknown): boolean {\n&#43;  if (!error || typeof error !== \&#34;object\&#34;) {\n&#43;    return false;\n&#43;  }\n&#43;\n&#43;  const statusCode = \&#34;statusCode\&#34; in error ? error.statusCode : undefined;\n&#43;  const details = \&#34;details\&#34; in error ? error.details : undefined;\n&#43;  const errorCode =\n&#43;    details \u0026\u0026 typeof details === \&#34;object\&#34; \u0026\u0026 details !== null \u0026\u0026 \&#34;errorCode\&#34; in details\n&#43;      ? details.errorCode\n&#43;      : undefined;\n&#43;\n&#43;  return statusCode === 412 || errorCode === \&#34;ConditionNotMet\&#34;;\n&#43;}\n*** Add File: src/index.ts\n&#43;import { promises as fs } from \&#34;node:fs\&#34;;\n&#43;import { join } from \&#34;node:path\&#34;;\n&#43;import { BlobStorageService } from \&#34;./blobStorageService\&#34;;\n&#43;import { createBlobServiceClient, loadBlobStorageConfig } from \&#34;./config\&#34;;\n&#43;\n&#43;async function main(): Promise\u003cvoid\u003e {\n&#43;  const config = loadBlobStorageConfig();\n&#43;  const blobServiceClient = createBlobServiceClient(config);\n&#43;  const blobStorageService = new BlobStorageService(blobServiceClient);\n&#43;\n&#43;  const workingDirectory = join(process.cwd(), \&#34;demo-artifacts\&#34;);\n&#43;  const uploadFilePath = join(workingDirectory, \&#34;sample-upload.txt\&#34;);\n&#43;  const downloadFilePath = join(workingDirectory, \&#34;downloaded-sample.txt\&#34;);\n&#43;  const blobName = \&#34;sample-upload.txt\&#34;;\n&#43;\n&#43;  await fs.mkdir(workingDirectory, { recursive: true });\n&#43;\n&#43;  console.log(`Using container \&#34;${config.containerName}\&#34; at ${config.endpoint}`);\n&#43;  console.log(\&#34;Ensuring container exists...\&#34;);\n&#43;  await blobStorageService.ensureContainer(config.containerName);\n&#43;\n&#43;  console.log(\&#34;Preparing sample file...\&#34;);\n&#43;  await fs.writeFile(uploadFilePath, \&#34;Initial blob content written from the TypeScript demo.\\n\&#34;, \&#34;utf8\&#34;);\n&#43;\n&#43;  console.log(\&#34;Uploading sample blob with index tags...\&#34;);\n&#43;  const uploadResult = await blobStorageService.uploadBlob(config.containerName, blobName, uploadFilePath, {\n&#43;    metadata: {\n&#43;      source: \&#34;demo-script\&#34;,\n&#43;      stage: \&#34;initial\&#34;\n&#43;    },\n&#43;    tags: {\n&#43;      project: \&#34;azure-blob-manager\&#34;,\n&#43;      scenario: \&#34;demo\&#34;,\n&#43;      stage: \&#34;initial\&#34;\n&#43;    }\n&#43;  });\n&#43;  console.log(`Upload complete. Lease used: ${uploadResult.usedLease}`);\n&#43;\n&#43;  console.log(\&#34;Listing blobs in container...\&#34;);\n&#43;  const blobs = await blobStorageService.listBlobs(config.containerName);\n&#43;  for (const blob of blobs) {\n&#43;    const tags = blob.tags ? JSON.stringify(blob.tags) : \&#34;{}\&#34;;\n&#43;    console.log(`- ${blob.name} | tags=${tags}`);\n&#43;  }\n&#43;\n&#43;  console.log(\&#34;Downloading blob...\&#34;);\n&#43;  await blobStorageService.downloadBlob(config.containerName, blobName, downloadFilePath);\n&#43;  const downloadedContent = await fs.readFile(downloadFilePath, \&#34;utf8\&#34;);\n&#43;  console.log(\&#34;Downloaded content:\&#34;);\n&#43;  console.log(downloadedContent.trimEnd());\n&#43;\n&#43;  console.log(\&#34;Overwriting blob while holding a lease...\&#34;);\n&#43;  await fs.writeFile(uploadFilePath, \&#34;Updated blob content written after lease acquisition.\\n\&#34;, \&#34;utf8\&#34;);\n&#43;  const overwriteResult = await blobStorageService.uploadBlob(config.containerName, blobName, uploadFilePath, {\n&#43;    metadata: {\n&#43;      source: \&#34;demo-script\&#34;,\n&#43;      stage: \&#34;updated\&#34;\n&#43;    },\n&#43;    tags: {\n&#43;      project: \&#34;azure-blob-manager\&#34;,\n&#43;      scenario: \&#34;demo\&#34;,\n&#43;      stage: \&#34;updated\&#34;\n&#43;    }\n&#43;  });\n&#43;  console.log(`Overwrite complete. Lease used: ${overwriteResult.usedLease}`);\n&#43;\n&#43;  console.log(\&#34;Deleting blob...\&#34;);\n&#43;  await blobStorageService.deleteBlob(config.containerName, blobName);\n&#43;  console.log(\&#34;Blob deleted.\&#34;);\n&#43;}\n&#43;\n&#43;main().catch((error: unknown) =\u003e {\n&#43;  console.error(\&#34;Blob demo failed.\&#34;);\n&#43;\n&#43;  if (error instanceof Error) {\n&#43;    console.error(error.message);\n&#43;    if (error.stack) {\n&#43;      console.error(error.stack);\n&#43;    }\n&#43;  } else {\n&#43;    console.error(error);\n&#43;  }\n&#43;\n&#43;  process.exitCode = 1;\n&#43;});\n*** End Patch\n&#34;</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>9.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>The project files are in place. I’m installing the Azure SDK packages and compiling now so I can catch any type or SDK API mismatches.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>10.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Building project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm install \u0026\u0026 npm run build&#34;,&#34;description&#34;:&#34;Install deps and build project&#34;,&#34;initial_wait&#34;:180,&#34;mode&#34;:&#34;sync&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>13.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>There are a few SDK type mismatches from the current package versions. I’m adjusting the config and tag typings to match the actual Azure Storage client APIs, then rebuilding.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>14.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>15.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Fixing build errors&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>16.</span>
+          <span class="tool-name">Tool call: rg</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;-n&#34;:true,&#34;glob&#34;:&#34;*.d.ts&#34;,&#34;head_limit&#34;:50,&#34;output_mode&#34;:&#34;content&#34;,&#34;paths&#34;:[&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-baseline-skills-gpt-5.4-2519167553\\node_modules\\@azure\\storage-blob\\dist\\commonjs&#34;],&#34;pattern&#34;:&#34;export .*BlobServiceClientOptions|interface BlobServiceClientOptions|type BlobServiceClientOptions|interface ServiceClientOptions|type Tags|interface Tags|type BlobTags&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>17.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-baseline-skills-gpt-5.4-2519167553\\src\\config.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>18.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-baseline-skills-gpt-5.4-2519167553\\src\\blobStorageService.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>19.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-baseline-skills-gpt-5.4-2519167553\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>20.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>21.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>22.</span>
+          <span class="tool-name">Tool call: apply_patch</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>&#34;*** Begin Patch\n*** Update File: src/config.ts\n@@\n import { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\n import { AzureLogger, AzureLogLevel, setLogLevel } from \&#34;@azure/logger\&#34;;\n import {\n   BlobServiceClient,\n   StorageRetryPolicyType,\n-  BlobServiceClientOptions\n&#43;  ServiceClientOptions\n } from \&#34;@azure/storage-blob\&#34;;\n@@\n-  const options: BlobServiceClientOptions = {\n&#43;  const options: ServiceClientOptions = {\n*** Update File: src/blobStorageService.ts\n@@\n import { createReadStream } from \&#34;node:fs\&#34;;\n import { promises as fs } from \&#34;node:fs\&#34;;\n import { dirname } from \&#34;node:path\&#34;;\n import {\n   BlobServiceClient,\n-  BlobDownloadResponseParsed,\n   BlobItem,\n-  BlobTags,\n   BlockBlobParallelUploadOptions,\n-  ContainerClient\n&#43;  ContainerClient,\n&#43;  Tags\n } from \&#34;@azure/storage-blob\&#34;;\n@@\n export interface UploadBlobOptions {\n   metadata?: Record\u003cstring, string\u003e;\n-  tags?: BlobTags;\n&#43;  tags?: Tags;\n*** Update File: src/index.ts\n@@\n import { promises as fs } from \&#34;node:fs\&#34;;\n import { join } from \&#34;node:path\&#34;;\n&#43;import { Tags } from \&#34;@azure/storage-blob\&#34;;\n import { BlobStorageService } from \&#34;./blobStorageService\&#34;;\n import { createBlobServiceClient, loadBlobStorageConfig } from \&#34;./config\&#34;;\n@@\n   const uploadFilePath = join(workingDirectory, \&#34;sample-upload.txt\&#34;);\n   const downloadFilePath = join(workingDirectory, \&#34;downloaded-sample.txt\&#34;);\n   const blobName = \&#34;sample-upload.txt\&#34;;\n&#43;  const initialTags: Tags = {\n&#43;    project: \&#34;azure-blob-manager\&#34;,\n&#43;    scenario: \&#34;demo\&#34;,\n&#43;    stage: \&#34;initial\&#34;\n&#43;  };\n&#43;  const updatedTags: Tags = {\n&#43;    project: \&#34;azure-blob-manager\&#34;,\n&#43;    scenario: \&#34;demo\&#34;,\n&#43;    stage: \&#34;updated\&#34;\n&#43;  };\n@@\n     metadata: {\n       source: \&#34;demo-script\&#34;,\n       stage: \&#34;initial\&#34;\n     },\n-    tags: {\n-      project: \&#34;azure-blob-manager\&#34;,\n-      scenario: \&#34;demo\&#34;,\n-      stage: \&#34;initial\&#34;\n-    }\n&#43;    tags: initialTags\n   });\n@@\n     metadata: {\n       source: \&#34;demo-script\&#34;,\n       stage: \&#34;updated\&#34;\n     },\n-    tags: {\n-      project: \&#34;azure-blob-manager\&#34;,\n-      scenario: \&#34;demo\&#34;,\n-      stage: \&#34;updated\&#34;\n-    }\n&#43;    tags: updatedTags\n   });\n*** End Patch\n&#34;</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>23.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>24.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>25.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Building project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>26.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm run build&#34;,&#34;description&#34;:&#34;Rebuild TypeScript project&#34;,&#34;initial_wait&#34;:120,&#34;mode&#34;:&#34;sync&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>27.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>The remaining error is just the constructor options type alias being narrower than the actual blob client accepts. I’m checking the installed SDK declarations and then I’ll switch the config to the exact supported option type.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>28.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>29.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Inspecting SDK types&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>30.</span>
+          <span class="tool-name">Tool call: rg</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;-n&#34;:true,&#34;glob&#34;:&#34;*.d.ts&#34;,&#34;head_limit&#34;:80,&#34;output_mode&#34;:&#34;content&#34;,&#34;paths&#34;:[&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-baseline-skills-gpt-5.4-2519167553\\node_modules\\@azure\\storage-blob\\dist\\commonjs&#34;],&#34;pattern&#34;:&#34;constructor\\(url: string, credential: .*options: .*\\)|interface StoragePipelineOptions|type StoragePipelineOptions|retryOptions&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>31.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-baseline-skills-gpt-5.4-2519167553\\node_modules\\@azure\\storage-blob\\dist\\commonjs\\Pipeline.d.ts&#34;,&#34;view_range&#34;:[1,220]}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>32.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-baseline-skills-gpt-5.4-2519167553\\node_modules\\@azure\\storage-blob\\dist\\commonjs\\BlobServiceClient.d.ts&#34;,&#34;view_range&#34;:[1,220]}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>33.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>34.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>35.</span>
+          <span class="tool-name">Tool call: apply_patch</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>&#34;*** Begin Patch\n*** Update File: src/config.ts\n@@\n import {\n   BlobServiceClient,\n   StorageRetryPolicyType,\n-  ServiceClientOptions\n&#43;  StoragePipelineOptions\n } from \&#34;@azure/storage-blob\&#34;;\n@@\n-  const options: ServiceClientOptions = {\n&#43;  const options: StoragePipelineOptions = {\n*** End Patch\n&#34;</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>36.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>37.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>38.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Building project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>39.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm run build&#34;,&#34;description&#34;:&#34;Build TypeScript project&#34;,&#34;initial_wait&#34;:120,&#34;mode&#34;:&#34;sync&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>40.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>The TypeScript build is clean. I’m doing one quick runtime check now to confirm the demo entrypoint fails clearly when the Azure endpoint isn’t configured, rather than crashing ambiguously.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>41.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>42.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Checking runtime behavior&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>43.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;node dist/index.js&#34;,&#34;description&#34;:&#34;Run compiled demo script&#34;,&#34;initial_wait&#34;:30,&#34;mode&#34;:&#34;sync&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>44.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Created the TypeScript Node.js project with a reusable Azure Blob utility and a runnable demo.
+
+**Key files**
+- `package.json` — Azure SDK deps: `@azure/storage-blob`, `@azure/identity`, `@azure/logger`, plus TypeScript tooling
+- `tsconfig.json` — strict Node/TypeScript build to `dist\`
+- `src\config.ts` — builds `BlobServiceClient` from `AZURE_STORAGE_BLOB_ENDPOINT` using `DefaultAzureCredential`, with configurable exponential retry and SDK log level
+- `src\blobStorageService.ts` — service class for:
+  - streaming uploads from disk via `uploadStream`
+  - optional metadata and blob index tags
+  - lease-based overwrite protection for existing blobs
+  - download to file
+  - list blobs in a container
+  - delete blobs
+- `src\index.ts` — demo flow that uploads, lists, downloads and prints content, overwrites under a lease, then deletes
+
+**Config env vars**
+- `AZURE_STORAGE_BLOB_ENDPOINT` **required**
+- `AZURE_STORAGE_CONTAINER_NAME`
+- `AZURE_STORAGE_RETRY_MAX_TRIES`
+- `AZURE_STORAGE_RETRY_DELAY_MS`
+- `AZURE_STORAGE_RETRY_MAX_DELAY_MS`
+- `AZURE_SDK_LOG_LEVEL`
+
+Build output is clean, and the demo entrypoint now fails clearly when the endpoint env var is missing.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>45.</span>
+          (thinking)
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>46.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 20/27 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#f97316">20/27</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree the TypeScript code is structurally sound with valid imports, correct types, and proper project configuration. Unable to run tsc to confirm, but no obvious type errors.</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm lock file resolves to recent stable versions: @azure/identity@4.13.1, @azure/logger@1.3.0, @azure/storage-blob@12.31.0.</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: uses DefaultAzureCredential, streaming upload, proper lease acquire/release in try/finally, async/await throughout, configurable retry policy, environment-variable-driven config.</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Consensus: no RestError-specific catch blocks. The isBlobAlreadyExistsError function uses duck typing instead of checking for RestError. No handling for 409 lease conflicts or 404 blob-not-found errors. Main script only catches generic Error.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: clean separation of concerns (config, service, main script), good use of interfaces, optional parameters with defaults, proper try/finally for lease release.</td>
+          </tr>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm all Azure dependencies use @azure/ scoped packages. No deprecated unscoped packages.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm DefaultAzureCredential from @azure/identity is used. No connection strings, account keys, or SAS tokens.</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm BlobServiceClient constructed with endpoint URL and credential object.</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm all async operations use async/await with top-level async main() and .catch() entry point.</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Split decision resolved by deeper analysis: while for-await-of is used over listBlobsFlat(), the listBlobs method collects ALL blobs into an array before returning, defeating the purpose of async iteration. Reviewer 1 correctly identified this violation; Reviewer 2 missed it on this criterion but caught it on the anti-pattern criterion.</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: N/A for this scenario. Blob storage operations are not LROs and no incorrect manual polling is used.</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: RestError is never imported or caught. Duck typing on unknown is used instead of proper RestError type checking with statusCode inspection.</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm no deprecated packages are present. All dependencies use current @azure/* track.</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm setLogLevel() from @azure/logger is used with configurable log level via environment variable.</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm valid package.json with all required @azure/* dependencies, tsconfig.json, and proper devDependencies.</td>
+          </tr>
+          
+          <tr>
+            <td>Custom retry policy via StorageRetryOptions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm retryOptions configured with maxTries, retryDelayInMs, maxRetryDelayInMs, and StorageRetryPolicyType.EXPONENTIAL.</td>
+          </tr>
+          
+          <tr>
+            <td>SDK logging via @azure/logger setLogLevel()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm setLogLevel(config.sdkLogLevel) is called with configurable AZURE_SDK_LOG_LEVEL env var.</td>
+          </tr>
+          
+          <tr>
+            <td>Blob lease acquisition before overwrite using BlobLeaseClient</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm lease acquired via getBlobLeaseClient().acquireLease(), leaseId passed in conditions, and lease released in finally block.</td>
+          </tr>
+          
+          <tr>
+            <td>Uses BlockBlobClient.uploadStream() for streaming upload</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm uploadStream() with createReadStream() is used. File is never loaded entirely into memory.</td>
+          </tr>
+          
+          <tr>
+            <td>Sets blob index tags on upload via tags property</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm tags are passed in upload options and the main script provides appropriate tag objects.</td>
+          </tr>
+          
+          <tr>
+            <td>Downloads blob via readableStreamBody</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: uses downloadToFile() convenience method instead of download() &#43; readableStreamBody stream reading.</td>
+          </tr>
+          
+          <tr>
+            <td>Lists blobs using for await...of over listBlobsFlat()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm for-await-of is used over containerClient.listBlobsFlat() with includeMetadata and includeTags options.</td>
+          </tr>
+          
+          <tr>
+            <td>Handles lease conflict errors (409 status code)</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: no error handling for 409 lease conflict status code. If acquireLease fails on an already-leased blob, the error propagates unhandled.</td>
+          </tr>
+          
+          <tr>
+            <td>Handles blob not found errors (404 status code)</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: no 404 error handling on download. deleteBlob uses deleteIfExists which avoids the error rather than catching and handling a 404 RestError.</td>
+          </tr>
+          
+          <tr>
+            <td>NOT using uploadData() or upload() with full buffer</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm uploadStream() with createReadStream() is used correctly.</td>
+          </tr>
+          
+          <tr>
+            <td>NOT using connection strings or account keys</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers confirm identity-based auth with DefaultAzureCredential and endpoint URL only.</td>
+          </tr>
+          
+          <tr>
+            <td>NOT collecting all listed blobs into an array before processing</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both reviewers agree: listBlobs() collects all blobs into an array via blobs.push(blob), which is the exact anti-pattern described in the criteria.</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>The generated code delivers a well-structured Azure Blob Storage utility with clean separation of concerns across a service class, configuration module, and main demo script. It correctly implements streaming uploads via uploadStream(), lease-based concurrency control with proper try/finally cleanup, identity-based authentication with DefaultAzureCredential, configurable exponential retry policy, and SDK logging via @azure/logger. However, it has consistent gaps across both reviewers: no RestError-based exception handling (missing 409 lease conflict and 404 not-found handling), blob listing collects all items into an array defeating async iteration benefits, and download uses the convenience downloadToFile() method instead of reading readableStreamBody as a Node.js stream.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>Clean architecture with service class, config module, and main script separation</li><li>Correct streaming upload with createReadStream() &#43; uploadStream() — never buffers entire file</li><li>Proper lease acquire/release lifecycle with try/finally ensuring cleanup</li><li>Configurable retry policy with exponential backoff via StorageRetryOptions</li><li>SDK logging properly configured via @azure/logger setLogLevel() with env var support</li><li>Identity-based auth with DefaultAzureCredential, no secrets or connection strings in code</li><li>All Azure SDK packages are current @azure/ scoped packages at recent stable versions</li><li>Blob index tags correctly passed on upload with demo showing both initial and updated tags</li><li>Well-structured TypeScript with strict mode, proper tsconfig.json, and complete package.json</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>No RestError import or type-checked catch blocks — uses duck typing on unknown instead of proper RestError handling</li><li>listBlobs() collects all blobs into an array via push(), violating the async iteration and anti-pattern criteria</li><li>Download uses downloadToFile() instead of download() &#43; readableStreamBody stream reading as specified</li><li>No handling for 409 (lease conflict) errors when attempting to acquire a lease on an already-leased blob</li><li>No handling for 404 (blob not found) errors on download operations</li><li>BlockBlobParallelUploadOptions imported instead of BlockBlobUploadStreamOptions (works via structural typing but is semantically incorrect)</li><li>isBlobAlreadyExistsError checks statusCode 412 but does not handle other relevant error codes like 409</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (4 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>1.</span>
+              Consolidate the two reviews into a consensus.
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Consolidate the two reviews into a consensus.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>2.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Consolidating review scores&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Write-Output \&#34;noop\&#34;&#34;,&#34;description&#34;:&#34;Placeholder for parallel call&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>4.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{&#34;scores&#34;:{&#34;criteria&#34;:[{&#34;name&#34;:&#34;Code Builds&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree the TypeScript code is structurally sound with valid imports, correct types, and proper project configuration. Unable to run tsc to confirm, but no obvious type errors.&#34;},{&#34;name&#34;:&#34;Latest Package Versions&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers confirm lock file resolves to recent stable versions: @azure/identity@4.13.1, @azure/logger@1.3.0, @azure/storage-blob@12.31.0.&#34;},{&#34;name&#34;:&#34;Best Practices&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree: uses DefaultAzureCredential, streaming upload, proper lease acquire/release in try/finally, async/await throughout, configurable retry policy, environment-variable-driven config.&#34;},{&#34;name&#34;:&#34;Error Handling&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Consensus: no RestError-specific catch blocks. The isBlobAlreadyExistsError function uses duck typing instead of checking for RestError. No handling for 409 lease conflicts or 404 blob-not-found errors. Main script only catches generic Error.&#34;},{&#34;name&#34;:&#34;Code Quality&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers agree: clean separation of concerns (config, service, main script), good use of interfaces, optional parameters with defaults, proper try/finally for lease release.&#34;},{&#34;name&#34;:&#34;Correct @azure/ Scoped Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers confirm all Azure dependencies use @azure/ scoped packages. No deprecated unscoped packages.&#34;},{&#34;name&#34;:&#34;@azure/identity for Authentication&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers confirm DefaultAzureCredential from @azure/identity is used. No connection strings, account keys, or SAS tokens.&#34;},{&#34;name&#34;:&#34;Client Constructor with Endpoint and Credential&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers confirm BlobServiceClient constructed with endpoint URL and credential object.&#34;},{&#34;name&#34;:&#34;Async/Await Pattern&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Both reviewers confirm all async operations use async/await with top-level async main() and .catch() entry point.&#34;},{&#34;name&#34;:&#34;Pagination with for-…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (2 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-opus-4.6</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#f97316">20/27</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="TypeScript code is structurally sound. Imports are valid, types are used correctly. BlockBlobParallelUploadOptions is structurally compatible with BlockBlobUploadStreamOptions via TypeScript structural typing for the properties used (metadata, tags, conditions). Unable to run tsc to confirm, but no obvious type errors.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Lock file resolves to @azure/identity@4.13.1, @azure/logger@1.3.0, @azure/storage-blob@12.31.0. These are recent stable versions. Unable to run npm outdated to confirm, but versions appear current.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Uses DefaultAzureCredential, streaming upload, proper lease acquire/release in try/finally, async/await throughout, configurable retry policy, environment-variable-driven config.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="No RestError-specific catch blocks. The isBlobAlreadyExistsError function uses duck typing instead of checking for RestError. No handling for 409 lease conflicts or 404 blob-not-found errors. The main script only catches generic Error.">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean separation of concerns (config, service, main script). Good use of interfaces, optional parameters with defaults, proper try/finally for lease release. Well-structured and readable.">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="All Azure dependencies use @azure/ scoped packages: @azure/storage-blob, @azure/identity, @azure/logger. No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses DefaultAzureCredential from @azure/identity. No connection strings, account keys, or SAS tokens anywhere in the code.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="BlobServiceClient constructed with endpoint URL and credential: new BlobServiceClient(config.endpoint, credential, options). No connection-string-based construction.">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="All async operations use async/await. Top-level async main() function with .catch() for entry point. No .then()/.catch() chains or callback patterns.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="While for-await-of is used over listBlobsFlat(), the listBlobs method collects ALL blobs into an array (blobs.push(blob)) before returning BlobItem[]. This defeats the purpose of async iteration and violates the &#39;does not collect all pages into an array in memory&#39; requirement.">❌ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="N/A for this scenario. Blob storage upload/download/delete/list are not long-running operations and don&#39;t have begin* variants. No incorrect manual polling is used.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="RestError is never imported or caught. The isBlobAlreadyExistsError function inspects statusCode via duck typing on unknown, but does not check for RestError type. No statusCode-based handling for 409 or 404 errors.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="No deprecated packages found. All dependencies are current @azure/* track packages.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses setLogLevel() from @azure/logger in config.ts. Also sets AzureLogger.log for custom output. Configurable via AZURE_SDK_LOG_LEVEL environment variable.">✅ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required @azure/* dependencies. tsconfig.json present with proper configuration. @types/node and typescript in devDependencies.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Configures retryOptions with maxTries, retryDelayInMs, maxRetryDelayInMs, and retryPolicyType: StorageRetryPolicyType.EXPONENTIAL. All values are configurable via environment variables.">✅ Custom retry policy via StorageRetryOptions</span> <span style="display:inline-block;margin:2px 4px" title="Calls setLogLevel(config.sdkLogLevel) from @azure/logger. Log level is configurable via AZURE_SDK_LOG_LEVEL env var with validation.">✅ SDK logging via @azure/logger setLogLevel()</span> <span style="display:inline-block;margin:2px 4px" title="When blob exists, acquires lease via getBlobLeaseClient().acquireLease(), passes leaseId in upload conditions, and releases lease in finally block. Correct pattern.">✅ Blob lease acquisition before overwrite using BlobLeaseClient</span> <span style="display:inline-block;margin:2px 4px" title="Uses blockBlobClient.uploadStream(createReadStream(filePath), bufferSize, maxConcurrency, options). File is streamed via createReadStream, never loaded entirely into memory.">✅ Uses BlockBlobClient.uploadStream() for streaming upload</span> <span style="display:inline-block;margin:2px 4px" title="Tags are passed in upload options: { tags: options.tags } and the main script provides tag objects like { project: &#39;azure-blob-manager&#39;, scenario: &#39;demo&#39;, stage: &#39;initial&#39; }.">✅ Sets blob index tags on upload via tags property</span> <span style="display:inline-block;margin:2px 4px" title="Uses blockBlobClient.downloadToFile(destinationPath) convenience method instead of calling download() and reading readableStreamBody from the response as a Node.js Readable stream.">❌ Downloads blob via readableStreamBody</span> <span style="display:inline-block;margin:2px 4px" title="Uses for await (const blob of containerClient.listBlobsFlat({ includeMetadata: true, includeTags: true })). Correct async iteration pattern.">✅ Lists blobs using for await...of over listBlobsFlat()</span> <span style="display:inline-block;margin:2px 4px" title="No error handling for 409 lease conflict status code anywhere in the code. If acquireLease fails because the blob is already leased, the error propagates unhandled.">❌ Handles lease conflict errors (409 status code)</span> <span style="display:inline-block;margin:2px 4px" title="No 404 error handling on download. deleteBlob uses deleteIfExists which avoids the error entirely rather than catching and handling a 404 RestError.">❌ Handles blob not found errors (404 status code)</span> <span style="display:inline-block;margin:2px 4px" title="Correctly uses uploadStream() with createReadStream(). Neither uploadData() nor upload() with a buffer are used.">✅ NOT using uploadData() or upload() with full buffer</span> <span style="display:inline-block;margin:2px 4px" title="Authentication uses DefaultAzureCredential with an endpoint URL. No connection strings, account keys, or SAS tokens anywhere.">✅ NOT using connection strings or account keys</span> <span style="display:inline-block;margin:2px 4px" title="listBlobs() collects all blobs into an array via blobs.push(blob) inside the for-await loop, then returns BlobItem[]. The main script then iterates this array. This is the exact anti-pattern described.">❌ NOT collecting all listed blobs into an array before processing</span> </td>
+        </tr>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>gpt-4.1</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#eab308">22/27</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="Project structure, tsconfig.json, and dependencies are correct; code should build.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Uses recent @azure packages (e.g., storage-blob 12.27.0, identity 4.7.0&#43;).">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Uses DefaultAzureCredential, async/await, streaming, and proper SDK patterns.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Handles errors, including lease and blob existence, with custom logic and type checks.">✅ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Code is clean, modular, readable, and well-structured.">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="All Azure SDK dependencies use @azure/ scope.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses DefaultAzureCredential from @azure/identity; no secrets or connection strings.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="BlobServiceClient constructed with endpoint and credential.">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="All async operations use async/await.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Lists blobs using for-await-of over listBlobsFlat().">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="No LROs required for these operations; not applicable.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Custom error checks, but does not explicitly catch RestError or inspect statusCode for 404/409.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="No deprecated Azure packages present.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses @azure/logger and setLogLevel().">✅ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="package.json includes all required dependencies and devDependencies.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Configures retry policy with exponential backoff and custom values.">✅ Custom Retry Policy via StorageRetryOptions</span> <span style="display:inline-block;margin:2px 4px" title="setLogLevel and AzureLogger.log are used.">✅ SDK Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Acquires lease before overwriting existing blob.">✅ Lease Acquisition Before Overwrite</span> <span style="display:inline-block;margin:2px 4px" title="Uses uploadStream for file uploads.">✅ BlockBlobClient.uploadStream for Streaming</span> <span style="display:inline-block;margin:2px 4px" title="Sets tags via upload options.">✅ Sets Blob Index Tags on Upload</span> <span style="display:inline-block;margin:2px 4px" title="Uses downloadToFile, not readableStreamBody, for download.">❌ Download via readableStreamBody</span> <span style="display:inline-block;margin:2px 4px" title="Uses for-await-of over listBlobsFlat().">✅ List Blobs with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="No explicit handling for 409 lease conflict errors.">❌ Handles Lease Conflict Errors (409)</span> <span style="display:inline-block;margin:2px 4px" title="No explicit handling for 404 errors on download/delete.">❌ Handles Blob Not Found Errors (404)</span> <span style="display:inline-block;margin:2px 4px" title="Uses uploadStream, not uploadData/upload.">✅ NOT using uploadData/upload for Large Files</span> <span style="display:inline-block;margin:2px 4px" title="No connection strings or keys used.">✅ NOT using Connection Strings/Keys</span> <span style="display:inline-block;margin:2px 4px" title="Collects blobs into array before processing in listBlobs.">❌ NOT collecting all blobs into array before processing</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#f97316">20/27</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="Both reviewers agree the TypeScript code is structurally sound with valid imports, correct types, and proper project configuration. Unable to run tsc to confirm, but no obvious type errors.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm lock file resolves to recent stable versions: @azure/identity@4.13.1, @azure/logger@1.3.0, @azure/storage-blob@12.31.0.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: uses DefaultAzureCredential, streaming upload, proper lease acquire/release in try/finally, async/await throughout, configurable retry policy, environment-variable-driven config.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Consensus: no RestError-specific catch blocks. The isBlobAlreadyExistsError function uses duck typing instead of checking for RestError. No handling for 409 lease conflicts or 404 blob-not-found errors. Main script only catches generic Error.">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: clean separation of concerns (config, service, main script), good use of interfaces, optional parameters with defaults, proper try/finally for lease release.">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm all Azure dependencies use @azure/ scoped packages. No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm DefaultAzureCredential from @azure/identity is used. No connection strings, account keys, or SAS tokens.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm BlobServiceClient constructed with endpoint URL and credential object.">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm all async operations use async/await with top-level async main() and .catch() entry point.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Split decision resolved by deeper analysis: while for-await-of is used over listBlobsFlat(), the listBlobs method collects ALL blobs into an array before returning, defeating the purpose of async iteration. Reviewer 1 correctly identified this violation; Reviewer 2 missed it on this criterion but caught it on the anti-pattern criterion.">❌ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: N/A for this scenario. Blob storage operations are not LROs and no incorrect manual polling is used.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: RestError is never imported or caught. Duck typing on unknown is used instead of proper RestError type checking with statusCode inspection.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm no deprecated packages are present. All dependencies use current @azure/* track.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm setLogLevel() from @azure/logger is used with configurable log level via environment variable.">✅ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm valid package.json with all required @azure/* dependencies, tsconfig.json, and proper devDependencies.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm retryOptions configured with maxTries, retryDelayInMs, maxRetryDelayInMs, and StorageRetryPolicyType.EXPONENTIAL.">✅ Custom retry policy via StorageRetryOptions</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm setLogLevel(config.sdkLogLevel) is called with configurable AZURE_SDK_LOG_LEVEL env var.">✅ SDK logging via @azure/logger setLogLevel()</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm lease acquired via getBlobLeaseClient().acquireLease(), leaseId passed in conditions, and lease released in finally block.">✅ Blob lease acquisition before overwrite using BlobLeaseClient</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm uploadStream() with createReadStream() is used. File is never loaded entirely into memory.">✅ Uses BlockBlobClient.uploadStream() for streaming upload</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm tags are passed in upload options and the main script provides appropriate tag objects.">✅ Sets blob index tags on upload via tags property</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: uses downloadToFile() convenience method instead of download() &#43; readableStreamBody stream reading.">❌ Downloads blob via readableStreamBody</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm for-await-of is used over containerClient.listBlobsFlat() with includeMetadata and includeTags options.">✅ Lists blobs using for await...of over listBlobsFlat()</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: no error handling for 409 lease conflict status code. If acquireLease fails on an already-leased blob, the error propagates unhandled.">❌ Handles lease conflict errors (409 status code)</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: no 404 error handling on download. deleteBlob uses deleteIfExists which avoids the error rather than catching and handling a 404 RestError.">❌ Handles blob not found errors (404 status code)</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm uploadStream() with createReadStream() is used correctly.">✅ NOT using uploadData() or upload() with full buffer</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers confirm identity-based auth with DefaultAzureCredential and endpoint URL only.">✅ NOT using connection strings or account keys</span> <span style="display:inline-block;margin:2px 4px" title="Both reviewers agree: listBlobs() collects all blobs into an array via blobs.push(blob), which is the exact anti-pattern described in the criteria.">❌ NOT collecting all listed blobs into an array before processing</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-opus-4.6</code> — The generated code provides a well-structured Azure Blob Storage utility with good separation of concerns, correct use of streaming uploads, lease-based concurrency control, and proper SDK configuration. However, it has notable gaps: no RestError-based exception handling (missing 409 lease conflict and 404 not-found handling), blob listing collects all items into an array (defeating async iteration), and download uses the convenience downloadToFile() method instead of reading readableStreamBody as a stream.</summary>
+      <p><strong>Issues:</strong></p><ul><li>No RestError import or type-checked catch blocks — uses duck typing on unknown instead</li><li>listBlobs() collects all blobs into an array, violating the async iteration anti-pattern criterion</li><li>Download uses downloadToFile() instead of download() &#43; readableStreamBody stream reading</li><li>No handling for 409 (lease conflict) errors when attempting to acquire a lease on an already-leased blob</li><li>No handling for 404 (blob not found) errors on download operations</li><li>BlockBlobParallelUploadOptions imported instead of BlockBlobUploadStreamOptions (works via structural typing but is semantically incorrect)</li><li>isBlobAlreadyExistsError checks statusCode 412 but does not handle other relevant error codes</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Clean architecture with service class, config module, and main script separation</li><li>Correct streaming upload with createReadStream() &#43; uploadStream()</li><li>Proper lease acquire/release lifecycle with try/finally</li><li>Configurable retry policy with exponential backoff via StorageRetryOptions</li><li>SDK logging properly configured via @azure/logger setLogLevel()</li><li>Identity-based auth with DefaultAzureCredential, no secrets in code</li><li>All Azure SDK packages are current @azure/ scoped packages at recent versions</li><li>Blob index tags correctly passed on upload</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (21 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>1.</span>
+              Let me evaluate the generated code against all criteria. I&#39;ll start by examining…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me evaluate the generated code against all criteria. I&#39;ll start by examining the code, attempting to build it, and checking package versions.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>2.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Reviewing generated code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: skill</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;skill&#34;:&#34;reviewer-build&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>4.</span>
+              Let me build the TypeScript project and check package versions, then evaluate al…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me build the TypeScript project and check package versions, then evaluate all criteria.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Building and verifying code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>6.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872 \u0026\u0026 npm install 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>7.</span>
+              <span class="tool-name">Tool call: skill</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;skill&#34;:&#34;sdk-version-check&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>8.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872; npm install 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>9.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Set-Location C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872\nnpm install&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:90}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>10.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-Location&#34;,&#34;description&#34;:&#34;Check current directory&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>11.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;pwd&#34;,&#34;description&#34;:&#34;Check working directory&#34;,&#34;initial_wait&#34;:30,&#34;shellId&#34;:&#34;build-shell&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>12.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>Shell access is unavailable, so I&#39;ll proceed with a thorough code-level review and evaluate all criteria based on static analysis.</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>13.</span>
+              The PowerShell tool seems to be unavailable due to permissions. Let me proceed w…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>The PowerShell tool seems to be unavailable due to permissions. Let me proceed with the review based on code analysis alone, and note that I couldn&#39;t build or check versions.</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>14.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Evaluating code criteria&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>15.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872\\src\\blobStorageService.ts&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>16.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872\\src\\config.ts&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>17.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872\\src\\index.ts&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>18.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872\\package.json&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>19.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-opus-4.6-981904872\\tsconfig.json&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>20.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I have all the generated code from the prompt. Let me perform a thorough static analysis against every criterion since shell tools are unavailable.
+
+{&#34;scores&#34;:{&#34;criteria&#34;:[{&#34;name&#34;:&#34;Code Builds&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;TypeScript code is structurally sound. Imports are valid, types are used correctly. BlockBlobParallelUploadOptions is structurally compatible with BlockBlobUploadStreamOptions via TypeScript structural typing for the properties used (metadata, tags, conditions). Unable to run tsc to confirm, but no obvious type errors.&#34;},{&#34;name&#34;:&#34;Latest Package Versions&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Lock file resolves to @azure/identity@4.13.1, @azure/logger@1.3.0, @azure/storage-blob@12.31.0. These are recent stable versions. Unable to run npm outdated to confirm, but versions appear current.&#34;},{&#34;name&#34;:&#34;Best Practices&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses DefaultAzureCredential, streaming upload, proper lease acquire/release in try/finally, async/await throughout, configurable retry policy, environment-variable-driven config.&#34;},{&#34;name&#34;:&#34;Error Handling&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;No RestError-specific catch blocks. The isBlobAlreadyExistsError function uses duck typing instead of checking for RestError. No handling for 409 lease conflicts or 404 blob-not-found errors. The main script only catches generic Error.&#34;},{&#34;name&#34;:&#34;Code Quality&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Clean separation of concerns (config, service, main script). Good use of interfaces, optional parameters with defaults, proper try/finally for lease release. Well-structured and readable.&#34;},{&#34;name&#34;:&#34;Correct @azure/ Scoped Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All Azure dependencies use @azure/ scoped packages: @azure/storage-blob, @azure/identity, @azure/logger. No deprecated unscoped packages.&#34;},{&#34;name&#34;:&#34;@azure/identity for Authentication&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses DefaultAzureCredential from @azure/identity. No connection strings, account keys, or SAS tokens anywhere in the code.&#34;},{&#34;name&#34;:&#34;Client Constructor with Endpoint and …</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>21.</span>
+              Tools are unavailable due to permissions. I&#39;ll evaluate based on the code provid…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Tools are unavailable due to permissions. I&#39;ll evaluate based on the code provided in the prompt itself. I have all the source code already in the user message. Let me do a thorough review.
+
+Let me go through each criterion:
+
+**General Criteria:**
+
+1. **Code Builds** — Looking at the TypeScript code:
+   - `blobStorageService.ts`: imports look correct. Uses `BlockBlobParallelUploadOptions` — need to verify this type exists. Actually, looking at the Azure Storage Blob SDK, the type for `uploadStream` options is `BlockBlobUploadStreamOptions`, not `BlockBlobParallelUploadOptions`. 
+
+The `uploadStream` method expects `BlockBlobUploadStreamOptions` as its options parameter, but the code is using `BlockBlobParallelUploadOptions`, which is meant for `uploadFile` and `uploadData` instead. This is a type mismatch that would cause a compilation error. BlockBlobUploadStreamOptions` and `BlockBlobParallelUploadOptions` both have `metadata`, `tags`, and `conditions` properties. The code imports `BlockBlobParallelUploadOptions` but passes it where `BlockBlobUploadStreamOptions` is expected. This might still compile if `BlockBlobParallelUploadOptions` is structurally compatible with TypeScript&#39;s structural typing. Since `uploadOptions` is a variable rather than an object literal, TypeScript won&#39;t flag excess properties—the real question is whether these two types are structurally compatible, which depends on whether they share the same base properties. I can&#39;t verify this without building, so I&#39;ll flag it as a potential type mismatch.
+
+The package versions look current—`@azure/storage-blob` resolves to 12.31.0, `@azure/identity` to 4.13.1, and `@azure/logger` to 1.3.0. The code follows good practices with DefaultAzureCredential, async/await, and streaming uploads. Error handling checks `statusCode` in the `isBlobAlreadyExistsError` function but doesn&#39;t use the `RestError` type, and the main script catches errors generically without specific handling for Azure REST errors.
+…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>gpt-4.1</code> — Strong, modern Azure Blob Storage utility with robust structure and best practices. Some error handling and streaming download details could be improved for full compliance.</summary>
+      <p><strong>Issues:</strong></p><ul><li>Does not explicitly catch RestError or inspect statusCode for 404/409 errors.</li><li>Does not use readableStreamBody for download as requested.</li><li>No explicit handling for lease conflict (409) or blob not found (404) errors.</li><li>Collects all blobs into an array before processing instead of streaming each.</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Modern SDK usage and authentication.</li><li>Streaming upload with lease acquisition and index tags.</li><li>Configurable retry and logging.</li><li>Clean, modular, idiomatic TypeScript code.</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (1 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>{&#34;scores&#34;:{&#34;criteria&#34;:[{&#34;name&#34;:&#34;Code Builds&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Project structure, tsconfig.json, and dependencies are correct; code should build.&#34;},{&#34;name&#34;:&#34;Latest Package Versions&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses recent @azure packages (e.g., storage-blob 12.27.0, identity 4.7.0&#43;).&#34;},{&#34;name&#34;:&#34;Best Practices&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses DefaultAzureCredential, async/await, streaming, and proper SDK patterns.&#34;},{&#34;name&#34;:&#34;Error Handling&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Handles errors, including lease and blob existence, with custom logic and type checks.&#34;},{&#34;name&#34;:&#34;Code Quality&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Code is clean, modular, readable, and well-structured.&#34;},{&#34;name&#34;:&#34;Correct @azure/ Scoped Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All Azure SDK dependencies use @azure/ scope.&#34;},{&#34;name&#34;:&#34;@azure/identity for Authentication&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses DefaultAzureCredential from @azure/identity; no secrets or connection strings.&#34;},{&#34;name&#34;:&#34;Client Constructor with Endpoint and Credential&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;BlobServiceClient constructed with endpoint and credential.&#34;},{&#34;name&#34;:&#34;Async/Await Pattern&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All async operations use async/await.&#34;},{&#34;name&#34;:&#34;Pagination with for-await-of&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Lists blobs using for-await-of over listBlobsFlat().&#34;},{&#34;name&#34;:&#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;No LROs required for these operations; not applicable.&#34;},{&#34;name&#34;:&#34;RestError Exception Handling&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Custom error checks, but does not explicitly catch RestError or inspect statusCode for 404/409.&#34;},{&#34;name&#34;:&#34;No Deprecated Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;No deprecated Azure packages present.&#34;},{&#34;name&#34;:&#34;Logging via @azure/logger&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses @azure/logger and setLogLevel().&#34;},{&#34;name&#34;:&#34;package.json with Correct Dependencies&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;package.json includes all required dependencies and devDependencies.&#34;},{&#34;name&#34;:&#34;Custom Retry Policy via StorageRetryOptions&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Conf…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (3 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-opus-4.6</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The generated code provides a well-structured Azure Blob Storage utility with good separation of concerns, correct use of streaming uploads, lease-based concurrency control, and proper SDK configuration. However, it has notable gaps: no RestError-based exception handling (missing 409 lease conflict and 404 not-found handling), blob listing collects all items into an array (defeating async iteration), and download uses the convenience downloadToFile() method instead of reading readableStreamBody as a stream.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">gpt-4.1</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">Strong, modern Azure Blob Storage utility with robust structure and best practices. Some error handling and streaming download details could be improved for full compliance.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">consensus</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The generated code delivers a well-structured Azure Blob Storage utility with clean separation of concerns across a service class, configuration module, and main demo script. It correctly implements streaming uploads via uploadStream(), lease-based concurrency control with proper try/finally cleanup, identity-based authentication with DefaultAzureCredential, configurable exponential retry policy, and SDK logging via @azure/logger. However, it has consistent gaps across both reviewers: no RestError-based exception handling (missing 409 lease conflict and 404 not-found handling), blob listing collects all items into an array defeating async iteration benefits, and download uses the convenience downloadToFile() method instead of reading readableStreamBody as a Node.js stream.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (6)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">3 .json, 3 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package-lock.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-blob-manager&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;lockfileVersion&#34;: 3,
+  &#34;requires&#34;: true,
+  &#34;packages&#34;: {
+    &#34;&#34;: {
+      &#34;name&#34;: &#34;azure-blob-manager&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/identity&#34;: &#34;^4.7.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;@azure/storage-blob&#34;: &#34;^12.27.0&#34;
+      },
+      &#34;devDependencies&#34;: {
+        &#34;@types/node&#34;: &#34;^22.15.21&#34;,
+        &#34;typescript&#34;: &#34;^5.8.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.18.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-auth&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-auth/-/core-auth-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ykRMW8PjVAn&#43;RS6ww5cmK9U2CyH9p4Q88YJwvUslfuMmN98w/2rdGRLPqJYObapBCdzBVeDgYWdJnFPFb7qzpg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-client&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-client/-/core-client-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Nh5PhEOeY6PrnxNPsEHRr9eimxLwgLlpmguQaHKBinFYA/RU9&#43;kOYVOQqOrTsCL&#43;KSxrLLl1gD8Dk5BFW/7l/w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-http-compat&#34;: {
+      &#34;version&#34;: &#34;2.4.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-http-compat/-/core-http-compat-2.4.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-f1P96IB399YiN2ARYHP7EpZi3Bf3wH4SN2lGzrw7JVwm7bbsVYtf2iKSBwTywD2P62NOPZGHFSZi&#43;6jjb75JuA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      },
+      &#34;peerDependencies&#34;: {
+        &#34;@azure/core-client&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-lro&#34;: {
+      &#34;version&#34;: &#34;2.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-lro/-/core-lro-2.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0YIpccoX8m/k00O7mDDMdJpbr6mf1yWo2dfmxt5A8XVZVVMz2SSKaEbMCeJRvgQ0IaSlqhjT47p4hVIRRy90xw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-paging&#34;: {
+      &#34;version&#34;: &#34;1.6.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-paging/-/core-paging-1.6.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YKWi9YuCU04B55h25cnOYZHxXYtEvQEbKST5vqRga7hWY9ydd3FZHdeQF8pyh&#43;acWZvppw13M/LMGx0LABUVMA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-rest-pipeline&#34;: {
+      &#34;version&#34;: &#34;1.23.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-rest-pipeline/-/core-rest-pipeline-1.23.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Evs1INHo&#43;jUjwHi1T6SG6Ua/LHOQBCLuKEEE6efIpt4ZOoNonaT1kP32GoOcdNDbfqsD2445CPri3MubBy5DEQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.4&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-tracing&#34;: {
+      &#34;version&#34;: &#34;1.3.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-tracing/-/core-tracing-1.3.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-9MWKevR7Hz8kNzzPLfX4EAtGM2b8mr50HPDBvio96bURP/9C&#43;HjdH3sBlLSNNrvRAr5/k/svoH457gB5IKpmwQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-util&#34;: {
+      &#34;version&#34;: &#34;1.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-util/-/core-util-1.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-XPArKLzsvl0Hf0CaGyKHUyVgF7oDnhKoP85Xv6M4StF/1AhfORhZudHtOyf2s&#43;FcbuQ9dPRAjB8J2KvRRMUK2A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-xml&#34;: {
+      &#34;version&#34;: &#34;1.5.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-xml/-/core-xml-1.5.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-xcNRHqCoSp4AunOALEae6A8f3qATb83gSrm31Iqb01OzblvC3/W/bfXozcq78EzIdzZzuH1bZ2NvRR0TdX709w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;fast-xml-parser&#34;: &#34;^5.5.9&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/identity&#34;: {
+      &#34;version&#34;: &#34;4.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/identity/-/identity-4.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-5C/2WD5Vb1lHnZS16dNQRPMjN6oV/Upba&#43;C9nBIs15PmOi6A3ZGs4Lr2u60zw4S04gi&#43;u3cEXiqTVP7M4Pz3kw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-client&#34;: &#34;^1.9.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.17.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/msal-browser&#34;: &#34;^5.5.0&#34;,
+        &#34;@azure/msal-node&#34;: &#34;^5.1.0&#34;,
+        &#34;open&#34;: &#34;^10.1.0&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/logger&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/logger/-/logger-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-fCqPIfOcLE&#43;CGqGPd66c8bZpwAji98tZ4JI9i/mlTNTlsIWslCfpg48s/ypyLxZTump5sypjrKn2/kY7q8oAbA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-browser&#34;: {
+      &#34;version&#34;: &#34;5.9.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-browser/-/msal-browser-5.9.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-CzE&#43;4PefDSJWj26zU7G1bKchlGRRHMBFreG4tAlGuzyI8hAPiYGobaJvZBgZBf6L63iphX7VH&#43;ityL8VgEQz9Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-common&#34;: {
+      &#34;version&#34;: &#34;16.5.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-common/-/msal-common-16.5.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-GkDEL6TYo3HgT3UuqakdgE9PZfc1hMki6&#43;Hwgy1uddb/EauvAKfu85vVhuofRSo22D1xTnWt8Ucwfg4vSCVwvA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-node&#34;: {
+      &#34;version&#34;: &#34;5.1.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-node/-/msal-node-5.1.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ObTeMoNPmq19X3z40et9Xvs4ZoWVeJg43PZMRLG5iwVL&#43;2nCtAerG3YTDItqPp1CfXNwmCXBbg8jn1DOx65c3g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;,
+        &#34;jsonwebtoken&#34;: &#34;^9.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20&#34;
+      }
+    },
+    &#34;node_modules/@azure/storage-blob&#34;: {
+      &#34;version&#34;: &#34;12.31.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/storage-blob/-/storage-blob-12.31.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DBgNv10aCSxopt92DkTDD0o9xScXeBqPKGmR50FPZQaEcH4JLQ&#43;GEOGEDv19V5BMkB7kxr&#43;m4h6il/cCDPvmHg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-client&#34;: &#34;^1.9.3&#34;,
+        &#34;@azure/core-http-compat&#34;: &#34;^2.2.0&#34;,
+        &#34;@azure/core-lro&#34;: &#34;^2.2.0&#34;,
+        &#34;@azure/core-paging&#34;: &#34;^1.6.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.1&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/core-xml&#34;: &#34;^1.4.5&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;@azure/storage-common&#34;: &#34;^12.3.0&#34;,
+        &#34;events&#34;: &#34;^3.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/storage-common&#34;: {
+      &#34;version&#34;: &#34;12.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/storage-common/-/storage-common-12.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-/OFHhy86aG5Pe8dP5tsp&#43;BuJ25JOAl9yaMU3WZbkeoiFMHFtJ7tu5ili7qEdBXNW9G5lDB19trwyI6V49F/8iQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-http-compat&#34;: &#34;^2.2.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.1&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;events&#34;: &#34;^3.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@nodable/entities&#34;: {
+      &#34;version&#34;: &#34;2.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@nodable/entities/-/entities-2.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nyT7T3nbMyBI/lvr6L5TyWbFJAI9FTgVRakNoBqCD&#43;PmID8DzFrrNdLLtHMwMszOtqZa8PAOV24ZqDnQrhQINA==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/nodable&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@types/node&#34;: {
+      &#34;version&#34;: &#34;22.19.17&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@types/node/-/node-22.19.17.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-wGdMcf&#43;vPYM6jikpS/qhg6WiqSV/OhG&#43;jeeHT/KlVqxYfD40iYJf9/AE1uQxVWFvU7MipKRkRv8NSHiCGgPr8Q==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;undici-types&#34;: &#34;~6.21.0&#34;
+      }
+    },
+    &#34;node_modules/@typespec/ts-http-runtime&#34;: {
+      &#34;version&#34;: &#34;0.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@typespec/ts-http-runtime/-/ts-http-runtime-0.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-yURCknZhvywvQItHMMmFSo&#43;fq5arCUIyz/CVk7jD89MSai7dkaX8ufjCWp3NttLojoTVbcE72ri&#43;be/TnEbMHw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;http-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;https-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/agent-base&#34;: {
+      &#34;version&#34;: &#34;7.1.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MnA&#43;YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7&#43;jMO&#43;CUovTQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/buffer-equal-constant-time&#34;: {
+      &#34;version&#34;: &#34;1.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==&#34;,
+      &#34;license&#34;: &#34;BSD-3-Clause&#34;
+    },
+    &#34;node_modules/bundle-name&#34;: {
+      &#34;version&#34;: &#34;4.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/bundle-name/-/bundle-name-4.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-tjwM5exMg6BGRI&#43;kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy&#43;FqStSWvYmtfFMDLIxurorHwDKfDz5Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;run-applescript&#34;: &#34;^7.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/debug&#34;: {
+      &#34;version&#34;: &#34;4.4.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/debug/-/debug-4.4.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-RGwwWnwQvkVfavKVt22FGLw&#43;xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;ms&#34;: &#34;^2.1.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;supports-color&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/default-browser&#34;: {
+      &#34;version&#34;: &#34;5.5.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser/-/default-browser-5.5.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-H9LMLr5zwIbSxrmvikGuI/5KGhZ8E2zH3stkMgM5LpOWDutGM2JZaj460Udnf1a&#43;946zc7YBgrqEWwbk7zHvGw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;bundle-name&#34;: &#34;^4.1.0&#34;,
+        &#34;default-browser-id&#34;: &#34;^5.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/default-browser-id&#34;: {
+      &#34;version&#34;: &#34;5.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser-id/-/default-browser-id-5.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-x1VCxdX4t&#43;8wVfd1so/9w&#43;vQ4vx7lKd2Qp5tDRutErwmR85OgmfX7RlLRMWafRMY7hbEiXIbudNrjOAPa/hL8Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/define-lazy-prop&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-N&#43;MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/ecdsa-sig-formatter&#34;: {
+      &#34;version&#34;: &#34;1.0.11&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==&#34;,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/events&#34;: {
+      &#34;version&#34;: &#34;3.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/events/-/events-3.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-mQw&#43;2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.x&#34;
+      }
+    },
+    &#34;node_modules/fast-xml-builder&#34;: {
+      &#34;version&#34;: &#34;1.1.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/fast-xml-builder/-/fast-xml-builder-1.1.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-4TJn/8FKLeslLAH3dnohXqE3QSoxkhvaMzepOIZytwJXZO69Bfz0HBdDHzOTOon6G59Zrk6VQ2bEiv1t61rfkA==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;path-expression-matcher&#34;: &#34;^1.1.3&#34;
+      }
+    },
+    &#34;node_modules/fast-xml-parser&#34;: {
+      &#34;version&#34;: &#34;5.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/fast-xml-parser/-/fast-xml-parser-5.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-P7oW7tLbYnhOLQk/Gv7cZgzgMPP/XN03K02/Jy6Y/NHzyIAIpxuZIM/YqAkfiXFPxA2CTm7NtCijK9EDu09u2w==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@nodable/entities&#34;: &#34;^2.1.0&#34;,
+        &#34;fast-xml-builder&#34;: &#34;^1.1.5&#34;,
+        &#34;path-expression-matcher&#34;: &#34;^1.5.0&#34;,
+        &#34;strnum&#34;: &#34;^2.2.3&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;fxparser&#34;: &#34;src/cli/cli.js&#34;
+      }
+    },
+    &#34;node_modules/http-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ&#43;veqSOHci/PxBcDabeUNCzpOODJZig==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.0&#34;,
+        &#34;debug&#34;: &#34;^4.3.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/https-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vK9P5/iUfdl95AI&#43;JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.2&#34;,
+        &#34;debug&#34;: &#34;4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/is-docker&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-docker/-/is-docker-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;bin&#34;: {
+        &#34;is-docker&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;^12.20.0 || ^14.13.1 || &gt;=16.0.0&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-inside-container&#34;: {
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-inside-container/-/is-inside-container-1.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk&#43;MG/Qxmp/vtETEF3tRA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-docker&#34;: &#34;^3.0.0&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;is-inside-container&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-wsl&#34;: {
+      &#34;version&#34;: &#34;3.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-wsl/-/is-wsl-3.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-e6rvdUCiQCAuumZslxRJWR/Doq4VpPR82kqclvcS0efgt430SlGIk05vdCN58&#43;VrzgtIcfNODjozVielycD4Sw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/jsonwebtoken&#34;: {
+      &#34;version&#34;: &#34;9.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MT/xP0CrubFRNLNKvxJ2BYfy53Zkm&#43;&#43;5bX9dtuPbqAeQpTVe0MQTFhao8&#43;Cp//EmJp244xt6Drw/GVEGCUj40g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jws&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.includes&#34;: &#34;^4.3.0&#34;,
+        &#34;lodash.isboolean&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isinteger&#34;: &#34;^4.0.4&#34;,
+        &#34;lodash.isnumber&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isplainobject&#34;: &#34;^4.0.6&#34;,
+        &#34;lodash.isstring&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.once&#34;: &#34;^4.0.0&#34;,
+        &#34;ms&#34;: &#34;^2.1.1&#34;,
+        &#34;semver&#34;: &#34;^7.5.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;,
+        &#34;npm&#34;: &#34;&gt;=6&#34;
+      }
+    },
+    &#34;node_modules/jwa&#34;: {
+      &#34;version&#34;: &#34;2.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jwa/-/jwa-2.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-hRF04fqJIP8Abbkq5NKGN0Bbr3JxlQ&#43;qhZufXVr0DvujKy93ZCbXZMHDL4EOtodSbCWxOqR8MS1tXA5hwqCXDg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;buffer-equal-constant-time&#34;: &#34;^1.0.1&#34;,
+        &#34;ecdsa-sig-formatter&#34;: &#34;1.0.11&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/jws&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jws/-/jws-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-EKI/M/yqPncGUUh44xz0PxSidXFr/&#43;r0pA70&#43;gIYhjv&#43;et7yxM&#43;s29Y&#43;VGDkovRofQem0fs7Uvf4&#43;YmAdyRduA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jwa&#34;: &#34;^2.0.1&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/lodash.includes&#34;: {
+      &#34;version&#34;: &#34;4.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isboolean&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Bz5mupy2SVbPHURB98VAcw&#43;aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isinteger&#34;: {
+      &#34;version&#34;: &#34;4.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isnumber&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-QYqzpfwO3/CWf3XP&#43;Z&#43;tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk&#43;NXmTBcc97zw9t1FQrw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isplainobject&#34;: {
+      &#34;version&#34;: &#34;4.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F&#43;MFOBA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isstring&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0wJxfxH1wgO3GrbuP&#43;dTTk7op&#43;6L41QCXbGINEmD&#43;ny/G/eCqGzxyCsh7159S&#43;mgDDcoarnBw6PC1PS5&#43;wUGgw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.once&#34;: {
+      &#34;version&#34;: &#34;4.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/ms&#34;: {
+      &#34;version&#34;: &#34;2.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ms/-/ms-2.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/open&#34;: {
+      &#34;version&#34;: &#34;10.2.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/open/-/open-10.2.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YgBpdJHPyQ2UE5x&#43;hlSXcnejzAvD0b22U2OuAP&#43;8OnlJT&#43;PjWPxtgmGqKKc&#43;RgTM63U9gN0YzrYc71R2WT/hTA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;default-browser&#34;: &#34;^5.2.1&#34;,
+        &#34;define-lazy-prop&#34;: &#34;^3.0.0&#34;,
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;,
+        &#34;wsl-utils&#34;: &#34;^0.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/path-expression-matcher&#34;: {
+      &#34;version&#34;: &#34;1.5.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/path-expression-matcher/-/path-expression-matcher-1.5.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-cbrerZV&#43;6rvdQrrD&#43;iGMcZFEiiSrbv9Tfdkvnusy6y0x0GKBXREFg/Y65GhIfm0tnLntThhzCnfKwp1WRjeCyQ==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.0.0&#34;
+      }
+    },
+    &#34;node_modules/run-applescript&#34;: {
+      &#34;version&#34;: &#34;7.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/run-applescript/-/run-applescript-7.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7&#43;xC9bGulGI8&#43;TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/safe-buffer&#34;: {
+      &#34;version&#34;: &#34;5.2.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F&#43;ppbRo70&#43;YeaDxkw5Dd8NPN&#43;GD6bjnYm2VuPuCXmpuYvmCXQ==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/semver&#34;: {
+      &#34;version&#34;: &#34;7.7.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/semver/-/semver-7.7.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM&#43;MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==&#34;,
+      &#34;license&#34;: &#34;ISC&#34;,
+      &#34;bin&#34;: {
+        &#34;semver&#34;: &#34;bin/semver.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=10&#34;
+      }
+    },
+    &#34;node_modules/strnum&#34;: {
+      &#34;version&#34;: &#34;2.2.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/strnum/-/strnum-2.2.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oKx6RUCuHfT3oyVjtnrmn19H1SiCqgJSg&#43;54XqURKp5aCMbrXrhLjRN9TjuwMjiYstZ0MzDrHqkGZ5dFTKd&#43;zg==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/NaturalIntelligence&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/tslib&#34;: {
+      &#34;version&#34;: &#34;2.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oJFu94HQb&#43;KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==&#34;,
+      &#34;license&#34;: &#34;0BSD&#34;
+    },
+    &#34;node_modules/typescript&#34;: {
+      &#34;version&#34;: &#34;5.9.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;bin&#34;: {
+        &#34;tsc&#34;: &#34;bin/tsc&#34;,
+        &#34;tsserver&#34;: &#34;bin/tsserver&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.17&#34;
+      }
+    },
+    &#34;node_modules/undici-types&#34;: {
+      &#34;version&#34;: &#34;6.21.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp&#43;7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/wsl-utils&#34;: {
+      &#34;version&#34;: &#34;0.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/wsl-utils/-/wsl-utils-0.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-wsl&#34;: &#34;^3.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    }
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-blob-manager&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Reusable Azure Blob Storage management utility for Node.js and TypeScript.&#34;,
+  &#34;private&#34;: true,
+  &#34;main&#34;: &#34;dist/index.js&#34;,
+  &#34;types&#34;: &#34;dist/index.d.ts&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc -p tsconfig.json&#34;,
+    &#34;start&#34;: &#34;node dist/index.js&#34;
+  },
+  &#34;engines&#34;: {
+    &#34;node&#34;: &#34;&gt;=18.18.0&#34;
+  },
+  &#34;dependencies&#34;: {
+    &#34;@azure/identity&#34;: &#34;^4.7.0&#34;,
+    &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+    &#34;@azure/storage-blob&#34;: &#34;^12.27.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^22.15.21&#34;,
+    &#34;typescript&#34;: &#34;^5.8.3&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\blobStorageService.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { createReadStream } from &#34;node:fs&#34;;
+import { promises as fs } from &#34;node:fs&#34;;
+import { dirname } from &#34;node:path&#34;;
+import {
+  BlobServiceClient,
+  BlobItem,
+  BlockBlobParallelUploadOptions,
+  ContainerClient,
+  Tags
+} from &#34;@azure/storage-blob&#34;;
+
+export interface UploadBlobOptions {
+  metadata?: Record&lt;string, string&gt;;
+  tags?: Tags;
+  blockSize?: number;
+  concurrency?: number;
+  leaseDurationSeconds?: number;
+}
+
+export interface UploadBlobResult {
+  etag?: string;
+  lastModified?: Date;
+  usedLease: boolean;
+}
+
+export class BlobStorageService {
+  constructor(private readonly blobServiceClient: BlobServiceClient) {}
+
+  async ensureContainer(containerName: string): Promise&lt;void&gt; {
+    await this.getContainerClient(containerName).createIfNotExists();
+  }
+
+  async uploadBlob(
+    containerName: string,
+    blobName: string,
+    filePath: string,
+    options: UploadBlobOptions = {}
+  ): Promise&lt;UploadBlobResult&gt; {
+    const containerClient = this.getContainerClient(containerName);
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+    const uploadOptions: BlockBlobParallelUploadOptions = {
+      metadata: options.metadata,
+      tags: options.tags
+    };
+
+    const streamOptions = {
+      bufferSize: options.blockSize ?? 8 * 1024 * 1024,
+      maxConcurrency: options.concurrency ?? 5
+    };
+
+    const blobExists = await blockBlobClient.exists();
+    let usedLease = false;
+
+    if (blobExists) {
+      const leaseClient = blockBlobClient.getBlobLeaseClient();
+      const leaseDurationSeconds = options.leaseDurationSeconds ?? 60;
+      const leaseResponse = await leaseClient.acquireLease(leaseDurationSeconds);
+
+      usedLease = true;
+      uploadOptions.conditions = { leaseId: leaseResponse.leaseId };
+
+      try {
+        const uploadResponse = await blockBlobClient.uploadStream(
+          createReadStream(filePath),
+          streamOptions.bufferSize,
+          streamOptions.maxConcurrency,
+          uploadOptions
+        );
+
+        return {
+          etag: uploadResponse.etag,
+          lastModified: uploadResponse.lastModified,
+          usedLease
+        };
+      } finally {
+        await leaseClient.releaseLease();
+      }
+    }
+
+    uploadOptions.conditions = { ifNoneMatch: &#34;*&#34; };
+
+    try {
+      const uploadResponse = await blockBlobClient.uploadStream(
+        createReadStream(filePath),
+        streamOptions.bufferSize,
+        streamOptions.maxConcurrency,
+        uploadOptions
+      );
+
+      return {
+        etag: uploadResponse.etag,
+        lastModified: uploadResponse.lastModified,
+        usedLease
+      };
+    } catch (error) {
+      if (!isBlobAlreadyExistsError(error)) {
+        throw error;
+      }
+
+      return this.uploadBlob(containerName, blobName, filePath, options);
+    }
+  }
+
+  async downloadBlob(containerName: string, blobName: string, destinationPath: string): Promise&lt;void&gt; {
+    await fs.mkdir(dirname(destinationPath), { recursive: true });
+
+    const blockBlobClient = this.getContainerClient(containerName).getBlockBlobClient(blobName);
+    await blockBlobClient.downloadToFile(destinationPath);
+  }
+
+  async listBlobs(containerName: string): Promise&lt;BlobItem[]&gt; {
+    const containerClient = this.getContainerClient(containerName);
+    const blobs: BlobItem[] = [];
+
+    for await (const blob of containerClient.listBlobsFlat({ includeMetadata: true, includeTags: true })) {
+      blobs.push(blob);
+    }
+
+    return blobs;
+  }
+
+  async deleteBlob(containerName: string, blobName: string): Promise&lt;void&gt; {
+    const blockBlobClient = this.getContainerClient(containerName).getBlockBlobClient(blobName);
+    await blockBlobClient.deleteIfExists({ deleteSnapshots: &#34;include&#34; });
+  }
+
+  private getContainerClient(containerName: string): ContainerClient {
+    return this.blobServiceClient.getContainerClient(containerName);
+  }
+}
+
+function isBlobAlreadyExistsError(error: unknown): boolean {
+  if (!error || typeof error !== &#34;object&#34;) {
+    return false;
+  }
+
+  const statusCode = &#34;statusCode&#34; in error ? error.statusCode : undefined;
+  const details = &#34;details&#34; in error ? error.details : undefined;
+  const errorCode =
+    details &amp;&amp; typeof details === &#34;object&#34; &amp;&amp; details !== null &amp;&amp; &#34;errorCode&#34; in details
+      ? details.errorCode
+      : undefined;
+
+  return statusCode === 412 || errorCode === &#34;ConditionNotMet&#34;;
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\config.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+import { AzureLogger, AzureLogLevel, setLogLevel } from &#34;@azure/logger&#34;;
+import {
+  BlobServiceClient,
+  StorageRetryPolicyType,
+  StoragePipelineOptions
+} from &#34;@azure/storage-blob&#34;;
+
+const SUPPORTED_LOG_LEVELS: AzureLogLevel[] = [&#34;verbose&#34;, &#34;info&#34;, &#34;warning&#34;, &#34;error&#34;];
+
+export interface BlobStorageConfig {
+  endpoint: string;
+  containerName: string;
+  retryMaxTries: number;
+  retryDelayInMs: number;
+  retryMaxDelayInMs: number;
+  sdkLogLevel: AzureLogLevel;
+}
+
+export function loadBlobStorageConfig(): BlobStorageConfig {
+  const endpoint = process.env.AZURE_STORAGE_BLOB_ENDPOINT;
+
+  if (!endpoint) {
+    throw new Error(&#34;AZURE_STORAGE_BLOB_ENDPOINT must be set to the Blob service endpoint.&#34;);
+  }
+
+  const sdkLogLevel = parseLogLevel(process.env.AZURE_SDK_LOG_LEVEL);
+
+  return {
+    endpoint,
+    containerName: process.env.AZURE_STORAGE_CONTAINER_NAME ?? &#34;blob-demo&#34;,
+    retryMaxTries: parsePositiveInteger(process.env.AZURE_STORAGE_RETRY_MAX_TRIES, 5),
+    retryDelayInMs: parsePositiveInteger(process.env.AZURE_STORAGE_RETRY_DELAY_MS, 800),
+    retryMaxDelayInMs: parsePositiveInteger(process.env.AZURE_STORAGE_RETRY_MAX_DELAY_MS, 8_000),
+    sdkLogLevel
+  };
+}
+
+export function createBlobServiceClient(config: BlobStorageConfig): BlobServiceClient {
+  setLogLevel(config.sdkLogLevel);
+  AzureLogger.log = (...args: unknown[]) =&gt; {
+    console.log(&#34;[azure-sdk]&#34;, ...args);
+  };
+
+  const credential = new DefaultAzureCredential();
+
+  const options: StoragePipelineOptions = {
+    retryOptions: {
+      maxTries: config.retryMaxTries,
+      retryDelayInMs: config.retryDelayInMs,
+      maxRetryDelayInMs: config.retryMaxDelayInMs,
+      retryPolicyType: StorageRetryPolicyType.EXPONENTIAL
+    }
+  };
+
+  return new BlobServiceClient(config.endpoint, credential, options);
+}
+
+function parsePositiveInteger(value: string | undefined, fallback: number): number {
+  if (!value) {
+    return fallback;
+  }
+
+  const parsed = Number.parseInt(value, 10);
+
+  if (!Number.isInteger(parsed) || parsed &lt;= 0) {
+    throw new Error(`Expected a positive integer but received &#34;${value}&#34;.`);
+  }
+
+  return parsed;
+}
+
+function parseLogLevel(value: string | undefined): AzureLogLevel {
+  if (!value) {
+    return &#34;info&#34;;
+  }
+
+  if (SUPPORTED_LOG_LEVELS.includes(value as AzureLogLevel)) {
+    return value as AzureLogLevel;
+  }
+
+  throw new Error(
+    `Unsupported AZURE_SDK_LOG_LEVEL &#34;${value}&#34;. Supported values: ${SUPPORTED_LOG_LEVELS.join(&#34;, &#34;)}.`
+  );
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\index.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { promises as fs } from &#34;node:fs&#34;;
+import { join } from &#34;node:path&#34;;
+import { Tags } from &#34;@azure/storage-blob&#34;;
+import { BlobStorageService } from &#34;./blobStorageService&#34;;
+import { createBlobServiceClient, loadBlobStorageConfig } from &#34;./config&#34;;
+
+async function main(): Promise&lt;void&gt; {
+  const config = loadBlobStorageConfig();
+  const blobServiceClient = createBlobServiceClient(config);
+  const blobStorageService = new BlobStorageService(blobServiceClient);
+
+  const workingDirectory = join(process.cwd(), &#34;demo-artifacts&#34;);
+  const uploadFilePath = join(workingDirectory, &#34;sample-upload.txt&#34;);
+  const downloadFilePath = join(workingDirectory, &#34;downloaded-sample.txt&#34;);
+  const blobName = &#34;sample-upload.txt&#34;;
+  const initialTags: Tags = {
+    project: &#34;azure-blob-manager&#34;,
+    scenario: &#34;demo&#34;,
+    stage: &#34;initial&#34;
+  };
+  const updatedTags: Tags = {
+    project: &#34;azure-blob-manager&#34;,
+    scenario: &#34;demo&#34;,
+    stage: &#34;updated&#34;
+  };
+
+  await fs.mkdir(workingDirectory, { recursive: true });
+
+  console.log(`Using container &#34;${config.containerName}&#34; at ${config.endpoint}`);
+  console.log(&#34;Ensuring container exists...&#34;);
+  await blobStorageService.ensureContainer(config.containerName);
+
+  console.log(&#34;Preparing sample file...&#34;);
+  await fs.writeFile(uploadFilePath, &#34;Initial blob content written from the TypeScript demo.\n&#34;, &#34;utf8&#34;);
+
+  console.log(&#34;Uploading sample blob with index tags...&#34;);
+  const uploadResult = await blobStorageService.uploadBlob(config.containerName, blobName, uploadFilePath, {
+    metadata: {
+      source: &#34;demo-script&#34;,
+      stage: &#34;initial&#34;
+    },
+    tags: initialTags
+  });
+  console.log(`Upload complete. Lease used: ${uploadResult.usedLease}`);
+
+  console.log(&#34;Listing blobs in container...&#34;);
+  const blobs = await blobStorageService.listBlobs(config.containerName);
+  for (const blob of blobs) {
+    const tags = blob.tags ? JSON.stringify(blob.tags) : &#34;{}&#34;;
+    console.log(`- ${blob.name} | tags=${tags}`);
+  }
+
+  console.log(&#34;Downloading blob...&#34;);
+  await blobStorageService.downloadBlob(config.containerName, blobName, downloadFilePath);
+  const downloadedContent = await fs.readFile(downloadFilePath, &#34;utf8&#34;);
+  console.log(&#34;Downloaded content:&#34;);
+  console.log(downloadedContent.trimEnd());
+
+  console.log(&#34;Overwriting blob while holding a lease...&#34;);
+  await fs.writeFile(uploadFilePath, &#34;Updated blob content written after lease acquisition.\n&#34;, &#34;utf8&#34;);
+  const overwriteResult = await blobStorageService.uploadBlob(config.containerName, blobName, uploadFilePath, {
+    metadata: {
+      source: &#34;demo-script&#34;,
+      stage: &#34;updated&#34;
+    },
+    tags: updatedTags
+  });
+  console.log(`Overwrite complete. Lease used: ${overwriteResult.usedLease}`);
+
+  console.log(&#34;Deleting blob...&#34;);
+  await blobStorageService.deleteBlob(config.containerName, blobName);
+  console.log(&#34;Blob deleted.&#34;);
+}
+
+main().catch((error: unknown) =&gt; {
+  console.error(&#34;Blob demo failed.&#34;);
+
+  if (error instanceof Error) {
+    console.error(error.message);
+    if (error.stack) {
+      console.error(error.stack);
+    }
+  } else {
+    console.error(error);
+  }
+
+  process.exitCode = 1;
+});
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2022&#34;,
+    &#34;module&#34;: &#34;CommonJS&#34;,
+    &#34;moduleResolution&#34;: &#34;Node&#34;,
+    &#34;rootDir&#34;: &#34;src&#34;,
+    &#34;outDir&#34;: &#34;dist&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;declaration&#34;: true,
+    &#34;sourceMap&#34;: true,
+    &#34;types&#34;: [
+      &#34;node&#34;
+    ]
+  },
+  &#34;include&#34;: [
+    &#34;src/**/*.ts&#34;
+  ]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">66 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (66 actions, 22 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>66</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>22</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>11</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">22</strong> <span>succeeded</span></div>
+        
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id storage-dp-js-ts-blob-manager --config baseline-skills/gpt-5.4</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

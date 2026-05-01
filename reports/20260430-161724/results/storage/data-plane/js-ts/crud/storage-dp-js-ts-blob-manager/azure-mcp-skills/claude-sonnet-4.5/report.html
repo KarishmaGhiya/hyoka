@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: storage-dp-js-ts-blob-manager / azure-mcp-skills/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 storage-dp-js-ts-blob-manager</h1>
+  <div class="subtitle">Config: <strong>azure-mcp-skills/claude-sonnet-4.5</strong> · 2026-04-30T23:31:22Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item" style="color:#6b7280">Generator made 8 file-write attempts but no files appeared in the workspace — files may have been written to the wrong location</span>
+  <span class="meta-item">Duration: <strong>162.6s</strong></span>
+  <span class="meta-item">Files: <strong>0</strong></span>
+  <span class="meta-item">Tool Calls: <strong>11</strong></span>
+  
+</div>
+
+
+<div class="error-box">
+  <h3>❌ Error</h3>
+  <p>0 files generated despite 8 file-write tool attempts</p>
+  
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can an agent generate a complete, production-ready Azure Blob Storage management utility in TypeScript with streaming upload for large files, download with Node.js stream handling, blob leasing for concurrency control, index tags, retry configuration, and SDK logging?
+</td></tr>
+      <tr><td>Difficulty</td><td>advanced</td></tr>
+      <tr><td>Service</td><td>storage</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>crud</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/storage-blob</code></td></tr>
+      <tr><td>Tags</td><td>identity, default-azure-credential, blob-storage, streaming, retry, lease, index-tags, logging</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=174122 out=13992</td></tr>
+    <tr><td>Turn Count</td><td>4</td></tr>
+    
+    <tr><td>Generation Duration</td><td>162.5s</td></tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>8</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Create a TypeScript Node.js project that provides a reusable Azure Blob Storage management utility.
+
+The project needs:
+
+- A **service class** that wraps blob operations: upload (with optional metadata and blob index tags for later querying), download, list blobs in a container, and delete. The upload method should handle large files efficiently using streaming — uploading a multi-gigabyte file should not load the entire thing into memory. The service should also prevent concurrent writers from overwriting each other&#39;s changes when updating the same blob by acquiring a lease before writing.
+
+- A **configuration module** that connects to Azure securely using the storage account endpoint (from an environment variable). No connection strings or account keys should be used — the app will run in Azure with managed identity. The configuration should set up a custom retry policy (exponential backoff, configurable max retries and delay) and enable SDK logging at a configurable level for debugging.
+
+- A **main script** that wires everything together and demos each operation: uploads a sample file with some index tags, lists all blobs in the container, downloads the file back and prints its content, acquires a lease and overwrites the blob, then finally deletes it. Print status at each step.
+
+Include a complete `package.json` with the necessary Azure SDK dependencies and a `tsconfig.json`.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a complete TypeScript Node.js project for Azure Blob Storage management with all the requested features.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants me to create a TypeScript Node.js project for Azure Blob Storage …
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants me to create a TypeScript Node.js project for Azure Blob Storage management with specific requirements:
+
+1. A service class with:
+   - upload (with metadata and blob index tags, streaming for large files)
+   - download
+   - list blobs
+   - delete
+   - lease acquisition to prevent concurrent writes
+
+2. A configuration module:
+   - Uses managed identity (no connection strings/keys)
+   - Custom retry policy (exponential backoff)
+   - Configurable SDK logging
+
+3. A main script that demos all operations
+
+4. package.json with Azure SDK dependencies
+5. tsconfig.json
+
+This is a straightforward implementation task. I should:
+1. Create the project structure
+2. Set up package.json with Azure Storage Blob SDK
+3. Set up tsconfig.json
+4. Create the configuration module
+5. Create the service class
+6. Create the main demo script
+
+Let me start by reporting my intent and creating these files.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure Blob Storage project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-blob-storage-manager\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Reusable Azure Blob Storage management utility with streaming, leasing, and managed identity support\&#34;,\n  \&#34;main\&#34;: \&#34;dist/index.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node src/index.ts\&#34;\n  },\n  \&#34;keywords\&#34;: [\n    \&#34;azure\&#34;,\n    \&#34;blob-storage\&#34;,\n    \&#34;typescript\&#34;,\n    \&#34;managed-identity\&#34;\n  ],\n  \&#34;author\&#34;: \&#34;\&#34;,\n  \&#34;license\&#34;: \&#34;MIT\&#34;,\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.17.0\&#34;,\n    \&#34;@azure/logger\&#34;: \&#34;^1.0.4\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.10.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.3.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.2\&#34;\n  },\n  \&#34;engines\&#34;: {\n    \&#34;node\&#34;: \&#34;\u003e=18.0.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2022\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2022\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;,\n    \&#34;declaration\&#34;: true,\n    \&#34;declarationMap\&#34;: true,\n    \&#34;sourceMap\&#34;: true,\n    \&#34;noUnusedLocals\&#34;: true,\n    \&#34;noUnusedParameters\&#34;: true,\n    \&#34;noImplicitReturns\&#34;: true,\n    \&#34;noFallthroughCasesInSwitch\&#34;: true\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;, \&#34;dist\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Storage Account Configuration\nAZURE_STORAGE_ACCOUNT_ENDPOINT=https://\u003cyour-storage-account\u003e.blob.core.windows.net\n\n# Optional: Logging level (verbose, info, warning, error)\nAZURE_LOG_LEVEL=info\n\n# Optional: Retry policy configuration\nRETRY_MAX_RETRIES=3\nRETRY_MAX_DELAY_MS=60000\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { DefaultAzureCredential } from &#39;@azure/identity&#39;;\nimport { BlobServiceClient, StorageRetryPolicyType } from &#39;@azure/storage-blob&#39;;\nimport { setLogLevel, AzureLogger } from &#39;@azure/logger&#39;;\n\nexport interface AzureStorageConfig {\n  endpoint: string;\n  maxRetries?: number;\n  maxRetryDelayMs?: number;\n  logLevel?: &#39;verbose&#39; | &#39;info&#39; | &#39;warning&#39; | &#39;error&#39;;\n}\n\nexport class AzureStorageClientFactory {\n  private static instance: BlobServiceClient;\n\n  /**\n   * Creates and configures a BlobServiceClient using managed identity.\n   * Uses exponential backoff retry policy and configurable logging.\n   */\n  static createClient(config: AzureStorageConfig): BlobServiceClient {\n    if (this.instance) {\n      return this.instance;\n    }\n\n    // Configure Azure SDK logging\n    if (config.logLevel) {\n      setLogLevel(config.logLevel);\n      AzureLogger.log = (...args) =\u003e {\n        console.log(&#39;[Azure SDK]&#39;, ...args);\n      };\n    }\n\n    // Validate endpoint\n    if (!config.endpoint) {\n      throw new Error(&#39;AZURE_STORAGE_ACCOUNT_ENDPOINT is required&#39;);\n    }\n\n    // Create credential using managed identity (works with DefaultAzureCredential)\n    const credential = new DefaultAzureCredential();\n\n    // Configure retry policy with exponential backoff\n    const retryOptions = {\n      maxRetries: config.maxRetries ?? 3,\n      retryDelayInMs: 1000,\n      maxRetryDelayInMs: config.maxRetryDelayMs ?? 60000,\n      retryPolicyType: StorageRetryPolicyType.EXPONENTIAL,\n    };\n\n    // Create BlobServiceClient\n    this.instance = new BlobServiceClient(config.endpoint, credential, {\n      retryOptions,\n    });\n\n    console.log(`✓ Configured Azure Storage client for: ${config.endpoint}`);\n    console.log(`  Retry policy: Exponential backoff, max ${retryOptions.maxRetries} retries`);\n    console.log(`  Max retry delay: ${retryOptions.maxRetryDelayInMs}ms`);\n\n    return this.instance;\n  }\n\n  /**\n   * Load configuration from environment variables\n   */\n  static loadConfigFromEnv(): AzureStorageConfig {\n    return {\n      endpoint: process.env.AZURE_STORAGE_ACCOUNT_ENDPOINT || &#39;&#39;,\n      maxRetries: process.env.RETRY_MAX_RETRIES \n        ? parseInt(process.env.RETRY_MAX_RETRIES, 10) \n        : 3,\n      maxRetryDelayMs: process.env.RETRY_MAX_DELAY_MS\n        ? parseInt(process.env.RETRY_MAX_DELAY_MS, 10)\n        : 60000,\n      logLevel: (process.env.AZURE_LOG_LEVEL as any) || &#39;info&#39;,\n    };\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\src\\config.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import {\n  BlobServiceClient,\n  ContainerClient,\n  BlockBlobClient,\n  BlobUploadCommonResponse,\n  BlobDownloadResponseParsed,\n  ContainerListBlobFlatSegmentResponse,\n  BlobItem,\n  Tags,\n} from &#39;@azure/storage-blob&#39;;\nimport { Readable } from &#39;stream&#39;;\nimport * as fs from &#39;fs&#39;;\nimport * as path from &#39;path&#39;;\n\nexport interface UploadOptions {\n  metadata?: Record\u003cstring, string\u003e;\n  tags?: Tags;\n  contentType?: string;\n}\n\nexport interface LeaseInfo {\n  leaseId: string;\n  expiresAt: Date;\n}\n\nexport class BlobStorageService {\n  private containerClient: ContainerClient;\n\n  constructor(\n    private blobServiceClient: BlobServiceClient,\n    private containerName: string\n  ) {\n    this.containerClient = blobServiceClient.getContainerClient(containerName);\n  }\n\n  /**\n   * Ensures the container exists, creating it if necessary\n   */\n  async ensureContainer(): Promise\u003cvoid\u003e {\n    const exists = await this.containerClient.exists();\n    if (!exists) {\n      await this.containerClient.create();\n      console.log(`✓ Created container: ${this.containerName}`);\n    } else {\n      console.log(`✓ Container exists: ${this.containerName}`);\n    }\n  }\n\n  /**\n   * Uploads a file to blob storage using streaming for memory efficiency.\n   * Supports optional metadata and blob index tags for querying.\n   * \n   * @param blobName - Name of the blob in the container\n   * @param filePath - Local file path to upload\n   * @param options - Optional metadata, tags, and content type\n   */\n  async upload(\n    blobName: string,\n    filePath: string,\n    options?: UploadOptions\n  ): Promise\u003cBlobUploadCommonResponse\u003e {\n    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);\n    \n    // Get file size for progress tracking\n    const stats = fs.statSync(filePath);\n    const fileSize = stats.size;\n\n    console.log(`Uploading ${blobName} (${this.formatBytes(fileSize)})...`);\n\n    // Create a readable stream for efficient memory usage\n    const readStream = fs.createReadStream(filePath);\n\n    // Upload with streaming\n    const uploadOptions: any = {\n      blobHTTPHeaders: {\n        blobContentType: options?.contentType || this.getMimeType(filePath),\n      },\n      metadata: options?.metadata,\n      tags: options?.tags,\n    };\n\n    const response = await blockBlobClient.uploadStream(\n      readStream,\n      4 * 1024 * 1024, // 4 MB buffer size\n      5, // 5 concurrent upload operations\n      uploadOptions\n    );\n\n    console.log(`✓ Uploaded ${blobName} (ETag: ${response.etag})`);\n    return response;\n  }\n\n  /**\n   * Downloads a blob from storage and writes it to a local file\n   * \n   * @param blobName - Name of the blob to download\n   * @param downloadPath - Local path to save the file\n   */\n  async download(blobName: string, downloadPath: string): Promise\u003cvoid\u003e {\n    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);\n    \n    console.log(`Downloading ${blobName}...`);\n\n    // Download to a local file\n    await blockBlobClient.downloadToFile(downloadPath);\n    \n    const stats = fs.statSync(downloadPath);\n    console.log(`✓ Downloaded ${blobName} to ${downloadPath} (${this.formatBytes(stats.size)})`);\n  }\n\n  /**\n   * Downloads a blob and returns its content as a string\n   */\n  async downloadAsString(blobName: string): Promise\u003cstring\u003e {\n    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);\n    \n    const response = await blockBlobClient.download();\n    \n    if (!response.readableStreamBody) {\n      throw new Error(&#39;No readable stream body in download response&#39;);\n    }\n\n    const chunks: Buffer[] = [];\n    for await (const chunk of response.readableStreamBody) {\n      chunks.push(Buffer.from(chunk));\n    }\n\n    return Buffer.concat(chunks).toString(&#39;utf-8&#39;);\n  }\n\n  /**\n   * Lists all blobs in the container\n   * \n   * @param prefix - Optional prefix to filter blobs\n   */\n  async listBlobs(prefix?: string): Promise\u003cBlobItem[]\u003e {\n    console.log(`Listing blobs in container: ${this.containerName}${prefix ? ` (prefix: ${prefix})` : &#39;&#39;}...`);\n    \n    const blobs: BlobItem[] = [];\n    \n    for await (const blob of this.containerClient.listBlobsFlat({ prefix })) {\n      blobs.push(blob);\n    }\n\n    console.log(`✓ Found ${blobs.length} blob(s)`);\n    return blobs;\n  }\n\n  /**\n   * Deletes a blob from the container\n   * \n   * @param blobName - Name of the blob to delete\n   */\n  async delete(blobName: string): Promise\u003cvoid\u003e {\n    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);\n    \n    console.log(`Deleting ${blobName}...`);\n    await blockBlobClient.delete();\n    \n    console.log(`✓ Deleted ${blobName}`);\n  }\n\n  /**\n   * Acquires a lease on a blob to prevent concurrent writes.\n   * Returns the lease ID that must be used for subsequent operations.\n   * \n   * @param blobName - Name of the blob to lease\n   * @param durationSeconds - Lease duration (15-60 seconds, or -1 for infinite)\n   */\n  async acquireLease(\n    blobName: string,\n    durationSeconds: number = 60\n  ): Promise\u003cLeaseInfo\u003e {\n    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);\n    const leaseClient = blockBlobClient.getBlobLeaseClient();\n\n    console.log(`Acquiring lease on ${blobName} for ${durationSeconds}s...`);\n    \n    const leaseResponse = await leaseClient.acquireLease(durationSeconds);\n    \n    const expiresAt = new Date();\n    if (durationSeconds \u003e 0) {\n      expiresAt.setSeconds(expiresAt.getSeconds() &#43; durationSeconds);\n    }\n\n    console.log(`✓ Acquired lease: ${leaseResponse.leaseId}`);\n    \n    return {\n      leaseId: leaseResponse.leaseId!,\n      expiresAt,\n    };\n  }\n\n  /**\n   * Releases a previously acquired lease\n   */\n  async releaseLease(blobName: string, leaseId: string): Promise\u003cvoid\u003e {\n    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);\n    const leaseClient = blockBlobClient.getBlobLeaseClient(leaseId);\n\n    console.log(`Releasing lease ${leaseId}...`);\n    await leaseClient.releaseLease();\n    console.log(`✓ Released lease`);\n  }\n\n  /**\n   * Uploads with lease protection to prevent concurrent writes\n   */\n  async uploadWithLease(\n    blobName: string,\n    filePath: string,\n    leaseId: string,\n    options?: UploadOptions\n  ): Promise\u003cBlobUploadCommonResponse\u003e {\n    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);\n    \n    const stats = fs.statSync(filePath);\n    const fileSize = stats.size;\n\n    console.log(`Uploading ${blobName} with lease protection (${this.formatBytes(fileSize)})...`);\n\n    const readStream = fs.createReadStream(filePath);\n\n    const uploadOptions: any = {\n      blobHTTPHeaders: {\n        blobContentType: options?.contentType || this.getMimeType(filePath),\n      },\n      metadata: options?.metadata,\n      tags: options?.tags,\n      conditions: {\n        leaseId,\n      },\n    };\n\n    const response = await blockBlobClient.uploadStream(\n      readStream,\n      4 * 1024 * 1024,\n      5,\n      uploadOptions\n    );\n\n    console.log(`✓ Uploaded ${blobName} with lease (ETag: ${response.etag})`);\n    return response;\n  }\n\n  /**\n   * Helper to format bytes into human-readable format\n   */\n  private formatBytes(bytes: number): string {\n    if (bytes === 0) return &#39;0 Bytes&#39;;\n    const k = 1024;\n    const sizes = [&#39;Bytes&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;];\n    const i = Math.floor(Math.log(bytes) / Math.log(k));\n    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 &#43; &#39; &#39; &#43; sizes[i];\n  }\n\n  /**\n   * Simple MIME type detection based on file extension\n   */\n  private getMimeType(filePath: string): string {\n    const ext = path.extname(filePath).toLowerCase();\n    const mimeTypes: Record\u003cstring, string\u003e = {\n      &#39;.txt&#39;: &#39;text/plain&#39;,\n      &#39;.json&#39;: &#39;application/json&#39;,\n      &#39;.xml&#39;: &#39;application/xml&#39;,\n      &#39;.html&#39;: &#39;text/html&#39;,\n      &#39;.css&#39;: &#39;text/css&#39;,\n      &#39;.js&#39;: &#39;application/javascript&#39;,\n      &#39;.jpg&#39;: &#39;image/jpeg&#39;,\n      &#39;.jpeg&#39;: &#39;image/jpeg&#39;,\n      &#39;.png&#39;: &#39;image/png&#39;,\n      &#39;.gif&#39;: &#39;image/gif&#39;,\n      &#39;.pdf&#39;: &#39;application/pdf&#39;,\n      &#39;.zip&#39;: &#39;application/zip&#39;,\n    };\n    return mimeTypes[ext] || &#39;application/octet-stream&#39;;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\src\\BlobStorageService.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { AzureStorageClientFactory } from &#39;./config&#39;;\nimport { BlobStorageService } from &#39;./BlobStorageService&#39;;\nimport * as fs from &#39;fs&#39;;\nimport * as path from &#39;path&#39;;\n\n/**\n * Demo script that showcases all blob storage operations:\n * - Upload with metadata and index tags\n * - List blobs\n * - Download\n * - Lease acquisition and update\n * - Delete\n */\nasync function main() {\n  console.log(&#39;=== Azure Blob Storage Manager Demo ===\\n&#39;);\n\n  try {\n    // Load configuration from environment\n    const config = AzureStorageClientFactory.loadConfigFromEnv();\n    \n    // Create BlobServiceClient with managed identity\n    const blobServiceClient = AzureStorageClientFactory.createClient(config);\n\n    // Create service instance for a specific container\n    const containerName = &#39;demo-container&#39;;\n    const service = new BlobStorageService(blobServiceClient, containerName);\n\n    // Ensure container exists\n    await service.ensureContainer();\n    console.log();\n\n    // === Step 1: Create a sample file ===\n    console.log(&#39;--- Step 1: Creating sample file ---&#39;);\n    const sampleFilePath = path.join(__dirname, &#39;../sample.txt&#39;);\n    const sampleContent = `Hello from Azure Blob Storage!\nThis is a demo file uploaded at ${new Date().toISOString()}.\nIt demonstrates:\n- Streaming uploads for memory efficiency\n- Metadata and blob index tags\n- Lease-based concurrency control\n- Managed identity authentication`;\n    \n    fs.writeFileSync(sampleFilePath, sampleContent);\n    console.log(`✓ Created sample file: ${sampleFilePath}`);\n    console.log();\n\n    // === Step 2: Upload with metadata and tags ===\n    console.log(&#39;--- Step 2: Upload with metadata and tags ---&#39;);\n    const blobName = &#39;demo-file.txt&#39;;\n    await service.upload(blobName, sampleFilePath, {\n      metadata: {\n        author: &#39;Azure Blob Manager Demo&#39;,\n        environment: &#39;development&#39;,\n        uploadedAt: new Date().toISOString(),\n      },\n      tags: {\n        project: &#39;blob-manager&#39;,\n        environment: &#39;demo&#39;,\n        classification: &#39;public&#39;,\n      },\n    });\n    console.log();\n\n    // === Step 3: List all blobs ===\n    console.log(&#39;--- Step 3: List all blobs in container ---&#39;);\n    const blobs = await service.listBlobs();\n    blobs.forEach((blob) =\u003e {\n      console.log(`  - ${blob.name} (${blob.properties.contentLength} bytes)`);\n      console.log(`    Created: ${blob.properties.createdOn?.toISOString()}`);\n      console.log(`    ETag: ${blob.properties.etag}`);\n    });\n    console.log();\n\n    // === Step 4: Download and print content ===\n    console.log(&#39;--- Step 4: Download blob and print content ---&#39;);\n    const downloadPath = path.join(__dirname, &#39;../downloaded-sample.txt&#39;);\n    await service.download(blobName, downloadPath);\n    \n    const downloadedContent = fs.readFileSync(downloadPath, &#39;utf-8&#39;);\n    console.log(&#39;\\nDownloaded content:&#39;);\n    console.log(&#39;---&#39;);\n    console.log(downloadedContent);\n    console.log(&#39;---\\n&#39;);\n\n    // === Step 5: Acquire lease and update blob ===\n    console.log(&#39;--- Step 5: Acquire lease and overwrite blob ---&#39;);\n    const lease = await service.acquireLease(blobName, 60);\n    console.log(`Lease expires at: ${lease.expiresAt.toISOString()}`);\n    \n    // Update sample file\n    const updatedContent = sampleContent &#43; &#39;\\n\\n[UPDATED] This content was modified with lease protection!&#39;;\n    fs.writeFileSync(sampleFilePath, updatedContent);\n    \n    // Upload with lease to prevent concurrent writes\n    await service.uploadWithLease(blobName, sampleFilePath, lease.leaseId, {\n      metadata: {\n        author: &#39;Azure Blob Manager Demo&#39;,\n        environment: &#39;development&#39;,\n        uploadedAt: new Date().toISOString(),\n        updated: &#39;true&#39;,\n      },\n    });\n\n    // Release the lease\n    await service.releaseLease(blobName, lease.leaseId);\n    console.log();\n\n    // === Step 6: Verify the update ===\n    console.log(&#39;--- Step 6: Verify the update ---&#39;);\n    const verifyContent = await service.downloadAsString(blobName);\n    console.log(&#39;Updated content:&#39;);\n    console.log(&#39;---&#39;);\n    console.log(verifyContent);\n    console.log(&#39;---\\n&#39;);\n\n    // === Step 7: Clean up ===\n    console.log(&#39;--- Step 7: Clean up ---&#39;);\n    await service.delete(blobName);\n    \n    // Clean up local files\n    if (fs.existsSync(sampleFilePath)) {\n      fs.unlinkSync(sampleFilePath);\n      console.log(`✓ Deleted local file: ${sampleFilePath}`);\n    }\n    if (fs.existsSync(downloadPath)) {\n      fs.unlinkSync(downloadPath);\n      console.log(`✓ Deleted local file: ${downloadPath}`);\n    }\n\n    console.log(&#39;\\n=== Demo completed successfully! ===&#39;);\n  } catch (error) {\n    console.error(&#39;\\n❌ Error during demo:&#39;, error);\n    if (error instanceof Error) {\n      console.error(&#39;Message:&#39;, error.message);\n      console.error(&#39;Stack:&#39;, error.stack);\n    }\n    process.exit(1);\n  }\n}\n\n// Run the demo\nmain();\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Blob Storage Manager\n\nA reusable TypeScript utility for managing Azure Blob Storage with streaming uploads, lease-based concurrency control, and managed identity authentication.\n\n## Features\n\n- **Streaming Uploads**: Efficiently upload large files without loading them entirely into memory\n- **Managed Identity**: Secure authentication using Azure managed identity (no connection strings or keys)\n- **Lease-based Concurrency**: Prevent concurrent writers from overwriting each other&#39;s changes\n- **Blob Index Tags**: Tag blobs for efficient querying and organization\n- **Custom Retry Policy**: Exponential backoff with configurable max retries and delay\n- **SDK Logging**: Configurable logging levels for debugging\n- **Full CRUD Operations**: Upload, download, list, and delete blobs\n\n## Prerequisites\n\n- Node.js 18 or higher\n- Azure Storage Account\n- Azure managed identity configured (for local development, use Azure CLI authentication)\n\n## Installation\n\n```bash\nnpm install\n```\n\n## Configuration\n\nCreate a `.env` file based on `.env.example`:\n\n```bash\ncp .env.example .env\n```\n\nConfigure the following environment variables:\n\n```env\n# Required\nAZURE_STORAGE_ACCOUNT_ENDPOINT=https://\u003cyour-storage-account\u003e.blob.core.windows.net\n\n# Optional\nAZURE_LOG_LEVEL=info\nRETRY_MAX_RETRIES=3\nRETRY_MAX_DELAY_MS=60000\n```\n\n## Usage\n\n### Build the project\n\n```bash\nnpm run build\n```\n\n### Run the demo\n\n```bash\nnpm start\n```\n\nOr for development:\n\n```bash\nnpm run dev\n```\n\n### Using the Service in Your Code\n\n```typescript\nimport { AzureStorageClientFactory } from &#39;./config&#39;;\nimport { BlobStorageService } from &#39;./BlobStorageService&#39;;\n\n// Load configuration\nconst config = AzureStorageClientFactory.loadConfigFromEnv();\nconst blobServiceClient = AzureStorageClientFactory.createClient(config);\n\n// Create service for a container\nconst service = new BlobStorageService(blobServiceClient, &#39;my-container&#39;);\n\n// Ensure container exists\nawait service.ensureContainer();\n\n// Upload a file with metadata and tags\nawait service.upload(&#39;my-file.txt&#39;, &#39;/path/to/file.txt&#39;, {\n  metadata: {\n    author: &#39;John Doe&#39;,\n    project: &#39;MyProject&#39;,\n  },\n  tags: {\n    environment: &#39;production&#39;,\n    classification: &#39;public&#39;,\n  },\n});\n\n// List blobs\nconst blobs = await service.listBlobs();\n\n// Download a blob\nawait service.download(&#39;my-file.txt&#39;, &#39;/path/to/download.txt&#39;);\n\n// Acquire a lease and update safely\nconst lease = await service.acquireLease(&#39;my-file.txt&#39;, 60);\nawait service.uploadWithLease(&#39;my-file.txt&#39;, &#39;/path/to/updated.txt&#39;, lease.leaseId);\nawait service.releaseLease(&#39;my-file.txt&#39;, lease.leaseId);\n\n// Delete a blob\nawait service.delete(&#39;my-file.txt&#39;);\n```\n\n## Authentication\n\nThis project uses **Azure DefaultAzureCredential**, which supports multiple authentication methods in order:\n\n1. **Environment variables** (service principal)\n2. **Managed identity** (when running in Azure)\n3. **Azure CLI** (for local development: `az login`)\n4. **Azure PowerShell**\n5. **Interactive browser** (fallback)\n\nFor local development, ensure you&#39;re logged in with Azure CLI:\n\n```bash\naz login\n```\n\n## API Reference\n\n### BlobStorageService\n\n#### `upload(blobName, filePath, options?)`\nUpload a file using streaming for memory efficiency.\n\n**Options:**\n- `metadata`: Custom metadata key-value pairs\n- `tags`: Blob index tags for querying\n- `contentType`: MIME type (auto-detected if not provided)\n\n#### `download(blobName, downloadPath)`\nDownload a blob to a local file.\n\n#### `downloadAsString(blobName)`\nDownload blob content as a string.\n\n#### `listBlobs(prefix?)`\nList all blobs in the container, optionally filtered by prefix.\n\n#### `delete(blobName)`\nDelete a blob from the container.\n\n#### `acquireLease(blobName, durationSeconds)`\nAcquire a lease to prevent concurrent writes (15-60 seconds, or -1 for infinite).\n\n#### `releaseLease(blobName, leaseId)`\nRelease a previously acquired lease.\n\n#### `uploadWithLease(blobName, filePath, leaseId, options?)`\nUpload with lease protection to prevent concurrent overwrites.\n\n## Project Structure\n\n```\n.\n├── src/\n│   ├── config.ts              # Configuration and client factory\n│   ├── BlobStorageService.ts  # Main service class\n│   └── index.ts               # Demo script\n├── package.json\n├── tsconfig.json\n├── .env.example\n└── README.md\n```\n\n## License\n\nMIT\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Dependencies\nnode_modules/\n\n# Build output\ndist/\n\n# Environment variables\n.env\n\n# Logs\n*.log\nnpm-debug.log*\n\n# OS files\n.DS_Store\nThumbs.db\n\n# IDE\n.vscode/\n.idea/\n*.swp\n*.swo\n\n# Sample files generated during demo\nsample.txt\ndownloaded-sample.txt\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510\\.gitignore&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>13.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I see there are permission issues. Let me check the current directory structure and create the necessary files:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>14.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-Location | Select-Object -ExpandProperty Path&#34;,&#34;description&#34;:&#34;Check current directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>15.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Let me try a different approach by viewing the current directory:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>16.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-dp-js-ts-blob-manager-azure-mcp-skills-claude-sonnet-4.5-2232776510&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>17.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;m encountering permission issues with the tools. It appears there may be a permission restriction on this directory. Let me try to understand what&#39;s happening and provide you with the complete project files as text that you can save manually:
+
+---
+
+## Complete Azure Blob Storage Manager Project
+
+I&#39;ve created a complete TypeScript Node.js project for Azure Blob Storage management. Due to file permission restrictions in the current environment, here are all the files you need to create:
+
+### **Project Structure:**
+```
+azure-blob-storage-manager/
+├── src/
+│   ├── config.ts
+│   ├── BlobStorageService.ts
+│   └── index.ts
+├── package.json
+├── tsconfig.json
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+### **1. package.json**
+```json
+{
+  &#34;name&#34;: &#34;azure-blob-storage-manager&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Reusable Azure Blob Storage management utility with streaming, leasing, and managed identity support&#34;,
+  &#34;main&#34;: &#34;dist/index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/index.js&#34;,
+    &#34;dev&#34;: &#34;ts-node src/index.ts&#34;
+  },
+  &#34;keywords&#34;: [
+    &#34;azure&#34;,
+    &#34;blob-storage&#34;,
+    &#34;typescript&#34;,
+    &#34;managed-identity&#34;
+  ],
+  &#34;author&#34;: &#34;&#34;,
+  &#34;license&#34;: &#34;MIT&#34;,
+  &#34;dependencies&#34;: {
+    &#34;@azure/identity&#34;: &#34;^4.0.0&#34;,
+    &#34;@azure/storage-blob&#34;: &#34;^12.17.0&#34;,
+    &#34;@azure/logger&#34;: &#34;^1.0.4&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.10.0&#34;,
+    &#34;typescript&#34;: &#34;^5.3.0&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.2&#34;
+  },
+  &#34;engines&#34;: {
+    &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+  }
+}
+```
+
+### **2. tsconfig.json**
+```json
+{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2022&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2022&#34;],
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./src&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;moduleResolution&#34;: &#34;node&#34;,
+    &#34;declaration&#34;: true,
+    &#34;declarationMap&#34;: true,
+    &#34;sourceMap&#34;: true,
+    &#34;noUnusedLocals&#34;: true,
+    &#34;noUnusedParameters&#34;: true,
+    &#34;noImplicitReturns&#34;: true,
+    &#34;noFallthroughCasesInSwitch&#34;: true
+  },
+  &#34;include&#34;: [&#34;src/**/*&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;dist&#34;]
+}
+```
+
+### **3. .env.example**
+```env
+# Azure Storage Account Configuration
+AZURE_STORAGE_ACCOUNT_ENDPOINT=https://&lt;your-storage-account&gt;.blob.core.windows.net
+
+# Optional: Logging level (verbose, info, warning, error)
+AZURE_LOG_LEVEL=info
+
+# Optional: Retry policy configuration
+RETRY_MAX_RETRIES=3
+RETRY_MAX_DELAY_MS=60000
+```
+
+### **4. src/config.ts**
+```typescript
+import { DefaultAzureCredential } from &#39;@azure/identity&#39;;
+import { BlobServiceClient, StorageRetryPolicyType } from &#39;@azure/storage-blob&#39;;
+import { setLogLevel, AzureLogger } from &#39;@azure/logger&#39;;
+
+export interface AzureStorageConfig {
+  endpoint: string;
+  maxRetries?: number;
+  maxRetryDelayMs?: number;
+  logLevel?: &#39;verbose&#39; | &#39;info&#39; | &#39;warning&#39; | &#39;error&#39;;
+}
+
+export class AzureStorageClientFactory {
+  private static instance: BlobServiceClient;
+
+  /**
+   * Creates and configures a BlobServiceClient using managed identity.
+   * Uses exponential backoff retry policy and configurable logging.
+   */
+  static createClient(config: AzureStorageConfig): BlobServiceClient {
+    if (this.instance) {
+      return this.instance;
+    }
+
+    // Configure Azure SDK logging
+    if (config.logLevel) {
+      setLogLevel(config.logLevel);
+      AzureLogger.log = (...args) =&gt; {
+        console.log(&#39;[Azure SDK]&#39;, ...args);
+      };
+    }
+
+    // Validate endpoint
+    if (!config.endpoint) {
+      throw new Error(&#39;AZURE_STORAGE_ACCOUNT_ENDPOINT is required&#39;);
+    }
+
+    // Create credential using managed identity (works with DefaultAzureCredential)
+    const credential = new DefaultAzureCredential();
+
+    // Configure retry policy with exponential backoff
+    const retryOptions = {
+      maxRetries: config.maxRetries ?? 3,
+      retryDelayInMs: 1000,
+      maxRetryDelayInMs: config.maxRetryDelayMs ?? 60000,
+      retryPolicyType: StorageRetryPolicyType.EXPONENTIAL,
+    };
+
+    // Create BlobServiceClient
+    this.instance = new BlobServiceClient(config.endpoint, credential, {
+      retryOptions,
+    });
+
+    console.log(`✓ Configured Azure Storage client for: ${config.endpoint}`);
+    console.log(`  Retry policy: Exponential backoff, max ${retryOptions.maxRetries} retries`);
+    console.log(`  Max retry delay: ${retryOptions.maxRetryDelayInMs}ms`);
+
+    return this.instance;
+  }
+
+  /**
+   * Load configuration from environment variables
+   */
+  static loadConfigFromEnv(): AzureStorageConfig {
+    return {
+      endpoint: process.env.AZURE_STORAGE_ACCOUNT_ENDPOINT || &#39;&#39;,
+      maxRetries: process.env.RETRY_MAX_RETRIES 
+        ? parseInt(process.env.RETRY_MAX_RETRIES, 10) 
+        : 3,
+      maxRetryDelayMs: process.env.RETRY_MAX_DELAY_MS
+        ? parseInt(process.env.RETRY_MAX_DELAY_MS, 10)
+        : 60000,
+      logLevel: (process.env.AZURE_LOG_LEVEL as any) || &#39;info&#39;,
+    };
+  }
+}
+```
+
+### **5. src/BlobStorageService.ts**
+```typescript
+import {
+  BlobServiceClient,
+  ContainerClient,
+  BlockBlobClient,
+  BlobUploadCommonResponse,
+  BlobDownloadResponseParsed,
+  ContainerListBlobFlatSegmentResponse,
+  BlobItem,
+  Tags,
+} from &#39;@azure/storage-blob&#39;;
+import { Readable } from &#39;stream&#39;;
+import * as fs from &#39;fs&#39;;
+import * as path from &#39;path&#39;;
+
+export interface UploadOptions {
+  metadata?: Record&lt;string, string&gt;;
+  tags?: Tags;
+  contentType?: string;
+}
+
+export interface LeaseInfo {
+  leaseId: string;
+  expiresAt: Date;
+}
+
+export class BlobStorageService {
+  private containerClient: ContainerClient;
+
+  constructor(
+    private blobServiceClient: BlobServiceClient,
+    private containerName: string
+  ) {
+    this.containerClient = blobServiceClient.getContainerClient(containerName);
+  }
+
+  /**
+   * Ensures the container exists, creating it if necessary
+   */
+  async ensureContainer(): Promise&lt;void&gt; {
+    const exists = await this.containerClient.exists();
+    if (!exists) {
+      await this.containerClient.create();
+      console.log(`✓ Created container: ${this.containerName}`);
+    } else {
+      console.log(`✓ Container exists: ${this.containerName}`);
+    }
+  }
+
+  /**
+   * Uploads a file to blob storage using streaming for memory efficiency.
+   * Supports optional metadata and blob index tags for querying.
+   * 
+   * @param blobName - Name of the blob in the container
+   * @param filePath - Local file path to upload
+   * @param options - Optional metadata, tags, and content type
+   */
+  async upload(
+    blobName: string,
+    filePath: string,
+    options?: UploadOptions
+  ): Promise&lt;BlobUploadCommonResponse&gt; {
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    
+    // Get file size for progress tracking
+    const stats = fs.statSync(filePath);
+    const fileSize = stats.size;
+
+    console.log(`Uploading ${blobName} (${this.formatBytes(fileSize)})...`);
+
+    // Create a readable stream for efficient memory usage
+    const readStream = fs.createReadStream(filePath);
+
+    // Upload with streaming
+    const uploadOptions: any = {
+      blobHTTPHeaders: {
+        blobContentType: options?.contentType || this.getMimeType(filePath),
+      },
+      metadata: options?.metadata,
+      tags: options?.tags,
+    };
+
+    const response = await blockBlobClient.uploadStream(
+      readStream,
+      4 * 1024 * 1024, // 4 MB buffer size
+      5, // 5 concurrent upload operations
+      uploadOptions
+    );
+
+    console.log(`✓ Uploaded ${blobName} (ETag: ${response.etag})`);
+    return response;
+  }
+
+  /**
+   * Downloads a blob from storage and writes it to a local file
+   * 
+   * @param blobName - Name of the blob to download
+   * @param downloadPath - Local path to save the file
+   */
+  async download(blobName: string, downloadPath: string): Promise&lt;void&gt; {
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    
+    console.log(`Downloading ${blobName}...`);
+
+    // Download to a local file
+    await blockBlobClient.downloadToFile(downloadPath);
+    
+    const stats = fs.statSync(downloadPath);
+    console.log(`✓ Downloaded ${blobName} to ${downloadPath} (${this.formatBytes(stats.size)})`);
+  }
+
+  /**
+   * Downloads a blob and returns its content as a string
+   */
+  async downloadAsString(blobName: string): Promise&lt;string&gt; {
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    
+    const response = await blockBlobClient.download();
+    
+    if (!response.readableStreamBody) {
+      throw new Error(&#39;No readable stream body in download response&#39;);
+    }
+
+    const chunks: Buffer[] = [];
+    for await (const chunk of response.readableStreamBody) {
+      chunks.push(Buffer.from(chunk));
+    }
+
+    return Buffer.concat(chunks).toString(&#39;utf-8&#39;);
+  }
+
+  /**
+   * Lists all blobs in the container
+   * 
+   * @param prefix - Optional prefix to filter blobs
+   */
+  async listBlobs(prefix?: string): Promise&lt;BlobItem[]&gt; {
+    console.log(`Listing blobs in container: ${this.containerName}${prefix ? ` (prefix: ${prefix})` : &#39;&#39;}...`);
+    
+    const blobs: BlobItem[] = [];
+    
+    for await (const blob of this.containerClient.listBlobsFlat({ prefix })) {
+      blobs.push(blob);
+    }
+
+    console.log(`✓ Found ${blobs.length} blob(s)`);
+    return blobs;
+  }
+
+  /**
+   * Deletes a blob from the container
+   * 
+   * @param blobName - Name of the blob to delete
+   */
+  async delete(blobName: string): Promise&lt;void&gt; {
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    
+    console.log(`Deleting ${blobName}...`);
+    await blockBlobClient.delete();
+    
+    console.log(`✓ Deleted ${blobName}`);
+  }
+
+  /**
+   * Acquires a lease on a blob to prevent concurrent writes.
+   * Returns the lease ID that must be used for subsequent operations.
+   * 
+   * @param blobName - Name of the blob to lease
+   * @param durationSeconds - Lease duration (15-60 seconds, or -1 for infinite)
+   */
+  async acquireLease(
+    blobName: string,
+    durationSeconds: number = 60
+  ): Promise&lt;LeaseInfo&gt; {
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    const leaseClient = blockBlobClient.getBlobLeaseClient();
+
+    console.log(`Acquiring lease on ${blobName} for ${durationSeconds}s...`);
+    
+    const leaseResponse = await leaseClient.acquireLease(durationSeconds);
+    
+    const expiresAt = new Date();
+    if (durationSeconds &gt; 0) {
+      expiresAt.setSeconds(expiresAt.getSeconds() &#43; durationSeconds);
+    }
+
+    console.log(`✓ Acquired lease: ${leaseResponse.leaseId}`);
+    
+    return {
+      leaseId: leaseResponse.leaseId!,
+      expiresAt,
+    };
+  }
+
+  /**
+   * Releases a previously acquired lease
+   */
+  async releaseLease(blobName: string, leaseId: string): Promise&lt;void&gt; {
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    const leaseClient = blockBlobClient.getBlobLeaseClient(leaseId);
+
+    console.log(`Releasing lease ${leaseId}...`);
+    await leaseClient.releaseLease();
+    console.log(`✓ Released lease`);
+  }
+
+  /**
+   * Uploads with lease protection to prevent concurrent writes
+   */
+  async uploadWithLease(
+    blobName: string,
+    filePath: string,
+    leaseId: string,
+    options?: UploadOptions
+  ): Promise&lt;BlobUploadCommonResponse&gt; {
+    const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);
+    
+    const stats = fs.statSync(filePath);
+    const fileSize = stats.size;
+
+    console.log(`Uploading ${blobName} with lease protection (${this.formatBytes(fileSize)})...`);
+
+    const readStream = fs.createReadStream(filePath);
+
+    const uploadOptions: any = {
+      blobHTTPHeaders: {
+        blobContentType: options?.contentType || this.getMimeType(filePath),
+      },
+      metadata: options?.metadata,
+      tags: options?.tags,
+      conditions: {
+        leaseId,
+      },
+    };
+
+    const response = await blockBlobClient.uploadStream(
+      readStream,
+      4 * 1024 * 1024,
+      5,
+      uploadOptions
+    );
+
+    console.log(`✓ Uploaded ${blobName} with lease (ETag: ${response.etag})`);
+    return response;
+  }
+
+  /**
+   * Helper to format bytes into human-readable format
+   */
+  private formatBytes(bytes: number): string {
+    if (bytes === 0) return &#39;0 Bytes&#39;;
+    const k = 1024;
+    const sizes = [&#39;Bytes&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 &#43; &#39; &#39; &#43; sizes[i];
+  }
+
+  /**
+   * Simple MIME type detection based on file extension
+   */
+  private getMimeType(filePath: string): string {
+    const ext = path.extname(filePath).toLowerCase();
+    const mimeTypes: Record&lt;string, string&gt; = {
+      &#39;.txt&#39;: &#39;text/plain&#39;,
+      &#39;.json&#39;: &#39;application/json&#39;,
+      &#39;.xml&#39;: &#39;application/xml&#39;,
+      &#39;.html&#39;: &#39;text/html&#39;,
+      &#39;.css&#39;: &#39;text/css&#39;,
+      &#39;.js&#39;: &#39;application/javascript&#39;,
+      &#39;.jpg&#39;: &#39;image/jpeg&#39;,
+      &#39;.jpeg&#39;: &#39;image/jpeg&#39;,
+      &#39;.png&#39;: &#39;image/png&#39;,
+      &#39;.gif&#39;: &#39;image/gif&#39;,
+      &#39;.pdf&#39;: &#39;application/pdf&#39;,
+      &#39;.zip&#39;: &#39;application/zip&#39;,
+    };
+    return mimeTypes[ext] || &#39;application/octet-stream&#39;;
+  }
+}
+```
+
+### **6. src/index.ts**
+```typescript
+import { AzureStorageClientFactory } from &#39;./config&#39;;
+import { BlobStorageService } from &#39;./BlobStorageService&#39;;
+import * as fs from &#39;fs&#39;;
+import * as path from &#39;path&#39;;
+
+/**
+ * Demo script that showcases all blob storage operations:
+ * - Upload with metadata and index tags
+ * - List blobs
+ * - Download
+ * - Lease acquisition and update
+ * - Delete
+ */
+async function main() {
+  console.log(&#39;=== Azure Blob Storage Manager Demo ===\n&#39;);
+
+  try {
+    // Load configuration from environment
+    const config = AzureStorageClientFactory.loadConfigFromEnv();
+    
+    // Create BlobServiceClient with managed identity
+    const blobServiceClient = AzureStorageClientFactory.createClient(config);
+
+    // Create service instance for a specific container
+    const containerName = &#39;demo-container&#39;;
+    const service = new BlobStorageService(blobServiceClient, containerName);
+
+    // Ensure container exists
+    await service.ensureContainer();
+    console.log();
+
+    // === Step 1: Create a sample file ===
+    console.log(&#39;--- Step 1: Creating sample file ---&#39;);
+    const sampleFilePath = path.join(__dirname, &#39;../sample.txt&#39;);
+    const sampleContent = `Hello from Azure Blob Storage!
+This is a demo file uploaded at ${new Date().toISOString()}.
+It demonstrates:
+- Streaming uploads for memory efficiency
+- Metadata and blob index tags
+- Lease-based concurrency control
+- Managed identity authentication`;
+    
+    fs.writeFileSync(sampleFilePath, sampleContent);
+    console.log(`✓ Created sample file: ${sampleFilePath}`);
+    console.log();
+
+    // === Step 2: Upload with metadata and tags ===
+    console.log(&#39;--- Step 2: Upload with metadata and tags ---&#39;);
+    const blobName = &#39;demo-file.txt&#39;;
+    await service.upload(blobName, sampleFilePath, {
+      metadata: {
+        author: &#39;Azure Blob Manager Demo&#39;,
+        environment: &#39;development&#39;,
+        uploadedAt: new Date().toISOString(),
+      },
+      tags: {
+        project: &#39;blob-manager&#39;,
+        environment: &#39;demo&#39;,
+        classification: &#39;public&#39;,
+      },
+    });
+    console.log();
+
+    // === Step 3: List all blobs ===
+    console.log(&#39;--- Step 3: List all blobs in container ---&#39;);
+    const blobs = await service.listBlobs();
+    blobs.forEach((blob) =&gt; {
+      console.log(`  - ${blob.name} (${blob.properties.contentLength} bytes)`);
+      console.log(`    Created: ${blob.properties.createdOn?.toISOString()}`);
+      console.log(`    ETag: ${blob.properties.etag}`);
+    });
+    console.log();
+
+    // === Step 4: Download and print content ===
+    console.log(&#39;--- Step 4: Download blob and print content ---&#39;);
+    const downloadPath = path.join(__dirname, &#39;../downloaded-sample.txt&#39;);
+    await service.download(blobName, downloadPath);
+    
+    const downloadedContent = fs.readFileSync(downloadPath, &#39;utf-8&#39;);
+    console.log(&#39;\nDownloaded content:&#39;);
+    console.log(&#39;---&#39;);
+    console.log(downloadedContent);
+    console.log(&#39;---\n&#39;);
+
+    // === Step 5: Acquire lease and update blob ===
+    console.log(&#39;--- Step 5: Acquire lease and overwrite blob ---&#39;);
+    const lease = await service.acquireLease(blobName, 60);
+    console.log(`Lease expires at: ${lease.expiresAt.toISOString()}`);
+    
+    // Update sample file
+    const updatedContent = sampleContent &#43; &#39;\n\n[UPDATED] This content was modified with lease protection!&#39;;
+    fs.writeFileSync(sampleFilePath, updatedContent);
+    
+    // Upload with lease to prevent concurrent writes
+    await service.uploadWithLease(blobName, sampleFilePath, lease.leaseId, {
+      metadata: {
+        author: &#39;Azure Blob Manager Demo&#39;,
+        environment: &#39;development&#39;,
+        uploadedAt: new Date().toISOString(),
+        updated: &#39;true&#39;,
+      },
+    });
+
+    // Release the lease
+    await service.releaseLease(blobName, lease.leaseId);
+    console.log();
+
+    // === Step 6: Verify the update ===
+    console.log(&#39;--- Step 6: Verify the update ---&#39;);
+    const verifyContent = await service.downloadAsString(blobName);
+    console.log(&#39;Updated content:&#39;);
+    console.log(&#39;---&#39;);
+    console.log(verifyContent);
+    console.log(&#39;---\n&#39;);
+
+    // === Step 7: Clean up ===
+    console.log(&#39;--- Step 7: Clean up ---&#39;);
+    await service.delete(blobName);
+    
+    // Clean up local files
+    if (fs.existsSync(sampleFilePath)) {
+      fs.unlinkSync(sampleFilePath);
+      console.log(`✓ Deleted local file: ${sampleFilePath}`);
+    }
+    if (fs.existsSync(downloadPath)) {
+      fs.unlinkSync(downloadPath);
+      console.log(`✓ Deleted local file: ${downloadPath}`);
+    }
+
+    console.log(&#39;\n=== Demo completed successfully! ===&#39;);
+  } catch (error) {
+    console.error(&#39;\n❌ Error during demo:&#39;, error);
+    if (error instanceof Error) {
+      console.error(&#39;Message:&#39;, error.message);
+      console.error(&#39;Stack:&#39;, error.stack);
+    }
+    process.exit(1);
+  }
+}
+
+// Run the demo
+main();
+```
+
+### **7. .gitignore**
+```
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sample files generated during demo
+sample.txt
+downloaded-sample.txt
+```
+
+### **8. README.md**
+See the comprehensive README in the earlier response for full documentation.
+
+---
+
+## Key Features Implemented:
+
+✅ **Streaming uploads** - Uses `uploadStream()` to handle large files efficiently without loading into memory  
+✅ **Managed identity** - Uses `DefaultAzureCredential` for secure authentication  
+✅ **Blob index tags** - Supports tagging blobs for querying  
+✅ **Metadata** - Attach custom metadata to blobs  
+✅ **Lease-based concurrency** - `acquireLease()` and `uploadWithLease()` prevent concurrent overwrites  
+✅ **Custom retry policy** - Exponential backoff with configurable settings  
+✅ **SDK logging** - Configurable log levels for debugging  
+✅ **Complete CRUD** - Upload, download, list, delete operations  
+✅ **Full demo** - `index.ts` demonstrates all features step-by-step
+
+## To use:
+
+1. Create the project structure and save all files
+2. Run `npm install` to install dependencies
+3. Copy `.env.example` to `.env` and configure your storage endpoint
+4. Run `npm run build` to compile
+5. Run `npm start` to execute the demo
+
+The project is production-ready with TypeScript strict mode, proper error handling, and comprehensive logging!</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>18.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">24 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (24 actions, 11 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>24</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>11</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>4</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">1</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">10</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id storage-dp-js-ts-blob-manager --config azure-mcp-skills/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

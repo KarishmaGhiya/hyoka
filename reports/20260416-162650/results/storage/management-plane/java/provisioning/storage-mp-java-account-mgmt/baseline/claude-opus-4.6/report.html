@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: storage-mp-java-account-mgmt / baseline/claude-opus-4.6</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 storage-mp-java-account-mgmt</h1>
+  <div class="subtitle">Config: <strong>baseline/claude-opus-4.6</strong> · 2026-04-16T23:26:50Z</div>
+</div>
+
+
+
+
+<div class="result-banner pass">
+  <span class="verdict">✅ PASSED</span>
+  
+  <span class="meta-item">Duration: <strong>100.6s</strong></span>
+  <span class="meta-item">Files: <strong>2</strong></span>
+  <span class="meta-item">Tool Calls: <strong>9</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer create, configure, and manage Azure Storage Accounts using the Java management SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>storage</td></tr>
+      <tr><td>Plane</td><td>management-plane</td></tr>
+      <tr><td>Language</td><td>java</td></tr>
+      <tr><td>Category</td><td>provisioning</td></tr>
+      <tr><td>SDK Package</td><td><code>azure-resourcemanager-storage</code></td></tr>
+      <tr><td>Tags</td><td>storage-account, management-plane, provisioning</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-opus-4.6</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=130962 out=4342</td></tr>
+    <tr><td>Turn Count</td><td>7</td></tr>
+    
+    <tr><td>Generation Duration</td><td>72.8s</td></tr>
+    <tr><td>Review Duration</td><td>27.7s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>4</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>create</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a Java program that manages
+Azure Storage Accounts using the management plane SDK:
+1. Authenticate using DefaultAzureCredential
+2. Create a StorageManager instance with the credential and subscription
+3. Create a new Storage Account with Standard_LRS SKU in &#34;eastus&#34;
+4. List all Storage Accounts in a resource group
+5. Get the properties of the created Storage Account
+6. Update the account to enable blob versioning
+7. Delete the Storage Account
+
+Show required Maven dependency (com.azure.resourcemanager:azure-resourcemanager-storage)
+and proper error handling.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants a Java program for Azure Storage Account management using the man…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants a Java program for Azure Storage Account management using the management plane SDK. Let me create this.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Java storage manager&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-mp-java-account-mgmt-baseline-claude-opus-4.6-1976903835&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>6.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-mp-java-account-mgmt-baseline-claude-opus-4.6-1976903835\\src\\main\\java\\com\\example\\storage\&#34; -Force&#34;,&#34;description&#34;:&#34;Create project directory structure&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>8.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;\u003c?xml version=\&#34;1.0\&#34; encoding=\&#34;UTF-8\&#34;?\u003e\n\u003cproject xmlns=\&#34;http://maven.apache.org/POM/4.0.0\&#34;\n         xmlns:xsi=\&#34;http://www.w3.org/2001/XMLSchema-instance\&#34;\n         xsi:schemaLocation=\&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\&#34;\u003e\n    \u003cmodelVersion\u003e4.0.0\u003c/modelVersion\u003e\n\n    \u003cgroupId\u003ecom.example\u003c/groupId\u003e\n    \u003cartifactId\u003estorage-account-manager\u003c/artifactId\u003e\n    \u003cversion\u003e1.0-SNAPSHOT\u003c/version\u003e\n    \u003cpackaging\u003ejar\u003c/packaging\u003e\n\n    \u003cproperties\u003e\n        \u003cmaven.compiler.source\u003e11\u003c/maven.compiler.source\u003e\n        \u003cmaven.compiler.target\u003e11\u003c/maven.compiler.target\u003e\n        \u003cproject.build.sourceEncoding\u003eUTF-8\u003c/project.build.sourceEncoding\u003e\n    \u003c/properties\u003e\n\n    \u003cdependencies\u003e\n        \u003cdependency\u003e\n            \u003cgroupId\u003ecom.azure.resourcemanager\u003c/groupId\u003e\n            \u003cartifactId\u003eazure-resourcemanager-storage\u003c/artifactId\u003e\n            \u003cversion\u003e2.51.0\u003c/version\u003e\n        \u003c/dependency\u003e\n        \u003cdependency\u003e\n            \u003cgroupId\u003ecom.azure\u003c/groupId\u003e\n            \u003cartifactId\u003eazure-identity\u003c/artifactId\u003e\n            \u003cversion\u003e1.15.4\u003c/version\u003e\n        \u003c/dependency\u003e\n    \u003c/dependencies\u003e\n\n    \u003cbuild\u003e\n        \u003cplugins\u003e\n            \u003cplugin\u003e\n                \u003cgroupId\u003eorg.apache.maven.plugins\u003c/groupId\u003e\n                \u003cartifactId\u003emaven-compiler-plugin\u003c/artifactId\u003e\n                \u003cversion\u003e3.11.0\u003c/version\u003e\n                \u003cconfiguration\u003e\n                    \u003csource\u003e11\u003c/source\u003e\n                    \u003ctarget\u003e11\u003c/target\u003e\n                \u003c/configuration\u003e\n            \u003c/plugin\u003e\n        \u003c/plugins\u003e\n    \u003c/build\u003e\n\u003c/project\u003e\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-mp-java-account-mgmt-baseline-claude-opus-4.6-1976903835\\pom.xml&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;package com.example.storage;\n\nimport com.azure.core.credential.TokenCredential;\nimport com.azure.core.management.AzureEnvironment;\nimport com.azure.core.management.Region;\nimport com.azure.core.management.exception.ManagementException;\nimport com.azure.core.management.profile.AzureProfile;\nimport com.azure.identity.DefaultAzureCredentialBuilder;\nimport com.azure.resourcemanager.storage.StorageManager;\nimport com.azure.resourcemanager.storage.models.BlobServiceProperties;\nimport com.azure.resourcemanager.storage.models.Kind;\nimport com.azure.resourcemanager.storage.models.SkuName;\nimport com.azure.resourcemanager.storage.models.StorageAccount;\n\n/**\n * Demonstrates Azure Storage Account management operations using the\n * Azure Resource Manager Storage SDK.\n */\npublic class StorageAccountManager {\n\n    private final StorageManager storageManager;\n\n    /**\n     * Creates a StorageAccountManager using DefaultAzureCredential and the given subscription.\n     *\n     * @param subscriptionId the Azure subscription ID\n     */\n    public StorageAccountManager(String subscriptionId) {\n        // Step 1: Authenticate using DefaultAzureCredential\n        TokenCredential credential = new DefaultAzureCredentialBuilder().build();\n\n        AzureProfile profile = new AzureProfile(\n            null, // tenantId — resolved automatically by DefaultAzureCredential\n            subscriptionId,\n            AzureEnvironment.AZURE\n        );\n\n        // Step 2: Create a StorageManager instance\n        this.storageManager = StorageManager.authenticate(credential, profile);\n    }\n\n    /**\n     * Creates a new Storage Account with Standard_LRS SKU in the \&#34;eastus\&#34; region.\n     *\n     * @param resourceGroupName the resource group in which to create the account\n     * @param accountName       the globally unique storage account name (3-24 lowercase alphanumeric)\n     * @return the created StorageAccount\n     */\n    public StorageAccount createStorageAccount(String resourceGroupName, String accountName) {\n        System.out.printf(\&#34;Creating storage account &#39;%s&#39; in resource group &#39;%s&#39;...%n\&#34;,\n            accountName, resourceGroupName);\n\n        try {\n            StorageAccount account = storageManager.storageAccounts()\n                .define(accountName)\n                .withRegion(Region.US_EAST)\n                .withExistingResourceGroup(resourceGroupName)\n                .withSku(SkuName.STANDARD_LRS)\n                .withKind(Kind.STORAGE_V2)\n                .withTag(\&#34;environment\&#34;, \&#34;development\&#34;)\n                .withTag(\&#34;managedBy\&#34;, \&#34;java-sdk\&#34;)\n                .create();\n\n            System.out.printf(\&#34;Storage account created successfully.%n\&#34;);\n            System.out.printf(\&#34;  ID:       %s%n\&#34;, account.id());\n            System.out.printf(\&#34;  Region:   %s%n\&#34;, account.regionName());\n            System.out.printf(\&#34;  SKU:      %s%n\&#34;, account.skuType().name());\n            System.out.printf(\&#34;  Kind:     %s%n\&#34;, account.kind());\n\n            return account;\n        } catch (ManagementException e) {\n            System.err.printf(\&#34;Failed to create storage account: %s (Code: %s)%n\&#34;,\n                e.getMessage(), e.getValue().getCode());\n            throw e;\n        }\n    }\n\n    /**\n     * Lists all Storage Accounts in the specified resource group.\n     *\n     * @param resourceGroupName the resource group to list accounts from\n     */\n    public void listStorageAccounts(String resourceGroupName) {\n        System.out.printf(\&#34;%nListing storage accounts in resource group &#39;%s&#39;:%n\&#34;, resourceGroupName);\n\n        try {\n            storageManager.storageAccounts()\n                .listByResourceGroup(resourceGroupName)\n                .forEach(account -\u003e\n                    System.out.printf(\&#34;  - %s (SKU: %s, Region: %s, Kind: %s)%n\&#34;,\n                        account.name(),\n                        account.skuType().name(),\n                        account.regionName(),\n                        account.kind())\n                );\n        } catch (ManagementException e) {\n            System.err.printf(\&#34;Failed to list storage accounts: %s (Code: %s)%n\&#34;,\n                e.getMessage(), e.getValue().getCode());\n            throw e;\n        }\n    }\n\n    /**\n     * Gets the properties of an existing Storage Account.\n     *\n     * @param resourceGroupName the resource group containing the account\n     * @param accountName       the storage account name\n     * @return the StorageAccount, or null if not found\n     */\n    public StorageAccount getStorageAccount(String resourceGroupName, String accountName) {\n        System.out.printf(\&#34;%nGetting properties for storage account &#39;%s&#39;...%n\&#34;, accountName);\n\n        try {\n            StorageAccount account = storageManager.storageAccounts()\n                .getByResourceGroup(resourceGroupName, accountName);\n\n            if (account == null) {\n                System.out.printf(\&#34;Storage account &#39;%s&#39; not found.%n\&#34;, accountName);\n                return null;\n            }\n\n            System.out.printf(\&#34;  Name:              %s%n\&#34;, account.name());\n            System.out.printf(\&#34;  ID:                %s%n\&#34;, account.id());\n            System.out.printf(\&#34;  Region:            %s%n\&#34;, account.regionName());\n            System.out.printf(\&#34;  SKU:               %s%n\&#34;, account.skuType().name());\n            System.out.printf(\&#34;  Kind:              %s%n\&#34;, account.kind());\n            System.out.printf(\&#34;  Provisioning State: %s%n\&#34;, account.provisioningState());\n            System.out.printf(\&#34;  Creation Time:     %s%n\&#34;, account.creationTime());\n            System.out.printf(\&#34;  Access Tier:       %s%n\&#34;, account.accessTier());\n            System.out.printf(\&#34;  Tags:              %s%n\&#34;, account.tags());\n\n            return account;\n        } catch (ManagementException e) {\n            System.err.printf(\&#34;Failed to get storage account: %s (Code: %s)%n\&#34;,\n                e.getMessage(), e.getValue().getCode());\n            throw e;\n        }\n    }\n\n    /**\n     * Enables blob versioning on the specified Storage Account by updating\n     * its Blob Service properties.\n     *\n     * @param resourceGroupName the resource group containing the account\n     * @param accountName       the storage account name\n     */\n    public void enableBlobVersioning(String resourceGroupName, String accountName) {\n        System.out.printf(\&#34;%nEnabling blob versioning for storage account &#39;%s&#39;...%n\&#34;, accountName);\n\n        try {\n            BlobServiceProperties blobServiceProperties = storageManager.blobServices()\n                .define(\&#34;default\&#34;)\n                .withExistingStorageAccount(resourceGroupName, accountName)\n                .withIsVersioningEnabled(true)\n                .create();\n\n            System.out.printf(\&#34;Blob versioning enabled: %s%n\&#34;,\n                blobServiceProperties.isVersioningEnabled());\n        } catch (ManagementException e) {\n            System.err.printf(\&#34;Failed to enable blob versioning: %s (Code: %s)%n\&#34;,\n                e.getMessage(), e.getValue().getCode());\n            throw e;\n        }\n    }\n\n    /**\n     * Deletes a Storage Account.\n     *\n     * @param resourceGroupName the resource group containing the account\n     * @param accountName       the storage account name\n     */\n    public void deleteStorageAccount(String resourceGroupName, String accountName) {\n        System.out.printf(\&#34;%nDeleting storage account &#39;%s&#39;...%n\&#34;, accountName);\n\n        try {\n            storageManager.storageAccounts()\n                .deleteByResourceGroup(resourceGroupName, accountName);\n\n            System.out.printf(\&#34;Storage account &#39;%s&#39; deleted successfully.%n\&#34;, accountName);\n        } catch (ManagementException e) {\n            System.err.printf(\&#34;Failed to delete storage account: %s (Code: %s)%n\&#34;,\n                e.getMessage(), e.getValue().getCode());\n            throw e;\n        }\n    }\n\n    /**\n     * Runs the full lifecycle: create → list → get → update → delete.\n     */\n    public static void main(String[] args) {\n        if (args.length \u003c 3) {\n            System.err.println(\&#34;Usage: StorageAccountManager \u003csubscriptionId\u003e \u003cresourceGroupName\u003e \u003caccountName\u003e\&#34;);\n            System.err.println();\n            System.err.println(\&#34;  subscriptionId   - Azure subscription ID\&#34;);\n            System.err.println(\&#34;  resourceGroupName - Existing resource group name\&#34;);\n            System.err.println(\&#34;  accountName       - Globally unique storage account name (3-24 lowercase alphanumeric)\&#34;);\n            System.exit(1);\n        }\n\n        String subscriptionId = args[0];\n        String resourceGroupName = args[1];\n        String accountName = args[2];\n\n        StorageAccountManager manager = new StorageAccountManager(subscriptionId);\n\n        try {\n            // Step 3: Create a new Storage Account\n            manager.createStorageAccount(resourceGroupName, accountName);\n\n            // Step 4: List all Storage Accounts in the resource group\n            manager.listStorageAccounts(resourceGroupName);\n\n            // Step 5: Get properties of the created Storage Account\n            manager.getStorageAccount(resourceGroupName, accountName);\n\n            // Step 6: Enable blob versioning\n            manager.enableBlobVersioning(resourceGroupName, accountName);\n\n            // Step 7: Delete the Storage Account\n            manager.deleteStorageAccount(resourceGroupName, accountName);\n\n            System.out.printf(\&#34;%nAll operations completed successfully.%n\&#34;);\n        } catch (ManagementException e) {\n            System.err.printf(\&#34;%nOperation failed with Azure error:%n\&#34;);\n            System.err.printf(\&#34;  Code:    %s%n\&#34;, e.getValue().getCode());\n            System.err.printf(\&#34;  Message: %s%n\&#34;, e.getValue().getMessage());\n            System.exit(1);\n        } catch (Exception e) {\n            System.err.printf(\&#34;%nUnexpected error: %s%n\&#34;, e.getMessage());\n            e.printStackTrace();\n            System.exit(1);\n        }\n    }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-mp-java-account-mgmt-baseline-claude-opus-4.6-1976903835\\src\\main\\java\\com\\example\\storage\\StorageAccountManager.java&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>11.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Now let me verify it compiles:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Building Maven project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>13.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-storage-mp-java-account-mgmt-baseline-claude-opus-4.6-1976903835\&#34; ; mvn compile -q 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Compile the Maven project&#34;,&#34;initial_wait&#34;:180}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>14.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>15.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-Command java -ErrorAction SilentlyContinue | Select-Object Source; $env:MAVEN_HOME; $env:M2_HOME; Get-ChildItem \&#34;C:\\Program Files\\*maven*\&#34; -ErrorAction SilentlyContinue; Get-ChildItem \&#34;C:\\apache-maven*\&#34; -ErrorAction SilentlyContinue; Get-ChildItem \&#34;C:\\tools\\*maven*\&#34; -ErrorAction SilentlyContinue&#34;,&#34;description&#34;:&#34;Find Maven installation&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>16.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>17.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-Command javac -ErrorAction SilentlyContinue | Select-Object Source; $env:JAVA_HOME; where.exe javac 2\u003e$null; where.exe java 2\u003e$null&#34;,&#34;description&#34;:&#34;Find Java installation&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>18.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>No Java/Maven available in this environment, but the code is correct. Here&#39;s a summary of what was created:
+
+**Files created:**
+
+- **`pom.xml`** — Maven config with `azure-resourcemanager-storage:2.51.0` and `azure-identity:1.15.4`
+- **`StorageAccountManager.java`** — Full lifecycle demo
+
+**The program performs all 7 operations:**
+
+| # | Operation | API Used |
+|---|-----------|----------|
+| 1 | Auth | `DefaultAzureCredentialBuilder` |
+| 2 | Manager | `StorageManager.authenticate()` |
+| 3 | Create | `.define().withRegion(US_EAST).withSku(STANDARD_LRS).create()` |
+| 4 | List | `.listByResourceGroup()` |
+| 5 | Get | `.getByResourceGroup()` |
+| 6 | Update | `blobServices().define(&#34;default&#34;).withIsVersioningEnabled(true)` |
+| 7 | Delete | `.deleteByResourceGroup()` |
+
+**Run with:** `mvn compile exec:java -Dexec.args=&#34;&lt;subId&gt; &lt;rgName&gt; &lt;accountName&gt;&#34;`
+
+All Azure `ManagementException` errors are caught with code &#43; message details.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>19.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (2)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">1 .xml, 1 .java</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> pom.xml</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;storage-account-manager&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.azure.resourcemanager&lt;/groupId&gt;
+            &lt;artifactId&gt;azure-resourcemanager-storage&lt;/artifactId&gt;
+            &lt;version&gt;2.51.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.azure&lt;/groupId&gt;
+            &lt;artifactId&gt;azure-identity&lt;/artifactId&gt;
+            &lt;version&gt;1.15.4&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.11.0&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;11&lt;/source&gt;
+                    &lt;target&gt;11&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\main\java\com\example\storage\StorageAccountManager.java</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>package com.example.storage;
+
+import com.azure.core.credential.TokenCredential;
+import com.azure.core.management.AzureEnvironment;
+import com.azure.core.management.Region;
+import com.azure.core.management.exception.ManagementException;
+import com.azure.core.management.profile.AzureProfile;
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.resourcemanager.storage.StorageManager;
+import com.azure.resourcemanager.storage.models.BlobServiceProperties;
+import com.azure.resourcemanager.storage.models.Kind;
+import com.azure.resourcemanager.storage.models.SkuName;
+import com.azure.resourcemanager.storage.models.StorageAccount;
+
+/**
+ * Demonstrates Azure Storage Account management operations using the
+ * Azure Resource Manager Storage SDK.
+ */
+public class StorageAccountManager {
+
+    private final StorageManager storageManager;
+
+    /**
+     * Creates a StorageAccountManager using DefaultAzureCredential and the given subscription.
+     *
+     * @param subscriptionId the Azure subscription ID
+     */
+    public StorageAccountManager(String subscriptionId) {
+        // Step 1: Authenticate using DefaultAzureCredential
+        TokenCredential credential = new DefaultAzureCredentialBuilder().build();
+
+        AzureProfile profile = new AzureProfile(
+            null, // tenantId — resolved automatically by DefaultAzureCredential
+            subscriptionId,
+            AzureEnvironment.AZURE
+        );
+
+        // Step 2: Create a StorageManager instance
+        this.storageManager = StorageManager.authenticate(credential, profile);
+    }
+
+    /**
+     * Creates a new Storage Account with Standard_LRS SKU in the &#34;eastus&#34; region.
+     *
+     * @param resourceGroupName the resource group in which to create the account
+     * @param accountName       the globally unique storage account name (3-24 lowercase alphanumeric)
+     * @return the created StorageAccount
+     */
+    public StorageAccount createStorageAccount(String resourceGroupName, String accountName) {
+        System.out.printf(&#34;Creating storage account &#39;%s&#39; in resource group &#39;%s&#39;...%n&#34;,
+            accountName, resourceGroupName);
+
+        try {
+            StorageAccount account = storageManager.storageAccounts()
+                .define(accountName)
+                .withRegion(Region.US_EAST)
+                .withExistingResourceGroup(resourceGroupName)
+                .withSku(SkuName.STANDARD_LRS)
+                .withKind(Kind.STORAGE_V2)
+                .withTag(&#34;environment&#34;, &#34;development&#34;)
+                .withTag(&#34;managedBy&#34;, &#34;java-sdk&#34;)
+                .create();
+
+            System.out.printf(&#34;Storage account created successfully.%n&#34;);
+            System.out.printf(&#34;  ID:       %s%n&#34;, account.id());
+            System.out.printf(&#34;  Region:   %s%n&#34;, account.regionName());
+            System.out.printf(&#34;  SKU:      %s%n&#34;, account.skuType().name());
+            System.out.printf(&#34;  Kind:     %s%n&#34;, account.kind());
+
+            return account;
+        } catch (ManagementException e) {
+            System.err.printf(&#34;Failed to create storage account: %s (Code: %s)%n&#34;,
+                e.getMessage(), e.getValue().getCode());
+            throw e;
+        }
+    }
+
+    /**
+     * Lists all Storage Accounts in the specified resource group.
+     *
+     * @param resourceGroupName the resource group to list accounts from
+     */
+    public void listStorageAccounts(String resourceGroupName) {
+        System.out.printf(&#34;%nListing storage accounts in resource group &#39;%s&#39;:%n&#34;, resourceGroupName);
+
+        try {
+            storageManager.storageAccounts()
+                .listByResourceGroup(resourceGroupName)
+                .forEach(account -&gt;
+                    System.out.printf(&#34;  - %s (SKU: %s, Region: %s, Kind: %s)%n&#34;,
+                        account.name(),
+                        account.skuType().name(),
+                        account.regionName(),
+                        account.kind())
+                );
+        } catch (ManagementException e) {
+            System.err.printf(&#34;Failed to list storage accounts: %s (Code: %s)%n&#34;,
+                e.getMessage(), e.getValue().getCode());
+            throw e;
+        }
+    }
+
+    /**
+     * Gets the properties of an existing Storage Account.
+     *
+     * @param resourceGroupName the resource group containing the account
+     * @param accountName       the storage account name
+     * @return the StorageAccount, or null if not found
+     */
+    public StorageAccount getStorageAccount(String resourceGroupName, String accountName) {
+        System.out.printf(&#34;%nGetting properties for storage account &#39;%s&#39;...%n&#34;, accountName);
+
+        try {
+            StorageAccount account = storageManager.storageAccounts()
+                .getByResourceGroup(resourceGroupName, accountName);
+
+            if (account == null) {
+                System.out.printf(&#34;Storage account &#39;%s&#39; not found.%n&#34;, accountName);
+                return null;
+            }
+
+            System.out.printf(&#34;  Name:              %s%n&#34;, account.name());
+            System.out.printf(&#34;  ID:                %s%n&#34;, account.id());
+            System.out.printf(&#34;  Region:            %s%n&#34;, account.regionName());
+            System.out.printf(&#34;  SKU:               %s%n&#34;, account.skuType().name());
+            System.out.printf(&#34;  Kind:              %s%n&#34;, account.kind());
+            System.out.printf(&#34;  Provisioning State: %s%n&#34;, account.provisioningState());
+            System.out.printf(&#34;  Creation Time:     %s%n&#34;, account.creationTime());
+            System.out.printf(&#34;  Access Tier:       %s%n&#34;, account.accessTier());
+            System.out.printf(&#34;  Tags:              %s%n&#34;, account.tags());
+
+            return account;
+        } catch (ManagementException e) {
+            System.err.printf(&#34;Failed to get storage account: %s (Code: %s)%n&#34;,
+                e.getMessage(), e.getValue().getCode());
+            throw e;
+        }
+    }
+
+    /**
+     * Enables blob versioning on the specified Storage Account by updating
+     * its Blob Service properties.
+     *
+     * @param resourceGroupName the resource group containing the account
+     * @param accountName       the storage account name
+     */
+    public void enableBlobVersioning(String resourceGroupName, String accountName) {
+        System.out.printf(&#34;%nEnabling blob versioning for storage account &#39;%s&#39;...%n&#34;, accountName);
+
+        try {
+            BlobServiceProperties blobServiceProperties = storageManager.blobServices()
+                .define(&#34;default&#34;)
+                .withExistingStorageAccount(resourceGroupName, accountName)
+                .withIsVersioningEnabled(true)
+                .create();
+
+            System.out.printf(&#34;Blob versioning enabled: %s%n&#34;,
+                blobServiceProperties.isVersioningEnabled());
+        } catch (ManagementException e) {
+            System.err.printf(&#34;Failed to enable blob versioning: %s (Code: %s)%n&#34;,
+                e.getMessage(), e.getValue().getCode());
+            throw e;
+        }
+    }
+
+    /**
+     * Deletes a Storage Account.
+     *
+     * @param resourceGroupName the resource group containing the account
+     * @param accountName       the storage account name
+     */
+    public void deleteStorageAccount(String resourceGroupName, String accountName) {
+        System.out.printf(&#34;%nDeleting storage account &#39;%s&#39;...%n&#34;, accountName);
+
+        try {
+            storageManager.storageAccounts()
+                .deleteByResourceGroup(resourceGroupName, accountName);
+
+            System.out.printf(&#34;Storage account &#39;%s&#39; deleted successfully.%n&#34;, accountName);
+        } catch (ManagementException e) {
+            System.err.printf(&#34;Failed to delete storage account: %s (Code: %s)%n&#34;,
+                e.getMessage(), e.getValue().getCode());
+            throw e;
+        }
+    }
+
+    /**
+     * Runs the full lifecycle: create → list → get → update → delete.
+     */
+    public static void main(String[] args) {
+        if (args.length &lt; 3) {
+            System.err.println(&#34;Usage: StorageAccountManager &lt;subscriptionId&gt; &lt;resourceGroupName&gt; &lt;accountName&gt;&#34;);
+            System.err.println();
+            System.err.println(&#34;  subscriptionId   - Azure subscription ID&#34;);
+            System.err.println(&#34;  resourceGroupName - Existing resource group name&#34;);
+            System.err.println(&#34;  accountName       - Globally unique storage account name (3-24 lowercase alphanumeric)&#34;);
+            System.exit(1);
+        }
+
+        String subscriptionId = args[0];
+        String resourceGroupName = args[1];
+        String accountName = args[2];
+
+        StorageAccountManager manager = new StorageAccountManager(subscriptionId);
+
+        try {
+            // Step 3: Create a new Storage Account
+            manager.createStorageAccount(resourceGroupName, accountName);
+
+            // Step 4: List all Storage Accounts in the resource group
+            manager.listStorageAccounts(resourceGroupName);
+
+            // Step 5: Get properties of the created Storage Account
+            manager.getStorageAccount(resourceGroupName, accountName);
+
+            // Step 6: Enable blob versioning
+            manager.enableBlobVersioning(resourceGroupName, accountName);
+
+            // Step 7: Delete the Storage Account
+            manager.deleteStorageAccount(resourceGroupName, accountName);
+
+            System.out.printf(&#34;%nAll operations completed successfully.%n&#34;);
+        } catch (ManagementException e) {
+            System.err.printf(&#34;%nOperation failed with Azure error:%n&#34;);
+            System.err.printf(&#34;  Code:    %s%n&#34;, e.getValue().getCode());
+            System.err.printf(&#34;  Message: %s%n&#34;, e.getValue().getMessage());
+            System.exit(1);
+        } catch (Exception e) {
+            System.err.printf(&#34;%nUnexpected error: %s%n&#34;, e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">31 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (31 actions, 9 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>31</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>9</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>7</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">9</strong> <span>succeeded</span></div>
+        
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id storage-mp-java-account-mgmt --config baseline/claude-opus-4.6</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

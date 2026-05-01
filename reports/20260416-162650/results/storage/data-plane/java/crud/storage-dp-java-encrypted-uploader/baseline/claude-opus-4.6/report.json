@@ -1,0 +1,507 @@
+{
+  "schema_version": 2,
+  "prompt_id": "storage-dp-java-encrypted-uploader",
+  "config_name": "baseline/claude-opus-4.6",
+  "timestamp": "2026-04-16T23:26:50Z",
+  "duration_seconds": 101.2105561,
+  "generation_duration_seconds": 100.4302506,
+  "prompt_metadata": {
+    "category": "crud",
+    "description": "Can an agent implement client-side envelope encryption for Azure Blob Storage using Key Vault Keys for key wrapping, with AES-GCM local encryption, wrapped DEK stored as blob metadata, and proper key material lifecycle?\n",
+    "difficulty": "advanced",
+    "language": "java",
+    "plane": "data-plane",
+    "sdk_package": "com.azure:azure-storage-blob",
+    "service": "storage",
+    "tags": "blob-storage, key-vault, encryption, envelope-encryption, aes-gcm, key-wrap, cryptography-client, multi-service, async, reactor"
+  },
+  "config_used": {
+    "model": "claude-opus-4.6",
+    "name": "baseline/claude-opus-4.6"
+  },
+  "generated_files": null,
+  "session_events": [
+    {
+      "type": "session.start"
+    },
+    {
+      "type": "session.custom_agents_updated"
+    },
+    {
+      "type": "pending_messages.modified"
+    },
+    {
+      "type": "pending_messages.modified"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "session.skills_loaded",
+      "content": "customize-cloud-agent"
+    },
+    {
+      "type": "session.tools_updated"
+    },
+    {
+      "type": "user.message",
+      "content": "Create a small Java 17 Maven project that uploads files to Azure Blob Storage with client-side encryption, where the encryption key material is managed in Azure Key Vault.\r\n\r\nThe project needs:\r\n\r\n- A **key management class** (both sync and async versions) that interacts with Azure Key Vault's Keys service (not Secrets) to perform cryptographic operations. It should implement envelope encryption: generate a data encryption key locally, use Key Vault to protect (wrap) it, and store the protected key alongside the encrypted blob. For decryption, have Key Vault recover (unwrap) the data key, then decrypt locally. The raw data key should never be persisted anywhere, and the vault's key material should never leave Key Vault.\r\n\r\n- A **blob uploader/downloader class** (both sync and async versions) that handles the actual encryption and storage. For upload: generate a data key, encrypt the data locally, protect the data key via Key Vault, then upload the ciphertext to Blob Storage with the protected key and any necessary cryptographic parameters stored as blob metadata. For download: read the blob and its metadata, recover the data key via Key Vault, and decrypt. Should handle errors from both services (e.g., the vault key may have been disabled, or the blob may not exist).\r\n\r\n- A **configuration class** that builds the necessary Azure connections for both Blob Storage and Key Vault. It should read endpoints from environment variables and authenticate with managed identity. All connections should share a single credential instance.\r\n\r\n- A **Main class** that demos both implementations: runs the full encrypt-upload-download-decrypt round-trip using the sync implementation first, then repeats with the async implementation. Print the vault key ID used, the wrapped DEK (base64), and the decrypted output.\r\n\r\nInclude a complete `pom.xml` with the necessary Azure SDK dependencies."
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "assistant.turn_start",
+      "turnNumber": 1
+    },
+    {
+      "type": "session.usage_info"
+    },
+    {
+      "type": "assistant.usage",
+      "duration_ms": 4954,
+      "inputTokens": 16408,
+      "outputTokens": 180
+    },
+    {
+      "type": "assistant.message"
+    },
+    {
+      "type": "assistant.reasoning",
+      "content": "Let me create a complete Java 17 Maven project for Azure Blob Storage uploads with client-side encryption using Azure Key Vault for key management."
+    },
+    {
+      "type": "tool.execution_start",
+      "tool_name": "report_intent",
+      "tool_args": "{\"intent\":\"Creating encrypted uploader project\"}"
+    },
+    {
+      "type": "tool.execution_start",
+      "tool_name": "view",
+      "tool_args": "{\"path\":\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\"}"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "permission.requested"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "tool.execution_complete",
+      "tool_result": "Creating encrypted uploader project",
+      "tool_success": true
+    },
+    {
+      "type": "permission.completed"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "tool.execution_complete",
+      "tool_result": "\ndiff --git a/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800 b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\ncreate file mode 100644\nindex 0000000..0000000\n--- a/dev/null\n+++ b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\n@@ -1,0 +1,0 @@\n\n",
+      "tool_success": true
+    },
+    {
+      "type": "assistant.turn_end",
+      "turnNumber": 1
+    },
+    {
+      "type": "assistant.turn_start",
+      "turnNumber": 2
+    },
+    {
+      "type": "session.usage_info"
+    },
+    {
+      "type": "assistant.usage",
+      "duration_ms": 4847,
+      "inputTokens": 16656,
+      "outputTokens": 272
+    },
+    {
+      "type": "assistant.message",
+      "content": "Empty directory. Let me build out the full project structure."
+    },
+    {
+      "type": "tool.execution_start",
+      "tool_name": "powershell",
+      "tool_args": "{\"command\":\"$base = \\\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\\\"\\n$dirs = @(\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\\keymgmt\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\\blob\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\\config\\\"\\n)\\nforeach ($d in $dirs) {\\n    New-Item -ItemType Directory -Path (Join-Path $base $d) -Force | Out-Null\\n}\\nWrite-Output \\\"Created directories\\\"\",\"description\":\"Create project directory structure\"}"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "permission.requested"
+    },
+    {
+      "type": "permission.completed"
+    },
+    {
+      "type": "session.background_tasks_changed"
+    },
+    {
+      "type": "tool.execution_partial_result"
+    },
+    {
+      "type": "session.background_tasks_changed"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "tool.execution_complete",
+      "tool_result": "Created directories\n\u003cexited with exit code 0\u003e",
+      "tool_success": true
+    },
+    {
+      "type": "assistant.turn_end",
+      "turnNumber": 2
+    },
+    {
+      "type": "assistant.turn_start",
+      "turnNumber": 3
+    },
+    {
+      "type": "session.usage_info"
+    }
+  ],
+  "action_timeline": {
+    "events": [
+      {
+        "sequence": 0,
+        "type": "other"
+      },
+      {
+        "sequence": 1,
+        "type": "other"
+      },
+      {
+        "sequence": 2,
+        "type": "other"
+      },
+      {
+        "sequence": 3,
+        "type": "other"
+      },
+      {
+        "sequence": 4,
+        "type": "other"
+      },
+      {
+        "sequence": 5,
+        "type": "other",
+        "success": true
+      },
+      {
+        "sequence": 6,
+        "type": "other",
+        "output": "customize-cloud-agent"
+      },
+      {
+        "sequence": 7,
+        "type": "other"
+      },
+      {
+        "sequence": 8,
+        "type": "other",
+        "output": "Create a small Java 17 Maven project that uploads files to Azure Blob Storage with client-side encryption, where the encryption key material is managed in Azure Key Vault.\r\n\r\nThe project needs:\r\n\r\n- A **key management class** (both sync and async versions) that interacts with Azure Key Vault's Keys service (not Secrets) to perform cryptographic operations. It should implement envelope encryption: generate a data encryption key locally, use Key Vault to protect (wrap) it, and store the protected key alongsid…"
+      },
+      {
+        "sequence": 9,
+        "type": "other"
+      },
+      {
+        "sequence": 10,
+        "type": "other",
+        "success": true
+      },
+      {
+        "sequence": 11,
+        "type": "turn_start",
+        "turn_number": 1
+      },
+      {
+        "sequence": 12,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 13,
+        "type": "other",
+        "duration_ms": 4954,
+        "turn_number": 1
+      },
+      {
+        "sequence": 14,
+        "type": "message",
+        "turn_number": 1
+      },
+      {
+        "sequence": 15,
+        "type": "reasoning",
+        "turn_number": 1
+      },
+      {
+        "sequence": 16,
+        "type": "tool_call",
+        "tool": "report_intent",
+        "action": "start",
+        "input": "{\"intent\":\"Creating encrypted uploader project\"}",
+        "turn_number": 1
+      },
+      {
+        "sequence": 17,
+        "type": "file_read",
+        "tool": "view",
+        "action": "start",
+        "input": "{\"path\":\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\"}",
+        "turn_number": 1
+      },
+      {
+        "sequence": 18,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 19,
+        "type": "other",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 20,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 21,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 22,
+        "type": "other",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 23,
+        "type": "tool_call",
+        "action": "complete",
+        "output": "Creating encrypted uploader project",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 24,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 25,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 26,
+        "type": "other",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 27,
+        "type": "tool_call",
+        "action": "complete",
+        "output": "\ndiff --git a/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800 b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\ncreate file mode 100644\nindex 0000000..0000000\n--- a/dev/null\n+++ b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\n@@ -1,0 +1,0 @@\n\n",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 28,
+        "type": "turn_end",
+        "turn_number": 1
+      },
+      {
+        "sequence": 29,
+        "type": "turn_start",
+        "turn_number": 2
+      },
+      {
+        "sequence": 30,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 31,
+        "type": "other",
+        "duration_ms": 4847,
+        "turn_number": 2
+      },
+      {
+        "sequence": 32,
+        "type": "message",
+        "turn_number": 2
+      },
+      {
+        "sequence": 33,
+        "type": "tool_call",
+        "tool": "powershell",
+        "action": "start",
+        "input": "{\"command\":\"$base = \\\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-encrypted-uploader-baseline-claude-opus-4.6-67436800\\\"\\n$dirs = @(\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\\keymgmt\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\\blob\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\encrypteduploader\\\\config\\\"\\n)\\nforeach ($d in $dirs) {\\n    New-Item -ItemType Directory -Path (Join-Path $base $d) -Force | Out…",
+        "turn_number": 2
+      },
+      {
+        "sequence": 34,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 35,
+        "type": "other",
+        "success": true,
+        "turn_number": 2
+      },
+      {
+        "sequence": 36,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 37,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 38,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 39,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 40,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 41,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 42,
+        "type": "other",
+        "success": true,
+        "turn_number": 2
+      },
+      {
+        "sequence": 43,
+        "type": "tool_call",
+        "action": "complete",
+        "output": "Created directories\n\u003cexited with exit code 0\u003e",
+        "success": true,
+        "turn_number": 2
+      },
+      {
+        "sequence": 44,
+        "type": "turn_end",
+        "turn_number": 2
+      },
+      {
+        "sequence": 45,
+        "type": "turn_start",
+        "turn_number": 3
+      },
+      {
+        "sequence": 46,
+        "type": "other",
+        "turn_number": 3
+      }
+    ],
+    "summary": {
+      "total_events": 47,
+      "total_turns": 3,
+      "total_actions": 11,
+      "total_tool_calls": 3,
+      "tool_calls": 2,
+      "file_reads": 1,
+      "file_writes": 0,
+      "bash_commands": 0,
+      "mcp_calls": 0,
+      "errors": 0,
+      "tool_breakdown": {
+        "powershell": 1,
+        "report_intent": 1,
+        "view": 1
+      },
+      "tool_successes": 3,
+      "tool_failures": 0
+    }
+  },
+  "event_count": 47,
+  "tool_calls": [
+    "report_intent",
+    "view",
+    "powershell"
+  ],
+  "environment": {
+    "model": "claude-opus-4.6",
+    "skillsLoaded": [
+      "customize-cloud-agent"
+    ],
+    "safetyBoundaries": true,
+    "allowCloud": false,
+    "workingDirectory": "C:\\code\\hyoka\\reports\\20260416-162650\\results\\storage\\data-plane\\java\\crud\\storage-dp-java-encrypted-uploader\\baseline\\claude-opus-4.6\\generated-code",
+    "totalInputTokens": 33064,
+    "totalOutputTokens": 452,
+    "turnCount": 3
+  },
+  "session_setup": {
+    "system_prompt_status": "none (default)"
+  },
+  "success": false,
+  "error": "generation cancelled (action limit reached)",
+  "error_details": "context cancelled — the session exceeded the --max-session-actions limit",
+  "error_category": "timeout",
+  "failure_reason": "Generation cancelled due to action limit",
+  "rerunCommand": "hyoka run --prompt-id storage-dp-java-encrypted-uploader --config baseline/claude-opus-4.6",
+  "guardrail_max_turns": 25,
+  "guardrail_max_files": 50,
+  "guardrail_max_output_size": 1048576,
+  "guardrail_max_session_actions": 50
+}

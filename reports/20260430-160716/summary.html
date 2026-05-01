@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluation Summary — 20260430-160716</title>
+<style>
+  :root { --green: #22c55e; --red: #ef4444; --yellow: #eab308; --bg: #f8fafc; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --blue: #2563eb; --purple: #7c3aed; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+  h1 { margin: 0 0 0.25rem 0; }
+  h2 { margin: 1.5rem 0 0.75rem 0; }
+  .subtitle { color: var(--text-muted); margin-bottom: 1.5rem; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .stats { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.25rem 0; }
+  .stat { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; text-align: center; min-width: 110px; }
+  .stat-value { font-size: 1.5rem; font-weight: 700; }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+  .analysis { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+  .analysis h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+  .analysis-content { white-space: pre-wrap; font-size: 0.9rem; line-height: 1.6; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  th { background: #f8fafc; padding: 0.75rem; text-align: center; font-size: 0.85rem; color: var(--text-muted); border-bottom: 2px solid var(--border); }
+  th:first-child { text-align: left; }
+  td { padding: 0.75rem; border-bottom: 1px solid #f1f5f9; text-align: center; vertical-align: top; }
+  td:first-child { text-align: left; }
+  .cell-pass { color: var(--green); }
+  .cell-fail { color: var(--red); }
+  .cell-icon { font-size: 1.1rem; }
+  .cell-score { font-weight: 700; font-size: 0.9rem; }
+  .cell-error { color: #991b1b; font-size: 0.8rem; }
+  .cell-duration { font-size: 0.75rem; color: var(--text-muted); }
+  .cell-files { font-size: 0.75rem; color: var(--text-muted); }
+  .cell-tools { font-size: 0.7rem; color: var(--purple); font-family: monospace; }
+  .cell-link { font-size: 0.75rem; margin-top: 0.25rem; }
+  .detail-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 2rem; }
+  .detail-table th { background: #f8fafc; padding: 0.6rem 0.75rem; text-align: left; font-size: 0.8rem; color: var(--text-muted); border-bottom: 2px solid var(--border); }
+  .detail-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; vertical-align: top; }
+  .tool-tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 6px; border-radius: 3px; font-size: 0.75rem; font-family: monospace; margin: 1px; }
+</style>
+</head>
+<body>
+<h1>📊 Evaluation Summary</h1>
+<div class="subtitle">Run: <strong>20260430-160716</strong> — 2026-04-30T23:07:16Z</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Evaluations</div></div>
+  <div class="stat"><div class="stat-value" style="color:var(--green)">0</div><div class="stat-label">Passed</div></div>
+  <div class="stat"><div class="stat-value" style="color:var(--red)">0</div><div class="stat-label">Failed</div></div>
+  <div class="stat"><div class="stat-value" style="color:#f97316">1</div><div class="stat-label">Errors</div></div>
+  <div class="stat"><div class="stat-value">72.9s</div><div class="stat-label">Duration</div></div>
+  <div class="stat"><div class="stat-value">72.7s</div><div class="stat-label">Avg Generation</div></div>
+  
+</div>
+
+
+
+<div class="analysis">
+  <h2>🤖 AI Analysis</h2>
+  <div class="analysis-content">**TOOL USAGE COMPARISON**
+- Baseline configs (e.g., baseline/claude-opus-4.6, baseline/claude-sonnet-4.5) mainly used: report_intent, powershell, create, view, and occasionally glob.
+- azure-mcp/claude-sonnet-4.5 used the same core tools (powershell, create, view, report_intent) as baseline, with no evidence of unique MCP-specific tools in this data.
+
+**RESOURCE IMPACT**
+- No prompt showed a clear improvement with tools: storage-dp-java-blob-manager failed in both baseline and azure-mcp configs.
+- Prompts like storage-mp-java-account-mgmt and storage-dp-js-ts-crud passed in baseline, suggesting these scenarios do not require extra tools.
+- storage-dp-java-crud had mixed results (1/3 pass in baseline), but no tool-enhanced run for comparison.
+
+**KNOWLEDGE vs TOOLS**
+- Baseline: Agent relied on its own model knowledge, using generic tools (powershell, create, view) for file and process management.
+- Tool-enhanced (azure-mcp): No evidence of specialized MCP tool usage—same toolset as baseline. No impact observed from additional resources.
+
+**RECOMMENDATIONS**
+- Prompts with persistent failures (e.g., storage-dp-java-blob-manager) may benefit from adding domain-specific tools or SDK helpers.
+- Consider integrating Java-specific Azure SDK tools or code samples for storage-dp-java-* prompts.
+- Add diagnostic/logging tools to help the agent debug failures.
+
+**QUALITY DELTA**
+- Pass rates: Baseline configs had 3/12 passes (25%); azure-mcp had 0/1 passes (0%).
+- File/tool usage: No significant difference in tool call types or counts between configs.
+- Duration: azure-mcp runs were not faster or more successful.
+- Conclusion: In this dataset, adding MCP tools did not improve outcomes—either tools were not used, or not impactful for these prompts.
+
+**Summary:**  
+Current tool/resource additions (MCP) did not yield measurable improvements. Focus on integrating more domain-specific tools for failing prompts, and ensure agents are actually invoking new resources.</div>
+</div>
+
+
+
+<h2>Prompt × Config Matrix</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Prompt</th>
+      <th>baseline/claude-opus-4.6</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">72.8s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+<h2>Detailed Results</h2>
+<table class="detail-table">
+  <thead>
+    <tr>
+      <th>Prompt</th>
+      <th>Config</th>
+      <th>Status</th>
+      <th>Score</th>
+      <th>Duration</th>
+      <th>Files</th>
+      <th>Tools / Skills</th>
+      <th>Report</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator made 2 file-write attempts but no files appeared in the workspace — files may have been written to the wrong location">Generator made 2 file-write attempts but…</span></td>
+      <td>72.8s</td>
+      <td>0</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">glob</span><span class="tool-tag">create</span></td>
+      <td><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+
+<h2>Duration Analysis (by Prompt)</h2>
+<table class="detail-table">
+  <thead><tr><th>Prompt</th><th>Min</th><th>Avg</th><th>Max</th></tr></thead>
+  <tbody>
+    
+    <tr><td><code>app-configuration-dp-js-ts-crud</code></td><td title="Config: baseline/claude-opus-4.6">72.8s</td><td>72.8s</td><td title="Config: baseline/claude-opus-4.6">72.8s</td></tr>
+    
+  </tbody>
+</table>
+<p style="color:var(--text-muted);font-size:0.85rem">⏱ Slowest: <strong>app-configuration-dp-js-ts-crud/baseline/claude-opus-4.6</strong> · Fastest: <strong>app-configuration-dp-js-ts-crud/baseline/claude-opus-4.6</strong></p>
+
+
+
+
+<h2>Prompt Comparison</h2>
+<table class="detail-table">
+  <thead><tr><th>Prompt</th><th>Total</th><th>Passed</th><th>Failed</th><th>Pass Rate</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      <td>1</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">1</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+<h2>Config Comparison</h2>
+<table class="detail-table">
+  <thead><tr><th>Config</th><th>Total</th><th>Passed</th><th>Failed</th><th>Pass Rate</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td>baseline/claude-opus-4.6</td>
+      <td>1</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">1</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+document.querySelectorAll('.analysis-content').forEach(el => {
+  if (typeof marked !== 'undefined') {
+    el.innerHTML = marked.parse(el.textContent);
+    el.style.whiteSpace = 'normal';
+  }
+});
+</script>
+</body>
+</html>

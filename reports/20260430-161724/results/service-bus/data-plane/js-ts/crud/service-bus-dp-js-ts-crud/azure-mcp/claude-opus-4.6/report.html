@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: service-bus-dp-js-ts-crud / azure-mcp/claude-opus-4.6</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 service-bus-dp-js-ts-crud</h1>
+  <div class="subtitle">Config: <strong>azure-mcp/claude-opus-4.6</strong> · 2026-04-30T23:29:03Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item" style="color:#6b7280">Generator made 3 file-write attempts but no files appeared in the workspace — files may have been written to the wrong location</span>
+  <span class="meta-item">Duration: <strong>101.8s</strong></span>
+  <span class="meta-item">Files: <strong>0</strong></span>
+  <span class="meta-item">Tool Calls: <strong>18</strong></span>
+  
+</div>
+
+
+<div class="error-box">
+  <h3>❌ Error</h3>
+  <p>0 files generated despite 3 file-write tool attempts</p>
+  
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer send and receive messages using Azure Service Bus queues and topics with the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>service-bus</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>crud</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/service-bus</code></td></tr>
+      <tr><td>Tags</td><td>service-bus, messaging, queues, topics</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-opus-4.6</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=593262 out=5797</td></tr>
+    <tr><td>Turn Count</td><td>16</td></tr>
+    
+    <tr><td>Generation Duration</td><td>101.7s</td></tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>12</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>create</td>
+      <td>3</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>glob</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program
+that demonstrates messaging with Azure Service Bus:
+1. Create a ServiceBusClient using a connection string
+2. Create a sender for a queue and send a single message
+3. Send a batch of 5 messages using createMessageBatch() and tryAddMessage()
+4. Create a receiver and receive messages using receiveMessages()
+5. Complete a message with completeMessage() after processing
+6. Subscribe to messages using subscribe() with processMessage and processError handlers
+7. Demonstrate sending to a topic and receiving from a subscription
+
+Show required npm package (@azure/service-bus) and proper close() cleanup.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants a TypeScript program demonstrating Azure Service Bus operations. …
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants a TypeScript program demonstrating Azure Service Bus operations. Let me create this.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Service Bus TypeScript demo&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-service-bus-dp-js-ts-crud-azure-mcp-claude-opus-4.6-1403706683&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>6.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-ChildItem -Force | Select-Object Name, Mode&#34;,&#34;description&#34;:&#34;List directory contents&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>8.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: glob</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;pattern&#34;:&#34;*&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>10.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-ChildItem -Force | Select-Object Name&#34;,&#34;description&#34;:&#34;List current directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>12.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>13.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;dir&#34;,&#34;description&#34;:&#34;List directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>14.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>15.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;ls&#34;,&#34;description&#34;:&#34;List files&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>16.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>17.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Write-Output \&#34;hello\&#34;&#34;,&#34;description&#34;:&#34;Test powershell&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>18.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>19.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;echo test&#34;,&#34;description&#34;:&#34;Test shell access&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>20.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Let me proceed with creating the files directly.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>21.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;service-bus-demo\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Service Bus messaging demo with TypeScript\&#34;,\n  \&#34;main\&#34;: \&#34;dist/serviceBusDemo.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;tsc \u0026\u0026 node dist/serviceBusDemo.js\&#34;\n  },\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/service-bus\&#34;: \&#34;^7.9.5\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;typescript\&#34;: \&#34;^5.4.0\&#34;,\n    \&#34;@types/node\&#34;: \&#34;^20.11.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-service-bus-dp-js-ts-crud-azure-mcp-claude-opus-4.6-1403706683\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>22.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;declaration\&#34;: true\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-service-bus-dp-js-ts-crud-azure-mcp-claude-opus-4.6-1403706683\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>23.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import {\n  ServiceBusClient,\n  ServiceBusMessage,\n  ServiceBusReceivedMessage,\n  ServiceBusReceiver,\n  ServiceBusSender,\n  ProcessErrorArgs,\n} from \&#34;@azure/service-bus\&#34;;\n\n// Replace with your actual connection string and entity names\nconst CONNECTION_STRING =\n  process.env.SERVICE_BUS_CONNECTION_STRING ||\n  \&#34;\u003cyour-service-bus-connection-string\u003e\&#34;;\nconst QUEUE_NAME = process.env.QUEUE_NAME || \&#34;demo-queue\&#34;;\nconst TOPIC_NAME = process.env.TOPIC_NAME || \&#34;demo-topic\&#34;;\nconst SUBSCRIPTION_NAME = process.env.SUBSCRIPTION_NAME || \&#34;demo-subscription\&#34;;\n\n// ---------------------------------------------------------------------------\n// 1. Create a ServiceBusClient using a connection string\n// ---------------------------------------------------------------------------\nfunction createClient(): ServiceBusClient {\n  const client = new ServiceBusClient(CONNECTION_STRING);\n  console.log(\&#34;ServiceBusClient created successfully.\&#34;);\n  return client;\n}\n\n// ---------------------------------------------------------------------------\n// 2. Send a single message to a queue\n// ---------------------------------------------------------------------------\nasync function sendSingleMessage(sender: ServiceBusSender): Promise\u003cvoid\u003e {\n  const message: ServiceBusMessage = {\n    body: \&#34;Hello from Azure Service Bus!\&#34;,\n    contentType: \&#34;text/plain\&#34;,\n    subject: \&#34;greeting\&#34;,\n    applicationProperties: { priority: \&#34;high\&#34; },\n  };\n\n  await sender.sendMessages(message);\n  console.log(\&#34;Single message sent to queue.\&#34;);\n}\n\n// ---------------------------------------------------------------------------\n// 3. Send a batch of 5 messages using createMessageBatch / tryAddMessage\n// ---------------------------------------------------------------------------\nasync function sendBatchMessages(sender: ServiceBusSender): Promise\u003cvoid\u003e {\n  const batch = await sender.createMessageBatch();\n\n  for (let i = 1; i \u003c= 5; i&#43;&#43;) {\n    const message: ServiceBusMessage = {\n      body: `Batch message #${i}`,\n      applicationProperties: { index: i },\n    };\n\n    if (!batch.tryAddMessage(message)) {\n      throw new Error(`Message #${i} is too large for the batch.`);\n    }\n  }\n\n  await sender.sendMessages(batch);\n  console.log(`Batch of ${batch.count} messages sent to queue.`);\n}\n\n// ---------------------------------------------------------------------------\n// 4 \u0026 5. Receive messages with receiveMessages() and complete them\n// ---------------------------------------------------------------------------\nasync function receiveAndCompleteMessages(\n  receiver: ServiceBusReceiver\n): Promise\u003cvoid\u003e {\n  // Receive up to 10 messages, wait at most 5 seconds\n  const messages: ServiceBusReceivedMessage[] = await receiver.receiveMessages(\n    10,\n    { maxWaitTimeInMs: 5000 }\n  );\n\n  console.log(`Received ${messages.length} message(s) from queue.`);\n\n  for (const msg of messages) {\n    console.log(`  → Processing: ${msg.body}`);\n    // 5. Complete the message so it is removed from the queue\n    await receiver.completeMessage(msg);\n    console.log(`    ✓ Message completed.`);\n  }\n}\n\n// ---------------------------------------------------------------------------\n// 6. Subscribe to messages with processMessage / processError handlers\n// ---------------------------------------------------------------------------\nasync function subscribeToMessages(\n  receiver: ServiceBusReceiver\n): Promise\u003cvoid\u003e {\n  return new Promise\u003cvoid\u003e((resolve) =\u003e {\n    let receivedCount = 0;\n\n    const subscription = receiver.subscribe({\n      async processMessage(message: ServiceBusReceivedMessage): Promise\u003cvoid\u003e {\n        console.log(`  [subscribe] Received: ${message.body}`);\n        await receiver.completeMessage(message);\n        receivedCount&#43;&#43;;\n\n        // Stop after processing all expected messages\n        if (receivedCount \u003e= 5) {\n          await subscription.close();\n          resolve();\n        }\n      },\n\n      async processError(args: ProcessErrorArgs): Promise\u003cvoid\u003e {\n        console.error(\n          `  [subscribe] Error - Source: ${args.errorSource}`,\n          args.error\n        );\n      },\n    });\n\n    // Safety timeout so the demo doesn&#39;t hang forever\n    setTimeout(async () =\u003e {\n      await subscription.close();\n      resolve();\n    }, 15000);\n  });\n}\n\n// ---------------------------------------------------------------------------\n// 7. Send to a topic and receive from a subscription\n// ---------------------------------------------------------------------------\nasync function topicAndSubscriptionDemo(\n  client: ServiceBusClient\n): Promise\u003cvoid\u003e {\n  const topicSender: ServiceBusSender = client.createSender(TOPIC_NAME);\n  const subscriptionReceiver: ServiceBusReceiver =\n    client.createReceiver(TOPIC_NAME, SUBSCRIPTION_NAME);\n\n  try {\n    // Send messages to the topic\n    const messages: ServiceBusMessage[] = [\n      { body: \&#34;Topic message A\&#34;, subject: \&#34;info\&#34; },\n      { body: \&#34;Topic message B\&#34;, subject: \&#34;warning\&#34; },\n      { body: \&#34;Topic message C\&#34;, subject: \&#34;error\&#34; },\n    ];\n\n    await topicSender.sendMessages(messages);\n    console.log(`Sent ${messages.length} messages to topic \&#34;${TOPIC_NAME}\&#34;.`);\n\n    // Receive messages from the subscription\n    const received = await subscriptionReceiver.receiveMessages(10, {\n      maxWaitTimeInMs: 5000,\n    });\n\n    console.log(\n      `Received ${received.length} message(s) from subscription \&#34;${SUBSCRIPTION_NAME}\&#34;.`\n    );\n\n    for (const msg of received) {\n      console.log(`  → Topic msg: ${msg.body} (subject: ${msg.subject})`);\n      await subscriptionReceiver.completeMessage(msg);\n    }\n  } finally {\n    await topicSender.close();\n    await subscriptionReceiver.close();\n    console.log(\&#34;Topic sender and subscription receiver closed.\&#34;);\n  }\n}\n\n// ---------------------------------------------------------------------------\n// Main – orchestrate all demos\n// ---------------------------------------------------------------------------\nasync function main(): Promise\u003cvoid\u003e {\n  const client = createClient();\n  const sender: ServiceBusSender = client.createSender(QUEUE_NAME);\n  // peekLock mode (default) is required for completeMessage()\n  const receiver: ServiceBusReceiver = client.createReceiver(QUEUE_NAME);\n\n  try {\n    // 2. Send a single message\n    console.log(\&#34;\\n--- Send single message ---\&#34;);\n    await sendSingleMessage(sender);\n\n    // 3. Send a batch of messages\n    console.log(\&#34;\\n--- Send batch messages ---\&#34;);\n    await sendBatchMessages(sender);\n\n    // 4 \u0026 5. Receive and complete messages\n    console.log(\&#34;\\n--- Receive and complete messages ---\&#34;);\n    await receiveAndCompleteMessages(receiver);\n\n    // Close the first receiver before creating a new one for subscribe()\n    await receiver.close();\n\n    // 6. Subscribe demo – send fresh messages, then subscribe\n    console.log(\&#34;\\n--- Subscribe to messages ---\&#34;);\n    const subscribeSender = client.createSender(QUEUE_NAME);\n    for (let i = 1; i \u003c= 5; i&#43;&#43;) {\n      await subscribeSender.sendMessages({ body: `Subscribe msg #${i}` });\n    }\n    await subscribeSender.close();\n\n    const subscribeReceiver = client.createReceiver(QUEUE_NAME);\n    await subscribeToMessages(subscribeReceiver);\n    await subscribeReceiver.close();\n\n    // 7. Topic / Subscription demo\n    console.log(\&#34;\\n--- Topic and Subscription demo ---\&#34;);\n    await topicAndSubscriptionDemo(client);\n  } finally {\n    // Proper cleanup – close sender, receiver, and client\n    await sender.close();\n    await client.close();\n    console.log(\&#34;\\nAll connections closed. Done.\&#34;);\n  }\n}\n\nmain().catch((err) =\u003e {\n  console.error(\&#34;Fatal error:\&#34;, err);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-service-bus-dp-js-ts-crud-azure-mcp-claude-opus-4.6-1403706683\\src\\serviceBusDemo.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>24.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>25.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path \&#34;src\&#34; -Force | Out-Null; Write-Output \&#34;done\&#34;&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>26.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>It looks like file system operations need approval. Let me try again:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>27.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;mkdir src&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>28.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>29.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path src&#34;,&#34;description&#34;:&#34;Create src folder&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>30.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>31.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;pwd&#34;,&#34;description&#34;:&#34;Check current directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>32.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>33.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-Location&#34;,&#34;description&#34;:&#34;Get working directory&#34;,&#34;initial_wait&#34;:30,&#34;mode&#34;:&#34;sync&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>34.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>35.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;echo hello&#34;,&#34;description&#34;:&#34;Connectivity test&#34;,&#34;mode&#34;:&#34;async&#34;,&#34;shellId&#34;:&#34;test-shell&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>36.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;m encountering persistent permission issues with all tool operations. Let me provide the complete solution as output so you can create the files:
+
+---
+
+## Azure Service Bus TypeScript Demo
+
+### Project Setup
+
+**package.json**
+```json
+{
+  &#34;name&#34;: &#34;service-bus-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;tsc &amp;&amp; node dist/serviceBusDemo.js&#34;
+  },
+  &#34;dependencies&#34;: {
+    &#34;@azure/service-bus&#34;: &#34;^7.9.5&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;typescript&#34;: &#34;^5.4.0&#34;,
+    &#34;@types/node&#34;: &#34;^20.11.0&#34;
+  }
+}
+```
+
+**tsconfig.json**
+```json
+{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./src&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true
+  },
+  &#34;include&#34;: [&#34;src/**/*&#34;]
+}
+```
+
+**src/serviceBusDemo.ts**
+```typescript
+import {
+  ServiceBusClient,
+  ServiceBusMessage,
+  ServiceBusReceivedMessage,
+  ServiceBusReceiver,
+  ServiceBusSender,
+  ProcessErrorArgs,
+} from &#34;@azure/service-bus&#34;;
+
+const CONNECTION_STRING =
+  process.env.SERVICE_BUS_CONNECTION_STRING || &#34;&lt;your-connection-string&gt;&#34;;
+const QUEUE_NAME = process.env.QUEUE_NAME || &#34;demo-queue&#34;;
+const TOPIC_NAME = process.env.TOPIC_NAME || &#34;demo-topic&#34;;
+const SUBSCRIPTION_NAME = process.env.SUBSCRIPTION_NAME || &#34;demo-subscription&#34;;
+
+// 1. Create a ServiceBusClient
+function createClient(): ServiceBusClient {
+  const client = new ServiceBusClient(CONNECTION_STRING);
+  console.log(&#34;ServiceBusClient created.&#34;);
+  return client;
+}
+
+// 2. Send a single message to a queue
+async function sendSingleMessage(sender: ServiceBusSender): Promise&lt;void&gt; {
+  const message: ServiceBusMessage = {
+    body: &#34;Hello from Azure Service Bus!&#34;,
+    contentType: &#34;text/plain&#34;,
+    subject: &#34;greeting&#34;,
+    applicationProperties: { priority: &#34;high&#34; },
+  };
+  await sender.sendMessages(message);
+  console.log(&#34;Single message sent.&#34;);
+}
+
+// 3. Send a batch of 5 messages
+async function sendBatchMessages(sender: ServiceBusSender): Promise&lt;void&gt; {
+  const batch = await sender.createMessageBatch();
+
+  for (let i = 1; i &lt;= 5; i&#43;&#43;) {
+    const msg: ServiceBusMessage = {
+      body: `Batch message #${i}`,
+      applicationProperties: { index: i },
+    };
+    if (!batch.tryAddMessage(msg)) {
+      throw new Error(`Message #${i} too large for batch.`);
+    }
+  }
+
+  await sender.sendMessages(batch);
+  console.log(`Batch of ${batch.count} messages sent.`);
+}
+
+// 4 &amp; 5. Receive messages and complete them
+async function receiveAndCompleteMessages(
+  receiver: ServiceBusReceiver
+): Promise&lt;void&gt; {
+  const messages: ServiceBusReceivedMessage[] =
+    await receiver.receiveMessages(10, { maxWaitTimeInMs: 5000 });
+
+  console.log(`Received ${messages.length} message(s).`);
+
+  for (const msg of messages) {
+    console.log(`  → Processing: ${msg.body}`);
+    await receiver.completeMessage(msg);
+    console.log(`    ✓ Completed.`);
+  }
+}
+
+// 6. Subscribe with processMessage / processError handlers
+async function subscribeToMessages(
+  receiver: ServiceBusReceiver
+): Promise&lt;void&gt; {
+  return new Promise&lt;void&gt;((resolve) =&gt; {
+    let count = 0;
+
+    const subscription = receiver.subscribe({
+      async processMessage(message: ServiceBusReceivedMessage): Promise&lt;void&gt; {
+        console.log(`  [subscribe] Received: ${message.body}`);
+        await receiver.completeMessage(message);
+        count&#43;&#43;;
+        if (count &gt;= 5) {
+          await subscription.close();
+          resolve();
+        }
+      },
+      async processError(args: ProcessErrorArgs): Promise&lt;void&gt; {
+        console.error(`  [subscribe] Error (${args.errorSource}):`, args.error);
+      },
+    });
+
+    setTimeout(async () =&gt; {
+      await subscription.close();
+      resolve();
+    }, 15000);
+  });
+}
+
+// 7. Topic → Subscription demo
+async function topicAndSubscriptionDemo(
+  client: ServiceBusClient
+): Promise&lt;void&gt; {
+  const topicSender = client.createSender(TOPIC_NAME);
+  const subReceiver = client.createReceiver(TOPIC_NAME, SUBSCRIPTION_NAME);
+
+  try {
+    const messages: ServiceBusMessage[] = [
+      { body: &#34;Topic message A&#34;, subject: &#34;info&#34; },
+      { body: &#34;Topic message B&#34;, subject: &#34;warning&#34; },
+      { body: &#34;Topic message C&#34;, subject: &#34;error&#34; },
+    ];
+
+    await topicSender.sendMessages(messages);
+    console.log(`Sent ${messages.length} messages to topic &#34;${TOPIC_NAME}&#34;.`);
+
+    const received = await subReceiver.receiveMessages(10, {
+      maxWaitTimeInMs: 5000,
+    });
+    console.log(
+      `Received ${received.length} from subscription &#34;${SUBSCRIPTION_NAME}&#34;.`
+    );
+
+    for (const msg of received) {
+      console.log(`  → ${msg.body} (subject: ${msg.subject})`);
+      await subReceiver.completeMessage(msg);
+    }
+  } finally {
+    await topicSender.close();
+    await subReceiver.close();
+    console.log(&#34;Topic sender and subscription receiver closed.&#34;);
+  }
+}
+
+// Main
+async function main(): Promise&lt;void&gt; {
+  const client = createClient();
+  const sender = client.createSender(QUEUE_NAME);
+  const receiver = client.createReceiver(QUEUE_NAME);
+
+  try {
+    console.log(&#34;\n--- Send single message ---&#34;);
+    await sendSingleMessage(sender);
+
+    console.log(&#34;\n--- Send batch messages ---&#34;);
+    await sendBatchMessages(sender);
+
+    console.log(&#34;\n--- Receive and complete messages ---&#34;);
+    await receiveAndCompleteMessages(receiver);
+    await receiver.close();
+
+    // 6. Subscribe demo
+    console.log(&#34;\n--- Subscribe to messages ---&#34;);
+    const subSender = client.createSender(QUEUE_NAME);
+    for (let i = 1; i &lt;= 5; i&#43;&#43;) {
+      await subSender.sendMessages({ body: `Subscribe msg #${i}` });
+    }
+    await subSender.close();
+
+    const subReceiver = client.createReceiver(QUEUE_NAME);
+    await subscribeToMessages(subReceiver);
+    await subReceiver.close();
+
+    // 7. Topic/Subscription demo
+    console.log(&#34;\n--- Topic and Subscription demo ---&#34;);
+    await topicAndSubscriptionDemo(client);
+  } finally {
+    await sender.close();
+    await client.close();
+    console.log(&#34;\nAll connections closed. Done.&#34;);
+  }
+}
+
+main().catch((err) =&gt; {
+  console.error(&#34;Fatal error:&#34;, err);
+  process.exit(1);
+});
+```
+
+### Run it
+
+```bash
+npm install
+export SERVICE_BUS_CONNECTION_STRING=&#34;Endpoint=sb://&lt;namespace&gt;.servicebus.windows.net/;SharedAccessKeyName=...;SharedAccessKey=...&#34;
+npm start
+```
+
+The demo covers all 7 requirements: client creation, single send, batch send with `createMessageBatch()`/`tryAddMessage()`, `receiveMessages()`, `completeMessage()`, `subscribe()` with both handlers, topic/subscription messaging, and proper `close()` cleanup in `finally` blocks.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>37.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">67 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (67 actions, 18 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>67</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>18</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>16</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">1</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">17</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id service-bus-dp-js-ts-crud --config azure-mcp/claude-opus-4.6</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: app-configuration-dp-js-ts-crud / azure-mcp-skills/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 app-configuration-dp-js-ts-crud</h1>
+  <div class="subtitle">Config: <strong>azure-mcp-skills/claude-sonnet-4.5</strong> · 2026-04-30T23:17:24Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item" style="color:#6b7280">Generator made 5 file-write attempts but no files appeared in the workspace — files may have been written to the wrong location</span>
+  <span class="meta-item">Duration: <strong>110.5s</strong></span>
+  <span class="meta-item">Files: <strong>0</strong></span>
+  <span class="meta-item">Tool Calls: <strong>7</strong></span>
+  
+</div>
+
+
+<div class="error-box">
+  <h3>❌ Error</h3>
+  <p>0 files generated despite 5 file-write tool attempts</p>
+  
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer read and write configuration values and feature flags in Azure App Configuration using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>basic</td></tr>
+      <tr><td>Service</td><td>app-configuration</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>crud</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/app-configuration</code></td></tr>
+      <tr><td>Tags</td><td>app-configuration, configuration, feature-flags, crud</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=125144 out=7549</td></tr>
+    <tr><td>Turn Count</td><td>3</td></tr>
+    
+    <tr><td>Generation Duration</td><td>110.4s</td></tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program
+that manages configuration settings in Azure App Configuration:
+1. Create an AppConfigurationClient using a connection string
+2. Set a configuration setting with key &#34;app:Settings:FontSize&#34; and value &#34;24&#34;
+3. Set a setting with label &#34;Production&#34;
+4. Get the setting by key and print its value
+5. List all settings matching the key filter &#34;app:Settings:*&#34; using listConfigurationSettings
+6. Create a feature flag configuration setting for &#34;BetaFeature&#34;
+7. Delete the setting by key
+
+Show required npm package (@azure/app-configuration) and
+proper error handling with RestError.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a comprehensive TypeScript program demonstrating Azure App Configuration operations with proper error handling.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants me to create a TypeScript program that demonstrates Azure App Con…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants me to create a TypeScript program that demonstrates Azure App Configuration operations. This is a straightforward request to write a complete program with specific requirements:
+
+1. Create an AppConfigurationClient with connection string
+2. Set a configuration setting
+3. Set a setting with label
+4. Get and print a setting
+5. List settings with filter
+6. Create a feature flag
+7. Delete a setting
+8. Show npm package and error handling
+
+This is a single-file code generation task. I should:
+1. Report intent
+2. Create the TypeScript file with all the required functionality
+3. Include proper imports, error handling with RestError, and comments
+
+Let me create this file directly.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure App Configuration demo&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { AppConfigurationClient, ConfigurationSetting, FeatureFlagValue } from \&#34;@azure/app-configuration\&#34;;\nimport { RestError } from \&#34;@azure/core-rest-pipeline\&#34;;\n\n/**\n * Azure App Configuration Demo\n * Demonstrates CRUD operations, feature flags, and filtering\n */\nasync function main() {\n  // Connection string should be stored in environment variable\n  const connectionString = process.env.AZURE_APPCONFIG_CONNECTION_STRING;\n  \n  if (!connectionString) {\n    console.error(\&#34;Error: AZURE_APPCONFIG_CONNECTION_STRING environment variable is not set\&#34;);\n    console.error(\&#34;Set it with: export AZURE_APPCONFIG_CONNECTION_STRING=&#39;your-connection-string&#39;\&#34;);\n    process.exit(1);\n  }\n\n  try {\n    // 1. Create AppConfigurationClient using connection string\n    console.log(\&#34;1. Creating AppConfigurationClient...\&#34;);\n    const client = new AppConfigurationClient(connectionString);\n    console.log(\&#34;✓ Client created successfully\\n\&#34;);\n\n    // 2. Set a configuration setting with key \&#34;app:Settings:FontSize\&#34; and value \&#34;24\&#34;\n    console.log(\&#34;2. Setting configuration: app:Settings:FontSize = 24\&#34;);\n    const fontSizeSetting = await client.setConfigurationSetting({\n      key: \&#34;app:Settings:FontSize\&#34;,\n      value: \&#34;24\&#34;\n    });\n    console.log(`✓ Set: ${fontSizeSetting.key} = ${fontSizeSetting.value}`);\n    console.log(`   ETag: ${fontSizeSetting.etag}\\n`);\n\n    // 3. Set a setting with label \&#34;Production\&#34;\n    console.log(\&#34;3. Setting configuration with &#39;Production&#39; label\&#34;);\n    const prodSetting = await client.setConfigurationSetting({\n      key: \&#34;app:Settings:FontSize\&#34;,\n      value: \&#34;20\&#34;,\n      label: \&#34;Production\&#34;\n    });\n    console.log(`✓ Set: ${prodSetting.key} = ${prodSetting.value} (label: ${prodSetting.label})`);\n    console.log(`   ETag: ${prodSetting.etag}\\n`);\n\n    // 4. Get the setting by key and print its value\n    console.log(\&#34;4. Getting configuration setting by key\&#34;);\n    const retrievedSetting = await client.getConfigurationSetting({\n      key: \&#34;app:Settings:FontSize\&#34;\n    });\n    console.log(`✓ Retrieved: ${retrievedSetting.key} = ${retrievedSetting.value}`);\n    console.log(`   Label: ${retrievedSetting.label || \&#34;(no label)\&#34;}`);\n    console.log(`   Content Type: ${retrievedSetting.contentType || \&#34;(none)\&#34;}`);\n    console.log(`   Last Modified: ${retrievedSetting.lastModified}\\n`);\n\n    // 5. List all settings matching the key filter \&#34;app:Settings:*\&#34;\n    console.log(\&#34;5. Listing all settings with key filter &#39;app:Settings:*&#39;\&#34;);\n    const settingsIterator = client.listConfigurationSettings({\n      keyFilter: \&#34;app:Settings:*\&#34;\n    });\n    \n    let count = 0;\n    for await (const setting of settingsIterator) {\n      count&#43;&#43;;\n      console.log(`   [${count}] ${setting.key} = ${setting.value}`);\n      console.log(`       Label: ${setting.label || \&#34;(no label)\&#34;}`);\n      console.log(`       Tags: ${setting.tags ? JSON.stringify(setting.tags) : \&#34;(none)\&#34;}`);\n    }\n    console.log(`✓ Found ${count} matching settings\\n`);\n\n    // 6. Create a feature flag configuration setting for \&#34;BetaFeature\&#34;\n    console.log(\&#34;6. Creating feature flag &#39;BetaFeature&#39;\&#34;);\n    \n    const featureFlagValue: FeatureFlagValue = {\n      id: \&#34;BetaFeature\&#34;,\n      enabled: true,\n      description: \&#34;Beta feature for testing new functionality\&#34;,\n      conditions: {\n        clientFilters: []\n      }\n    };\n\n    const featureFlag = await client.setConfigurationSetting({\n      key: \&#34;.appconfig.featureflag/BetaFeature\&#34;,\n      value: JSON.stringify(featureFlagValue),\n      contentType: \&#34;application/vnd.microsoft.appconfig.ff&#43;json;charset=utf-8\&#34;\n    });\n    \n    console.log(`✓ Feature flag created: ${featureFlag.key}`);\n    console.log(`   Enabled: ${JSON.parse(featureFlag.value!).enabled}`);\n    console.log(`   Description: ${JSON.parse(featureFlag.value!).description}\\n`);\n\n    // List all feature flags\n    console.log(\&#34;   Listing all feature flags:\&#34;);\n    const featureFlagsIterator = client.listConfigurationSettings({\n      keyFilter: \&#34;.appconfig.featureflag/*\&#34;\n    });\n    \n    for await (const flag of featureFlagsIterator) {\n      const flagValue = JSON.parse(flag.value!) as FeatureFlagValue;\n      console.log(`   - ${flagValue.id}: ${flagValue.enabled ? \&#34;Enabled\&#34; : \&#34;Disabled\&#34;}`);\n    }\n    console.log();\n\n    // 7. Delete the setting by key\n    console.log(\&#34;7. Deleting configuration settings\&#34;);\n    \n    // Delete the default label setting\n    await client.deleteConfigurationSetting({\n      key: \&#34;app:Settings:FontSize\&#34;\n    });\n    console.log(`✓ Deleted: app:Settings:FontSize (no label)`);\n\n    // Delete the Production label setting\n    await client.deleteConfigurationSetting({\n      key: \&#34;app:Settings:FontSize\&#34;,\n      label: \&#34;Production\&#34;\n    });\n    console.log(`✓ Deleted: app:Settings:FontSize (Production label)`);\n\n    // Delete the feature flag\n    await client.deleteConfigurationSetting({\n      key: \&#34;.appconfig.featureflag/BetaFeature\&#34;\n    });\n    console.log(`✓ Deleted: BetaFeature feature flag\\n`);\n\n    // Verify deletion\n    console.log(\&#34;8. Verifying deletion...\&#34;);\n    const remainingSettings = client.listConfigurationSettings({\n      keyFilter: \&#34;app:Settings:*\&#34;\n    });\n    \n    let remainingCount = 0;\n    for await (const setting of remainingSettings) {\n      remainingCount&#43;&#43;;\n      console.log(`   Found: ${setting.key}`);\n    }\n    \n    if (remainingCount === 0) {\n      console.log(\&#34;✓ All test settings deleted successfully\\n\&#34;);\n    } else {\n      console.log(`⚠ ${remainingCount} settings still exist\\n`);\n    }\n\n    console.log(\&#34;=== Demo completed successfully ===\&#34;);\n\n  } catch (error) {\n    // Handle RestError from Azure SDK\n    if (error instanceof RestError) {\n      console.error(\&#34;\\n❌ Azure App Configuration Error:\&#34;);\n      console.error(`   Status Code: ${error.statusCode}`);\n      console.error(`   Error Code: ${error.code}`);\n      console.error(`   Message: ${error.message}`);\n      \n      if (error.statusCode === 401) {\n        console.error(\&#34;\\n   → Check your connection string is valid\&#34;);\n      } else if (error.statusCode === 403) {\n        console.error(\&#34;\\n   → Check your access permissions\&#34;);\n      } else if (error.statusCode === 404) {\n        console.error(\&#34;\\n   → Resource not found\&#34;);\n      }\n      \n      process.exit(1);\n    } else if (error instanceof Error) {\n      console.error(\&#34;\\n❌ Unexpected Error:\&#34;);\n      console.error(`   ${error.message}`);\n      console.error(`   Stack: ${error.stack}`);\n      process.exit(1);\n    } else {\n      console.error(\&#34;\\n❌ Unknown error occurred:\&#34;, error);\n      process.exit(1);\n    }\n  }\n}\n\n// Run the demo\nmain().catch((error) =\u003e {\n  console.error(\&#34;Fatal error:\&#34;, error);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-app-configuration-dp-js-ts-crud-azure-mcp-skills-claude-sonnet-4.5-1493431284\\app-configuration-demo.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-app-configuration-demo\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure App Configuration TypeScript Demo\&#34;,\n  \&#34;main\&#34;: \&#34;app-configuration-demo.ts\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;ts-node app-configuration-demo.ts\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node-dev app-configuration-demo.ts\&#34;\n  },\n  \&#34;keywords\&#34;: [\n    \&#34;azure\&#34;,\n    \&#34;app-configuration\&#34;,\n    \&#34;typescript\&#34;\n  ],\n  \&#34;author\&#34;: \&#34;\&#34;,\n  \&#34;license\&#34;: \&#34;MIT\&#34;,\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/app-configuration\&#34;: \&#34;^1.7.1\&#34;,\n    \&#34;@azure/core-rest-pipeline\&#34;: \&#34;^1.17.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^22.0.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.2\&#34;,\n    \&#34;ts-node-dev\&#34;: \&#34;^2.0.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.6.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-app-configuration-dp-js-ts-crud-azure-mcp-skills-claude-sonnet-4.5-1493431284\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;,\n    \&#34;declaration\&#34;: true,\n    \&#34;declarationMap\&#34;: true,\n    \&#34;sourceMap\&#34;: true\n  },\n  \&#34;include\&#34;: [\&#34;*.ts\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;, \&#34;dist\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-app-configuration-dp-js-ts-crud-azure-mcp-skills-claude-sonnet-4.5-1493431284\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure App Configuration TypeScript Demo\n\nA comprehensive TypeScript program demonstrating Azure App Configuration operations including CRUD operations, feature flags, filtering, and error handling.\n\n## Features\n\nThis demo showcases:\n1. ✅ Creating an AppConfigurationClient with connection string\n2. ✅ Setting configuration values\n3. ✅ Setting configurations with labels (e.g., \&#34;Production\&#34;)\n4. ✅ Getting configuration settings\n5. ✅ Listing settings with key filters\n6. ✅ Creating and managing feature flags\n7. ✅ Deleting configuration settings\n8. ✅ Proper error handling with RestError\n\n## Prerequisites\n\n- Node.js 16&#43; installed\n- Azure subscription\n- Azure App Configuration resource created\n\n## Setup\n\n### 1. Install Dependencies\n\n```bash\nnpm install\n```\n\nThis installs:\n- `@azure/app-configuration` - Azure App Configuration client library\n- `@azure/core-rest-pipeline` - For RestError type\n\n### 2. Get Your Connection String\n\n**Option A: Azure Portal**\n1. Go to your App Configuration resource in Azure Portal\n2. Navigate to Settings \u003e Access keys\n3. Copy one of the connection strings (Primary or Secondary)\n\n**Option B: Azure CLI**\n```bash\naz appconfig credential list --name \u003cyour-config-name\u003e --resource-group \u003cyour-rg\u003e --query \&#34;[0].connectionString\&#34; -o tsv\n```\n\n### 3. Set Environment Variable\n\n**Linux/macOS:**\n```bash\nexport AZURE_APPCONFIG_CONNECTION_STRING=\&#34;Endpoint=https://...;Id=...;Secret=...\&#34;\n```\n\n**Windows (PowerShell):**\n```powershell\n$env:AZURE_APPCONFIG_CONNECTION_STRING=\&#34;Endpoint=https://...;Id=...;Secret=...\&#34;\n```\n\n**Windows (CMD):**\n```cmd\nset AZURE_APPCONFIG_CONNECTION_STRING=Endpoint=https://...;Id=...;Secret=...\n```\n\n## Running the Demo\n\n### TypeScript (with ts-node)\n```bash\nnpm start\n```\n\n### Compiled JavaScript\n```bash\nnpm run build\nnode dist/app-configuration-demo.js\n```\n\n### Development Mode (auto-reload)\n```bash\nnpm run dev\n```\n\n## Expected Output\n\n```\n1. Creating AppConfigurationClient...\n✓ Client created successfully\n\n2. Setting configuration: app:Settings:FontSize = 24\n✓ Set: app:Settings:FontSize = 24\n   ETag: \&#34;...\&#34;\n\n3. Setting configuration with &#39;Production&#39; label\n✓ Set: app:Settings:FontSize = 20 (label: Production)\n   ETag: \&#34;...\&#34;\n\n4. Getting configuration setting by key\n✓ Retrieved: app:Settings:FontSize = 24\n   Label: (no label)\n   Content Type: (none)\n   Last Modified: ...\n\n5. Listing all settings with key filter &#39;app:Settings:*&#39;\n   [1] app:Settings:FontSize = 24\n       Label: (no label)\n   [2] app:Settings:FontSize = 20\n       Label: Production\n✓ Found 2 matching settings\n\n6. Creating feature flag &#39;BetaFeature&#39;\n✓ Feature flag created: .appconfig.featureflag/BetaFeature\n   Enabled: true\n   Description: Beta feature for testing new functionality\n\n7. Deleting configuration settings\n✓ Deleted: app:Settings:FontSize (no label)\n✓ Deleted: app:Settings:FontSize (Production label)\n✓ Deleted: BetaFeature feature flag\n\n8. Verifying deletion...\n✓ All test settings deleted successfully\n\n=== Demo completed successfully ===\n```\n\n## Error Handling\n\nThe program demonstrates proper error handling for:\n\n- **401 Unauthorized**: Invalid connection string\n- **403 Forbidden**: Insufficient permissions\n- **404 Not Found**: Resource doesn&#39;t exist\n- **Network errors**: Connection issues\n- **Unexpected errors**: Generic error fallback\n\nExample error output:\n```\n❌ Azure App Configuration Error:\n   Status Code: 401\n   Error Code: Unauthorized\n   Message: Authentication failed\n   \n   → Check your connection string is valid\n```\n\n## Code Structure\n\n### Key Operations\n\n**Setting Configuration:**\n```typescript\nawait client.setConfigurationSetting({\n  key: \&#34;app:Settings:FontSize\&#34;,\n  value: \&#34;24\&#34;,\n  label: \&#34;Production\&#34;  // Optional\n});\n```\n\n**Getting Configuration:**\n```typescript\nconst setting = await client.getConfigurationSetting({\n  key: \&#34;app:Settings:FontSize\&#34;\n});\n```\n\n**Listing with Filters:**\n```typescript\nconst settings = client.listConfigurationSettings({\n  keyFilter: \&#34;app:Settings:*\&#34;\n});\n\nfor await (const setting of settings) {\n  console.log(setting.key, setting.value);\n}\n```\n\n**Feature Flags:**\n```typescript\nconst featureFlagValue: FeatureFlagValue = {\n  id: \&#34;BetaFeature\&#34;,\n  enabled: true,\n  conditions: { clientFilters: [] }\n};\n\nawait client.setConfigurationSetting({\n  key: \&#34;.appconfig.featureflag/BetaFeature\&#34;,\n  value: JSON.stringify(featureFlagValue),\n  contentType: \&#34;application/vnd.microsoft.appconfig.ff&#43;json;charset=utf-8\&#34;\n});\n```\n\n**Deleting:**\n```typescript\nawait client.deleteConfigurationSetting({\n  key: \&#34;app:Settings:FontSize\&#34;,\n  label: \&#34;Production\&#34;  // Optional\n});\n```\n\n## Additional Resources\n\n- [Azure App Configuration Documentation](https://docs.microsoft.com/azure/azure-app-configuration/)\n- [@azure/app-configuration npm package](https://www.npmjs.com/package/@azure/app-configuration)\n- [Azure App Configuration Samples](https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/appconfiguration/app-configuration/samples)\n\n## License\n\nMIT\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-app-configuration-dp-js-ts-crud-azure-mcp-skills-claude-sonnet-4.5-1493431284\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure App Configuration Connection String\n# Get this from Azure Portal \u003e App Configuration \u003e Access keys\n# or via Azure CLI: az appconfig credential list --name \u003cname\u003e --resource-group \u003crg\u003e\n\nAZURE_APPCONFIG_CONNECTION_STRING=Endpoint=https://your-config-name.azconfig.io;Id=xxxx;Secret=xxxx\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-app-configuration-dp-js-ts-crud-azure-mcp-skills-claude-sonnet-4.5-1493431284\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>10.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I encountered a permissions issue with the current directory. Let me create the files in your home directory or desktop instead:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;$projectDir = Join-Path $env:USERPROFILE \&#34;azure-app-config-demo\&#34;; New-Item -ItemType Directory -Force -Path $projectDir | Out-Null; Write-Output \&#34;Created directory: $projectDir\&#34;; Set-Location $projectDir; Write-Output \&#34;Changed to directory: $(Get-Location)\&#34;&#34;,&#34;description&#34;:&#34;Create project directory in user home&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>12.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I see there are strict permission restrictions. Let me output the complete code directly for you to copy:
+
+## Azure App Configuration TypeScript Demo
+
+Here&#39;s the complete TypeScript program with all required files:
+
+### **app-configuration-demo.ts**
+
+```typescript
+import { AppConfigurationClient, ConfigurationSetting, FeatureFlagValue } from &#34;@azure/app-configuration&#34;;
+import { RestError } from &#34;@azure/core-rest-pipeline&#34;;
+
+/**
+ * Azure App Configuration Demo
+ * Demonstrates CRUD operations, feature flags, and filtering
+ */
+async function main() {
+  // Connection string should be stored in environment variable
+  const connectionString = process.env.AZURE_APPCONFIG_CONNECTION_STRING;
+  
+  if (!connectionString) {
+    console.error(&#34;Error: AZURE_APPCONFIG_CONNECTION_STRING environment variable is not set&#34;);
+    console.error(&#34;Set it with: export AZURE_APPCONFIG_CONNECTION_STRING=&#39;your-connection-string&#39;&#34;);
+    process.exit(1);
+  }
+
+  try {
+    // 1. Create AppConfigurationClient using connection string
+    console.log(&#34;1. Creating AppConfigurationClient...&#34;);
+    const client = new AppConfigurationClient(connectionString);
+    console.log(&#34;✓ Client created successfully\n&#34;);
+
+    // 2. Set a configuration setting with key &#34;app:Settings:FontSize&#34; and value &#34;24&#34;
+    console.log(&#34;2. Setting configuration: app:Settings:FontSize = 24&#34;);
+    const fontSizeSetting = await client.setConfigurationSetting({
+      key: &#34;app:Settings:FontSize&#34;,
+      value: &#34;24&#34;
+    });
+    console.log(`✓ Set: ${fontSizeSetting.key} = ${fontSizeSetting.value}`);
+    console.log(`   ETag: ${fontSizeSetting.etag}\n`);
+
+    // 3. Set a setting with label &#34;Production&#34;
+    console.log(&#34;3. Setting configuration with &#39;Production&#39; label&#34;);
+    const prodSetting = await client.setConfigurationSetting({
+      key: &#34;app:Settings:FontSize&#34;,
+      value: &#34;20&#34;,
+      label: &#34;Production&#34;
+    });
+    console.log(`✓ Set: ${prodSetting.key} = ${prodSetting.value} (label: ${prodSetting.label})`);
+    console.log(`   ETag: ${prodSetting.etag}\n`);
+
+    // 4. Get the setting by key and print its value
+    console.log(&#34;4. Getting configuration setting by key&#34;);
+    const retrievedSetting = await client.getConfigurationSetting({
+      key: &#34;app:Settings:FontSize&#34;
+    });
+    console.log(`✓ Retrieved: ${retrievedSetting.key} = ${retrievedSetting.value}`);
+    console.log(`   Label: ${retrievedSetting.label || &#34;(no label)&#34;}`);
+    console.log(`   Content Type: ${retrievedSetting.contentType || &#34;(none)&#34;}`);
+    console.log(`   Last Modified: ${retrievedSetting.lastModified}\n`);
+
+    // 5. List all settings matching the key filter &#34;app:Settings:*&#34;
+    console.log(&#34;5. Listing all settings with key filter &#39;app:Settings:*&#39;&#34;);
+    const settingsIterator = client.listConfigurationSettings({
+      keyFilter: &#34;app:Settings:*&#34;
+    });
+    
+    let count = 0;
+    for await (const setting of settingsIterator) {
+      count&#43;&#43;;
+      console.log(`   [${count}] ${setting.key} = ${setting.value}`);
+      console.log(`       Label: ${setting.label || &#34;(no label)&#34;}`);
+      console.log(`       Tags: ${setting.tags ? JSON.stringify(setting.tags) : &#34;(none)&#34;}`);
+    }
+    console.log(`✓ Found ${count} matching settings\n`);
+
+    // 6. Create a feature flag configuration setting for &#34;BetaFeature&#34;
+    console.log(&#34;6. Creating feature flag &#39;BetaFeature&#39;&#34;);
+    
+    const featureFlagValue: FeatureFlagValue = {
+      id: &#34;BetaFeature&#34;,
+      enabled: true,
+      description: &#34;Beta feature for testing new functionality&#34;,
+      conditions: {
+        clientFilters: []
+      }
+    };
+
+    const featureFlag = await client.setConfigurationSetting({
+      key: &#34;.appconfig.featureflag/BetaFeature&#34;,
+      value: JSON.stringify(featureFlagValue),
+      contentType: &#34;application/vnd.microsoft.appconfig.ff&#43;json;charset=utf-8&#34;
+    });
+    
+    console.log(`✓ Feature flag created: ${featureFlag.key}`);
+    console.log(`   Enabled: ${JSON.parse(featureFlag.value!).enabled}`);
+    console.log(`   Description: ${JSON.parse(featureFlag.value!).description}\n`);
+
+    // List all feature flags
+    console.log(&#34;   Listing all feature flags:&#34;);
+    const featureFlagsIterator = client.listConfigurationSettings({
+      keyFilter: &#34;.appconfig.featureflag/*&#34;
+    });
+    
+    for await (const flag of featureFlagsIterator) {
+      const flagValue = JSON.parse(flag.value!) as FeatureFlagValue;
+      console.log(`   - ${flagValue.id}: ${flagValue.enabled ? &#34;Enabled&#34; : &#34;Disabled&#34;}`);
+    }
+    console.log();
+
+    // 7. Delete the setting by key
+    console.log(&#34;7. Deleting configuration settings&#34;);
+    
+    // Delete the default label setting
+    await client.deleteConfigurationSetting({
+      key: &#34;app:Settings:FontSize&#34;
+    });
+    console.log(`✓ Deleted: app:Settings:FontSize (no label)`);
+
+    // Delete the Production label setting
+    await client.deleteConfigurationSetting({
+      key: &#34;app:Settings:FontSize&#34;,
+      label: &#34;Production&#34;
+    });
+    console.log(`✓ Deleted: app:Settings:FontSize (Production label)`);
+
+    // Delete the feature flag
+    await client.deleteConfigurationSetting({
+      key: &#34;.appconfig.featureflag/BetaFeature&#34;
+    });
+    console.log(`✓ Deleted: BetaFeature feature flag\n`);
+
+    // Verify deletion
+    console.log(&#34;8. Verifying deletion...&#34;);
+    const remainingSettings = client.listConfigurationSettings({
+      keyFilter: &#34;app:Settings:*&#34;
+    });
+    
+    let remainingCount = 0;
+    for await (const setting of remainingSettings) {
+      remainingCount&#43;&#43;;
+      console.log(`   Found: ${setting.key}`);
+    }
+    
+    if (remainingCount === 0) {
+      console.log(&#34;✓ All test settings deleted successfully\n&#34;);
+    } else {
+      console.log(`⚠ ${remainingCount} settings still exist\n`);
+    }
+
+    console.log(&#34;=== Demo completed successfully ===&#34;);
+
+  } catch (error) {
+    // Handle RestError from Azure SDK
+    if (error instanceof RestError) {
+      console.error(&#34;\n❌ Azure App Configuration Error:&#34;);
+      console.error(`   Status Code: ${error.statusCode}`);
+      console.error(`   Error Code: ${error.code}`);
+      console.error(`   Message: ${error.message}`);
+      
+      if (error.statusCode === 401) {
+        console.error(&#34;\n   → Check your connection string is valid&#34;);
+      } else if (error.statusCode === 403) {
+        console.error(&#34;\n   → Check your access permissions&#34;);
+      } else if (error.statusCode === 404) {
+        console.error(&#34;\n   → Resource not found&#34;);
+      }
+      
+      process.exit(1);
+    } else if (error instanceof Error) {
+      console.error(&#34;\n❌ Unexpected Error:&#34;);
+      console.error(`   ${error.message}`);
+      console.error(`   Stack: ${error.stack}`);
+      process.exit(1);
+    } else {
+      console.error(&#34;\n❌ Unknown error occurred:&#34;, error);
+      process.exit(1);
+    }
+  }
+}
+
+// Run the demo
+main().catch((error) =&gt; {
+  console.error(&#34;Fatal error:&#34;, error);
+  process.exit(1);
+});
+```
+
+### **package.json**
+
+```json
+{
+  &#34;name&#34;: &#34;azure-app-configuration-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Azure App Configuration TypeScript Demo&#34;,
+  &#34;main&#34;: &#34;app-configuration-demo.ts&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;ts-node app-configuration-demo.ts&#34;,
+    &#34;dev&#34;: &#34;ts-node-dev app-configuration-demo.ts&#34;
+  },
+  &#34;keywords&#34;: [&#34;azure&#34;, &#34;app-configuration&#34;, &#34;typescript&#34;],
+  &#34;license&#34;: &#34;MIT&#34;,
+  &#34;dependencies&#34;: {
+    &#34;@azure/app-configuration&#34;: &#34;^1.7.1&#34;,
+    &#34;@azure/core-rest-pipeline&#34;: &#34;^1.17.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^22.0.0&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.2&#34;,
+    &#34;typescript&#34;: &#34;^5.6.0&#34;
+  }
+}
+```
+
+### **tsconfig.json**
+
+```json
+{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2020&#34;],
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;moduleResolution&#34;: &#34;node&#34;
+  },
+  &#34;include&#34;: [&#34;*.ts&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;dist&#34;]
+}
+```
+
+## Setup &amp; Run Instructions
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Set environment variable:**
+   ```powershell
+   $env:AZURE_APPCONFIG_CONNECTION_STRING=&#34;Endpoint=https://...;Id=...;Secret=...&#34;
+   ```
+
+3. **Run the demo:**
+   ```bash
+   npm start
+   ```
+
+## Key Features Demonstrated
+
+✅ **AppConfigurationClient** - Connection string authentication  
+✅ **setConfigurationSetting()** - Create/update settings  
+✅ **Labels** - Production/staging environment separation  
+✅ **getConfigurationSetting()** - Retrieve values  
+✅ **listConfigurationSettings()** - Filter with `keyFilter: &#34;app:Settings:*&#34;`  
+✅ **Feature Flags** - Using `.appconfig.featureflag/` prefix  
+✅ **deleteConfigurationSetting()** - Clean up  
+✅ **RestError handling** - 401/403/404 with helpful messages</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>13.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">17 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (17 actions, 7 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>17</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>7</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>3</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">1</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">6</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id app-configuration-dp-js-ts-crud --config azure-mcp-skills/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

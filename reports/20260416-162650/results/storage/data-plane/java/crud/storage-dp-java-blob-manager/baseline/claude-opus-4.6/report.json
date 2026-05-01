@@ -1,0 +1,507 @@
+{
+  "schema_version": 2,
+  "prompt_id": "storage-dp-java-blob-manager",
+  "config_name": "baseline/claude-opus-4.6",
+  "timestamp": "2026-04-16T23:26:50Z",
+  "duration_seconds": 101.2138598,
+  "generation_duration_seconds": 100.423356,
+  "prompt_metadata": {
+    "category": "crud",
+    "description": "Can an agent generate a complete, production-ready Azure Blob Storage management utility with sync and async implementations, covering upload (large files, index tags), download, list, delete, concurrency prevention, retry configuration, and HTTP logging?\n",
+    "difficulty": "advanced",
+    "language": "java",
+    "plane": "data-plane",
+    "sdk_package": "com.azure:azure-storage-blob",
+    "service": "storage",
+    "tags": "identity, default-azure-credential, blob-storage, async, reactor, retry, lease, parallel-upload, index-tags"
+  },
+  "config_used": {
+    "model": "claude-opus-4.6",
+    "name": "baseline/claude-opus-4.6"
+  },
+  "generated_files": null,
+  "session_events": [
+    {
+      "type": "session.start"
+    },
+    {
+      "type": "session.custom_agents_updated"
+    },
+    {
+      "type": "pending_messages.modified"
+    },
+    {
+      "type": "pending_messages.modified"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "session.skills_loaded",
+      "content": "customize-cloud-agent"
+    },
+    {
+      "type": "session.tools_updated"
+    },
+    {
+      "type": "user.message",
+      "content": "Create a small Java 17 Maven project that provides a reusable Azure Blob Storage management utility.\r\n\r\nThe project needs:\r\n\r\n- A **service class** (both sync and async versions) that wraps blob operations: upload (with optional metadata and blob index tags for later querying), download, list blobs in a container, and delete. The upload method should handle large files efficiently so that uploading a multi-gigabyte file doesn't load the entire thing into memory or fail on slow connections. The service should also prevent concurrent writers from overwriting each other's changes when updating the same blob.\r\n\r\n- A **configuration class** that connects to Azure securely using the storage account endpoint (from an environment variable). No connection strings or account keys should be used — the app will run in Azure with managed identity. The configuration should set up a custom retry policy (exponential backoff, configurable max retries and delay) and a per-request timeout, so the app behaves predictably under transient failures. It should also enable HTTP request/response logging at a configurable level for debugging.\r\n\r\n- A **Main class** that wires everything together and demos each operation using the sync implementation first, then repeats the same operations using the async implementation: uploads a sample file with some index tags, lists blobs, downloads the file back, acquires a lease and overwrites it, and finally deletes it. Print status at each step.\r\n\r\nInclude a complete `pom.xml` with the necessary Azure SDK dependencies."
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "assistant.turn_start",
+      "turnNumber": 1
+    },
+    {
+      "type": "session.usage_info"
+    },
+    {
+      "type": "assistant.usage",
+      "duration_ms": 5438,
+      "inputTokens": 16328,
+      "outputTokens": 180
+    },
+    {
+      "type": "assistant.message"
+    },
+    {
+      "type": "assistant.reasoning",
+      "content": "Let me create a Java 17 Maven project for Azure Blob Storage management. I'll structure it with the required classes and pom.xml."
+    },
+    {
+      "type": "tool.execution_start",
+      "tool_name": "report_intent",
+      "tool_args": "{\"intent\":\"Creating Azure Blob Storage project\"}"
+    },
+    {
+      "type": "tool.execution_start",
+      "tool_name": "view",
+      "tool_args": "{\"path\":\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\"}"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "permission.requested"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "tool.execution_complete",
+      "tool_result": "Creating Azure Blob Storage project",
+      "tool_success": true
+    },
+    {
+      "type": "permission.completed"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "tool.execution_complete",
+      "tool_result": "\ndiff --git a/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980 b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\ncreate file mode 100644\nindex 0000000..0000000\n--- a/dev/null\n+++ b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\n@@ -1,0 +1,0 @@\n\n",
+      "tool_success": true
+    },
+    {
+      "type": "assistant.turn_end",
+      "turnNumber": 1
+    },
+    {
+      "type": "assistant.turn_start",
+      "turnNumber": 2
+    },
+    {
+      "type": "session.usage_info"
+    },
+    {
+      "type": "assistant.usage",
+      "duration_ms": 4421,
+      "inputTokens": 16576,
+      "outputTokens": 229
+    },
+    {
+      "type": "assistant.message",
+      "content": "Empty directory. Let me create the full project structure."
+    },
+    {
+      "type": "tool.execution_start",
+      "tool_name": "powershell",
+      "tool_args": "{\"command\":\"\\n$base = \\\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\\\"\\n$dirs = @(\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\blobmanager\\\\config\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\blobmanager\\\\service\\\",\\n    \\\"src\\\\main\\\\resources\\\"\\n)\\nforeach ($d in $dirs) { New-Item -ItemType Directory -Path \\\"$base\\\\$d\\\" -Force | Out-Null }\\nWrite-Output \\\"Done\\\"\\n\",\"description\":\"Create Maven directory structure\"}"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "permission.requested"
+    },
+    {
+      "type": "permission.completed"
+    },
+    {
+      "type": "session.background_tasks_changed"
+    },
+    {
+      "type": "tool.execution_partial_result"
+    },
+    {
+      "type": "session.background_tasks_changed"
+    },
+    {
+      "type": "hook.start"
+    },
+    {
+      "type": "hook.end",
+      "tool_success": true
+    },
+    {
+      "type": "tool.execution_complete",
+      "tool_result": "Done\n\u003cexited with exit code 0\u003e",
+      "tool_success": true
+    },
+    {
+      "type": "assistant.turn_end",
+      "turnNumber": 2
+    },
+    {
+      "type": "assistant.turn_start",
+      "turnNumber": 3
+    },
+    {
+      "type": "session.usage_info"
+    }
+  ],
+  "action_timeline": {
+    "events": [
+      {
+        "sequence": 0,
+        "type": "other"
+      },
+      {
+        "sequence": 1,
+        "type": "other"
+      },
+      {
+        "sequence": 2,
+        "type": "other"
+      },
+      {
+        "sequence": 3,
+        "type": "other"
+      },
+      {
+        "sequence": 4,
+        "type": "other"
+      },
+      {
+        "sequence": 5,
+        "type": "other",
+        "success": true
+      },
+      {
+        "sequence": 6,
+        "type": "other",
+        "output": "customize-cloud-agent"
+      },
+      {
+        "sequence": 7,
+        "type": "other"
+      },
+      {
+        "sequence": 8,
+        "type": "other",
+        "output": "Create a small Java 17 Maven project that provides a reusable Azure Blob Storage management utility.\r\n\r\nThe project needs:\r\n\r\n- A **service class** (both sync and async versions) that wraps blob operations: upload (with optional metadata and blob index tags for later querying), download, list blobs in a container, and delete. The upload method should handle large files efficiently so that uploading a multi-gigabyte file doesn't load the entire thing into memory or fail on slow connections. The service shoul…"
+      },
+      {
+        "sequence": 9,
+        "type": "other"
+      },
+      {
+        "sequence": 10,
+        "type": "other",
+        "success": true
+      },
+      {
+        "sequence": 11,
+        "type": "turn_start",
+        "turn_number": 1
+      },
+      {
+        "sequence": 12,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 13,
+        "type": "other",
+        "duration_ms": 5438,
+        "turn_number": 1
+      },
+      {
+        "sequence": 14,
+        "type": "message",
+        "turn_number": 1
+      },
+      {
+        "sequence": 15,
+        "type": "reasoning",
+        "turn_number": 1
+      },
+      {
+        "sequence": 16,
+        "type": "tool_call",
+        "tool": "report_intent",
+        "action": "start",
+        "input": "{\"intent\":\"Creating Azure Blob Storage project\"}",
+        "turn_number": 1
+      },
+      {
+        "sequence": 17,
+        "type": "file_read",
+        "tool": "view",
+        "action": "start",
+        "input": "{\"path\":\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\"}",
+        "turn_number": 1
+      },
+      {
+        "sequence": 18,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 19,
+        "type": "other",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 20,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 21,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 22,
+        "type": "other",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 23,
+        "type": "tool_call",
+        "action": "complete",
+        "output": "Creating Azure Blob Storage project",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 24,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 25,
+        "type": "other",
+        "turn_number": 1
+      },
+      {
+        "sequence": 26,
+        "type": "other",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 27,
+        "type": "tool_call",
+        "action": "complete",
+        "output": "\ndiff --git a/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980 b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\ncreate file mode 100644\nindex 0000000..0000000\n--- a/dev/null\n+++ b/C:/Users/kaghiya/AppData/Local/Temp/hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\n@@ -1,0 +1,0 @@\n\n",
+        "success": true,
+        "turn_number": 1
+      },
+      {
+        "sequence": 28,
+        "type": "turn_end",
+        "turn_number": 1
+      },
+      {
+        "sequence": 29,
+        "type": "turn_start",
+        "turn_number": 2
+      },
+      {
+        "sequence": 30,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 31,
+        "type": "other",
+        "duration_ms": 4421,
+        "turn_number": 2
+      },
+      {
+        "sequence": 32,
+        "type": "message",
+        "turn_number": 2
+      },
+      {
+        "sequence": 33,
+        "type": "tool_call",
+        "tool": "powershell",
+        "action": "start",
+        "input": "{\"command\":\"\\n$base = \\\"C:\\\\Users\\\\kaghiya\\\\AppData\\\\Local\\\\Temp\\\\hyoka-storage-dp-java-blob-manager-baseline-claude-opus-4.6-83605980\\\"\\n$dirs = @(\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\blobmanager\\\\config\\\",\\n    \\\"src\\\\main\\\\java\\\\com\\\\example\\\\blobmanager\\\\service\\\",\\n    \\\"src\\\\main\\\\resources\\\"\\n)\\nforeach ($d in $dirs) { New-Item -ItemType Directory -Path \\\"$base\\\\$d\\\" -Force | Out-Null }\\nWrite-Output \\\"Done\\\"\\n\",\"description\":\"Create Maven directory structure\"}",
+        "turn_number": 2
+      },
+      {
+        "sequence": 34,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 35,
+        "type": "other",
+        "success": true,
+        "turn_number": 2
+      },
+      {
+        "sequence": 36,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 37,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 38,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 39,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 40,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 41,
+        "type": "other",
+        "turn_number": 2
+      },
+      {
+        "sequence": 42,
+        "type": "other",
+        "success": true,
+        "turn_number": 2
+      },
+      {
+        "sequence": 43,
+        "type": "tool_call",
+        "action": "complete",
+        "output": "Done\n\u003cexited with exit code 0\u003e",
+        "success": true,
+        "turn_number": 2
+      },
+      {
+        "sequence": 44,
+        "type": "turn_end",
+        "turn_number": 2
+      },
+      {
+        "sequence": 45,
+        "type": "turn_start",
+        "turn_number": 3
+      },
+      {
+        "sequence": 46,
+        "type": "other",
+        "turn_number": 3
+      }
+    ],
+    "summary": {
+      "total_events": 47,
+      "total_turns": 3,
+      "total_actions": 11,
+      "total_tool_calls": 3,
+      "tool_calls": 2,
+      "file_reads": 1,
+      "file_writes": 0,
+      "bash_commands": 0,
+      "mcp_calls": 0,
+      "errors": 0,
+      "tool_breakdown": {
+        "powershell": 1,
+        "report_intent": 1,
+        "view": 1
+      },
+      "tool_successes": 3,
+      "tool_failures": 0
+    }
+  },
+  "event_count": 47,
+  "tool_calls": [
+    "report_intent",
+    "view",
+    "powershell"
+  ],
+  "environment": {
+    "model": "claude-opus-4.6",
+    "skillsLoaded": [
+      "customize-cloud-agent"
+    ],
+    "safetyBoundaries": true,
+    "allowCloud": false,
+    "workingDirectory": "C:\\code\\hyoka\\reports\\20260416-162650\\results\\storage\\data-plane\\java\\crud\\storage-dp-java-blob-manager\\baseline\\claude-opus-4.6\\generated-code",
+    "totalInputTokens": 32904,
+    "totalOutputTokens": 409,
+    "turnCount": 3
+  },
+  "session_setup": {
+    "system_prompt_status": "none (default)"
+  },
+  "success": false,
+  "error": "generation cancelled (action limit reached)",
+  "error_details": "context cancelled — the session exceeded the --max-session-actions limit",
+  "error_category": "timeout",
+  "failure_reason": "Generation cancelled due to action limit",
+  "rerunCommand": "hyoka run --prompt-id storage-dp-java-blob-manager --config baseline/claude-opus-4.6",
+  "guardrail_max_turns": 25,
+  "guardrail_max_files": 50,
+  "guardrail_max_output_size": 1048576,
+  "guardrail_max_session_actions": 50
+}
