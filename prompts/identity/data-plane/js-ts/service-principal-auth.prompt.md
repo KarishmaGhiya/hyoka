@@ -40,7 +40,6 @@ The generated code should include:
 - Constructor parameters: tenantId, clientId, clientSecret
 - Passing credential to Azure SDK clients
 - dotenv or environment variable patterns
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - `AuthenticationError` handling
 
 ## Context

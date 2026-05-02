@@ -45,7 +45,6 @@ Use async/await throughout.
 - `ContainerClient.listBlobsFlat()` async iteration
 - `BlobClient.download()` and reading the response stream
 - `BlobClient.delete()` and `ContainerClient.delete()`
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - `RestError` handling with `statusCode`
 
 ## Context

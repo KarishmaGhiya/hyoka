@@ -42,7 +42,6 @@ The generated code should include:
 - Credential chain: Environment → Workload Identity → Managed Identity → Azure CLI → etc.
 - Passing credential to Azure SDK clients
 - `AuthenticationError` handling and logging
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 
 ## Context
 

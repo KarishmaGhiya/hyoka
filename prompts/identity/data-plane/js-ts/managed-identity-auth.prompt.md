@@ -42,7 +42,6 @@ The generated code should include:
 - Integration with `DefaultAzureCredential` chain
 - `CredentialUnavailableError` when not running in Azure
 - `ChainedTokenCredential` for local fallback
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 
 ## Context
 

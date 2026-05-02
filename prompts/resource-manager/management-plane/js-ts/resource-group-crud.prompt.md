@@ -48,7 +48,6 @@ The generated code should include:
 - `resourceGroups.list()` with async iteration (`for await...of`)
 - `resourceGroups.get()` for fetching details
 - `resourceGroups.beginDeleteAndWait()` for long-running delete
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - Tag updates via `resourceGroups.update()` with tags parameter
 
 ## Context

@@ -42,7 +42,6 @@ The generated code should include:
 - `setSecret()`, `getSecret()`, `beginDeleteSecret()`, `purgeDeletedSecret()`
 - Awaiting the `DeleteSecretPoller` before purging
 - Error handling for `RestError`
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 
 ## Context
 

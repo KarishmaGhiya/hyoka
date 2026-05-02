@@ -46,7 +46,6 @@ The generated code should include:
 - `storageAccounts.listByResourceGroup()` with async iteration
 - `storageAccounts.getProperties()` for details
 - `storageAccounts.update()` for modifying properties
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - `storageAccounts.delete()` for removal
 
 ## Context

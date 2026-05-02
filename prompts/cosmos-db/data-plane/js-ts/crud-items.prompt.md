@@ -47,7 +47,6 @@ The generated code should include:
 - `container.items.query()` with `SqlQuerySpec`
 - `container.item(id, partitionKey).replace()` and `.delete()`
 - `FeedResponse` iteration and error status codes
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 
 ## Context
 

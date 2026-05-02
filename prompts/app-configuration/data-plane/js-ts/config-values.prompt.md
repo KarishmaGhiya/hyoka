@@ -47,7 +47,6 @@ The generated code should include:
 - `getConfigurationSetting()` by key and label
 - `listConfigurationSettings()` with `ListConfigurationSettingOptions`
 - Feature flag settings with `featureFlagContentType`
-- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - `deleteConfigurationSetting()` and `RestError` handling
 - Async iteration with `for await...of` pattern
 
