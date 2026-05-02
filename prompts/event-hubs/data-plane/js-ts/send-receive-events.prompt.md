@@ -47,6 +47,7 @@ The generated code should include:
 - `EventHubConsumerClient` with `BlobCheckpointStore`
 - `subscribe()` with `SubscriptionEventHandlers` (processEvents, processError)
 - `updateCheckpoint()` in the processEvents handler
+- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - `close()` for cleanup
 
 ## Context

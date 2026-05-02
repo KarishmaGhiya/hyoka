@@ -81,6 +81,7 @@ Include a complete `package.json` with the necessary Azure SDK dependencies and 
 
 ### Anti-Patterns (scenario-specific)
 - NOT using `SecretClient` instead of `KeyClient`/`CryptographyClient`
+- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - NOT encrypting data directly with the vault key (should be envelope encryption)
 - NOT storing raw DEK in plaintext
 - NOT omitting the GCM auth tag from blob metadata (decryption will fail)

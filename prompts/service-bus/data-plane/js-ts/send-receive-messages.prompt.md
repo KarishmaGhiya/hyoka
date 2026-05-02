@@ -47,6 +47,7 @@ The generated code should include:
 - `createReceiver()` for queue or subscription
 - `receiveMessages()` for batch receive and `subscribe()` for streaming
 - `completeMessage()`, `abandonMessage()`, `deadLetterMessage()`
+- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 - `close()` on sender, receiver, and client for cleanup
 
 ## Context

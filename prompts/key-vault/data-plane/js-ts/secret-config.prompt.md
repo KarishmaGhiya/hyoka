@@ -66,6 +66,7 @@ Include a complete `package.json` with the necessary Azure SDK dependencies and 
 - NOT using fire-and-forget `deleteSecret()` without waiting for completion
 - NOT assuming deletion is instantaneous (must use poller)
 - NOT hardcoding vault URL or credentials
+- Enables SDK diagnostic logging via `@azure/logger` with `setLogLevel()` or `AZURE_LOG_LEVEL` environment variable
 
 ## Context
 
