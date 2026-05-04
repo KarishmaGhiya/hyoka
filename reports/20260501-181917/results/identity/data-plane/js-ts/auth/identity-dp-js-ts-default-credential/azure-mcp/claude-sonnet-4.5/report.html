@@ -1,0 +1,2820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: identity-dp-js-ts-default-credential / azure-mcp/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 identity-dp-js-ts-default-credential</h1>
+  <div class="subtitle">Config: <strong>azure-mcp/claude-sonnet-4.5</strong> · 2026-05-02T01:23:17Z</div>
+</div>
+
+
+
+
+<div class="result-banner pass">
+  <span class="verdict">✅ PASSED</span>
+  
+  <span class="meta-item">Duration: <strong>285.1s</strong></span>
+  <span class="meta-item">Files: <strong>6</strong></span>
+  <span class="meta-item">Tool Calls: <strong>17</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer set up DefaultAzureCredential for Azure SDK clients using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>basic</td></tr>
+      <tr><td>Service</td><td>identity</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>auth</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/identity</code></td></tr>
+      <tr><td>Tags</td><td>authentication, default-azure-credential, getting-started</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    <tr><td>Skills Invoked</td><td>azure-identity-ts</td></tr>
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=532072 out=10037</td></tr>
+    <tr><td>Turn Count</td><td>12</td></tr>
+    
+    <tr><td>Generation Duration</td><td>211.5s</td></tr>
+    <tr><td>Review Duration</td><td>73.2s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>8</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>4</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>skill: azure-identity-ts</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>stop_powershell</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program that
+authenticates an Azure SDK client using DefaultAzureCredential. The program should:
+1. Install and import the required npm packages
+2. Create a DefaultAzureCredential instance
+3. Use it to create a SecretClient from @azure/keyvault-secrets
+4. Retrieve a secret from the vault and print its value
+5. Handle AuthenticationError for credential failures
+
+Include a package.json with all dependencies and use async/await throughout.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll help you create a TypeScript program using DefaultAzureCredential. This matches perfectly with the azure-identity-ts skill, which specializes in Azure authentication patterns.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants me to write a TypeScript program that:
+1. Uses DefaultAzureCreden…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants me to write a TypeScript program that:
+1. Uses DefaultAzureCredential from @azure/identity
+2. Creates a SecretClient from @azure/keyvault-secrets
+3. Retrieves a secret and prints its value
+4. Handles AuthenticationError
+
+This is directly related to the &#34;azure-identity-ts&#34; skill that&#39;s available. Let me check the skill description: &#34;Authenticate to Azure services with various credential types.&#34;
+
+This is a perfect match! I should invoke this skill as it has specialized knowledge for this task.
+
+According to the instructions:
+- &#34;When a skill is relevant, you must invoke this tool IMMEDIATELY as your first action&#34;
+- &#34;When a skill matches the user&#39;s request, this is a BLOCKING REQUIREMENT: invoke the relevant Skill tool BEFORE generating any other response about the task&#34;
+
+So I need to call the skill tool with &#34;azure-identity-ts&#34; immediately.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">📚</div>
+      <div class="tl-card tl-card-skill">
+        <div class="tl-title">
+          <span>4.</span>
+          Skill loaded: azure-identity-ts
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>5.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>&lt;skill-context name=&#34;azure-identity-ts&#34;&gt;
+Base directory for this skill: C:\Users\kaghiya\.agents\skills\azure-identity-ts
+
+---
+name: azure-identity-ts
+description: &#34;Authenticate to Azure services with various credential types.&#34;
+risk: unknown
+source: community
+date_added: &#34;2026-02-27&#34;
+---
+
+# Azure Identity SDK for TypeScript
+
+Authenticate to Azure services with various credential types.
+
+## Installation
+
+```bash
+npm install @azure/identity
+```
+
+## Environment Variables
+
+### Service Principal (Secret)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_CLIENT_SECRET=&lt;client-secret&gt;
+```
+
+### Service Principal (Certificate)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_CLIENT_CERTIFICATE_PATH=/path/to/cert.pem
+AZURE_CLIENT_CERTIFICATE_PASSWORD=&lt;optional-password&gt;
+```
+
+### Workload Identity (Kubernetes)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_FEDERATED_TOKEN_FILE=/var/run/secrets/tokens/azure-identity
+```
+
+## DefaultAzureCredential (Recommended)
+
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+
+// Use with any Azure SDK client
+import { BlobServiceClient } from &#34;@azure/storage-blob&#34;;
+const blobClient = new BlobServiceClient(
+  &#34;https://&lt;account&gt;.blob.core.windows.net&#34;,
+  credential
+);
+```
+
+**Credential Chain Order:**
+1. EnvironmentCredential
+2. WorkloadIdentityCredential
+3. ManagedIdentityCredential
+4. VisualStudioCodeCredential
+5. AzureCliCredential
+6. AzurePowerShellCredential
+7. AzureDeveloperCliCredential
+
+## Managed Identity
+
+### System-Assigned
+
+```typescript
+import { ManagedIdentityCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ManagedIdentityCredential();
+```
+
+### User-Assigned (by Client ID)
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  clientId: &#34;&lt;user-assigned-client-id&gt;&#34;
+});
+```
+
+### User-Assigned (by Resource ID)
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  resourceId: &#34;/subscriptions/&lt;sub&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.ManagedIdentity/userAssignedIdentities/&lt;name&gt;&#34;
+});
+```
+
+## Service Principal
+
+### Client Secret
+
+```typescript
+import { ClientSecretCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ClientSecretCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  &#34;&lt;client-secret&gt;&#34;
+);
+```
+
+### Client Certificate
+
+```typescript
+import { ClientCertificateCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ClientCertificateCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  { certificatePath: &#34;/path/to/cert.pem&#34; }
+);
+
+// With password
+const credentialWithPwd = new ClientCertificateCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  { 
+    certificatePath: &#34;/path/to/cert.pem&#34;,
+    certificatePassword: &#34;&lt;password&gt;&#34;
+  }
+);
+```
+
+## Interactive Authentication
+
+### Browser-Based Login
+
+```typescript
+import { InteractiveBrowserCredential } from &#34;@azure/identity&#34;;
+
+const credential = new InteractiveBrowserCredential({
+  clientId: &#34;&lt;client-id&gt;&#34;,
+  tenantId: &#34;&lt;tenant-id&gt;&#34;,
+  loginHint: &#34;user@example.com&#34;
+});
+```
+
+### Device Code Flow
+
+```typescript
+import { DeviceCodeCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DeviceCodeCredential({
+  clientId: &#34;&lt;client-id&gt;&#34;,
+  tenantId: &#34;&lt;tenant-id&gt;&#34;,
+  userPromptCallback: (info) =&gt; {
+    console.log(info.message);
+    // &#34;To sign in, use a web browser to open...&#34;
+  }
+});
+```
+
+## Custom Credential Chain
+
+```typescript
+import { 
+  ChainedTokenCredential,
+  ManagedIdentityCredential,
+  AzureCliCredential
+} from &#34;@azure/identity&#34;;
+
+// Try managed identity first, fall back to CLI
+const credential = new ChainedTokenCredential(
+  new ManagedIdentityCredential(),
+  new AzureCliCredential()
+);
+```
+
+## Developer Credentials
+
+### Azure CLI
+
+```typescript
+import { AzureCliCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzureCliCredential();
+// Uses: az login
+```
+
+### Azure Developer CLI
+
+```typescript
+import { AzureDeveloperCliCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzureDeveloperCliCredential();
+// Uses: azd auth login
+```
+
+### Azure PowerShell
+
+```typescript
+import { AzurePowerShellCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzurePowerShellCredential();
+// Uses: Connect-AzAccount
+```
+
+## Sovereign Clouds
+
+```typescript
+import { ClientSecretCredential, AzureAuthorityHosts } from &#34;@azure/identity&#34;;
+
+// Azure Government
+const credential = new ClientSecretCredential(
+  &#34;&lt;tenant&gt;&#34;, &#34;&lt;client&gt;&#34;, &#34;&lt;secret&gt;&#34;,
+  { authorityHost: AzureAuthorityHosts.AzureGovernment }
+);
+
+// Azure China
+const credentialChina = new ClientSecretCredential(
+  &#34;&lt;tenant&gt;&#34;, &#34;&lt;client&gt;&#34;, &#34;&lt;secret&gt;&#34;,
+  { authorityHost: AzureAuthorityHosts.AzureChina }
+);
+```
+
+## Bearer Token Provider
+
+```typescript
+import { DefaultAzureCredential, getBearerTokenProvider } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+
+// Create a function that returns tokens
+const getAccessToken = getBearerTokenProvider(
+  credential,
+  &#34;https://cognitiveservices.azure.com/.default&#34;
+);
+
+// Use with APIs that need bearer tokens
+const token = await getAccessToken();
+```
+
+## Key Types
+
+```typescript
+import type { 
+  TokenCredential, 
+  AccessToken, 
+  GetTokenOptions 
+} from &#34;@azure/core-auth&#34;;
+
+import {
+  DefaultAzureCredential,
+  DefaultAzureCredentialOptions,
+  ManagedIdentityCredential,
+  ClientSecretCredential,
+  ClientCertificateCredential,
+  InteractiveBrowserCredential,
+  ChainedTokenCredential,
+  AzureCliCredential,
+  AzurePowerShellCredential,
+  AzureDeveloperCliCredential,
+  DeviceCodeCredential,
+  AzureAuthorityHosts
+} from &#34;@azure/identity&#34;;
+```
+
+## Custom Credential Implementation
+
+```typescript
+import type { TokenCredential, AccessToken, GetTokenOptions } from &#34;@azure/core-auth&#34;;
+
+class CustomCredential implements TokenCredential {
+  async getToken(
+    scopes: string | string[],
+    options?: GetTokenOptions
+  ): Promise&lt;AccessToken | null&gt; {
+    // Custom token acquisition logic
+    return {
+      token: &#34;&lt;access-token&gt;&#34;,
+      expiresOnTimestamp: Date.now() &#43; 3600000
+    };
+  }
+}
+```
+
+## Debugging
+
+```typescript
+import { setLogLevel, AzureLogger } from &#34;@azure/logger&#34;;
+
+setLogLevel(&#34;verbose&#34;);
+
+// Custom log handler
+AzureLogger.log = (...args) =&gt; {
+  console.log(&#34;[Azure]&#34;, ...args);
+};
+```
+
+## Best Practices
+
+1. **Use DefaultAzureCredential** - Works in development (CLI) and production (managed identity)
+2. **Never hardcode credentials** - Use environment variables or managed identity
+3. **Prefer managed identity** - No secrets to manage in production
+4. **Scope credentials appropriately** - Use user-assigned identity for multi-tenant scenarios
+5. **Handle token refresh** - Azure SDK handles this automatically
+6. **Use ChainedTokenCredential** - For custom fallback scenarios
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+
+&lt;/skill-context&gt;</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>6.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Now I&#39;ll create a complete TypeScript program demonstrating Azure authentication with DefaultAzureCredential and Key Vault access.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>7.</span>
+          Perfect! The skill provides excellent guidance on using DefaultAzureCredential. …
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>Perfect! The skill provides excellent guidance on using DefaultAzureCredential. Now I need to create a TypeScript program that:
+
+1. Installs and imports required packages
+2. Creates a DefaultAzureCredential instance
+3. Uses it to create a SecretClient from @azure/keyvault-secrets
+4. Retrieves a secret and prints its value
+5. Handles AuthenticationError for credential failures
+6. Uses async/await throughout
+7. Includes package.json with dependencies
+
+Let me create the necessary files:
+- package.json with dependencies
+- index.ts with the main program
+- .env.example to show required environment variables
+- README.md with instructions
+
+The program will need:
+- @azure/identity for DefaultAzureCredential
+- @azure/keyvault-secrets for SecretClient
+- typescript and @types/node as dev dependencies</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure authentication program&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-identity-keyvault-demo\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;TypeScript demo using DefaultAzureCredential with Azure Key Vault\&#34;,\n  \&#34;main\&#34;: \&#34;dist/index.js\&#34;,\n  \&#34;type\&#34;: \&#34;module\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;,\n    \&#34;dev\&#34;: \&#34;tsc \u0026\u0026 node dist/index.js\&#34;\n  },\n  \&#34;keywords\&#34;: [\n    \&#34;azure\&#34;,\n    \&#34;identity\&#34;,\n    \&#34;keyvault\&#34;,\n    \&#34;typescript\&#34;\n  ],\n  \&#34;author\&#34;: \&#34;\&#34;,\n  \&#34;license\&#34;: \&#34;MIT\&#34;,\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/identity\&#34;: \&#34;^4.2.0\&#34;,\n    \&#34;@azure/keyvault-secrets\&#34;: \&#34;^4.8.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.12.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.4.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2022\&#34;,\n    \&#34;module\&#34;: \&#34;ES2022\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2022\&#34;],\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;,\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;declaration\&#34;: true,\n    \&#34;declarationMap\&#34;: true,\n    \&#34;sourceMap\&#34;: true\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;, \&#34;dist\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport type { AuthenticationError } from \&#34;@azure/identity\&#34;;\n\n/**\n * Main function to demonstrate Azure authentication and Key Vault access\n */\nasync function main(): Promise\u003cvoid\u003e {\n  try {\n    // Step 1: Parse environment variables\n    const keyVaultName = process.env.AZURE_KEYVAULT_NAME;\n    const secretName = process.env.AZURE_SECRET_NAME || \&#34;my-secret\&#34;;\n\n    if (!keyVaultName) {\n      throw new Error(\n        \&#34;AZURE_KEYVAULT_NAME environment variable is required.\\n\&#34; &#43;\n        \&#34;Set it to your Key Vault name (without the full URL).\&#34;\n      );\n    }\n\n    const keyVaultUrl = `https://${keyVaultName}.vault.azure.net`;\n\n    console.log(\&#34;🔐 Azure Identity \u0026 Key Vault Demo\&#34;);\n    console.log(\&#34;=\&#34; .repeat(50));\n    console.log(`Key Vault URL: ${keyVaultUrl}`);\n    console.log(`Secret Name: ${secretName}\\n`);\n\n    // Step 2: Create DefaultAzureCredential instance\n    console.log(\&#34;Creating DefaultAzureCredential...\&#34;);\n    const credential = new DefaultAzureCredential();\n    console.log(\&#34;✓ DefaultAzureCredential created successfully\\n\&#34;);\n\n    // DefaultAzureCredential tries these credentials in order:\n    // 1. EnvironmentCredential (service principal via env vars)\n    // 2. WorkloadIdentityCredential (Kubernetes)\n    // 3. ManagedIdentityCredential (Azure VMs, App Service, etc.)\n    // 4. VisualStudioCodeCredential\n    // 5. AzureCliCredential (az login)\n    // 6. AzurePowerShellCredential\n    // 7. AzureDeveloperCliCredential (azd auth login)\n\n    // Step 3: Create SecretClient with the credential\n    console.log(\&#34;Creating SecretClient...\&#34;);\n    const secretClient = new SecretClient(keyVaultUrl, credential);\n    console.log(\&#34;✓ SecretClient created successfully\\n\&#34;);\n\n    // Step 4: Retrieve the secret from Key Vault\n    console.log(`Retrieving secret &#39;${secretName}&#39;...`);\n    const secret = await secretClient.getSecret(secretName);\n    \n    console.log(\&#34;✓ Secret retrieved successfully\\n\&#34;);\n    console.log(\&#34;=\&#34; .repeat(50));\n    console.log(\&#34;Secret Details:\&#34;);\n    console.log(`  Name: ${secret.name}`);\n    console.log(`  Value: ${secret.value}`);\n    console.log(`  Enabled: ${secret.properties.enabled}`);\n    console.log(`  Created: ${secret.properties.createdOn?.toISOString()}`);\n    console.log(`  Updated: ${secret.properties.updatedOn?.toISOString()}`);\n    if (secret.properties.expiresOn) {\n      console.log(`  Expires: ${secret.properties.expiresOn.toISOString()}`);\n    }\n    console.log(\&#34;=\&#34; .repeat(50));\n\n  } catch (error) {\n    // Step 5: Handle AuthenticationError specifically\n    if (isAuthenticationError(error)) {\n      console.error(\&#34;\\n❌ Authentication Failed\&#34;);\n      console.error(\&#34;=\&#34; .repeat(50));\n      console.error(\&#34;An authentication error occurred. This typically means:\&#34;);\n      console.error(\&#34;  • No valid credentials were found\&#34;);\n      console.error(\&#34;  • The credentials don&#39;t have permission to access the Key Vault\&#34;);\n      console.error(\&#34;  • Azure CLI/PowerShell/Developer CLI is not logged in\\n\&#34;);\n      \n      console.error(\&#34;To fix this, try one of the following:\\n\&#34;);\n      console.error(\&#34;1. Azure CLI (recommended for local development):\&#34;);\n      console.error(\&#34;   az login\\n\&#34;);\n      \n      console.error(\&#34;2. Azure Developer CLI:\&#34;);\n      console.error(\&#34;   azd auth login\\n\&#34;);\n      \n      console.error(\&#34;3. Service Principal (for CI/CD):\&#34;);\n      console.error(\&#34;   Set environment variables:\&#34;);\n      console.error(\&#34;   - AZURE_TENANT_ID\&#34;);\n      console.error(\&#34;   - AZURE_CLIENT_ID\&#34;);\n      console.error(\&#34;   - AZURE_CLIENT_SECRET\\n\&#34;);\n      \n      console.error(\&#34;4. Managed Identity (for Azure resources):\&#34;);\n      console.error(\&#34;   Enable managed identity on your Azure resource\\n\&#34;);\n      \n      console.error(`Error details: ${error.message}`);\n      console.error(\&#34;=\&#34; .repeat(50));\n      process.exit(1);\n    }\n\n    // Handle other errors (e.g., Key Vault not found, secret not found, permission denied)\n    console.error(\&#34;\\n❌ Error occurred\&#34;);\n    console.error(\&#34;=\&#34; .repeat(50));\n    \n    if (error instanceof Error) {\n      console.error(`Error: ${error.message}`);\n      \n      // Check for common Key Vault errors\n      if (error.message.includes(\&#34;ResourceNotFound\&#34;) || error.message.includes(\&#34;not found\&#34;)) {\n        console.error(\&#34;\\nPossible causes:\&#34;);\n        console.error(\&#34;  • The Key Vault or secret does not exist\&#34;);\n        console.error(\&#34;  • The Key Vault name is incorrect\&#34;);\n        console.error(\&#34;  • The secret name is incorrect\&#34;);\n      } else if (error.message.includes(\&#34;Forbidden\&#34;) || error.message.includes(\&#34;403\&#34;)) {\n        console.error(\&#34;\\nPossible causes:\&#34;);\n        console.error(\&#34;  • The authenticated identity lacks Key Vault permissions\&#34;);\n        console.error(\&#34;  • Add &#39;Key Vault Secrets User&#39; role to your identity\&#34;);\n        console.error(\&#34;  • Or set an access policy in the Key Vault\&#34;);\n      }\n      \n      if (error.stack) {\n        console.error(\&#34;\\nStack trace:\&#34;);\n        console.error(error.stack);\n      }\n    } else {\n      console.error(\&#34;Unknown error:\&#34;, error);\n    }\n    \n    console.error(\&#34;=\&#34; .repeat(50));\n    process.exit(1);\n  }\n}\n\n/**\n * Type guard to check if an error is an AuthenticationError\n * Since @azure/identity doesn&#39;t export AuthenticationError directly,\n * we check for the error name and common properties\n */\nfunction isAuthenticationError(error: unknown): error is AuthenticationError {\n  if (!(error instanceof Error)) {\n    return false;\n  }\n  \n  // Check for authentication-related error names and messages\n  const authErrorNames = [\n    \&#34;AuthenticationError\&#34;,\n    \&#34;CredentialUnavailableError\&#34;,\n    \&#34;AuthenticationRequiredError\&#34;\n  ];\n  \n  const isAuthErrorName = authErrorNames.some(name =\u003e \n    error.name === name || error.constructor.name === name\n  );\n  \n  const isAuthErrorMessage = \n    error.message.includes(\&#34;authentication\&#34;) ||\n    error.message.includes(\&#34;credential\&#34;) ||\n    error.message.includes(\&#34;No valid credential\&#34;) ||\n    error.message.includes(\&#34;DefaultAzureCredential failed\&#34;);\n  \n  return isAuthErrorName || isAuthErrorMessage;\n}\n\n// Run the main function\nmain().catch((error) =\u003e {\n  console.error(\&#34;Unhandled error in main:\&#34;, error);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Required: Your Key Vault name (without .vault.azure.net)\nAZURE_KEYVAULT_NAME=my-keyvault\n\n# Optional: Name of the secret to retrieve (defaults to \&#34;my-secret\&#34;)\nAZURE_SECRET_NAME=my-secret\n\n# ===== Optional: Service Principal Authentication =====\n# If you want to use service principal instead of CLI/managed identity,\n# uncomment and set these variables:\n\n# AZURE_TENANT_ID=your-tenant-id\n# AZURE_CLIENT_ID=your-client-id\n# AZURE_CLIENT_SECRET=your-client-secret\n\n# ===== Or: Service Principal with Certificate =====\n# AZURE_TENANT_ID=your-tenant-id\n# AZURE_CLIENT_ID=your-client-id\n# AZURE_CLIENT_CERTIFICATE_PATH=/path/to/cert.pem\n# AZURE_CLIENT_CERTIFICATE_PASSWORD=optional-password\n\n# ===== Or: Workload Identity (Kubernetes) =====\n# AZURE_TENANT_ID=your-tenant-id\n# AZURE_CLIENT_ID=your-client-id\n# AZURE_FEDERATED_TOKEN_FILE=/var/run/secrets/tokens/azure-identity\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>13.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Identity \u0026 Key Vault Demo (TypeScript)\n\nThis TypeScript program demonstrates how to authenticate to Azure services using `DefaultAzureCredential` and retrieve secrets from Azure Key Vault.\n\n## Features\n\n- ✅ Uses `DefaultAzureCredential` for flexible authentication\n- ✅ Retrieves secrets from Azure Key Vault\n- ✅ Comprehensive error handling with `AuthenticationError` detection\n- ✅ Full async/await support\n- ✅ TypeScript with strict type checking\n- ✅ Works in multiple environments (local dev, CI/CD, Azure services)\n\n## Prerequisites\n\n- Node.js 18&#43; installed\n- An Azure subscription\n- An Azure Key Vault with at least one secret\n- Authentication set up (see Authentication section below)\n\n## Installation\n\n```bash\nnpm install\n```\n\nThis installs:\n- `@azure/identity` - Azure authentication library\n- `@azure/keyvault-secrets` - Azure Key Vault client\n- `typescript` - TypeScript compiler\n- `@types/node` - Node.js type definitions\n\n## Configuration\n\n1. Copy `.env.example` to `.env`:\n   ```bash\n   cp .env.example .env\n   ```\n\n2. Edit `.env` and set your Key Vault name:\n   ```bash\n   AZURE_KEYVAULT_NAME=your-keyvault-name\n   AZURE_SECRET_NAME=your-secret-name\n   ```\n\n3. Load environment variables (or use a package like `dotenv`):\n   ```bash\n   # PowerShell\n   Get-Content .env | ForEach-Object { \n     if ($_ -match &#39;^([^=]&#43;)=(.*)$&#39;) { \n       [Environment]::SetEnvironmentVariable($matches[1], $matches[2]) \n     } \n   }\n   \n   # Bash\n   export $(cat .env | xargs)\n   ```\n\n## Authentication\n\n`DefaultAzureCredential` tries multiple authentication methods in order:\n\n### 1. **Local Development (Recommended)**\n\nUse Azure CLI:\n```bash\naz login\n```\n\nOr Azure Developer CLI:\n```bash\nazd auth login\n```\n\n### 2. **Service Principal (CI/CD)**\n\nSet environment variables:\n```bash\nexport AZURE_TENANT_ID=\&#34;your-tenant-id\&#34;\nexport AZURE_CLIENT_ID=\&#34;your-client-id\&#34;\nexport AZURE_CLIENT_SECRET=\&#34;your-client-secret\&#34;\n```\n\n### 3. **Managed Identity (Azure Resources)**\n\nEnable managed identity on your Azure resource (VM, App Service, Container App, etc.). No additional configuration needed!\n\n### 4. **Certificate-Based Authentication**\n\n```bash\nexport AZURE_TENANT_ID=\&#34;your-tenant-id\&#34;\nexport AZURE_CLIENT_ID=\&#34;your-client-id\&#34;\nexport AZURE_CLIENT_CERTIFICATE_PATH=\&#34;/path/to/cert.pem\&#34;\n```\n\n## Permissions\n\nYour authenticated identity needs access to the Key Vault:\n\n### Option 1: Azure RBAC (Recommended)\n\nAssign the \&#34;Key Vault Secrets User\&#34; role:\n```bash\naz role assignment create \\\n  --role \&#34;Key Vault Secrets User\&#34; \\\n  --assignee \u003cuser-or-service-principal-id\u003e \\\n  --scope /subscriptions/\u003csubscription-id\u003e/resourceGroups/\u003crg\u003e/providers/Microsoft.KeyVault/vaults/\u003cvault-name\u003e\n```\n\n### Option 2: Access Policies (Classic)\n\nAdd an access policy:\n```bash\naz keyvault set-policy \\\n  --name \u003cvault-name\u003e \\\n  --object-id \u003cuser-or-service-principal-object-id\u003e \\\n  --secret-permissions get list\n```\n\n## Build and Run\n\n```bash\n# Build TypeScript\nnpm run build\n\n# Run the program\nnpm start\n\n# Or do both in one command\nnpm run dev\n```\n\n## Expected Output\n\n```\n🔐 Azure Identity \u0026 Key Vault Demo\n==================================================\nKey Vault URL: https://my-keyvault.vault.azure.net\nSecret Name: my-secret\n\nCreating DefaultAzureCredential...\n✓ DefaultAzureCredential created successfully\n\nCreating SecretClient...\n✓ SecretClient created successfully\n\nRetrieving secret &#39;my-secret&#39;...\n✓ Secret retrieved successfully\n\n==================================================\nSecret Details:\n  Name: my-secret\n  Value: secret-value-here\n  Enabled: true\n  Created: 2024-01-15T10:30:00.000Z\n  Updated: 2024-01-15T10:30:00.000Z\n==================================================\n```\n\n## Error Handling\n\nThe program includes comprehensive error handling:\n\n### AuthenticationError\nWhen credentials fail, you&#39;ll see helpful troubleshooting steps:\n```\n❌ Authentication Failed\n==================================================\nAn authentication error occurred. This typically means:\n  • No valid credentials were found\n  • The credentials don&#39;t have permission to access the Key Vault\n  • Azure CLI/PowerShell/Developer CLI is not logged in\n\nTo fix this, try one of the following:\n[... helpful instructions ...]\n```\n\n### Key Vault Errors\n- **ResourceNotFound**: Key Vault or secret doesn&#39;t exist\n- **Forbidden (403)**: Missing permissions (add Key Vault Secrets User role)\n\n## DefaultAzureCredential Chain\n\nThe credential tries these methods in order until one succeeds:\n\n1. **EnvironmentCredential** - Service principal via env vars\n2. **WorkloadIdentityCredential** - Kubernetes workload identity\n3. **ManagedIdentityCredential** - Azure managed identity\n4. **VisualStudioCodeCredential** - VS Code Azure Account extension\n5. **AzureCliCredential** - `az login`\n6. **AzurePowerShellCredential** - `Connect-AzAccount`\n7. **AzureDeveloperCliCredential** - `azd auth login`\n\n## Project Structure\n\n```\n.\n├── src/\n│   └── index.ts          # Main program\n├── dist/                 # Compiled JavaScript (generated)\n├── package.json          # Dependencies\n├── tsconfig.json         # TypeScript configuration\n├── .env.example          # Environment variables template\n└── README.md            # This file\n```\n\n## Troubleshooting\n\n### \&#34;AZURE_KEYVAULT_NAME environment variable is required\&#34;\nSet the `AZURE_KEYVAULT_NAME` environment variable to your Key Vault name.\n\n### \&#34;Authentication Failed\&#34;\n1. Run `az login` or `azd auth login`\n2. Verify you&#39;re logged in: `az account show`\n3. Or set service principal environment variables\n\n### \&#34;Forbidden\&#34; or \&#34;403\&#34;\nYour identity doesn&#39;t have permission. Add \&#34;Key Vault Secrets User\&#34; role:\n```bash\naz role assignment create \\\n  --role \&#34;Key Vault Secrets User\&#34; \\\n  --assignee $(az ad signed-in-user show --query id -o tsv) \\\n  --scope $(az keyvault show --name \u003cvault-name\u003e --query id -o tsv)\n```\n\n### \&#34;ResourceNotFound\&#34;\n- Check the Key Vault name is correct\n- Verify the secret exists: `az keyvault secret list --vault-name \u003cname\u003e`\n- Check you have the right Azure subscription: `az account show`\n\n## Learn More\n\n- [Azure Identity SDK for JavaScript](https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/identity/identity)\n- [Azure Key Vault Secrets SDK](https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/keyvault/keyvault-secrets)\n- [DefaultAzureCredential Overview](https://learn.microsoft.com/azure/developer/javascript/sdk/authentication/overview)\n- [Azure Key Vault Best Practices](https://learn.microsoft.com/azure/key-vault/general/best-practices)\n\n## License\n\nMIT\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>14.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Dependencies\nnode_modules/\n\n# Build output\ndist/\n\n# Environment variables\n.env\n.env.local\n\n# TypeScript cache\n*.tsbuildinfo\n\n# Logs\n*.log\nnpm-debug.log*\n\n# OS files\n.DS_Store\nThumbs.db\n\n# IDE\n.vscode/\n.idea/\n*.swp\n*.swo\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\.gitignore&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>15.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Now let me create the src directory and the main TypeScript file:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>16.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path \&#34;src\&#34; -Force&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>17.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>18.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport type { AuthenticationError } from \&#34;@azure/identity\&#34;;\n\n/**\n * Main function to demonstrate Azure authentication and Key Vault access\n */\nasync function main(): Promise\u003cvoid\u003e {\n  try {\n    // Step 1: Parse environment variables\n    const keyVaultName = process.env.AZURE_KEYVAULT_NAME;\n    const secretName = process.env.AZURE_SECRET_NAME || \&#34;my-secret\&#34;;\n\n    if (!keyVaultName) {\n      throw new Error(\n        \&#34;AZURE_KEYVAULT_NAME environment variable is required.\\n\&#34; &#43;\n        \&#34;Set it to your Key Vault name (without the full URL).\&#34;\n      );\n    }\n\n    const keyVaultUrl = `https://${keyVaultName}.vault.azure.net`;\n\n    console.log(\&#34;🔐 Azure Identity \u0026 Key Vault Demo\&#34;);\n    console.log(\&#34;=\&#34; .repeat(50));\n    console.log(`Key Vault URL: ${keyVaultUrl}`);\n    console.log(`Secret Name: ${secretName}\\n`);\n\n    // Step 2: Create DefaultAzureCredential instance\n    console.log(\&#34;Creating DefaultAzureCredential...\&#34;);\n    const credential = new DefaultAzureCredential();\n    console.log(\&#34;✓ DefaultAzureCredential created successfully\\n\&#34;);\n\n    // DefaultAzureCredential tries these credentials in order:\n    // 1. EnvironmentCredential (service principal via env vars)\n    // 2. WorkloadIdentityCredential (Kubernetes)\n    // 3. ManagedIdentityCredential (Azure VMs, App Service, etc.)\n    // 4. VisualStudioCodeCredential\n    // 5. AzureCliCredential (az login)\n    // 6. AzurePowerShellCredential\n    // 7. AzureDeveloperCliCredential (azd auth login)\n\n    // Step 3: Create SecretClient with the credential\n    console.log(\&#34;Creating SecretClient...\&#34;);\n    const secretClient = new SecretClient(keyVaultUrl, credential);\n    console.log(\&#34;✓ SecretClient created successfully\\n\&#34;);\n\n    // Step 4: Retrieve the secret from Key Vault\n    console.log(`Retrieving secret &#39;${secretName}&#39;...`);\n    const secret = await secretClient.getSecret(secretName);\n    \n    console.log(\&#34;✓ Secret retrieved successfully\\n\&#34;);\n    console.log(\&#34;=\&#34; .repeat(50));\n    console.log(\&#34;Secret Details:\&#34;);\n    console.log(`  Name: ${secret.name}`);\n    console.log(`  Value: ${secret.value}`);\n    console.log(`  Enabled: ${secret.properties.enabled}`);\n    console.log(`  Created: ${secret.properties.createdOn?.toISOString()}`);\n    console.log(`  Updated: ${secret.properties.updatedOn?.toISOString()}`);\n    if (secret.properties.expiresOn) {\n      console.log(`  Expires: ${secret.properties.expiresOn.toISOString()}`);\n    }\n    console.log(\&#34;=\&#34; .repeat(50));\n\n  } catch (error) {\n    // Step 5: Handle AuthenticationError specifically\n    if (isAuthenticationError(error)) {\n      console.error(\&#34;\\n❌ Authentication Failed\&#34;);\n      console.error(\&#34;=\&#34; .repeat(50));\n      console.error(\&#34;An authentication error occurred. This typically means:\&#34;);\n      console.error(\&#34;  • No valid credentials were found\&#34;);\n      console.error(\&#34;  • The credentials don&#39;t have permission to access the Key Vault\&#34;);\n      console.error(\&#34;  • Azure CLI/PowerShell/Developer CLI is not logged in\\n\&#34;);\n      \n      console.error(\&#34;To fix this, try one of the following:\\n\&#34;);\n      console.error(\&#34;1. Azure CLI (recommended for local development):\&#34;);\n      console.error(\&#34;   az login\\n\&#34;);\n      \n      console.error(\&#34;2. Azure Developer CLI:\&#34;);\n      console.error(\&#34;   azd auth login\\n\&#34;);\n      \n      console.error(\&#34;3. Service Principal (for CI/CD):\&#34;);\n      console.error(\&#34;   Set environment variables:\&#34;);\n      console.error(\&#34;   - AZURE_TENANT_ID\&#34;);\n      console.error(\&#34;   - AZURE_CLIENT_ID\&#34;);\n      console.error(\&#34;   - AZURE_CLIENT_SECRET\\n\&#34;);\n      \n      console.error(\&#34;4. Managed Identity (for Azure resources):\&#34;);\n      console.error(\&#34;   Enable managed identity on your Azure resource\\n\&#34;);\n      \n      console.error(`Error details: ${error.message}`);\n      console.error(\&#34;=\&#34; .repeat(50));\n      process.exit(1);\n    }\n\n    // Handle other errors (e.g., Key Vault not found, secret not found, permission denied)\n    console.error(\&#34;\\n❌ Error occurred\&#34;);\n    console.error(\&#34;=\&#34; .repeat(50));\n    \n    if (error instanceof Error) {\n      console.error(`Error: ${error.message}`);\n      \n      // Check for common Key Vault errors\n      if (error.message.includes(\&#34;ResourceNotFound\&#34;) || error.message.includes(\&#34;not found\&#34;)) {\n        console.error(\&#34;\\nPossible causes:\&#34;);\n        console.error(\&#34;  • The Key Vault or secret does not exist\&#34;);\n        console.error(\&#34;  • The Key Vault name is incorrect\&#34;);\n        console.error(\&#34;  • The secret name is incorrect\&#34;);\n      } else if (error.message.includes(\&#34;Forbidden\&#34;) || error.message.includes(\&#34;403\&#34;)) {\n        console.error(\&#34;\\nPossible causes:\&#34;);\n        console.error(\&#34;  • The authenticated identity lacks Key Vault permissions\&#34;);\n        console.error(\&#34;  • Add &#39;Key Vault Secrets User&#39; role to your identity\&#34;);\n        console.error(\&#34;  • Or set an access policy in the Key Vault\&#34;);\n      }\n      \n      if (error.stack) {\n        console.error(\&#34;\\nStack trace:\&#34;);\n        console.error(error.stack);\n      }\n    } else {\n      console.error(\&#34;Unknown error:\&#34;, error);\n    }\n    \n    console.error(\&#34;=\&#34; .repeat(50));\n    process.exit(1);\n  }\n}\n\n/**\n * Type guard to check if an error is an AuthenticationError\n * Since @azure/identity doesn&#39;t export AuthenticationError directly,\n * we check for the error name and common properties\n */\nfunction isAuthenticationError(error: unknown): error is AuthenticationError {\n  if (!(error instanceof Error)) {\n    return false;\n  }\n  \n  // Check for authentication-related error names and messages\n  const authErrorNames = [\n    \&#34;AuthenticationError\&#34;,\n    \&#34;CredentialUnavailableError\&#34;,\n    \&#34;AuthenticationRequiredError\&#34;\n  ];\n  \n  const isAuthErrorName = authErrorNames.some(name =\u003e \n    error.name === name || error.constructor.name === name\n  );\n  \n  const isAuthErrorMessage = \n    error.message.includes(\&#34;authentication\&#34;) ||\n    error.message.includes(\&#34;credential\&#34;) ||\n    error.message.includes(\&#34;No valid credential\&#34;) ||\n    error.message.includes(\&#34;DefaultAzureCredential failed\&#34;);\n  \n  return isAuthErrorName || isAuthErrorMessage;\n}\n\n// Run the main function\nmain().catch((error) =\u003e {\n  console.error(\&#34;Unhandled error in main:\&#34;, error);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>19.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Now let&#39;s install the dependencies and build the project to verify everything works:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>20.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm install&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>21.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>22.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm run build&#34;,&#34;description&#34;:&#34;Build TypeScript project&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>23.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Excellent! Let&#39;s verify the build output was created:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>24.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>25.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Let&#39;s view the compiled JavaScript to confirm it was built correctly:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>26.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\dist&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>27.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Now let&#39;s create a quick usage example file to show how to run the program:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>28.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Quick Start Guide\n\n## Step 1: Install Dependencies\n```bash\nnpm install\n```\n\n## Step 2: Set Environment Variables\n\n### PowerShell:\n```powershell\n$env:AZURE_KEYVAULT_NAME = \&#34;your-keyvault-name\&#34;\n$env:AZURE_SECRET_NAME = \&#34;your-secret-name\&#34;\n```\n\n### Bash/Linux:\n```bash\nexport AZURE_KEYVAULT_NAME=\&#34;your-keyvault-name\&#34;\nexport AZURE_SECRET_NAME=\&#34;your-secret-name\&#34;\n```\n\n## Step 3: Authenticate\n\nMake sure you&#39;re logged in with Azure CLI:\n```bash\naz login\n```\n\n## Step 4: Build and Run\n```bash\n# Build the TypeScript\nnpm run build\n\n# Run the program\nnpm start\n\n# Or do both at once\nnpm run dev\n```\n\n## Expected Output\n\nIf everything is configured correctly:\n```\n🔐 Azure Identity \u0026 Key Vault Demo\n==================================================\nKey Vault URL: https://your-keyvault.vault.azure.net\nSecret Name: your-secret-name\n\nCreating DefaultAzureCredential...\n✓ DefaultAzureCredential created successfully\n\nCreating SecretClient...\n✓ SecretClient created successfully\n\nRetrieving secret &#39;your-secret-name&#39;...\n✓ Secret retrieved successfully\n\n==================================================\nSecret Details:\n  Name: your-secret-name\n  Value: your-secret-value\n  Enabled: true\n  Created: 2024-01-15T10:30:00.000Z\n  Updated: 2024-01-15T10:30:00.000Z\n==================================================\n```\n\n## Common Issues\n\n### \&#34;AZURE_KEYVAULT_NAME environment variable is required\&#34;\n- Set the environment variable before running the program\n\n### \&#34;Authentication Failed\&#34;\n- Run `az login` to authenticate\n- Or set service principal credentials (AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET)\n\n### \&#34;Forbidden\&#34; (403 error)\n- Your account needs Key Vault permissions\n- Add \&#34;Key Vault Secrets User\&#34; role assignment:\n  ```bash\n  az role assignment create \\\n    --role \&#34;Key Vault Secrets User\&#34; \\\n    --assignee $(az ad signed-in-user show --query id -o tsv) \\\n    --scope $(az keyvault show --name \u003cvault-name\u003e --query id -o tsv)\n  ```\n\n### \&#34;ResourceNotFound\&#34;\n- Check the Key Vault name is correct\n- Verify the secret exists in the Key Vault\n- Make sure you&#39;re using the correct Azure subscription\n\n## Testing Without a Real Key Vault\n\nIf you don&#39;t have a Key Vault yet, create one:\n\n```bash\n# Create a resource group (if needed)\naz group create --name my-rg --location eastus\n\n# Create a Key Vault\naz keyvault create \\\n  --name my-unique-keyvault \\\n  --resource-group my-rg \\\n  --location eastus\n\n# Create a test secret\naz keyvault secret set \\\n  --vault-name my-unique-keyvault \\\n  --name my-secret \\\n  --value \&#34;Hello from Key Vault!\&#34;\n\n# Grant yourself access (if using RBAC)\naz role assignment create \\\n  --role \&#34;Key Vault Secrets User\&#34; \\\n  --assignee $(az ad signed-in-user show --query id -o tsv) \\\n  --scope $(az keyvault show --name my-unique-keyvault --query id -o tsv)\n```\n\nThen run the program:\n```bash\n$env:AZURE_KEYVAULT_NAME = \&#34;my-unique-keyvault\&#34;\n$env:AZURE_SECRET_NAME = \&#34;my-secret\&#34;\nnpm run dev\n```\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-default-credential-azure-mcp-claude-sonnet-4.5-275272537\\QUICKSTART.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>29.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Let me create one final summary document listing all the files:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>30.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-ChildItem -Recurse -File -Exclude node_modules | Select-Object FullName | ForEach-Object { $_.FullName.Replace((Get-Location).Path &#43; &#39;\\&#39;, &#39;&#39;) } | Sort-Object&#34;,&#34;description&#34;:&#34;List all project files&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>31.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Let me stop that and just provide a summary:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>32.</span>
+          <span class="tool-name">Tool call: stop_powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;shellId&#34;:&#34;3&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>33.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>## ✅ Complete! Azure Authentication Program Created
+
+I&#39;ve created a complete TypeScript program that demonstrates Azure authentication using `DefaultAzureCredential`. Here&#39;s what was built:
+
+### 📁 Project Structure
+
+```
+├── src/
+│   └── index.ts              # Main TypeScript program
+├── dist/                     # Compiled JavaScript (auto-generated)
+├── package.json              # Dependencies and scripts
+├── tsconfig.json             # TypeScript compiler config
+├── .env.example              # Environment variables template
+├── .gitignore               # Git ignore file
+├── README.md                # Comprehensive documentation
+└── QUICKSTART.md            # Quick start guide
+```
+
+### ✨ Key Features Implemented
+
+1. **✅ DefaultAzureCredential** - Flexible authentication that works across:
+   - Local development (Azure CLI, VS Code, PowerShell)
+   - Service principals (CI/CD pipelines)
+   - Managed identities (Azure VMs, App Service, Container Apps)
+   - Workload identity (Kubernetes)
+
+2. **✅ Azure Key Vault Integration** - SecretClient to retrieve secrets
+
+3. **✅ Comprehensive Error Handling**:
+   - Custom `isAuthenticationError()` type guard
+   - Specific handling for authentication failures
+   - Helpful troubleshooting messages
+   - Detection of common Key Vault errors (403, 404)
+
+4. **✅ Full Async/Await** - Modern TypeScript with async/await throughout
+
+5. **✅ All Dependencies** - package.json includes:
+   - `@azure/identity` - Authentication
+   - `@azure/keyvault-secrets` - Key Vault client
+   - TypeScript and type definitions
+
+### 🚀 Quick Start
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Set environment variables (PowerShell)
+$env:AZURE_KEYVAULT_NAME = &#34;your-keyvault-name&#34;
+$env:AZURE_SECRET_NAME = &#34;your-secret-name&#34;
+
+# 3. Authenticate
+az login
+
+# 4. Build and run
+npm run dev
+```
+
+### 📦 Installed Packages
+
+- **@azure/identity** v4.2.0 - Azure authentication
+- **@azure/keyvault-secrets** v4.8.0 - Key Vault client
+- **typescript** v5.4.0 - TypeScript compiler
+- **@types/node** v20.12.0 - Node.js types
+
+### ✅ Build Verified
+
+The project has been:
+- ✅ Dependencies installed (50 packages, 0 vulnerabilities)
+- ✅ TypeScript compiled successfully
+- ✅ JavaScript output generated in `dist/` folder
+
+The program is ready to run! Just set your Key Vault name in the environment variables and ensure you&#39;re authenticated with Azure CLI.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>34.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (6)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">3 .json, 2 .md, 1 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> QUICKSTART.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Quick Start Guide
+
+## Step 1: Install Dependencies
+```bash
+npm install
+```
+
+## Step 2: Set Environment Variables
+
+### PowerShell:
+```powershell
+$env:AZURE_KEYVAULT_NAME = &#34;your-keyvault-name&#34;
+$env:AZURE_SECRET_NAME = &#34;your-secret-name&#34;
+```
+
+### Bash/Linux:
+```bash
+export AZURE_KEYVAULT_NAME=&#34;your-keyvault-name&#34;
+export AZURE_SECRET_NAME=&#34;your-secret-name&#34;
+```
+
+## Step 3: Authenticate
+
+Make sure you&#39;re logged in with Azure CLI:
+```bash
+az login
+```
+
+## Step 4: Build and Run
+```bash
+# Build the TypeScript
+npm run build
+
+# Run the program
+npm start
+
+# Or do both at once
+npm run dev
+```
+
+## Expected Output
+
+If everything is configured correctly:
+```
+🔐 Azure Identity &amp; Key Vault Demo
+==================================================
+Key Vault URL: https://your-keyvault.vault.azure.net
+Secret Name: your-secret-name
+
+Creating DefaultAzureCredential...
+✓ DefaultAzureCredential created successfully
+
+Creating SecretClient...
+✓ SecretClient created successfully
+
+Retrieving secret &#39;your-secret-name&#39;...
+✓ Secret retrieved successfully
+
+==================================================
+Secret Details:
+  Name: your-secret-name
+  Value: your-secret-value
+  Enabled: true
+  Created: 2024-01-15T10:30:00.000Z
+  Updated: 2024-01-15T10:30:00.000Z
+==================================================
+```
+
+## Common Issues
+
+### &#34;AZURE_KEYVAULT_NAME environment variable is required&#34;
+- Set the environment variable before running the program
+
+### &#34;Authentication Failed&#34;
+- Run `az login` to authenticate
+- Or set service principal credentials (AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET)
+
+### &#34;Forbidden&#34; (403 error)
+- Your account needs Key Vault permissions
+- Add &#34;Key Vault Secrets User&#34; role assignment:
+  ```bash
+  az role assignment create \
+    --role &#34;Key Vault Secrets User&#34; \
+    --assignee $(az ad signed-in-user show --query id -o tsv) \
+    --scope $(az keyvault show --name &lt;vault-name&gt; --query id -o tsv)
+  ```
+
+### &#34;ResourceNotFound&#34;
+- Check the Key Vault name is correct
+- Verify the secret exists in the Key Vault
+- Make sure you&#39;re using the correct Azure subscription
+
+## Testing Without a Real Key Vault
+
+If you don&#39;t have a Key Vault yet, create one:
+
+```bash
+# Create a resource group (if needed)
+az group create --name my-rg --location eastus
+
+# Create a Key Vault
+az keyvault create \
+  --name my-unique-keyvault \
+  --resource-group my-rg \
+  --location eastus
+
+# Create a test secret
+az keyvault secret set \
+  --vault-name my-unique-keyvault \
+  --name my-secret \
+  --value &#34;Hello from Key Vault!&#34;
+
+# Grant yourself access (if using RBAC)
+az role assignment create \
+  --role &#34;Key Vault Secrets User&#34; \
+  --assignee $(az ad signed-in-user show --query id -o tsv) \
+  --scope $(az keyvault show --name my-unique-keyvault --query id -o tsv)
+```
+
+Then run the program:
+```bash
+$env:AZURE_KEYVAULT_NAME = &#34;my-unique-keyvault&#34;
+$env:AZURE_SECRET_NAME = &#34;my-secret&#34;
+npm run dev
+```
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> README.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Identity &amp; Key Vault Demo (TypeScript)
+
+This TypeScript program demonstrates how to authenticate to Azure services using `DefaultAzureCredential` and retrieve secrets from Azure Key Vault.
+
+## Features
+
+- ✅ Uses `DefaultAzureCredential` for flexible authentication
+- ✅ Retrieves secrets from Azure Key Vault
+- ✅ Comprehensive error handling with `AuthenticationError` detection
+- ✅ Full async/await support
+- ✅ TypeScript with strict type checking
+- ✅ Works in multiple environments (local dev, CI/CD, Azure services)
+
+## Prerequisites
+
+- Node.js 18&#43; installed
+- An Azure subscription
+- An Azure Key Vault with at least one secret
+- Authentication set up (see Authentication section below)
+
+## Installation
+
+```bash
+npm install
+```
+
+This installs:
+- `@azure/identity` - Azure authentication library
+- `@azure/keyvault-secrets` - Azure Key Vault client
+- `typescript` - TypeScript compiler
+- `@types/node` - Node.js type definitions
+
+## Configuration
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and set your Key Vault name:
+   ```bash
+   AZURE_KEYVAULT_NAME=your-keyvault-name
+   AZURE_SECRET_NAME=your-secret-name
+   ```
+
+3. Load environment variables (or use a package like `dotenv`):
+   ```bash
+   # PowerShell
+   Get-Content .env | ForEach-Object { 
+     if ($_ -match &#39;^([^=]&#43;)=(.*)$&#39;) { 
+       [Environment]::SetEnvironmentVariable($matches[1], $matches[2]) 
+     } 
+   }
+   
+   # Bash
+   export $(cat .env | xargs)
+   ```
+
+## Authentication
+
+`DefaultAzureCredential` tries multiple authentication methods in order:
+
+### 1. **Local Development (Recommended)**
+
+Use Azure CLI:
+```bash
+az login
+```
+
+Or Azure Developer CLI:
+```bash
+azd auth login
+```
+
+### 2. **Service Principal (CI/CD)**
+
+Set environment variables:
+```bash
+export AZURE_TENANT_ID=&#34;your-tenant-id&#34;
+export AZURE_CLIENT_ID=&#34;your-client-id&#34;
+export AZURE_CLIENT_SECRET=&#34;your-client-secret&#34;
+```
+
+### 3. **Managed Identity (Azure Resources)**
+
+Enable managed identity on your Azure resource (VM, App Service, Container App, etc.). No additional configuration needed!
+
+### 4. **Certificate-Based Authentication**
+
+```bash
+export AZURE_TENANT_ID=&#34;your-tenant-id&#34;
+export AZURE_CLIENT_ID=&#34;your-client-id&#34;
+export AZURE_CLIENT_CERTIFICATE_PATH=&#34;/path/to/cert.pem&#34;
+```
+
+## Permissions
+
+Your authenticated identity needs access to the Key Vault:
+
+### Option 1: Azure RBAC (Recommended)
+
+Assign the &#34;Key Vault Secrets User&#34; role:
+```bash
+az role assignment create \
+  --role &#34;Key Vault Secrets User&#34; \
+  --assignee &lt;user-or-service-principal-id&gt; \
+  --scope /subscriptions/&lt;subscription-id&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.KeyVault/vaults/&lt;vault-name&gt;
+```
+
+### Option 2: Access Policies (Classic)
+
+Add an access policy:
+```bash
+az keyvault set-policy \
+  --name &lt;vault-name&gt; \
+  --object-id &lt;user-or-service-principal-object-id&gt; \
+  --secret-permissions get list
+```
+
+## Build and Run
+
+```bash
+# Build TypeScript
+npm run build
+
+# Run the program
+npm start
+
+# Or do both in one command
+npm run dev
+```
+
+## Expected Output
+
+```
+🔐 Azure Identity &amp; Key Vault Demo
+==================================================
+Key Vault URL: https://my-keyvault.vault.azure.net
+Secret Name: my-secret
+
+Creating DefaultAzureCredential...
+✓ DefaultAzureCredential created successfully
+
+Creating SecretClient...
+✓ SecretClient created successfully
+
+Retrieving secret &#39;my-secret&#39;...
+✓ Secret retrieved successfully
+
+==================================================
+Secret Details:
+  Name: my-secret
+  Value: secret-value-here
+  Enabled: true
+  Created: 2024-01-15T10:30:00.000Z
+  Updated: 2024-01-15T10:30:00.000Z
+==================================================
+```
+
+## Error Handling
+
+The program includes comprehensive error handling:
+
+### AuthenticationError
+When credentials fail, you&#39;ll see helpful troubleshooting steps:
+```
+❌ Authentication Failed
+==================================================
+An authentication error occurred. This typically means:
+  • No valid credentials were found
+  • The credentials don&#39;t have permission to access the Key Vault
+  • Azure CLI/PowerShell/Developer CLI is not logged in
+
+To fix this, try one of the following:
+[... helpful instructions ...]
+```
+
+### Key Vault Errors
+- **ResourceNotFound**: Key Vault or secret doesn&#39;t exist
+- **Forbidden (403)**: Missing permissions (add Key Vault Secrets User role)
+
+## DefaultAzureCredential Chain
+
+The credential tries these methods in order until one succeeds:
+
+1. **EnvironmentCredential** - Service principal via env vars
+2. **WorkloadIdentityCredential** - Kubernetes workload identity
+3. **ManagedIdentityCredential** - Azure managed identity
+4. **VisualStudioCodeCredential** - VS Code Azure Account extension
+5. **AzureCliCredential** - `az login`
+6. **AzurePowerShellCredential** - `Connect-AzAccount`
+7. **AzureDeveloperCliCredential** - `azd auth login`
+
+## Project Structure
+
+```
+.
+├── src/
+│   └── index.ts          # Main program
+├── dist/                 # Compiled JavaScript (generated)
+├── package.json          # Dependencies
+├── tsconfig.json         # TypeScript configuration
+├── .env.example          # Environment variables template
+└── README.md            # This file
+```
+
+## Troubleshooting
+
+### &#34;AZURE_KEYVAULT_NAME environment variable is required&#34;
+Set the `AZURE_KEYVAULT_NAME` environment variable to your Key Vault name.
+
+### &#34;Authentication Failed&#34;
+1. Run `az login` or `azd auth login`
+2. Verify you&#39;re logged in: `az account show`
+3. Or set service principal environment variables
+
+### &#34;Forbidden&#34; or &#34;403&#34;
+Your identity doesn&#39;t have permission. Add &#34;Key Vault Secrets User&#34; role:
+```bash
+az role assignment create \
+  --role &#34;Key Vault Secrets User&#34; \
+  --assignee $(az ad signed-in-user show --query id -o tsv) \
+  --scope $(az keyvault show --name &lt;vault-name&gt; --query id -o tsv)
+```
+
+### &#34;ResourceNotFound&#34;
+- Check the Key Vault name is correct
+- Verify the secret exists: `az keyvault secret list --vault-name &lt;name&gt;`
+- Check you have the right Azure subscription: `az account show`
+
+## Learn More
+
+- [Azure Identity SDK for JavaScript](https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/identity/identity)
+- [Azure Key Vault Secrets SDK](https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/keyvault/keyvault-secrets)
+- [DefaultAzureCredential Overview](https://learn.microsoft.com/azure/developer/javascript/sdk/authentication/overview)
+- [Azure Key Vault Best Practices](https://learn.microsoft.com/azure/key-vault/general/best-practices)
+
+## License
+
+MIT
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package-lock.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-identity-keyvault-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;lockfileVersion&#34;: 3,
+  &#34;requires&#34;: true,
+  &#34;packages&#34;: {
+    &#34;&#34;: {
+      &#34;name&#34;: &#34;azure-identity-keyvault-demo&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/identity&#34;: &#34;^4.2.0&#34;,
+        &#34;@azure/keyvault-secrets&#34;: &#34;^4.8.0&#34;
+      },
+      &#34;devDependencies&#34;: {
+        &#34;@types/node&#34;: &#34;^20.12.0&#34;,
+        &#34;typescript&#34;: &#34;^5.4.0&#34;
+      }
+    },
+    &#34;node_modules/@azure-rest/core-client&#34;: {
+      &#34;version&#34;: &#34;2.6.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure-rest/core-client/-/core-client-2.6.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iuFKDm8XPzNxPfRjhyU5/xKZmcRDzSuEghXDHHk4MjBV/wFL34GmYVBZnn9wmuoLBeS1qAw9ceMdaeJBPcB1QQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-auth&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-auth/-/core-auth-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ykRMW8PjVAn&#43;RS6ww5cmK9U2CyH9p4Q88YJwvUslfuMmN98w/2rdGRLPqJYObapBCdzBVeDgYWdJnFPFb7qzpg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-client&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-client/-/core-client-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Nh5PhEOeY6PrnxNPsEHRr9eimxLwgLlpmguQaHKBinFYA/RU9&#43;kOYVOQqOrTsCL&#43;KSxrLLl1gD8Dk5BFW/7l/w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-lro&#34;: {
+      &#34;version&#34;: &#34;2.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-lro/-/core-lro-2.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0YIpccoX8m/k00O7mDDMdJpbr6mf1yWo2dfmxt5A8XVZVVMz2SSKaEbMCeJRvgQ0IaSlqhjT47p4hVIRRy90xw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-paging&#34;: {
+      &#34;version&#34;: &#34;1.6.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-paging/-/core-paging-1.6.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YKWi9YuCU04B55h25cnOYZHxXYtEvQEbKST5vqRga7hWY9ydd3FZHdeQF8pyh&#43;acWZvppw13M/LMGx0LABUVMA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-rest-pipeline&#34;: {
+      &#34;version&#34;: &#34;1.23.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-rest-pipeline/-/core-rest-pipeline-1.23.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Evs1INHo&#43;jUjwHi1T6SG6Ua/LHOQBCLuKEEE6efIpt4ZOoNonaT1kP32GoOcdNDbfqsD2445CPri3MubBy5DEQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.4&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-tracing&#34;: {
+      &#34;version&#34;: &#34;1.3.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-tracing/-/core-tracing-1.3.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-9MWKevR7Hz8kNzzPLfX4EAtGM2b8mr50HPDBvio96bURP/9C&#43;HjdH3sBlLSNNrvRAr5/k/svoH457gB5IKpmwQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-util&#34;: {
+      &#34;version&#34;: &#34;1.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-util/-/core-util-1.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-XPArKLzsvl0Hf0CaGyKHUyVgF7oDnhKoP85Xv6M4StF/1AhfORhZudHtOyf2s&#43;FcbuQ9dPRAjB8J2KvRRMUK2A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/identity&#34;: {
+      &#34;version&#34;: &#34;4.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/identity/-/identity-4.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-5C/2WD5Vb1lHnZS16dNQRPMjN6oV/Upba&#43;C9nBIs15PmOi6A3ZGs4Lr2u60zw4S04gi&#43;u3cEXiqTVP7M4Pz3kw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-client&#34;: &#34;^1.9.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.17.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/msal-browser&#34;: &#34;^5.5.0&#34;,
+        &#34;@azure/msal-node&#34;: &#34;^5.1.0&#34;,
+        &#34;open&#34;: &#34;^10.1.0&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/keyvault-common&#34;: {
+      &#34;version&#34;: &#34;2.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/keyvault-common/-/keyvault-common-2.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-aCDidWuKY06LWQ4x7/8TIXK6iRqTaRWRL3t7T&#43;LC&#43;j1b07HtoIsOxP/tU90G4jCSBn5TAyUTCtA4MS/y5Hudaw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure-rest/core-client&#34;: &#34;^2.3.3&#34;,
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.8.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/keyvault-secrets&#34;: {
+      &#34;version&#34;: &#34;4.11.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/keyvault-secrets/-/keyvault-secrets-4.11.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-tLBcPeJX4s95Whe0t1G1dM8lBDmmuz7qBh8WN0PAQ8vBVFTUb5sZsf8fRXNejEZPYS7sND/PesJnAMIXs9mFyw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure-rest/core-client&#34;: &#34;^2.3.3&#34;,
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-lro&#34;: &#34;^2.7.2&#34;,
+        &#34;@azure/core-paging&#34;: &#34;^1.6.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/keyvault-common&#34;: &#34;^2.1.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/logger&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/logger/-/logger-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-fCqPIfOcLE&#43;CGqGPd66c8bZpwAji98tZ4JI9i/mlTNTlsIWslCfpg48s/ypyLxZTump5sypjrKn2/kY7q8oAbA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-browser&#34;: {
+      &#34;version&#34;: &#34;5.9.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-browser/-/msal-browser-5.9.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-CzE&#43;4PefDSJWj26zU7G1bKchlGRRHMBFreG4tAlGuzyI8hAPiYGobaJvZBgZBf6L63iphX7VH&#43;ityL8VgEQz9Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-common&#34;: {
+      &#34;version&#34;: &#34;16.5.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-common/-/msal-common-16.5.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-GkDEL6TYo3HgT3UuqakdgE9PZfc1hMki6&#43;Hwgy1uddb/EauvAKfu85vVhuofRSo22D1xTnWt8Ucwfg4vSCVwvA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-node&#34;: {
+      &#34;version&#34;: &#34;5.1.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-node/-/msal-node-5.1.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ObTeMoNPmq19X3z40et9Xvs4ZoWVeJg43PZMRLG5iwVL&#43;2nCtAerG3YTDItqPp1CfXNwmCXBbg8jn1DOx65c3g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;,
+        &#34;jsonwebtoken&#34;: &#34;^9.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20&#34;
+      }
+    },
+    &#34;node_modules/@types/node&#34;: {
+      &#34;version&#34;: &#34;20.19.39&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@types/node/-/node-20.19.39.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-orrrD74MBUyK8jOAD/r0&#43;lfa1I2MO6I&#43;vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;undici-types&#34;: &#34;~6.21.0&#34;
+      }
+    },
+    &#34;node_modules/@typespec/ts-http-runtime&#34;: {
+      &#34;version&#34;: &#34;0.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@typespec/ts-http-runtime/-/ts-http-runtime-0.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-yURCknZhvywvQItHMMmFSo&#43;fq5arCUIyz/CVk7jD89MSai7dkaX8ufjCWp3NttLojoTVbcE72ri&#43;be/TnEbMHw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;http-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;https-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/agent-base&#34;: {
+      &#34;version&#34;: &#34;7.1.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MnA&#43;YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7&#43;jMO&#43;CUovTQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/buffer-equal-constant-time&#34;: {
+      &#34;version&#34;: &#34;1.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==&#34;,
+      &#34;license&#34;: &#34;BSD-3-Clause&#34;
+    },
+    &#34;node_modules/bundle-name&#34;: {
+      &#34;version&#34;: &#34;4.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/bundle-name/-/bundle-name-4.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-tjwM5exMg6BGRI&#43;kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy&#43;FqStSWvYmtfFMDLIxurorHwDKfDz5Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;run-applescript&#34;: &#34;^7.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/debug&#34;: {
+      &#34;version&#34;: &#34;4.4.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/debug/-/debug-4.4.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-RGwwWnwQvkVfavKVt22FGLw&#43;xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;ms&#34;: &#34;^2.1.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;supports-color&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/default-browser&#34;: {
+      &#34;version&#34;: &#34;5.5.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser/-/default-browser-5.5.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-H9LMLr5zwIbSxrmvikGuI/5KGhZ8E2zH3stkMgM5LpOWDutGM2JZaj460Udnf1a&#43;946zc7YBgrqEWwbk7zHvGw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;bundle-name&#34;: &#34;^4.1.0&#34;,
+        &#34;default-browser-id&#34;: &#34;^5.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/default-browser-id&#34;: {
+      &#34;version&#34;: &#34;5.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser-id/-/default-browser-id-5.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-x1VCxdX4t&#43;8wVfd1so/9w&#43;vQ4vx7lKd2Qp5tDRutErwmR85OgmfX7RlLRMWafRMY7hbEiXIbudNrjOAPa/hL8Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/define-lazy-prop&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-N&#43;MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/ecdsa-sig-formatter&#34;: {
+      &#34;version&#34;: &#34;1.0.11&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==&#34;,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/http-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ&#43;veqSOHci/PxBcDabeUNCzpOODJZig==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.0&#34;,
+        &#34;debug&#34;: &#34;^4.3.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/https-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vK9P5/iUfdl95AI&#43;JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.2&#34;,
+        &#34;debug&#34;: &#34;4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/is-docker&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-docker/-/is-docker-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;bin&#34;: {
+        &#34;is-docker&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;^12.20.0 || ^14.13.1 || &gt;=16.0.0&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-inside-container&#34;: {
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-inside-container/-/is-inside-container-1.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk&#43;MG/Qxmp/vtETEF3tRA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-docker&#34;: &#34;^3.0.0&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;is-inside-container&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-wsl&#34;: {
+      &#34;version&#34;: &#34;3.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-wsl/-/is-wsl-3.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-e6rvdUCiQCAuumZslxRJWR/Doq4VpPR82kqclvcS0efgt430SlGIk05vdCN58&#43;VrzgtIcfNODjozVielycD4Sw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/jsonwebtoken&#34;: {
+      &#34;version&#34;: &#34;9.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MT/xP0CrubFRNLNKvxJ2BYfy53Zkm&#43;&#43;5bX9dtuPbqAeQpTVe0MQTFhao8&#43;Cp//EmJp244xt6Drw/GVEGCUj40g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jws&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.includes&#34;: &#34;^4.3.0&#34;,
+        &#34;lodash.isboolean&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isinteger&#34;: &#34;^4.0.4&#34;,
+        &#34;lodash.isnumber&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isplainobject&#34;: &#34;^4.0.6&#34;,
+        &#34;lodash.isstring&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.once&#34;: &#34;^4.0.0&#34;,
+        &#34;ms&#34;: &#34;^2.1.1&#34;,
+        &#34;semver&#34;: &#34;^7.5.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;,
+        &#34;npm&#34;: &#34;&gt;=6&#34;
+      }
+    },
+    &#34;node_modules/jwa&#34;: {
+      &#34;version&#34;: &#34;2.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jwa/-/jwa-2.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-hRF04fqJIP8Abbkq5NKGN0Bbr3JxlQ&#43;qhZufXVr0DvujKy93ZCbXZMHDL4EOtodSbCWxOqR8MS1tXA5hwqCXDg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;buffer-equal-constant-time&#34;: &#34;^1.0.1&#34;,
+        &#34;ecdsa-sig-formatter&#34;: &#34;1.0.11&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/jws&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jws/-/jws-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-EKI/M/yqPncGUUh44xz0PxSidXFr/&#43;r0pA70&#43;gIYhjv&#43;et7yxM&#43;s29Y&#43;VGDkovRofQem0fs7Uvf4&#43;YmAdyRduA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jwa&#34;: &#34;^2.0.1&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/lodash.includes&#34;: {
+      &#34;version&#34;: &#34;4.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isboolean&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Bz5mupy2SVbPHURB98VAcw&#43;aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isinteger&#34;: {
+      &#34;version&#34;: &#34;4.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isnumber&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-QYqzpfwO3/CWf3XP&#43;Z&#43;tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk&#43;NXmTBcc97zw9t1FQrw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isplainobject&#34;: {
+      &#34;version&#34;: &#34;4.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F&#43;MFOBA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isstring&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0wJxfxH1wgO3GrbuP&#43;dTTk7op&#43;6L41QCXbGINEmD&#43;ny/G/eCqGzxyCsh7159S&#43;mgDDcoarnBw6PC1PS5&#43;wUGgw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.once&#34;: {
+      &#34;version&#34;: &#34;4.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/ms&#34;: {
+      &#34;version&#34;: &#34;2.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ms/-/ms-2.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/open&#34;: {
+      &#34;version&#34;: &#34;10.2.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/open/-/open-10.2.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YgBpdJHPyQ2UE5x&#43;hlSXcnejzAvD0b22U2OuAP&#43;8OnlJT&#43;PjWPxtgmGqKKc&#43;RgTM63U9gN0YzrYc71R2WT/hTA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;default-browser&#34;: &#34;^5.2.1&#34;,
+        &#34;define-lazy-prop&#34;: &#34;^3.0.0&#34;,
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;,
+        &#34;wsl-utils&#34;: &#34;^0.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/run-applescript&#34;: {
+      &#34;version&#34;: &#34;7.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/run-applescript/-/run-applescript-7.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7&#43;xC9bGulGI8&#43;TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/safe-buffer&#34;: {
+      &#34;version&#34;: &#34;5.2.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F&#43;ppbRo70&#43;YeaDxkw5Dd8NPN&#43;GD6bjnYm2VuPuCXmpuYvmCXQ==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/semver&#34;: {
+      &#34;version&#34;: &#34;7.7.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/semver/-/semver-7.7.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM&#43;MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==&#34;,
+      &#34;license&#34;: &#34;ISC&#34;,
+      &#34;bin&#34;: {
+        &#34;semver&#34;: &#34;bin/semver.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=10&#34;
+      }
+    },
+    &#34;node_modules/tslib&#34;: {
+      &#34;version&#34;: &#34;2.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oJFu94HQb&#43;KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==&#34;,
+      &#34;license&#34;: &#34;0BSD&#34;
+    },
+    &#34;node_modules/typescript&#34;: {
+      &#34;version&#34;: &#34;5.9.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;bin&#34;: {
+        &#34;tsc&#34;: &#34;bin/tsc&#34;,
+        &#34;tsserver&#34;: &#34;bin/tsserver&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.17&#34;
+      }
+    },
+    &#34;node_modules/undici-types&#34;: {
+      &#34;version&#34;: &#34;6.21.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp&#43;7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/wsl-utils&#34;: {
+      &#34;version&#34;: &#34;0.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/wsl-utils/-/wsl-utils-0.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-wsl&#34;: &#34;^3.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    }
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-identity-keyvault-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;TypeScript demo using DefaultAzureCredential with Azure Key Vault&#34;,
+  &#34;main&#34;: &#34;dist/index.js&#34;,
+  &#34;type&#34;: &#34;module&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/index.js&#34;,
+    &#34;dev&#34;: &#34;tsc &amp;&amp; node dist/index.js&#34;
+  },
+  &#34;keywords&#34;: [
+    &#34;azure&#34;,
+    &#34;identity&#34;,
+    &#34;keyvault&#34;,
+    &#34;typescript&#34;
+  ],
+  &#34;author&#34;: &#34;&#34;,
+  &#34;license&#34;: &#34;MIT&#34;,
+  &#34;dependencies&#34;: {
+    &#34;@azure/identity&#34;: &#34;^4.2.0&#34;,
+    &#34;@azure/keyvault-secrets&#34;: &#34;^4.8.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.12.0&#34;,
+    &#34;typescript&#34;: &#34;^5.4.0&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\index.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+import { SecretClient } from &#34;@azure/keyvault-secrets&#34;;
+import type { AuthenticationError } from &#34;@azure/identity&#34;;
+
+/**
+ * Main function to demonstrate Azure authentication and Key Vault access
+ */
+async function main(): Promise&lt;void&gt; {
+  try {
+    // Step 1: Parse environment variables
+    const keyVaultName = process.env.AZURE_KEYVAULT_NAME;
+    const secretName = process.env.AZURE_SECRET_NAME || &#34;my-secret&#34;;
+
+    if (!keyVaultName) {
+      throw new Error(
+        &#34;AZURE_KEYVAULT_NAME environment variable is required.\n&#34; &#43;
+        &#34;Set it to your Key Vault name (without the full URL).&#34;
+      );
+    }
+
+    const keyVaultUrl = `https://${keyVaultName}.vault.azure.net`;
+
+    console.log(&#34;🔐 Azure Identity &amp; Key Vault Demo&#34;);
+    console.log(&#34;=&#34; .repeat(50));
+    console.log(`Key Vault URL: ${keyVaultUrl}`);
+    console.log(`Secret Name: ${secretName}\n`);
+
+    // Step 2: Create DefaultAzureCredential instance
+    console.log(&#34;Creating DefaultAzureCredential...&#34;);
+    const credential = new DefaultAzureCredential();
+    console.log(&#34;✓ DefaultAzureCredential created successfully\n&#34;);
+
+    // DefaultAzureCredential tries these credentials in order:
+    // 1. EnvironmentCredential (service principal via env vars)
+    // 2. WorkloadIdentityCredential (Kubernetes)
+    // 3. ManagedIdentityCredential (Azure VMs, App Service, etc.)
+    // 4. VisualStudioCodeCredential
+    // 5. AzureCliCredential (az login)
+    // 6. AzurePowerShellCredential
+    // 7. AzureDeveloperCliCredential (azd auth login)
+
+    // Step 3: Create SecretClient with the credential
+    console.log(&#34;Creating SecretClient...&#34;);
+    const secretClient = new SecretClient(keyVaultUrl, credential);
+    console.log(&#34;✓ SecretClient created successfully\n&#34;);
+
+    // Step 4: Retrieve the secret from Key Vault
+    console.log(`Retrieving secret &#39;${secretName}&#39;...`);
+    const secret = await secretClient.getSecret(secretName);
+    
+    console.log(&#34;✓ Secret retrieved successfully\n&#34;);
+    console.log(&#34;=&#34; .repeat(50));
+    console.log(&#34;Secret Details:&#34;);
+    console.log(`  Name: ${secret.name}`);
+    console.log(`  Value: ${secret.value}`);
+    console.log(`  Enabled: ${secret.properties.enabled}`);
+    console.log(`  Created: ${secret.properties.createdOn?.toISOString()}`);
+    console.log(`  Updated: ${secret.properties.updatedOn?.toISOString()}`);
+    if (secret.properties.expiresOn) {
+      console.log(`  Expires: ${secret.properties.expiresOn.toISOString()}`);
+    }
+    console.log(&#34;=&#34; .repeat(50));
+
+  } catch (error) {
+    // Step 5: Handle AuthenticationError specifically
+    if (isAuthenticationError(error)) {
+      console.error(&#34;\n❌ Authentication Failed&#34;);
+      console.error(&#34;=&#34; .repeat(50));
+      console.error(&#34;An authentication error occurred. This typically means:&#34;);
+      console.error(&#34;  • No valid credentials were found&#34;);
+      console.error(&#34;  • The credentials don&#39;t have permission to access the Key Vault&#34;);
+      console.error(&#34;  • Azure CLI/PowerShell/Developer CLI is not logged in\n&#34;);
+      
+      console.error(&#34;To fix this, try one of the following:\n&#34;);
+      console.error(&#34;1. Azure CLI (recommended for local development):&#34;);
+      console.error(&#34;   az login\n&#34;);
+      
+      console.error(&#34;2. Azure Developer CLI:&#34;);
+      console.error(&#34;   azd auth login\n&#34;);
+      
+      console.error(&#34;3. Service Principal (for CI/CD):&#34;);
+      console.error(&#34;   Set environment variables:&#34;);
+      console.error(&#34;   - AZURE_TENANT_ID&#34;);
+      console.error(&#34;   - AZURE_CLIENT_ID&#34;);
+      console.error(&#34;   - AZURE_CLIENT_SECRET\n&#34;);
+      
+      console.error(&#34;4. Managed Identity (for Azure resources):&#34;);
+      console.error(&#34;   Enable managed identity on your Azure resource\n&#34;);
+      
+      console.error(`Error details: ${error.message}`);
+      console.error(&#34;=&#34; .repeat(50));
+      process.exit(1);
+    }
+
+    // Handle other errors (e.g., Key Vault not found, secret not found, permission denied)
+    console.error(&#34;\n❌ Error occurred&#34;);
+    console.error(&#34;=&#34; .repeat(50));
+    
+    if (error instanceof Error) {
+      console.error(`Error: ${error.message}`);
+      
+      // Check for common Key Vault errors
+      if (error.message.includes(&#34;ResourceNotFound&#34;) || error.message.includes(&#34;not found&#34;)) {
+        console.error(&#34;\nPossible causes:&#34;);
+        console.error(&#34;  • The Key Vault or secret does not exist&#34;);
+        console.error(&#34;  • The Key Vault name is incorrect&#34;);
+        console.error(&#34;  • The secret name is incorrect&#34;);
+      } else if (error.message.includes(&#34;Forbidden&#34;) || error.message.includes(&#34;403&#34;)) {
+        console.error(&#34;\nPossible causes:&#34;);
+        console.error(&#34;  • The authenticated identity lacks Key Vault permissions&#34;);
+        console.error(&#34;  • Add &#39;Key Vault Secrets User&#39; role to your identity&#34;);
+        console.error(&#34;  • Or set an access policy in the Key Vault&#34;);
+      }
+      
+      if (error.stack) {
+        console.error(&#34;\nStack trace:&#34;);
+        console.error(error.stack);
+      }
+    } else {
+      console.error(&#34;Unknown error:&#34;, error);
+    }
+    
+    console.error(&#34;=&#34; .repeat(50));
+    process.exit(1);
+  }
+}
+
+/**
+ * Type guard to check if an error is an AuthenticationError
+ * Since @azure/identity doesn&#39;t export AuthenticationError directly,
+ * we check for the error name and common properties
+ */
+function isAuthenticationError(error: unknown): error is AuthenticationError {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+  
+  // Check for authentication-related error names and messages
+  const authErrorNames = [
+    &#34;AuthenticationError&#34;,
+    &#34;CredentialUnavailableError&#34;,
+    &#34;AuthenticationRequiredError&#34;
+  ];
+  
+  const isAuthErrorName = authErrorNames.some(name =&gt; 
+    error.name === name || error.constructor.name === name
+  );
+  
+  const isAuthErrorMessage = 
+    error.message.includes(&#34;authentication&#34;) ||
+    error.message.includes(&#34;credential&#34;) ||
+    error.message.includes(&#34;No valid credential&#34;) ||
+    error.message.includes(&#34;DefaultAzureCredential failed&#34;);
+  
+  return isAuthErrorName || isAuthErrorMessage;
+}
+
+// Run the main function
+main().catch((error) =&gt; {
+  console.error(&#34;Unhandled error in main:&#34;, error);
+  process.exit(1);
+});
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2022&#34;,
+    &#34;module&#34;: &#34;ES2022&#34;,
+    &#34;lib&#34;: [&#34;ES2022&#34;],
+    &#34;moduleResolution&#34;: &#34;node&#34;,
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./src&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;declaration&#34;: true,
+    &#34;declarationMap&#34;: true,
+    &#34;sourceMap&#34;: true
+  },
+  &#34;include&#34;: [&#34;src/**/*&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;dist&#34;]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">55 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (55 actions, 17 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>55</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>17</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>12</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">16</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">1</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id identity-dp-js-ts-default-credential --config azure-mcp/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

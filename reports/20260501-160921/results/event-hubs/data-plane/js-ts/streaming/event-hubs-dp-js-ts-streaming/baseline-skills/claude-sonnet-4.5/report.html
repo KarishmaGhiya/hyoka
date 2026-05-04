@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: event-hubs-dp-js-ts-streaming / baseline-skills/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 event-hubs-dp-js-ts-streaming</h1>
+  <div class="subtitle">Config: <strong>baseline-skills/claude-sonnet-4.5</strong> · 2026-05-01T23:09:21Z</div>
+</div>
+
+
+
+
+<div class="result-banner pass">
+  <span class="verdict">✅ PASSED</span>
+  
+  <span class="meta-item">Duration: <strong>116.0s</strong></span>
+  <span class="meta-item">Files: <strong>4</strong></span>
+  <span class="meta-item">Tool Calls: <strong>8</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer send and receive events using Azure Event Hubs with the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>event-hubs</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>streaming</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/event-hubs</code></td></tr>
+      <tr><td>Tags</td><td>event-hubs, streaming, producer, consumer</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=55133 out=4588</td></tr>
+    <tr><td>Turn Count</td><td>3</td></tr>
+    
+    <tr><td>Generation Duration</td><td>64.1s</td></tr>
+    <tr><td>Review Duration</td><td>51.8s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>skill: azure-sdk</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program
+that demonstrates sending and receiving events with Azure Event Hubs:
+1. Create an EventHubProducerClient using a connection string
+2. Create a batch with createBatch() and add 10 events with custom properties
+3. Send the batch using sendBatch()
+4. Create an EventHubConsumerClient with a BlobCheckpointStore
+5. Subscribe to events using subscribe() with processEvents and processError handlers
+6. Print received event bodies and update checkpoints
+7. Implement graceful shutdown with close()
+
+Show required npm packages (@azure/event-hubs and
+@azure/eventhubs-checkpointstore-blob) and proper async/await patterns.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll help you create a TypeScript program for Azure Event Hubs. Let me first consult the Azure SDK skill to ensure I follow the latest patterns and best practices.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user is asking me to write a TypeScript program that demonstrates Azure Even…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user is asking me to write a TypeScript program that demonstrates Azure Event Hubs functionality. This is a perfect use case for the Azure SDK skills I have available.
+
+Before writing any code, I should:
+1. Invoke the relevant skill to get SDK-specific patterns and guidance
+2. Read the skill&#39;s reference files (acceptance-criteria.md, examples.md)
+3. Then write the TypeScript program following the patterns
+
+Let me start by invoking the Azure SDK skill.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Consulting Azure SDK skill&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">📚</div>
+      <div class="tl-card tl-card-skill">
+        <div class="tl-title">
+          <span>5.</span>
+          Skill invoked: azure-sdk
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>6.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a comprehensive TypeScript program demonstrating Azure Event Hubs with proper patterns and best practices.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Event Hubs demo&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { \n  EventHubProducerClient, \n  EventHubConsumerClient, \n  SubscriptionEventHandlers,\n  Subscription\n} from \&#34;@azure/event-hubs\&#34;;\nimport { BlobCheckpointStore } from \&#34;@azure/eventhubs-checkpointstore-blob\&#34;;\nimport { ContainerClient } from \&#34;@azure/storage-blob\&#34;;\n\n// Configuration - replace with your actual values\nconst eventHubConnectionString = process.env.EVENT_HUB_CONNECTION_STRING || \&#34;\&#34;;\nconst eventHubName = process.env.EVENT_HUB_NAME || \&#34;\&#34;;\nconst storageConnectionString = process.env.STORAGE_CONNECTION_STRING || \&#34;\&#34;;\nconst containerName = process.env.STORAGE_CONTAINER_NAME || \&#34;eventhubs-checkpoints\&#34;;\nconst consumerGroup = process.env.CONSUMER_GROUP || \&#34;$Default\&#34;;\n\nasync function sendEvents(): Promise\u003cvoid\u003e {\n  console.log(\&#34;=== Sending Events ===\&#34;);\n  \n  // 1. Create an EventHubProducerClient using a connection string\n  const producer = new EventHubProducerClient(\n    eventHubConnectionString,\n    eventHubName\n  );\n\n  try {\n    // 2. Create a batch with createBatch() and add 10 events with custom properties\n    const batch = await producer.createBatch();\n    \n    for (let i = 1; i \u003c= 10; i&#43;&#43;) {\n      const eventData = {\n        body: `Event message ${i}`,\n        properties: {\n          eventNumber: i,\n          timestamp: new Date().toISOString(),\n          source: \&#34;demo-app\&#34;,\n          priority: i % 3 === 0 ? \&#34;high\&#34; : \&#34;normal\&#34;\n        }\n      };\n\n      const wasAdded = batch.tryAdd(eventData);\n      \n      if (!wasAdded) {\n        console.log(`Event ${i} could not be added to the batch (batch full)`);\n        break;\n      }\n      \n      console.log(`Added event ${i} to batch`);\n    }\n\n    // 3. Send the batch using sendBatch()\n    console.log(`\\nSending batch of ${batch.count} events...`);\n    await producer.sendBatch(batch);\n    console.log(`Successfully sent ${batch.count} events\\n`);\n    \n  } catch (error) {\n    console.error(\&#34;Error sending events:\&#34;, error);\n    throw error;\n  } finally {\n    // 7. Implement graceful shutdown with close()\n    await producer.close();\n    console.log(\&#34;Producer closed\&#34;);\n  }\n}\n\nasync function receiveEvents(): Promise\u003cvoid\u003e {\n  console.log(\&#34;\\n=== Receiving Events ===\&#34;);\n  \n  // 4. Create an EventHubConsumerClient with a BlobCheckpointStore\n  const containerClient = new ContainerClient(\n    storageConnectionString,\n    containerName\n  );\n  \n  // Create the container if it doesn&#39;t exist\n  await containerClient.createIfNotExists();\n  \n  const checkpointStore = new BlobCheckpointStore(containerClient);\n  \n  const consumer = new EventHubConsumerClient(\n    consumerGroup,\n    eventHubConnectionString,\n    eventHubName,\n    checkpointStore\n  );\n\n  let subscription: Subscription | undefined;\n  let receivedCount = 0;\n  const maxEventsToReceive = 10;\n\n  try {\n    // 5. Subscribe to events using subscribe() with processEvents and processError handlers\n    const handlers: SubscriptionEventHandlers = {\n      // 6. Print received event bodies and update checkpoints\n      processEvents: async (events, context) =\u003e {\n        if (events.length === 0) {\n          console.log(\&#34;No events received in this batch\&#34;);\n          return;\n        }\n\n        console.log(`\\nReceived ${events.length} events from partition: ${context.partitionId}`);\n        \n        for (const event of events) {\n          receivedCount&#43;&#43;;\n          \n          // Print received event bodies\n          console.log(`\\n--- Event ${receivedCount} ---`);\n          console.log(`Body: ${event.body}`);\n          console.log(`Properties:`, event.properties);\n          console.log(`Sequence Number: ${event.sequenceNumber}`);\n          console.log(`Offset: ${event.offset}`);\n          console.log(`Enqueued Time: ${event.enqueuedTimeUtc}`);\n          \n          // Update checkpoint after processing each event\n          await context.updateCheckpoint(event);\n          console.log(`Checkpoint updated for partition ${context.partitionId}`);\n        }\n\n        // Stop after receiving the target number of events\n        if (receivedCount \u003e= maxEventsToReceive) {\n          console.log(`\\nReceived ${receivedCount} events, stopping subscription...`);\n          await subscription?.close();\n        }\n      },\n\n      processError: async (error, context) =\u003e {\n        console.error(`Error in partition ${context.partitionId}:`, error);\n      }\n    };\n\n    // Subscribe to all partitions\n    subscription = consumer.subscribe(handlers, {\n      startPosition: { enqueuedOn: new Date() } // Start from now\n    });\n\n    console.log(\&#34;Subscription started. Waiting for events...\&#34;);\n    console.log(\&#34;(Will process up to 10 events)\\n\&#34;);\n\n    // Wait for events to be processed (with timeout)\n    const maxWaitTime = 60000; // 60 seconds\n    const startTime = Date.now();\n    \n    while (!subscription.isClosed \u0026\u0026 (Date.now() - startTime) \u003c maxWaitTime) {\n      await new Promise(resolve =\u003e setTimeout(resolve, 1000));\n      \n      if (receivedCount \u003e= maxEventsToReceive) {\n        break;\n      }\n    }\n\n    if (receivedCount === 0) {\n      console.log(\&#34;\\nNo events received within the timeout period.\&#34;);\n      console.log(\&#34;This is normal if no events were sent recently.\&#34;);\n    }\n\n  } catch (error) {\n    console.error(\&#34;Error receiving events:\&#34;, error);\n    throw error;\n  } finally {\n    // 7. Implement graceful shutdown with close()\n    if (subscription \u0026\u0026 !subscription.isClosed) {\n      await subscription.close();\n      console.log(\&#34;\\nSubscription closed\&#34;);\n    }\n    \n    await consumer.close();\n    console.log(\&#34;Consumer closed\&#34;);\n  }\n}\n\nasync function main(): Promise\u003cvoid\u003e {\n  console.log(\&#34;Azure Event Hubs Demo - TypeScript\\n\&#34;);\n  \n  // Validate environment variables\n  if (!eventHubConnectionString || !eventHubName || !storageConnectionString) {\n    console.error(\&#34;ERROR: Missing required environment variables:\&#34;);\n    console.error(\&#34;- EVENT_HUB_CONNECTION_STRING\&#34;);\n    console.error(\&#34;- EVENT_HUB_NAME\&#34;);\n    console.error(\&#34;- STORAGE_CONNECTION_STRING\&#34;);\n    console.error(\&#34;- STORAGE_CONTAINER_NAME (optional, defaults to &#39;eventhubs-checkpoints&#39;)\&#34;);\n    console.error(\&#34;- CONSUMER_GROUP (optional, defaults to &#39;$Default&#39;)\&#34;);\n    process.exit(1);\n  }\n\n  try {\n    // Send events first\n    await sendEvents();\n    \n    // Wait a moment for events to be available\n    console.log(\&#34;\\nWaiting 5 seconds before starting consumer...\&#34;);\n    await new Promise(resolve =\u003e setTimeout(resolve, 5000));\n    \n    // Then receive events\n    await receiveEvents();\n    \n    console.log(\&#34;\\n=== Demo completed successfully ===\&#34;);\n  } catch (error) {\n    console.error(\&#34;\\nDemo failed with error:\&#34;, error);\n    process.exit(1);\n  }\n}\n\n// Run the demo\nmain().catch((error) =\u003e {\n  console.error(\&#34;Unhandled error:\&#34;, error);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-skills-claude-sonnet-4.5-2045460673\\event-hubs-demo.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;event-hubs-demo\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Event Hubs TypeScript demo with producer and consumer\&#34;,\n  \&#34;main\&#34;: \&#34;event-hubs-demo.ts\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/event-hubs-demo.js\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node event-hubs-demo.ts\&#34;\n  },\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/event-hubs\&#34;: \&#34;^5.12.0\&#34;,\n    \&#34;@azure/eventhubs-checkpointstore-blob\&#34;: \&#34;^1.1.0\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.24.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.14.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.5.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.2\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-skills-claude-sonnet-4.5-2045460673\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;,\n    \&#34;resolveJsonModule\&#34;: true\n  },\n  \&#34;include\&#34;: [\&#34;*.ts\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;, \&#34;dist\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-skills-claude-sonnet-4.5-2045460673\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Event Hubs Configuration\nEVENT_HUB_CONNECTION_STRING=Endpoint=sb://YOUR_NAMESPACE.servicebus.windows.net/;SharedAccessKeyName=YOUR_KEY_NAME;SharedAccessKey=YOUR_KEY\nEVENT_HUB_NAME=your-eventhub-name\n\n# Azure Storage Account Configuration (for checkpointing)\nSTORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=YOUR_STORAGE_ACCOUNT;AccountKey=YOUR_KEY;EndpointSuffix=core.windows.net\nSTORAGE_CONTAINER_NAME=eventhubs-checkpoints\n\n# Consumer Group (optional)\nCONSUMER_GROUP=$Default\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-skills-claude-sonnet-4.5-2045460673\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Event Hubs TypeScript Demo\n\nThis demo shows how to send and receive events with Azure Event Hubs using TypeScript.\n\n## Features\n\n1. **EventHubProducerClient** - Send events to Event Hubs\n2. **Batch Processing** - Create and send batches of events with custom properties\n3. **EventHubConsumerClient** - Receive events from Event Hubs\n4. **Checkpoint Store** - Use BlobCheckpointStore for reliable event processing\n5. **Event Handlers** - Process events and handle errors\n6. **Graceful Shutdown** - Properly close connections\n\n## Prerequisites\n\n- Node.js 14&#43; and npm\n- Azure subscription\n- Azure Event Hubs namespace and Event Hub\n- Azure Storage Account (for checkpointing)\n\n## Required npm Packages\n\n```bash\nnpm install\n```\n\nThis installs:\n- `@azure/event-hubs` - Azure Event Hubs client library\n- `@azure/eventhubs-checkpointstore-blob` - Blob storage checkpoint store\n- `@azure/storage-blob` - Azure Blob Storage client\n\n## Setup\n\n1. Copy `.env.example` to `.env`:\n   ```bash\n   cp .env.example .env\n   ```\n\n2. Fill in your Azure credentials in `.env`:\n   - `EVENT_HUB_CONNECTION_STRING` - Your Event Hubs connection string\n   - `EVENT_HUB_NAME` - Name of your Event Hub\n   - `STORAGE_CONNECTION_STRING` - Storage account connection string\n   - `STORAGE_CONTAINER_NAME` - Container for checkpoints (default: eventhubs-checkpoints)\n   - `CONSUMER_GROUP` - Consumer group name (default: $Default)\n\n## Running the Demo\n\n### Using ts-node (development):\n```bash\nnpm run dev\n```\n\n### Using compiled JavaScript:\n```bash\nnpm run build\nnpm start\n```\n\n## What the Demo Does\n\n1. **Sends 10 events** with custom properties:\n   - Event number\n   - Timestamp\n   - Source application\n   - Priority level\n\n2. **Creates a consumer** with blob checkpoint store\n\n3. **Subscribes to events** with handlers for:\n   - Processing events (prints body, properties, metadata)\n   - Error handling\n   - Checkpoint updates\n\n4. **Gracefully shuts down** all connections\n\n## Key Concepts\n\n### Producer Pattern\n```typescript\nconst producer = new EventHubProducerClient(connectionString, eventHubName);\nconst batch = await producer.createBatch();\nbatch.tryAdd(eventData);\nawait producer.sendBatch(batch);\nawait producer.close();\n```\n\n### Consumer Pattern with Checkpointing\n```typescript\nconst checkpointStore = new BlobCheckpointStore(containerClient);\nconst consumer = new EventHubConsumerClient(\n  consumerGroup, \n  connectionString, \n  eventHubName, \n  checkpointStore\n);\n\nconst subscription = consumer.subscribe({\n  processEvents: async (events, context) =\u003e {\n    for (const event of events) {\n      // Process event\n      await context.updateCheckpoint(event);\n    }\n  },\n  processError: async (error, context) =\u003e {\n    console.error(error);\n  }\n});\n\nawait subscription.close();\nawait consumer.close();\n```\n\n## Output Example\n\n```\n=== Sending Events ===\nAdded event 1 to batch\nAdded event 2 to batch\n...\nSuccessfully sent 10 events\n\n=== Receiving Events ===\nSubscription started. Waiting for events...\n\nReceived 1 events from partition: 0\n\n--- Event 1 ---\nBody: Event message 1\nProperties: { eventNumber: 1, timestamp: &#39;2026-05-01T...&#39; }\nCheckpoint updated for partition 0\n...\n```\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-skills-claude-sonnet-4.5-2045460673\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>13.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! I&#39;ve created a complete TypeScript program demonstrating Azure Event Hubs. Here&#39;s what I&#39;ve included:
+
+## 📦 Files Created
+
+1. **event-hubs-demo.ts** - Main program with all requested features
+2. **package.json** - Dependencies and scripts
+3. **tsconfig.json** - TypeScript configuration
+4. **.env.example** - Configuration template
+5. **README.md** - Complete documentation
+
+## ✨ Key Features Implemented
+
+✅ **EventHubProducerClient** with connection string  
+✅ **Batch creation** with `createBatch()` and 10 events with custom properties  
+✅ **Batch sending** with `sendBatch()`  
+✅ **EventHubConsumerClient** with BlobCheckpointStore  
+✅ **Event subscription** with processEvents and processError handlers  
+✅ **Event body printing** and checkpoint updates  
+✅ **Graceful shutdown** with `close()` on all clients  
+
+## 🚀 Quick Start
+
+```bash
+npm install
+cp .env.example .env
+# Edit .env with your Azure credentials
+npm run dev
+```
+
+## 💡 Highlights
+
+- **Proper async/await patterns** throughout
+- **Error handling** with try/catch and error handlers
+- **Custom properties** on each event (number, timestamp, source, priority)
+- **Checkpoint updates** after processing each event
+- **Automatic container creation** for checkpoint store
+- **Configurable timeout** and event limits
+- **Environment variable validation**
+
+The program sends 10 events with custom properties, then receives and processes them with full checkpoint management!</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>14.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (4)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">2 .json, 1 .md, 1 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> README.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Event Hubs TypeScript Demo
+
+This demo shows how to send and receive events with Azure Event Hubs using TypeScript.
+
+## Features
+
+1. **EventHubProducerClient** - Send events to Event Hubs
+2. **Batch Processing** - Create and send batches of events with custom properties
+3. **EventHubConsumerClient** - Receive events from Event Hubs
+4. **Checkpoint Store** - Use BlobCheckpointStore for reliable event processing
+5. **Event Handlers** - Process events and handle errors
+6. **Graceful Shutdown** - Properly close connections
+
+## Prerequisites
+
+- Node.js 14&#43; and npm
+- Azure subscription
+- Azure Event Hubs namespace and Event Hub
+- Azure Storage Account (for checkpointing)
+
+## Required npm Packages
+
+```bash
+npm install
+```
+
+This installs:
+- `@azure/event-hubs` - Azure Event Hubs client library
+- `@azure/eventhubs-checkpointstore-blob` - Blob storage checkpoint store
+- `@azure/storage-blob` - Azure Blob Storage client
+
+## Setup
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in your Azure credentials in `.env`:
+   - `EVENT_HUB_CONNECTION_STRING` - Your Event Hubs connection string
+   - `EVENT_HUB_NAME` - Name of your Event Hub
+   - `STORAGE_CONNECTION_STRING` - Storage account connection string
+   - `STORAGE_CONTAINER_NAME` - Container for checkpoints (default: eventhubs-checkpoints)
+   - `CONSUMER_GROUP` - Consumer group name (default: $Default)
+
+## Running the Demo
+
+### Using ts-node (development):
+```bash
+npm run dev
+```
+
+### Using compiled JavaScript:
+```bash
+npm run build
+npm start
+```
+
+## What the Demo Does
+
+1. **Sends 10 events** with custom properties:
+   - Event number
+   - Timestamp
+   - Source application
+   - Priority level
+
+2. **Creates a consumer** with blob checkpoint store
+
+3. **Subscribes to events** with handlers for:
+   - Processing events (prints body, properties, metadata)
+   - Error handling
+   - Checkpoint updates
+
+4. **Gracefully shuts down** all connections
+
+## Key Concepts
+
+### Producer Pattern
+```typescript
+const producer = new EventHubProducerClient(connectionString, eventHubName);
+const batch = await producer.createBatch();
+batch.tryAdd(eventData);
+await producer.sendBatch(batch);
+await producer.close();
+```
+
+### Consumer Pattern with Checkpointing
+```typescript
+const checkpointStore = new BlobCheckpointStore(containerClient);
+const consumer = new EventHubConsumerClient(
+  consumerGroup, 
+  connectionString, 
+  eventHubName, 
+  checkpointStore
+);
+
+const subscription = consumer.subscribe({
+  processEvents: async (events, context) =&gt; {
+    for (const event of events) {
+      // Process event
+      await context.updateCheckpoint(event);
+    }
+  },
+  processError: async (error, context) =&gt; {
+    console.error(error);
+  }
+});
+
+await subscription.close();
+await consumer.close();
+```
+
+## Output Example
+
+```
+=== Sending Events ===
+Added event 1 to batch
+Added event 2 to batch
+...
+Successfully sent 10 events
+
+=== Receiving Events ===
+Subscription started. Waiting for events...
+
+Received 1 events from partition: 0
+
+--- Event 1 ---
+Body: Event message 1
+Properties: { eventNumber: 1, timestamp: &#39;2026-05-01T...&#39; }
+Checkpoint updated for partition 0
+...
+```
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> event-hubs-demo.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { 
+  EventHubProducerClient, 
+  EventHubConsumerClient, 
+  SubscriptionEventHandlers,
+  Subscription
+} from &#34;@azure/event-hubs&#34;;
+import { BlobCheckpointStore } from &#34;@azure/eventhubs-checkpointstore-blob&#34;;
+import { ContainerClient } from &#34;@azure/storage-blob&#34;;
+
+// Configuration - replace with your actual values
+const eventHubConnectionString = process.env.EVENT_HUB_CONNECTION_STRING || &#34;&#34;;
+const eventHubName = process.env.EVENT_HUB_NAME || &#34;&#34;;
+const storageConnectionString = process.env.STORAGE_CONNECTION_STRING || &#34;&#34;;
+const containerName = process.env.STORAGE_CONTAINER_NAME || &#34;eventhubs-checkpoints&#34;;
+const consumerGroup = process.env.CONSUMER_GROUP || &#34;$Default&#34;;
+
+async function sendEvents(): Promise&lt;void&gt; {
+  console.log(&#34;=== Sending Events ===&#34;);
+  
+  // 1. Create an EventHubProducerClient using a connection string
+  const producer = new EventHubProducerClient(
+    eventHubConnectionString,
+    eventHubName
+  );
+
+  try {
+    // 2. Create a batch with createBatch() and add 10 events with custom properties
+    const batch = await producer.createBatch();
+    
+    for (let i = 1; i &lt;= 10; i&#43;&#43;) {
+      const eventData = {
+        body: `Event message ${i}`,
+        properties: {
+          eventNumber: i,
+          timestamp: new Date().toISOString(),
+          source: &#34;demo-app&#34;,
+          priority: i % 3 === 0 ? &#34;high&#34; : &#34;normal&#34;
+        }
+      };
+
+      const wasAdded = batch.tryAdd(eventData);
+      
+      if (!wasAdded) {
+        console.log(`Event ${i} could not be added to the batch (batch full)`);
+        break;
+      }
+      
+      console.log(`Added event ${i} to batch`);
+    }
+
+    // 3. Send the batch using sendBatch()
+    console.log(`\nSending batch of ${batch.count} events...`);
+    await producer.sendBatch(batch);
+    console.log(`Successfully sent ${batch.count} events\n`);
+    
+  } catch (error) {
+    console.error(&#34;Error sending events:&#34;, error);
+    throw error;
+  } finally {
+    // 7. Implement graceful shutdown with close()
+    await producer.close();
+    console.log(&#34;Producer closed&#34;);
+  }
+}
+
+async function receiveEvents(): Promise&lt;void&gt; {
+  console.log(&#34;\n=== Receiving Events ===&#34;);
+  
+  // 4. Create an EventHubConsumerClient with a BlobCheckpointStore
+  const containerClient = new ContainerClient(
+    storageConnectionString,
+    containerName
+  );
+  
+  // Create the container if it doesn&#39;t exist
+  await containerClient.createIfNotExists();
+  
+  const checkpointStore = new BlobCheckpointStore(containerClient);
+  
+  const consumer = new EventHubConsumerClient(
+    consumerGroup,
+    eventHubConnectionString,
+    eventHubName,
+    checkpointStore
+  );
+
+  let subscription: Subscription | undefined;
+  let receivedCount = 0;
+  const maxEventsToReceive = 10;
+
+  try {
+    // 5. Subscribe to events using subscribe() with processEvents and processError handlers
+    const handlers: SubscriptionEventHandlers = {
+      // 6. Print received event bodies and update checkpoints
+      processEvents: async (events, context) =&gt; {
+        if (events.length === 0) {
+          console.log(&#34;No events received in this batch&#34;);
+          return;
+        }
+
+        console.log(`\nReceived ${events.length} events from partition: ${context.partitionId}`);
+        
+        for (const event of events) {
+          receivedCount&#43;&#43;;
+          
+          // Print received event bodies
+          console.log(`\n--- Event ${receivedCount} ---`);
+          console.log(`Body: ${event.body}`);
+          console.log(`Properties:`, event.properties);
+          console.log(`Sequence Number: ${event.sequenceNumber}`);
+          console.log(`Offset: ${event.offset}`);
+          console.log(`Enqueued Time: ${event.enqueuedTimeUtc}`);
+          
+          // Update checkpoint after processing each event
+          await context.updateCheckpoint(event);
+          console.log(`Checkpoint updated for partition ${context.partitionId}`);
+        }
+
+        // Stop after receiving the target number of events
+        if (receivedCount &gt;= maxEventsToReceive) {
+          console.log(`\nReceived ${receivedCount} events, stopping subscription...`);
+          await subscription?.close();
+        }
+      },
+
+      processError: async (error, context) =&gt; {
+        console.error(`Error in partition ${context.partitionId}:`, error);
+      }
+    };
+
+    // Subscribe to all partitions
+    subscription = consumer.subscribe(handlers, {
+      startPosition: { enqueuedOn: new Date() } // Start from now
+    });
+
+    console.log(&#34;Subscription started. Waiting for events...&#34;);
+    console.log(&#34;(Will process up to 10 events)\n&#34;);
+
+    // Wait for events to be processed (with timeout)
+    const maxWaitTime = 60000; // 60 seconds
+    const startTime = Date.now();
+    
+    while (!subscription.isClosed &amp;&amp; (Date.now() - startTime) &lt; maxWaitTime) {
+      await new Promise(resolve =&gt; setTimeout(resolve, 1000));
+      
+      if (receivedCount &gt;= maxEventsToReceive) {
+        break;
+      }
+    }
+
+    if (receivedCount === 0) {
+      console.log(&#34;\nNo events received within the timeout period.&#34;);
+      console.log(&#34;This is normal if no events were sent recently.&#34;);
+    }
+
+  } catch (error) {
+    console.error(&#34;Error receiving events:&#34;, error);
+    throw error;
+  } finally {
+    // 7. Implement graceful shutdown with close()
+    if (subscription &amp;&amp; !subscription.isClosed) {
+      await subscription.close();
+      console.log(&#34;\nSubscription closed&#34;);
+    }
+    
+    await consumer.close();
+    console.log(&#34;Consumer closed&#34;);
+  }
+}
+
+async function main(): Promise&lt;void&gt; {
+  console.log(&#34;Azure Event Hubs Demo - TypeScript\n&#34;);
+  
+  // Validate environment variables
+  if (!eventHubConnectionString || !eventHubName || !storageConnectionString) {
+    console.error(&#34;ERROR: Missing required environment variables:&#34;);
+    console.error(&#34;- EVENT_HUB_CONNECTION_STRING&#34;);
+    console.error(&#34;- EVENT_HUB_NAME&#34;);
+    console.error(&#34;- STORAGE_CONNECTION_STRING&#34;);
+    console.error(&#34;- STORAGE_CONTAINER_NAME (optional, defaults to &#39;eventhubs-checkpoints&#39;)&#34;);
+    console.error(&#34;- CONSUMER_GROUP (optional, defaults to &#39;$Default&#39;)&#34;);
+    process.exit(1);
+  }
+
+  try {
+    // Send events first
+    await sendEvents();
+    
+    // Wait a moment for events to be available
+    console.log(&#34;\nWaiting 5 seconds before starting consumer...&#34;);
+    await new Promise(resolve =&gt; setTimeout(resolve, 5000));
+    
+    // Then receive events
+    await receiveEvents();
+    
+    console.log(&#34;\n=== Demo completed successfully ===&#34;);
+  } catch (error) {
+    console.error(&#34;\nDemo failed with error:&#34;, error);
+    process.exit(1);
+  }
+}
+
+// Run the demo
+main().catch((error) =&gt; {
+  console.error(&#34;Unhandled error:&#34;, error);
+  process.exit(1);
+});
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;event-hubs-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Azure Event Hubs TypeScript demo with producer and consumer&#34;,
+  &#34;main&#34;: &#34;event-hubs-demo.ts&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/event-hubs-demo.js&#34;,
+    &#34;dev&#34;: &#34;ts-node event-hubs-demo.ts&#34;
+  },
+  &#34;dependencies&#34;: {
+    &#34;@azure/event-hubs&#34;: &#34;^5.12.0&#34;,
+    &#34;@azure/eventhubs-checkpointstore-blob&#34;: &#34;^1.1.0&#34;,
+    &#34;@azure/storage-blob&#34;: &#34;^12.24.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.14.0&#34;,
+    &#34;typescript&#34;: &#34;^5.5.0&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.2&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2020&#34;],
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;moduleResolution&#34;: &#34;node&#34;,
+    &#34;resolveJsonModule&#34;: true
+  },
+  &#34;include&#34;: [&#34;*.ts&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;dist&#34;]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">18 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (18 actions, 8 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>18</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>8</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>3</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">7</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">1</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id event-hubs-dp-js-ts-streaming --config baseline-skills/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

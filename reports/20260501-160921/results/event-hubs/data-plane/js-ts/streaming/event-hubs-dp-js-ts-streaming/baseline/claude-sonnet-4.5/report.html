@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: event-hubs-dp-js-ts-streaming / baseline/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 event-hubs-dp-js-ts-streaming</h1>
+  <div class="subtitle">Config: <strong>baseline/claude-sonnet-4.5</strong> · 2026-05-01T23:09:21Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#f97316">17/23</strong></span>
+  <span class="meta-item">Duration: <strong>124.9s</strong></span>
+  <span class="meta-item">Files: <strong>4</strong></span>
+  <span class="meta-item">Tool Calls: <strong>6</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer send and receive events using Azure Event Hubs with the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>event-hubs</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>streaming</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/event-hubs</code></td></tr>
+      <tr><td>Tags</td><td>event-hubs, streaming, producer, consumer</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=38497 out=5241</td></tr>
+    <tr><td>Turn Count</td><td>2</td></tr>
+    
+    <tr><td>Generation Duration</td><td>71.3s</td></tr>
+    <tr><td>Review Duration</td><td>53.5s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program
+that demonstrates sending and receiving events with Azure Event Hubs:
+1. Create an EventHubProducerClient using a connection string
+2. Create a batch with createBatch() and add 10 events with custom properties
+3. Send the batch using sendBatch()
+4. Create an EventHubConsumerClient with a BlobCheckpointStore
+5. Subscribe to events using subscribe() with processEvents and processError handlers
+6. Print received event bodies and update checkpoints
+7. Implement graceful shutdown with close()
+
+Show required npm packages (@azure/event-hubs and
+@azure/eventhubs-checkpointstore-blob) and proper async/await patterns.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a comprehensive TypeScript program demonstrating Azure Event Hubs with proper sending and receiving patterns.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants me to write a TypeScript program that demonstrates sending and re…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants me to write a TypeScript program that demonstrates sending and receiving events with Azure Event Hubs. This involves:
+1. Creating an EventHubProducerClient
+2. Creating and sending batches of events
+3. Creating an EventHubConsumerClient with checkpoint store
+4. Subscribing to events
+5. Graceful shutdown
+
+I need to:
+- Create a TypeScript file with the complete example
+- Include proper npm package information
+- Show proper async/await patterns
+- Include error handling and graceful shutdown
+
+Let me create a comprehensive example that demonstrates all these features.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Event Hubs demo&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import {\n  EventHubProducerClient,\n  EventHubConsumerClient,\n  ReceivedEventData,\n  Subscription,\n} from \&#34;@azure/event-hubs\&#34;;\nimport { ContainerClient } from \&#34;@azure/storage-blob\&#34;;\nimport { BlobCheckpointStore } from \&#34;@azure/eventhubs-checkpointstore-blob\&#34;;\n\n/**\n * Azure Event Hubs Demo - TypeScript\n * Demonstrates sending and receiving events with checkpointing\n */\n\n// Configuration - Replace with your actual connection strings\nconst eventHubConnectionString = process.env.EVENT_HUB_CONNECTION_STRING || \&#34;Endpoint=sb://YOUR_NAMESPACE.servicebus.windows.net/;SharedAccessKeyName=YOUR_KEY_NAME;SharedAccessKey=YOUR_KEY\&#34;;\nconst eventHubName = process.env.EVENT_HUB_NAME || \&#34;YOUR_EVENT_HUB_NAME\&#34;;\nconst storageConnectionString = process.env.STORAGE_CONNECTION_STRING || \&#34;DefaultEndpointsProtocol=https;AccountName=YOUR_ACCOUNT;AccountKey=YOUR_KEY;EndpointSuffix=core.windows.net\&#34;;\nconst storageContainerName = process.env.STORAGE_CONTAINER_NAME || \&#34;eventhub-checkpoints\&#34;;\n\n// Consumer group - use \&#34;$Default\&#34; or create a custom consumer group\nconst consumerGroup = process.env.CONSUMER_GROUP || \&#34;$Default\&#34;;\n\n/**\n * Send events to Event Hub\n */\nasync function sendEvents(): Promise\u003cvoid\u003e {\n  console.log(\&#34;=== Starting Event Producer ===\\n\&#34;);\n\n  // Create producer client using connection string\n  const producer = new EventHubProducerClient(\n    eventHubConnectionString,\n    eventHubName\n  );\n\n  try {\n    // Create a batch - this allows efficient batching of multiple events\n    const batch = await producer.createBatch();\n    console.log(\&#34;Created event batch\\n\&#34;);\n\n    // Add 10 events with custom properties to the batch\n    for (let i = 1; i \u003c= 10; i&#43;&#43;) {\n      const eventData = {\n        body: {\n          message: `Event message ${i}`,\n          timestamp: new Date().toISOString(),\n          sequenceNumber: i,\n        },\n        properties: {\n          customProperty: `CustomValue${i}`,\n          priority: i % 3 === 0 ? \&#34;high\&#34; : \&#34;normal\&#34;,\n          category: `Category${(i % 3) &#43; 1}`,\n        },\n      };\n\n      // Try to add the event to the batch\n      const isAdded = batch.tryAdd(eventData);\n\n      if (!isAdded) {\n        console.warn(`Event ${i} could not fit in the batch. Send current batch and create a new one.`);\n        // In production, you would send the current batch and create a new one\n        break;\n      }\n\n      console.log(`Added event ${i} to batch`);\n    }\n\n    // Send the batch to Event Hub\n    console.log(`\\nSending batch with ${batch.count} events...`);\n    await producer.sendBatch(batch);\n    console.log(\&#34;✓ Batch sent successfully!\\n\&#34;);\n\n  } catch (error) {\n    console.error(\&#34;Error sending events:\&#34;, error);\n    throw error;\n  } finally {\n    // Close the producer client\n    await producer.close();\n    console.log(\&#34;Producer client closed\\n\&#34;);\n  }\n}\n\n/**\n * Receive events from Event Hub with checkpointing\n */\nasync function receiveEvents(): Promise\u003cSubscription\u003e {\n  console.log(\&#34;=== Starting Event Consumer ===\\n\&#34;);\n\n  // Create a blob container client for checkpoint store\n  const containerClient = new ContainerClient(\n    storageConnectionString,\n    storageContainerName\n  );\n\n  // Create checkpoint store using Azure Blob Storage\n  const checkpointStore = new BlobCheckpointStore(containerClient);\n\n  // Create consumer client with checkpoint store\n  const consumer = new EventHubConsumerClient(\n    consumerGroup,\n    eventHubConnectionString,\n    eventHubName,\n    checkpointStore\n  );\n\n  console.log(\&#34;Consumer client created with BlobCheckpointStore\\n\&#34;);\n  console.log(\&#34;Starting to receive events...\\n\&#34;);\n\n  // Subscribe to events with processEvents and processError handlers\n  const subscription = consumer.subscribe({\n    // Process incoming events\n    processEvents: async (events: ReceivedEventData[], context) =\u003e {\n      if (events.length === 0) {\n        console.log(\&#34;No events received in this interval\&#34;);\n        return;\n      }\n\n      console.log(`\\n--- Received ${events.length} event(s) from partition: ${context.partitionId} ---`);\n\n      for (const event of events) {\n        // Print received event body\n        console.log(`\\nEvent Body:`, JSON.stringify(event.body, null, 2));\n        \n        // Print event properties\n        if (event.properties) {\n          console.log(\&#34;Custom Properties:\&#34;, event.properties);\n        }\n\n        // Print system properties\n        console.log(\&#34;System Properties:\&#34;, {\n          sequenceNumber: event.sequenceNumber,\n          offset: event.offset,\n          enqueuedTimeUtc: event.enqueuedTimeUtc,\n          partitionKey: event.partitionKey,\n        });\n      }\n\n      // Update checkpoint after processing events\n      // This ensures we don&#39;t reprocess events after a restart\n      try {\n        await context.updateCheckpoint(events[events.length - 1]);\n        console.log(`\\n✓ Checkpoint updated for partition ${context.partitionId}`);\n      } catch (error) {\n        console.error(\&#34;Error updating checkpoint:\&#34;, error);\n      }\n    },\n\n    // Handle errors during event processing\n    processError: async (error, context) =\u003e {\n      console.error(`\\n✗ Error on partition \&#34;${context.partitionId}\&#34;:`, error);\n    },\n  });\n\n  console.log(\&#34;Subscription active - listening for events...\\n\&#34;);\n  return subscription;\n}\n\n/**\n * Main execution function with graceful shutdown\n */\nasync function main(): Promise\u003cvoid\u003e {\n  let subscription: Subscription | null = null;\n\n  // Set up graceful shutdown handlers\n  const shutdown = async () =\u003e {\n    console.log(\&#34;\\n\\n=== Initiating Graceful Shutdown ===\&#34;);\n\n    try {\n      if (subscription) {\n        console.log(\&#34;Closing subscription...\&#34;);\n        await subscription.close();\n        console.log(\&#34;✓ Subscription closed\&#34;);\n      }\n      console.log(\&#34;✓ Shutdown complete\&#34;);\n      process.exit(0);\n    } catch (error) {\n      console.error(\&#34;Error during shutdown:\&#34;, error);\n      process.exit(1);\n    }\n  };\n\n  // Register shutdown handlers for different termination signals\n  process.on(\&#34;SIGINT\&#34;, shutdown);  // Ctrl&#43;C\n  process.on(\&#34;SIGTERM\&#34;, shutdown); // Termination signal\n\n  try {\n    // Step 1: Send events\n    await sendEvents();\n\n    // Wait a bit to ensure events are available\n    console.log(\&#34;Waiting 3 seconds before starting consumer...\\n\&#34;);\n    await new Promise(resolve =\u003e setTimeout(resolve, 3000));\n\n    // Step 2: Receive events\n    subscription = await receiveEvents();\n\n    // Keep the process running to receive events\n    // In production, you would typically run this until a shutdown signal\n    console.log(\&#34;Consumer running. Press Ctrl&#43;C to stop...\\n\&#34;);\n    \n    // For demo purposes, run for 30 seconds then shutdown\n    setTimeout(async () =\u003e {\n      console.log(\&#34;\\n--- Demo timeout reached (30s) ---\&#34;);\n      await shutdown();\n    }, 30000);\n\n  } catch (error) {\n    console.error(\&#34;Fatal error in main:\&#34;, error);\n    await shutdown();\n  }\n}\n\n// Run the demo\nif (require.main === module) {\n  main().catch((error) =\u003e {\n    console.error(\&#34;Unhandled error:\&#34;, error);\n    process.exit(1);\n  });\n}\n\nexport { sendEvents, receiveEvents };\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-claude-sonnet-4.5-2730198823\\event-hubs-demo.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-event-hubs-demo\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;TypeScript demo for Azure Event Hubs with checkpointing\&#34;,\n  \&#34;main\&#34;: \&#34;event-hubs-demo.ts\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;ts-node event-hubs-demo.ts\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node-dev --respawn event-hubs-demo.ts\&#34;\n  },\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/event-hubs\&#34;: \&#34;^5.12.0\&#34;,\n    \&#34;@azure/eventhubs-checkpointstore-blob\&#34;: \&#34;^1.0.1\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.17.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.11.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.2\&#34;,\n    \&#34;ts-node-dev\&#34;: \&#34;^2.0.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.3.3\&#34;\n  },\n  \&#34;engines\&#34;: {\n    \&#34;node\&#34;: \&#34;\u003e=14.0.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-claude-sonnet-4.5-2730198823\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;,\n    \&#34;allowSyntheticDefaultImports\&#34;: true\n  },\n  \&#34;include\&#34;: [\&#34;*.ts\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;, \&#34;dist\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-claude-sonnet-4.5-2730198823\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Event Hub Configuration\nEVENT_HUB_CONNECTION_STRING=Endpoint=sb://YOUR_NAMESPACE.servicebus.windows.net/;SharedAccessKeyName=YOUR_KEY_NAME;SharedAccessKey=YOUR_KEY\nEVENT_HUB_NAME=YOUR_EVENT_HUB_NAME\n\n# Azure Storage Account for Checkpointing\nSTORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=YOUR_ACCOUNT;AccountKey=YOUR_KEY;EndpointSuffix=core.windows.net\nSTORAGE_CONTAINER_NAME=eventhub-checkpoints\n\n# Consumer Group (optional, defaults to $Default)\nCONSUMER_GROUP=$Default\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-claude-sonnet-4.5-2730198823\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Event Hubs TypeScript Demo\n\nA comprehensive TypeScript demonstration of sending and receiving events with Azure Event Hubs, including checkpoint management using Azure Blob Storage.\n\n## Features\n\n✅ **Event Producer**\n- Create EventHubProducerClient with connection string\n- Create event batches with `createBatch()`\n- Add multiple events with custom properties\n- Send batches efficiently with `sendBatch()`\n\n✅ **Event Consumer**\n- Create EventHubConsumerClient with BlobCheckpointStore\n- Subscribe to events with `subscribe()`\n- Process events with `processEvents` handler\n- Handle errors with `processError` handler\n- Update checkpoints after processing\n- Resume from last checkpoint after restart\n\n✅ **Best Practices**\n- Proper async/await patterns throughout\n- Graceful shutdown with `close()`\n- Error handling and logging\n- TypeScript type safety\n- Environment variable configuration\n\n## Required Packages\n\n```json\n{\n  \&#34;@azure/event-hubs\&#34;: \&#34;^5.12.0\&#34;,\n  \&#34;@azure/eventhubs-checkpointstore-blob\&#34;: \&#34;^1.0.1\&#34;,\n  \&#34;@azure/storage-blob\&#34;: \&#34;^12.17.0\&#34;\n}\n```\n\n## Installation\n\n```bash\nnpm install\n```\n\n## Configuration\n\n1. Copy `.env.example` to `.env`:\n   ```bash\n   cp .env.example .env\n   ```\n\n2. Update `.env` with your Azure credentials:\n   - `EVENT_HUB_CONNECTION_STRING`: Your Event Hub connection string\n   - `EVENT_HUB_NAME`: Your Event Hub name\n   - `STORAGE_CONNECTION_STRING`: Azure Storage connection string for checkpoints\n   - `STORAGE_CONTAINER_NAME`: Container name for checkpoint storage\n   - `CONSUMER_GROUP`: Consumer group name (default: $Default)\n\n## Getting Azure Credentials\n\n### Event Hub Connection String\n1. Go to Azure Portal → Event Hubs namespace\n2. Navigate to \&#34;Shared access policies\&#34;\n3. Select or create a policy with Send/Listen permissions\n4. Copy the connection string\n\n### Storage Connection String\n1. Go to Azure Portal → Storage Account\n2. Navigate to \&#34;Access keys\&#34;\n3. Copy the connection string from key1 or key2\n\n## Usage\n\n### Run with ts-node (recommended for development)\n```bash\nnpm start\n```\n\n### Build and run\n```bash\nnpm run build\nnode dist/event-hubs-demo.js\n```\n\n### Development mode with auto-reload\n```bash\nnpm run dev\n```\n\n## How It Works\n\n### 1. Sending Events\n```typescript\nconst producer = new EventHubProducerClient(connectionString, eventHubName);\nconst batch = await producer.createBatch();\n\n// Add events with custom properties\nbatch.tryAdd({\n  body: { message: \&#34;Hello\&#34;, timestamp: new Date() },\n  properties: { customProperty: \&#34;value\&#34;, priority: \&#34;high\&#34; }\n});\n\nawait producer.sendBatch(batch);\nawait producer.close();\n```\n\n### 2. Receiving Events with Checkpointing\n```typescript\nconst checkpointStore = new BlobCheckpointStore(containerClient);\nconst consumer = new EventHubConsumerClient(\n  consumerGroup,\n  connectionString,\n  eventHubName,\n  checkpointStore\n);\n\nconst subscription = consumer.subscribe({\n  processEvents: async (events, context) =\u003e {\n    for (const event of events) {\n      console.log(event.body);\n    }\n    // Save checkpoint after processing\n    await context.updateCheckpoint(events[events.length - 1]);\n  },\n  processError: async (error, context) =\u003e {\n    console.error(error);\n  }\n});\n\n// Graceful shutdown\nawait subscription.close();\n```\n\n## Key Concepts\n\n### Batching\n- Use `createBatch()` to create efficient batches\n- `tryAdd()` returns false if event doesn&#39;t fit\n- Send batch when full or ready\n\n### Checkpointing\n- Stores consumer position in Azure Blob Storage\n- Enables resume from last processed event\n- Update checkpoint after successful processing\n- Prevents duplicate processing after restarts\n\n### Consumer Groups\n- Multiple consumers can read in parallel\n- Each consumer group maintains independent checkpoints\n- Default consumer group: `$Default`\n\n### Graceful Shutdown\n- Close subscriptions properly with `close()`\n- Handle SIGINT and SIGTERM signals\n- Ensures checkpoints are saved before exit\n\n## Output Example\n\n```\n=== Starting Event Producer ===\n\nCreated event batch\n\nAdded event 1 to batch\nAdded event 2 to batch\n...\nAdded event 10 to batch\n\nSending batch with 10 events...\n✓ Batch sent successfully!\n\nProducer client closed\n\n=== Starting Event Consumer ===\n\nConsumer client created with BlobCheckpointStore\n\n--- Received 10 event(s) from partition: 0 ---\n\nEvent Body: {\n  \&#34;message\&#34;: \&#34;Event message 1\&#34;,\n  \&#34;timestamp\&#34;: \&#34;2026-05-01T23:09:28.123Z\&#34;,\n  \&#34;sequenceNumber\&#34;: 1\n}\nCustom Properties: { customProperty: &#39;CustomValue1&#39;, priority: &#39;normal&#39; }\n\n✓ Checkpoint updated for partition 0\n```\n\n## Troubleshooting\n\n### Connection Issues\n- Verify connection strings are correct\n- Check firewall rules allow access\n- Ensure Event Hub and Storage Account exist\n\n### No Events Received\n- Wait a few seconds for events to propagate\n- Check consumer group name matches\n- Verify events were sent successfully\n\n### Checkpoint Errors\n- Ensure storage container exists (create manually or let SDK create it)\n- Verify storage account permissions\n- Check storage connection string format\n\n## Architecture\n\n```\n┌─────────────┐         ┌──────────────────┐\n│  Producer   │ ───────\u003e│   Event Hub      │\n│   Client    │         │   (10 events)    │\n└─────────────┘         └──────────────────┘\n                                │\n                                │ subscribe\n                                ▼\n                        ┌──────────────────┐\n                        │   Consumer       │\n                        │   Client         │\n                        └──────────────────┘\n                                │\n                                │ checkpoint\n                                ▼\n                        ┌──────────────────┐\n                        │  Blob Storage    │\n                        │  (checkpoints)   │\n                        └──────────────────┘\n```\n\n## License\n\nMIT\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-event-hubs-dp-js-ts-streaming-baseline-claude-sonnet-4.5-2730198823\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>10.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! I&#39;ve created a complete TypeScript demo for Azure Event Hubs with all the requested features:
+
+## 📦 Created Files:
+
+1. **event-hubs-demo.ts** - Main demo with:
+   - ✅ EventHubProducerClient with connection string
+   - ✅ createBatch() &#43; 10 events with custom properties
+   - ✅ sendBatch() implementation
+   - ✅ EventHubConsumerClient with BlobCheckpointStore
+   - ✅ subscribe() with processEvents &amp; processError handlers
+   - ✅ Checkpoint updates after processing
+   - ✅ Graceful shutdown with close()
+
+2. **package.json** - Required packages:
+   - `@azure/event-hubs` (^5.12.0)
+   - `@azure/eventhubs-checkpointstore-blob` (^1.0.1)
+   - `@azure/storage-blob` (^12.17.0)
+
+3. **tsconfig.json** - TypeScript configuration
+4. **.env.example** - Configuration template
+5. **README.md** - Comprehensive documentation
+
+## 🚀 Key Features:
+
+- **Proper async/await** throughout
+- **Error handling** in both producer and consumer
+- **Checkpoint management** using Azure Blob Storage
+- **Custom event properties** for each event
+- **Graceful shutdown** with SIGINT/SIGTERM handlers
+- **TypeScript type safety** with proper imports
+
+## 📖 To Run:
+
+```bash
+npm install
+cp .env.example .env
+# Edit .env with your Azure credentials
+npm start
+```
+
+The demo sends 10 events with custom properties, then receives them with automatic checkpointing!</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>11.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 17/23 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#f97316">17/23</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">TypeScript configuration is valid, all imports are correct, syntax is proper, and no obvious compilation errors</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">@azure/event-hubs ^5.12.0, @azure/eventhubs-checkpointstore-blob ^1.0.1, and @azure/storage-blob ^12.17.0 are recent stable versions</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses connection strings instead of identity-based authentication. Production code should use DefaultAzureCredential or managed identity, not hardcoded connection strings</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Generic error handling with console.error. No RestError catching, no retry logic, no specific status code handling</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Clean, well-structured code with clear function separation, good comments, comprehensive README, and proper TypeScript types</td>
+          </tr>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All dependencies use @azure/ scoped packages: @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">@azure/identity is not included as a dependency. Code uses connection strings instead of DefaultAzureCredential or token credentials</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses connection string-based constructors (EventHubProducerClient(connectionString, eventHubName)) instead of endpoint &#43; credential pattern</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Consistently uses async/await throughout. No .then()/.catch() chains. Proper async main function with top-level error handling</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Not applicable - Event Hubs subscribe uses event handlers, not pagination. The processEvents handler correctly iterates with for-of over the events array</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Not applicable - no long-running operations in Event Hubs send/receive flow</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses generic catch(error) blocks without RestError type checking or statusCode inspection</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All packages are current @azure/* track. No azure-storage, azure-arm-*, or ms-rest-* packages</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">@azure/logger is not used. Code uses console.log for output instead of setLogLevel() or AZURE_LOG_LEVEL</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Valid package.json with all required dependencies, proper scripts, and includes tsconfig.json with appropriate TypeScript configuration</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/event-hubs and @azure/eventhubs-checkpointstore-blob packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both packages are correctly listed in package.json dependencies</td>
+          </tr>
+          
+          <tr>
+            <td>EventHubProducerClient constructor</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">EventHubProducerClient properly constructed with connection string and event hub name</td>
+          </tr>
+          
+          <tr>
+            <td>createBatch() and tryAdd()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses producer.createBatch() and batch.tryAdd() correctly with proper eventData structure</td>
+          </tr>
+          
+          <tr>
+            <td>sendBatch() for publishing</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Calls producer.sendBatch(batch) to send the event batch</td>
+          </tr>
+          
+          <tr>
+            <td>EventHubConsumerClient with BlobCheckpointStore</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Creates BlobCheckpointStore with ContainerClient and passes it to EventHubConsumerClient constructor</td>
+          </tr>
+          
+          <tr>
+            <td>subscribe() with processEvents and processError</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">consumer.subscribe() called with both processEvents and processError handlers as required</td>
+          </tr>
+          
+          <tr>
+            <td>updateCheckpoint() in processEvents handler</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Calls context.updateCheckpoint(events[events.length - 1]) after processing events</td>
+          </tr>
+          
+          <tr>
+            <td>close() for cleanup</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Implements graceful shutdown with producer.close() and subscription.close() in shutdown handler</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>Functional Event Hubs demo that correctly implements all core requirements (producer, consumer, batching, checkpointing, graceful shutdown). However, fails critical Azure SDK best practices by using connection strings instead of identity-based authentication, lacks RestError handling, and doesn&#39;t use @azure/logger. Code is well-structured with excellent documentation.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>All 10 events correctly added to batch with custom properties</li><li>Proper BlobCheckpointStore integration with Azure Storage</li><li>Correct subscribe() pattern with processEvents and processError handlers</li><li>Checkpoint updates after processing events</li><li>Graceful shutdown with SIGINT/SIGTERM handlers</li><li>Excellent README with usage examples, troubleshooting, and architecture diagram</li><li>Clean async/await patterns throughout</li><li>Valid TypeScript configuration with proper types</li><li>Comprehensive code comments and console output</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>Missing @azure/identity - uses connection strings instead of DefaultAzureCredential or managed identity</li><li>Client constructors use connection strings instead of endpoint &#43; credential pattern</li><li>No RestError exception handling with statusCode inspection</li><li>Missing @azure/logger for SDK diagnostic logging</li><li>Generic error handling without retry logic or specific error type handling</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (6 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll evaluate this generated Event Hubs code by checking if it builds, verifying package versions, and scoring it against all criteria.</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              The user wants me to evaluate generated TypeScript code for an Azure Event Hubs …
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>The user wants me to evaluate generated TypeScript code for an Azure Event Hubs demo. I need to:
+
+1. Review the generated code against the original prompt requirements
+2. Check general quality criteria (builds, latest versions, best practices, error handling, code quality)
+3. Check attribute-matched criteria (10 items related to Azure SDK patterns)
+4. Check prompt-specific criteria (Event Hubs specific requirements)
+5. Provide a JSON output with scores
+
+Let me analyze the code:
+
+## Generated Code Analysis
+
+### Files provided:
+1. README.md - comprehensive documentation
+2. event-hubs-demo.ts - main implementation
+3. package.json - dependencies
+4. tsconfig.json - TypeScript config
+
+### Checking Prompt Requirements:
+1. ✓ EventHubProducerClient using connection string
+2. ✓ createBatch() and tryAdd() for 10 events with custom properties
+3. ✓ sendBatch()
+4. ✓ EventHubConsumerClient with BlobCheckpointStore
+5. ✓ subscribe() with processEvents and processError handlers
+6. ✓ Print received event bodies and updateCheckpoint
+7. ✓ Graceful shutdown with close()
+8. ✓ Shows required npm packages
+
+### Checking Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - ✓ PASS - Uses @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob
+
+2. **@azure/identity for Authentication** - ✗ FAIL - Uses connection strings, NOT @azure/identity. No DefaultAzureCredential or token credentials. This is a major issue.
+
+3. **Client Constructor with Endpoint and Credential** - ✗ FAIL - Uses connection string constructor, not endpoint &#43; credential pattern
+
+4. **Async/Await Pattern** - ✓ PASS - Uses async/await throughout, no .then() chains
+
+
+5. **Pagination with for-await-of** - N/A - No pagination operations in this code. 6. **LRO Pattern** - N/A - No long-running operations. 7. **RestError Exception Handling** - ✗ FAIL - Generic error handling, no RestError catching. 8. **No Deprecated Packages** - ✓ PASS - All packages are current @azu…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Evaluating Event Hubs code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>4.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-796814764&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-796814764; npm install --silent 2\u003e\u00261 | Select-Object -Last 20&#34;,&#34;description&#34;:&#34;Install dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>6.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I cannot access the file system directly, but I can thoroughly evaluate the code from what was provided. Let me analyze it comprehensively.
+
+```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Code Builds&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;TypeScript configuration is valid, all imports are correct, syntax is proper, and no obvious compilation errors&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Latest Package Versions&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;@azure/event-hubs ^5.12.0, @azure/eventhubs-checkpointstore-blob ^1.0.1, and @azure/storage-blob ^12.17.0 are recent stable versions&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Best Practices&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Uses connection strings instead of identity-based authentication. Production code should use DefaultAzureCredential or managed identity, not hardcoded connection strings&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Error Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Generic error handling with console.error. No RestError catching, no retry logic, no specific status code handling&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Code Quality&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Clean, well-structured code with clear function separation, good comments, comprehensive README, and proper TypeScript types&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All dependencies use @azure/ scoped packages: @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;@azure/identity is not included as a dependency. Code uses connection strings instead of DefaultAzureCredential or token credentials&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Uses connection string-based constructors (EventHubProducerClient(connectionS…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (1 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-sonnet-4.5</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#f97316">17/23</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="TypeScript configuration is valid, all imports are correct, syntax is proper, and no obvious compilation errors">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="@azure/event-hubs ^5.12.0, @azure/eventhubs-checkpointstore-blob ^1.0.1, and @azure/storage-blob ^12.17.0 are recent stable versions">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Uses connection strings instead of identity-based authentication. Production code should use DefaultAzureCredential or managed identity, not hardcoded connection strings">❌ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Generic error handling with console.error. No RestError catching, no retry logic, no specific status code handling">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured code with clear function separation, good comments, comprehensive README, and proper TypeScript types">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="All dependencies use @azure/ scoped packages: @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="@azure/identity is not included as a dependency. Code uses connection strings instead of DefaultAzureCredential or token credentials">❌ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="Uses connection string-based constructors (EventHubProducerClient(connectionString, eventHubName)) instead of endpoint &#43; credential pattern">❌ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Consistently uses async/await throughout. No .then()/.catch() chains. Proper async main function with top-level error handling">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable - Event Hubs subscribe uses event handlers, not pagination. The processEvents handler correctly iterates with for-of over the events array">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable - no long-running operations in Event Hubs send/receive flow">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Uses generic catch(error) blocks without RestError type checking or statusCode inspection">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="All packages are current @azure/* track. No azure-storage, azure-arm-*, or ms-rest-* packages">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="@azure/logger is not used. Code uses console.log for output instead of setLogLevel() or AZURE_LOG_LEVEL">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required dependencies, proper scripts, and includes tsconfig.json with appropriate TypeScript configuration">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both packages are correctly listed in package.json dependencies">✅ @azure/event-hubs and @azure/eventhubs-checkpointstore-blob packages</span> <span style="display:inline-block;margin:2px 4px" title="EventHubProducerClient properly constructed with connection string and event hub name">✅ EventHubProducerClient constructor</span> <span style="display:inline-block;margin:2px 4px" title="Uses producer.createBatch() and batch.tryAdd() correctly with proper eventData structure">✅ createBatch() and tryAdd()</span> <span style="display:inline-block;margin:2px 4px" title="Calls producer.sendBatch(batch) to send the event batch">✅ sendBatch() for publishing</span> <span style="display:inline-block;margin:2px 4px" title="Creates BlobCheckpointStore with ContainerClient and passes it to EventHubConsumerClient constructor">✅ EventHubConsumerClient with BlobCheckpointStore</span> <span style="display:inline-block;margin:2px 4px" title="consumer.subscribe() called with both processEvents and processError handlers as required">✅ subscribe() with processEvents and processError</span> <span style="display:inline-block;margin:2px 4px" title="Calls context.updateCheckpoint(events[events.length - 1]) after processing events">✅ updateCheckpoint() in processEvents handler</span> <span style="display:inline-block;margin:2px 4px" title="Implements graceful shutdown with producer.close() and subscription.close() in shutdown handler">✅ close() for cleanup</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#f97316">17/23</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="TypeScript configuration is valid, all imports are correct, syntax is proper, and no obvious compilation errors">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="@azure/event-hubs ^5.12.0, @azure/eventhubs-checkpointstore-blob ^1.0.1, and @azure/storage-blob ^12.17.0 are recent stable versions">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Uses connection strings instead of identity-based authentication. Production code should use DefaultAzureCredential or managed identity, not hardcoded connection strings">❌ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Generic error handling with console.error. No RestError catching, no retry logic, no specific status code handling">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured code with clear function separation, good comments, comprehensive README, and proper TypeScript types">✅ Code Quality</span> <span style="display:inline-block;margin:2px 4px" title="All dependencies use @azure/ scoped packages: @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="@azure/identity is not included as a dependency. Code uses connection strings instead of DefaultAzureCredential or token credentials">❌ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="Uses connection string-based constructors (EventHubProducerClient(connectionString, eventHubName)) instead of endpoint &#43; credential pattern">❌ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Consistently uses async/await throughout. No .then()/.catch() chains. Proper async main function with top-level error handling">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable - Event Hubs subscribe uses event handlers, not pagination. The processEvents handler correctly iterates with for-of over the events array">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Not applicable - no long-running operations in Event Hubs send/receive flow">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Uses generic catch(error) blocks without RestError type checking or statusCode inspection">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="All packages are current @azure/* track. No azure-storage, azure-arm-*, or ms-rest-* packages">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="@azure/logger is not used. Code uses console.log for output instead of setLogLevel() or AZURE_LOG_LEVEL">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required dependencies, proper scripts, and includes tsconfig.json with appropriate TypeScript configuration">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both packages are correctly listed in package.json dependencies">✅ @azure/event-hubs and @azure/eventhubs-checkpointstore-blob packages</span> <span style="display:inline-block;margin:2px 4px" title="EventHubProducerClient properly constructed with connection string and event hub name">✅ EventHubProducerClient constructor</span> <span style="display:inline-block;margin:2px 4px" title="Uses producer.createBatch() and batch.tryAdd() correctly with proper eventData structure">✅ createBatch() and tryAdd()</span> <span style="display:inline-block;margin:2px 4px" title="Calls producer.sendBatch(batch) to send the event batch">✅ sendBatch() for publishing</span> <span style="display:inline-block;margin:2px 4px" title="Creates BlobCheckpointStore with ContainerClient and passes it to EventHubConsumerClient constructor">✅ EventHubConsumerClient with BlobCheckpointStore</span> <span style="display:inline-block;margin:2px 4px" title="consumer.subscribe() called with both processEvents and processError handlers as required">✅ subscribe() with processEvents and processError</span> <span style="display:inline-block;margin:2px 4px" title="Calls context.updateCheckpoint(events[events.length - 1]) after processing events">✅ updateCheckpoint() in processEvents handler</span> <span style="display:inline-block;margin:2px 4px" title="Implements graceful shutdown with producer.close() and subscription.close() in shutdown handler">✅ close() for cleanup</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-sonnet-4.5</code> — Functional Event Hubs demo that correctly implements all core requirements (producer, consumer, batching, checkpointing, graceful shutdown). However, fails critical Azure SDK best practices by using connection strings instead of identity-based authentication, lacks RestError handling, and doesn&#39;t use @azure/logger. Code is well-structured with excellent documentation.</summary>
+      <p><strong>Issues:</strong></p><ul><li>Missing @azure/identity - uses connection strings instead of DefaultAzureCredential or managed identity</li><li>Client constructors use connection strings instead of endpoint &#43; credential pattern</li><li>No RestError exception handling with statusCode inspection</li><li>Missing @azure/logger for SDK diagnostic logging</li><li>Generic error handling without retry logic or specific error type handling</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>All 10 events correctly added to batch with custom properties</li><li>Proper BlobCheckpointStore integration with Azure Storage</li><li>Correct subscribe() pattern with processEvents and processError handlers</li><li>Checkpoint updates after processing events</li><li>Graceful shutdown with SIGINT/SIGTERM handlers</li><li>Excellent README with usage examples, troubleshooting, and architecture diagram</li><li>Clean async/await patterns throughout</li><li>Valid TypeScript configuration with proper types</li><li>Comprehensive code comments and console output</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (6 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll evaluate this generated Event Hubs code by checking if it builds, verifying package versions, and scoring it against all criteria.</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              The user wants me to evaluate generated TypeScript code for an Azure Event Hubs …
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>The user wants me to evaluate generated TypeScript code for an Azure Event Hubs demo. I need to:
+
+1. Review the generated code against the original prompt requirements
+2. Check general quality criteria (builds, latest versions, best practices, error handling, code quality)
+3. Check attribute-matched criteria (10 items related to Azure SDK patterns)
+4. Check prompt-specific criteria (Event Hubs specific requirements)
+5. Provide a JSON output with scores
+
+Let me analyze the code:
+
+## Generated Code Analysis
+
+### Files provided:
+1. README.md - comprehensive documentation
+2. event-hubs-demo.ts - main implementation
+3. package.json - dependencies
+4. tsconfig.json - TypeScript config
+
+### Checking Prompt Requirements:
+1. ✓ EventHubProducerClient using connection string
+2. ✓ createBatch() and tryAdd() for 10 events with custom properties
+3. ✓ sendBatch()
+4. ✓ EventHubConsumerClient with BlobCheckpointStore
+5. ✓ subscribe() with processEvents and processError handlers
+6. ✓ Print received event bodies and updateCheckpoint
+7. ✓ Graceful shutdown with close()
+8. ✓ Shows required npm packages
+
+### Checking Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - ✓ PASS - Uses @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob
+
+2. **@azure/identity for Authentication** - ✗ FAIL - Uses connection strings, NOT @azure/identity. No DefaultAzureCredential or token credentials. This is a major issue.
+
+3. **Client Constructor with Endpoint and Credential** - ✗ FAIL - Uses connection string constructor, not endpoint &#43; credential pattern
+
+4. **Async/Await Pattern** - ✓ PASS - Uses async/await throughout, no .then() chains
+
+
+5. **Pagination with for-await-of** - N/A - No pagination operations in this code. 6. **LRO Pattern** - N/A - No long-running operations. 7. **RestError Exception Handling** - ✗ FAIL - Generic error handling, no RestError catching. 8. **No Deprecated Packages** - ✓ PASS - All packages are current @azu…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Evaluating Event Hubs code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>4.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-796814764&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-796814764; npm install --silent 2\u003e\u00261 | Select-Object -Last 20&#34;,&#34;description&#34;:&#34;Install dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>6.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I cannot access the file system directly, but I can thoroughly evaluate the code from what was provided. Let me analyze it comprehensively.
+
+```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Code Builds&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;TypeScript configuration is valid, all imports are correct, syntax is proper, and no obvious compilation errors&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Latest Package Versions&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;@azure/event-hubs ^5.12.0, @azure/eventhubs-checkpointstore-blob ^1.0.1, and @azure/storage-blob ^12.17.0 are recent stable versions&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Best Practices&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Uses connection strings instead of identity-based authentication. Production code should use DefaultAzureCredential or managed identity, not hardcoded connection strings&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Error Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Generic error handling with console.error. No RestError catching, no retry logic, no specific status code handling&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Code Quality&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Clean, well-structured code with clear function separation, good comments, comprehensive README, and proper TypeScript types&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All dependencies use @azure/ scoped packages: @azure/event-hubs, @azure/eventhubs-checkpointstore-blob, @azure/storage-blob&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;@azure/identity is not included as a dependency. Code uses connection strings instead of DefaultAzureCredential or token credentials&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Uses connection string-based constructors (EventHubProducerClient(connectionS…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (2 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">Functional Event Hubs demo that correctly implements all core requirements (producer, consumer, batching, checkpointing, graceful shutdown). However, fails critical Azure SDK best practices by using connection strings instead of identity-based authentication, lacks RestError handling, and doesn&#39;t use @azure/logger. Code is well-structured with excellent documentation.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">Functional Event Hubs demo that correctly implements all core requirements (producer, consumer, batching, checkpointing, graceful shutdown). However, fails critical Azure SDK best practices by using connection strings instead of identity-based authentication, lacks RestError handling, and doesn&#39;t use @azure/logger. Code is well-structured with excellent documentation.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (4)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">2 .json, 1 .md, 1 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> README.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Event Hubs TypeScript Demo
+
+A comprehensive TypeScript demonstration of sending and receiving events with Azure Event Hubs, including checkpoint management using Azure Blob Storage.
+
+## Features
+
+✅ **Event Producer**
+- Create EventHubProducerClient with connection string
+- Create event batches with `createBatch()`
+- Add multiple events with custom properties
+- Send batches efficiently with `sendBatch()`
+
+✅ **Event Consumer**
+- Create EventHubConsumerClient with BlobCheckpointStore
+- Subscribe to events with `subscribe()`
+- Process events with `processEvents` handler
+- Handle errors with `processError` handler
+- Update checkpoints after processing
+- Resume from last checkpoint after restart
+
+✅ **Best Practices**
+- Proper async/await patterns throughout
+- Graceful shutdown with `close()`
+- Error handling and logging
+- TypeScript type safety
+- Environment variable configuration
+
+## Required Packages
+
+```json
+{
+  &#34;@azure/event-hubs&#34;: &#34;^5.12.0&#34;,
+  &#34;@azure/eventhubs-checkpointstore-blob&#34;: &#34;^1.0.1&#34;,
+  &#34;@azure/storage-blob&#34;: &#34;^12.17.0&#34;
+}
+```
+
+## Installation
+
+```bash
+npm install
+```
+
+## Configuration
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Update `.env` with your Azure credentials:
+   - `EVENT_HUB_CONNECTION_STRING`: Your Event Hub connection string
+   - `EVENT_HUB_NAME`: Your Event Hub name
+   - `STORAGE_CONNECTION_STRING`: Azure Storage connection string for checkpoints
+   - `STORAGE_CONTAINER_NAME`: Container name for checkpoint storage
+   - `CONSUMER_GROUP`: Consumer group name (default: $Default)
+
+## Getting Azure Credentials
+
+### Event Hub Connection String
+1. Go to Azure Portal → Event Hubs namespace
+2. Navigate to &#34;Shared access policies&#34;
+3. Select or create a policy with Send/Listen permissions
+4. Copy the connection string
+
+### Storage Connection String
+1. Go to Azure Portal → Storage Account
+2. Navigate to &#34;Access keys&#34;
+3. Copy the connection string from key1 or key2
+
+## Usage
+
+### Run with ts-node (recommended for development)
+```bash
+npm start
+```
+
+### Build and run
+```bash
+npm run build
+node dist/event-hubs-demo.js
+```
+
+### Development mode with auto-reload
+```bash
+npm run dev
+```
+
+## How It Works
+
+### 1. Sending Events
+```typescript
+const producer = new EventHubProducerClient(connectionString, eventHubName);
+const batch = await producer.createBatch();
+
+// Add events with custom properties
+batch.tryAdd({
+  body: { message: &#34;Hello&#34;, timestamp: new Date() },
+  properties: { customProperty: &#34;value&#34;, priority: &#34;high&#34; }
+});
+
+await producer.sendBatch(batch);
+await producer.close();
+```
+
+### 2. Receiving Events with Checkpointing
+```typescript
+const checkpointStore = new BlobCheckpointStore(containerClient);
+const consumer = new EventHubConsumerClient(
+  consumerGroup,
+  connectionString,
+  eventHubName,
+  checkpointStore
+);
+
+const subscription = consumer.subscribe({
+  processEvents: async (events, context) =&gt; {
+    for (const event of events) {
+      console.log(event.body);
+    }
+    // Save checkpoint after processing
+    await context.updateCheckpoint(events[events.length - 1]);
+  },
+  processError: async (error, context) =&gt; {
+    console.error(error);
+  }
+});
+
+// Graceful shutdown
+await subscription.close();
+```
+
+## Key Concepts
+
+### Batching
+- Use `createBatch()` to create efficient batches
+- `tryAdd()` returns false if event doesn&#39;t fit
+- Send batch when full or ready
+
+### Checkpointing
+- Stores consumer position in Azure Blob Storage
+- Enables resume from last processed event
+- Update checkpoint after successful processing
+- Prevents duplicate processing after restarts
+
+### Consumer Groups
+- Multiple consumers can read in parallel
+- Each consumer group maintains independent checkpoints
+- Default consumer group: `$Default`
+
+### Graceful Shutdown
+- Close subscriptions properly with `close()`
+- Handle SIGINT and SIGTERM signals
+- Ensures checkpoints are saved before exit
+
+## Output Example
+
+```
+=== Starting Event Producer ===
+
+Created event batch
+
+Added event 1 to batch
+Added event 2 to batch
+...
+Added event 10 to batch
+
+Sending batch with 10 events...
+✓ Batch sent successfully!
+
+Producer client closed
+
+=== Starting Event Consumer ===
+
+Consumer client created with BlobCheckpointStore
+
+--- Received 10 event(s) from partition: 0 ---
+
+Event Body: {
+  &#34;message&#34;: &#34;Event message 1&#34;,
+  &#34;timestamp&#34;: &#34;2026-05-01T23:09:28.123Z&#34;,
+  &#34;sequenceNumber&#34;: 1
+}
+Custom Properties: { customProperty: &#39;CustomValue1&#39;, priority: &#39;normal&#39; }
+
+✓ Checkpoint updated for partition 0
+```
+
+## Troubleshooting
+
+### Connection Issues
+- Verify connection strings are correct
+- Check firewall rules allow access
+- Ensure Event Hub and Storage Account exist
+
+### No Events Received
+- Wait a few seconds for events to propagate
+- Check consumer group name matches
+- Verify events were sent successfully
+
+### Checkpoint Errors
+- Ensure storage container exists (create manually or let SDK create it)
+- Verify storage account permissions
+- Check storage connection string format
+
+## Architecture
+
+```
+┌─────────────┐         ┌──────────────────┐
+│  Producer   │ ───────&gt;│   Event Hub      │
+│   Client    │         │   (10 events)    │
+└─────────────┘         └──────────────────┘
+                                │
+                                │ subscribe
+                                ▼
+                        ┌──────────────────┐
+                        │   Consumer       │
+                        │   Client         │
+                        └──────────────────┘
+                                │
+                                │ checkpoint
+                                ▼
+                        ┌──────────────────┐
+                        │  Blob Storage    │
+                        │  (checkpoints)   │
+                        └──────────────────┘
+```
+
+## License
+
+MIT
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> event-hubs-demo.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import {
+  EventHubProducerClient,
+  EventHubConsumerClient,
+  ReceivedEventData,
+  Subscription,
+} from &#34;@azure/event-hubs&#34;;
+import { ContainerClient } from &#34;@azure/storage-blob&#34;;
+import { BlobCheckpointStore } from &#34;@azure/eventhubs-checkpointstore-blob&#34;;
+
+/**
+ * Azure Event Hubs Demo - TypeScript
+ * Demonstrates sending and receiving events with checkpointing
+ */
+
+// Configuration - Replace with your actual connection strings
+const eventHubConnectionString = process.env.EVENT_HUB_CONNECTION_STRING || &#34;Endpoint=sb://YOUR_NAMESPACE.servicebus.windows.net/;SharedAccessKeyName=YOUR_KEY_NAME;SharedAccessKey=YOUR_KEY&#34;;
+const eventHubName = process.env.EVENT_HUB_NAME || &#34;YOUR_EVENT_HUB_NAME&#34;;
+const storageConnectionString = process.env.STORAGE_CONNECTION_STRING || &#34;DefaultEndpointsProtocol=https;AccountName=YOUR_ACCOUNT;AccountKey=YOUR_KEY;EndpointSuffix=core.windows.net&#34;;
+const storageContainerName = process.env.STORAGE_CONTAINER_NAME || &#34;eventhub-checkpoints&#34;;
+
+// Consumer group - use &#34;$Default&#34; or create a custom consumer group
+const consumerGroup = process.env.CONSUMER_GROUP || &#34;$Default&#34;;
+
+/**
+ * Send events to Event Hub
+ */
+async function sendEvents(): Promise&lt;void&gt; {
+  console.log(&#34;=== Starting Event Producer ===\n&#34;);
+
+  // Create producer client using connection string
+  const producer = new EventHubProducerClient(
+    eventHubConnectionString,
+    eventHubName
+  );
+
+  try {
+    // Create a batch - this allows efficient batching of multiple events
+    const batch = await producer.createBatch();
+    console.log(&#34;Created event batch\n&#34;);
+
+    // Add 10 events with custom properties to the batch
+    for (let i = 1; i &lt;= 10; i&#43;&#43;) {
+      const eventData = {
+        body: {
+          message: `Event message ${i}`,
+          timestamp: new Date().toISOString(),
+          sequenceNumber: i,
+        },
+        properties: {
+          customProperty: `CustomValue${i}`,
+          priority: i % 3 === 0 ? &#34;high&#34; : &#34;normal&#34;,
+          category: `Category${(i % 3) &#43; 1}`,
+        },
+      };
+
+      // Try to add the event to the batch
+      const isAdded = batch.tryAdd(eventData);
+
+      if (!isAdded) {
+        console.warn(`Event ${i} could not fit in the batch. Send current batch and create a new one.`);
+        // In production, you would send the current batch and create a new one
+        break;
+      }
+
+      console.log(`Added event ${i} to batch`);
+    }
+
+    // Send the batch to Event Hub
+    console.log(`\nSending batch with ${batch.count} events...`);
+    await producer.sendBatch(batch);
+    console.log(&#34;✓ Batch sent successfully!\n&#34;);
+
+  } catch (error) {
+    console.error(&#34;Error sending events:&#34;, error);
+    throw error;
+  } finally {
+    // Close the producer client
+    await producer.close();
+    console.log(&#34;Producer client closed\n&#34;);
+  }
+}
+
+/**
+ * Receive events from Event Hub with checkpointing
+ */
+async function receiveEvents(): Promise&lt;Subscription&gt; {
+  console.log(&#34;=== Starting Event Consumer ===\n&#34;);
+
+  // Create a blob container client for checkpoint store
+  const containerClient = new ContainerClient(
+    storageConnectionString,
+    storageContainerName
+  );
+
+  // Create checkpoint store using Azure Blob Storage
+  const checkpointStore = new BlobCheckpointStore(containerClient);
+
+  // Create consumer client with checkpoint store
+  const consumer = new EventHubConsumerClient(
+    consumerGroup,
+    eventHubConnectionString,
+    eventHubName,
+    checkpointStore
+  );
+
+  console.log(&#34;Consumer client created with BlobCheckpointStore\n&#34;);
+  console.log(&#34;Starting to receive events...\n&#34;);
+
+  // Subscribe to events with processEvents and processError handlers
+  const subscription = consumer.subscribe({
+    // Process incoming events
+    processEvents: async (events: ReceivedEventData[], context) =&gt; {
+      if (events.length === 0) {
+        console.log(&#34;No events received in this interval&#34;);
+        return;
+      }
+
+      console.log(`\n--- Received ${events.length} event(s) from partition: ${context.partitionId} ---`);
+
+      for (const event of events) {
+        // Print received event body
+        console.log(`\nEvent Body:`, JSON.stringify(event.body, null, 2));
+        
+        // Print event properties
+        if (event.properties) {
+          console.log(&#34;Custom Properties:&#34;, event.properties);
+        }
+
+        // Print system properties
+        console.log(&#34;System Properties:&#34;, {
+          sequenceNumber: event.sequenceNumber,
+          offset: event.offset,
+          enqueuedTimeUtc: event.enqueuedTimeUtc,
+          partitionKey: event.partitionKey,
+        });
+      }
+
+      // Update checkpoint after processing events
+      // This ensures we don&#39;t reprocess events after a restart
+      try {
+        await context.updateCheckpoint(events[events.length - 1]);
+        console.log(`\n✓ Checkpoint updated for partition ${context.partitionId}`);
+      } catch (error) {
+        console.error(&#34;Error updating checkpoint:&#34;, error);
+      }
+    },
+
+    // Handle errors during event processing
+    processError: async (error, context) =&gt; {
+      console.error(`\n✗ Error on partition &#34;${context.partitionId}&#34;:`, error);
+    },
+  });
+
+  console.log(&#34;Subscription active - listening for events...\n&#34;);
+  return subscription;
+}
+
+/**
+ * Main execution function with graceful shutdown
+ */
+async function main(): Promise&lt;void&gt; {
+  let subscription: Subscription | null = null;
+
+  // Set up graceful shutdown handlers
+  const shutdown = async () =&gt; {
+    console.log(&#34;\n\n=== Initiating Graceful Shutdown ===&#34;);
+
+    try {
+      if (subscription) {
+        console.log(&#34;Closing subscription...&#34;);
+        await subscription.close();
+        console.log(&#34;✓ Subscription closed&#34;);
+      }
+      console.log(&#34;✓ Shutdown complete&#34;);
+      process.exit(0);
+    } catch (error) {
+      console.error(&#34;Error during shutdown:&#34;, error);
+      process.exit(1);
+    }
+  };
+
+  // Register shutdown handlers for different termination signals
+  process.on(&#34;SIGINT&#34;, shutdown);  // Ctrl&#43;C
+  process.on(&#34;SIGTERM&#34;, shutdown); // Termination signal
+
+  try {
+    // Step 1: Send events
+    await sendEvents();
+
+    // Wait a bit to ensure events are available
+    console.log(&#34;Waiting 3 seconds before starting consumer...\n&#34;);
+    await new Promise(resolve =&gt; setTimeout(resolve, 3000));
+
+    // Step 2: Receive events
+    subscription = await receiveEvents();
+
+    // Keep the process running to receive events
+    // In production, you would typically run this until a shutdown signal
+    console.log(&#34;Consumer running. Press Ctrl&#43;C to stop...\n&#34;);
+    
+    // For demo purposes, run for 30 seconds then shutdown
+    setTimeout(async () =&gt; {
+      console.log(&#34;\n--- Demo timeout reached (30s) ---&#34;);
+      await shutdown();
+    }, 30000);
+
+  } catch (error) {
+    console.error(&#34;Fatal error in main:&#34;, error);
+    await shutdown();
+  }
+}
+
+// Run the demo
+if (require.main === module) {
+  main().catch((error) =&gt; {
+    console.error(&#34;Unhandled error:&#34;, error);
+    process.exit(1);
+  });
+}
+
+export { sendEvents, receiveEvents };
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-event-hubs-demo&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;TypeScript demo for Azure Event Hubs with checkpointing&#34;,
+  &#34;main&#34;: &#34;event-hubs-demo.ts&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;ts-node event-hubs-demo.ts&#34;,
+    &#34;dev&#34;: &#34;ts-node-dev --respawn event-hubs-demo.ts&#34;
+  },
+  &#34;dependencies&#34;: {
+    &#34;@azure/event-hubs&#34;: &#34;^5.12.0&#34;,
+    &#34;@azure/eventhubs-checkpointstore-blob&#34;: &#34;^1.0.1&#34;,
+    &#34;@azure/storage-blob&#34;: &#34;^12.17.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.11.0&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.2&#34;,
+    &#34;ts-node-dev&#34;: &#34;^2.0.0&#34;,
+    &#34;typescript&#34;: &#34;^5.3.3&#34;
+  },
+  &#34;engines&#34;: {
+    &#34;node&#34;: &#34;&gt;=14.0.0&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2020&#34;],
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;moduleResolution&#34;: &#34;node&#34;,
+    &#34;allowSyntheticDefaultImports&#34;: true
+  },
+  &#34;include&#34;: [&#34;*.ts&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;dist&#34;]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">13 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (13 actions, 6 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>13</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>6</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>2</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">6</strong> <span>succeeded</span></div>
+        
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id event-hubs-dp-js-ts-streaming --config baseline/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

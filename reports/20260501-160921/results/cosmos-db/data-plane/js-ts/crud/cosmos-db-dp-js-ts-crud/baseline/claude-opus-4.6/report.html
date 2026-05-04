@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: cosmos-db-dp-js-ts-crud / baseline/claude-opus-4.6</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 cosmos-db-dp-js-ts-crud</h1>
+  <div class="subtitle">Config: <strong>baseline/claude-opus-4.6</strong> · 2026-05-01T23:26:43Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#eab308">18/23</strong></span>
+  <span class="meta-item">Duration: <strong>180.4s</strong></span>
+  <span class="meta-item">Files: <strong>4</strong></span>
+  <span class="meta-item">Tool Calls: <strong>13</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer create, read, query, and delete items in an Azure Cosmos DB container using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>basic</td></tr>
+      <tr><td>Service</td><td>cosmos-db</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>crud</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/cosmos</code></td></tr>
+      <tr><td>Tags</td><td>cosmos-db, nosql, crud, getting-started</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-opus-4.6</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=237090 out=4283</td></tr>
+    <tr><td>Turn Count</td><td>12</td></tr>
+    
+    <tr><td>Generation Duration</td><td>116.8s</td></tr>
+    <tr><td>Review Duration</td><td>63.4s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>5</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>create</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>edit</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program
+that performs CRUD operations on items in an Azure Cosmos DB NoSQL container:
+1. Create a CosmosClient using endpoint and key
+2. Create a database &#34;TestDB&#34; and container &#34;Items&#34; with partition key &#34;/category&#34;
+3. Create an item with properties: id, category, name, quantity
+4. Read the item back using item().read()
+5. Query items where category equals &#34;electronics&#34; using parameterized query
+6. Replace the item with updated quantity using item().replace()
+7. Delete the item using item().delete()
+
+Show required npm package and handle errors with appropriate status code checks.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants a TypeScript program for Azure Cosmos DB CRUD operations. Let me …
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants a TypeScript program for Azure Cosmos DB CRUD operations. Let me explore the working directory first, then create the project.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Cosmos DB CRUD app&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>6.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Empty directory. I&#39;ll scaffold the project and create the program.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\&#34; \u0026\u0026 npm init -y 2\u003e\u00261 | Select-Object -Last 1 \u0026\u0026 npm install @azure/cosmos 2\u003e\u00261 | Select-Object -Last 3 \u0026\u0026 npm install -D typescript @types/node 2\u003e\u00261 | Select-Object -Last 3&#34;,&#34;description&#34;:&#34;Initialize project and install dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>8.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\&#34; \u0026\u0026 npx tsc --init --target ES2020 --module commonjs --strict --esModuleInterop --outDir dist 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Initialize TypeScript config&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>10.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { CosmosClient, Database, Container, StatusCodes } from \&#34;@azure/cosmos\&#34;;\n\n// ---------------------------------------------------------------------------\n// Configuration – replace with your actual Cosmos DB endpoint and key\n// ---------------------------------------------------------------------------\nconst endpoint = process.env.COSMOS_ENDPOINT || \&#34;\u003cyour-cosmos-endpoint\u003e\&#34;;\nconst key = process.env.COSMOS_KEY || \&#34;\u003cyour-cosmos-key\u003e\&#34;;\n\nconst databaseId = \&#34;TestDB\&#34;;\nconst containerId = \&#34;Items\&#34;;\nconst partitionKeyPath = \&#34;/category\&#34;;\n\n// ---------------------------------------------------------------------------\n// Item interface\n// ---------------------------------------------------------------------------\ninterface Item {\n  id: string;\n  category: string;\n  name: string;\n  quantity: number;\n}\n\n// ---------------------------------------------------------------------------\n// Main CRUD workflow\n// ---------------------------------------------------------------------------\nasync function main(): Promise\u003cvoid\u003e {\n  // 1. Create a CosmosClient using endpoint and key\n  const client = new CosmosClient({ endpoint, key });\n\n  let database: Database;\n  let container: Container;\n\n  try {\n    // 2. Create database and container (with partition key /category)\n    ({ database } = await client.databases.createIfNotExists({\n      id: databaseId,\n    }));\n    console.log(`Database ready : ${database.id}`);\n\n    ({ container } = await database.containers.createIfNotExists({\n      id: containerId,\n      partitionKey: { paths: [partitionKeyPath] },\n    }));\n    console.log(`Container ready: ${container.id}`);\n\n    // 3. Create an item\n    const newItem: Item = {\n      id: \&#34;item-1\&#34;,\n      category: \&#34;electronics\&#34;,\n      name: \&#34;Wireless Mouse\&#34;,\n      quantity: 5,\n    };\n\n    const { resource: createdItem, statusCode: createStatus } =\n      await container.items.create\u003cItem\u003e(newItem);\n    console.log(\n      `\\nCreated item   : ${createdItem?.id} (status ${createStatus})`\n    );\n\n    // 4. Read the item back using item().read()\n    const { resource: readItem, statusCode: readStatus } = await container\n      .item(newItem.id, newItem.category)\n      .read\u003cItem\u003e();\n    console.log(\n      `Read item      : ${readItem?.name}, qty=${readItem?.quantity} (status ${readStatus})`\n    );\n\n    // 5. Query items where category equals \&#34;electronics\&#34; (parameterized)\n    const querySpec = {\n      query: \&#34;SELECT * FROM c WHERE c.category = @category\&#34;,\n      parameters: [{ name: \&#34;@category\&#34;, value: \&#34;electronics\&#34; }],\n    };\n\n    const { resources: queryResults } = await container.items\n      .query\u003cItem\u003e(querySpec)\n      .fetchAll();\n    console.log(`\\nQuery results  : ${queryResults.length} item(s)`);\n    for (const item of queryResults) {\n      console.log(`  - ${item.id}: ${item.name} (qty ${item.quantity})`);\n    }\n\n    // 6. Replace the item with updated quantity\n    const updatedItem: Item = { ...readItem!, quantity: 10 };\n    const { resource: replacedItem, statusCode: replaceStatus } =\n      await container\n        .item(updatedItem.id, updatedItem.category)\n        .replace\u003cItem\u003e(updatedItem);\n    console.log(\n      `\\nReplaced item  : qty=${replacedItem?.quantity} (status ${replaceStatus})`\n    );\n\n    // 7. Delete the item\n    const { statusCode: deleteStatus } = await container\n      .item(newItem.id, newItem.category)\n      .delete();\n    console.log(`Deleted item   : ${newItem.id} (status ${deleteStatus})`);\n  } catch (error: unknown) {\n    // Handle Cosmos DB errors with status code checks\n    if (error instanceof Object \u0026\u0026 \&#34;code\&#34; in error) {\n      const cosmosError = error as { code: number; message?: string };\n      switch (cosmosError.code) {\n        case StatusCodes.NotFound:\n          console.error(\&#34;Resource not found (404).\&#34;);\n          break;\n        case StatusCodes.Conflict:\n          console.error(\&#34;Conflict – resource already exists (409).\&#34;);\n          break;\n        case StatusCodes.TooManyRequests:\n          console.error(\&#34;Rate limited (429). Retry after back-off.\&#34;);\n          break;\n        default:\n          console.error(\n            `Cosmos DB error ${cosmosError.code}: ${cosmosError.message}`\n          );\n      }\n    } else {\n      console.error(\&#34;Unexpected error:\&#34;, error);\n    }\n    process.exitCode = 1;\n  }\n}\n\nmain();\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>12.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>13.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\\src\&#34; -Force | Out-Null&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>14.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>15.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { CosmosClient, Database, Container, StatusCodes } from \&#34;@azure/cosmos\&#34;;\n\n// ---------------------------------------------------------------------------\n// Configuration – replace with your actual Cosmos DB endpoint and key\n// ---------------------------------------------------------------------------\nconst endpoint = process.env.COSMOS_ENDPOINT || \&#34;\u003cyour-cosmos-endpoint\u003e\&#34;;\nconst key = process.env.COSMOS_KEY || \&#34;\u003cyour-cosmos-key\u003e\&#34;;\n\nconst databaseId = \&#34;TestDB\&#34;;\nconst containerId = \&#34;Items\&#34;;\nconst partitionKeyPath = \&#34;/category\&#34;;\n\n// ---------------------------------------------------------------------------\n// Item interface\n// ---------------------------------------------------------------------------\ninterface Item {\n  id: string;\n  category: string;\n  name: string;\n  quantity: number;\n}\n\n// ---------------------------------------------------------------------------\n// Main CRUD workflow\n// ---------------------------------------------------------------------------\nasync function main(): Promise\u003cvoid\u003e {\n  // 1. Create a CosmosClient using endpoint and key\n  const client = new CosmosClient({ endpoint, key });\n\n  let database: Database;\n  let container: Container;\n\n  try {\n    // 2. Create database and container (with partition key /category)\n    ({ database } = await client.databases.createIfNotExists({\n      id: databaseId,\n    }));\n    console.log(`Database ready : ${database.id}`);\n\n    ({ container } = await database.containers.createIfNotExists({\n      id: containerId,\n      partitionKey: { paths: [partitionKeyPath] },\n    }));\n    console.log(`Container ready: ${container.id}`);\n\n    // 3. Create an item\n    const newItem: Item = {\n      id: \&#34;item-1\&#34;,\n      category: \&#34;electronics\&#34;,\n      name: \&#34;Wireless Mouse\&#34;,\n      quantity: 5,\n    };\n\n    const { resource: createdItem, statusCode: createStatus } =\n      await container.items.create\u003cItem\u003e(newItem);\n    console.log(\n      `\\nCreated item   : ${createdItem?.id} (status ${createStatus})`\n    );\n\n    // 4. Read the item back using item().read()\n    const { resource: readItem, statusCode: readStatus } = await container\n      .item(newItem.id, newItem.category)\n      .read\u003cItem\u003e();\n    console.log(\n      `Read item      : ${readItem?.name}, qty=${readItem?.quantity} (status ${readStatus})`\n    );\n\n    // 5. Query items where category equals \&#34;electronics\&#34; (parameterized)\n    const querySpec = {\n      query: \&#34;SELECT * FROM c WHERE c.category = @category\&#34;,\n      parameters: [{ name: \&#34;@category\&#34;, value: \&#34;electronics\&#34; }],\n    };\n\n    const { resources: queryResults } = await container.items\n      .query\u003cItem\u003e(querySpec)\n      .fetchAll();\n    console.log(`\\nQuery results  : ${queryResults.length} item(s)`);\n    for (const item of queryResults) {\n      console.log(`  - ${item.id}: ${item.name} (qty ${item.quantity})`);\n    }\n\n    // 6. Replace the item with updated quantity\n    const updatedItem: Item = { ...readItem!, quantity: 10 };\n    const { resource: replacedItem, statusCode: replaceStatus } =\n      await container\n        .item(updatedItem.id, updatedItem.category)\n        .replace\u003cItem\u003e(updatedItem);\n    console.log(\n      `\\nReplaced item  : qty=${replacedItem?.quantity} (status ${replaceStatus})`\n    );\n\n    // 7. Delete the item\n    const { statusCode: deleteStatus } = await container\n      .item(newItem.id, newItem.category)\n      .delete();\n    console.log(`Deleted item   : ${newItem.id} (status ${deleteStatus})`);\n  } catch (error: unknown) {\n    // Handle Cosmos DB errors with status code checks\n    if (error instanceof Object \u0026\u0026 \&#34;code\&#34; in error) {\n      const cosmosError = error as { code: number; message?: string };\n      switch (cosmosError.code) {\n        case StatusCodes.NotFound:\n          console.error(\&#34;Resource not found (404).\&#34;);\n          break;\n        case StatusCodes.Conflict:\n          console.error(\&#34;Conflict – resource already exists (409).\&#34;);\n          break;\n        case StatusCodes.TooManyRequests:\n          console.error(\&#34;Rate limited (429). Retry after back-off.\&#34;);\n          break;\n        default:\n          console.error(\n            `Cosmos DB error ${cosmosError.code}: ${cosmosError.message}`\n          );\n      }\n    } else {\n      console.error(\&#34;Unexpected error:\&#34;, error);\n    }\n    process.exitCode = 1;\n  }\n}\n\nmain();\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>16.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>17.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Verifying TypeScript compilation&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>18.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\&#34; \u0026\u0026 npx tsc --noEmit 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Type-check the project&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>19.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Need to fix tsconfig. Let me update it to disable `verbatimModuleSyntax` and add node types.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>20.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>21.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>22.</span>
+          <span class="tool-name">Tool call: edit</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;new_str&#34;:&#34;    \&#34;types\&#34;: [\&#34;node\&#34;],&#34;,&#34;old_str&#34;:&#34;    \&#34;types\&#34;: [],&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>23.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>24.</span>
+          <span class="tool-name">Tool call: edit</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;new_str&#34;:&#34;    \&#34;verbatimModuleSyntax\&#34;: false,&#34;,&#34;old_str&#34;:&#34;    \&#34;verbatimModuleSyntax\&#34;: true,&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>25.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>26.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052\&#34; \u0026\u0026 npx tsc --noEmit 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Re-check TypeScript compilation&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>27.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Compiles cleanly. Here&#39;s a summary of the project:
+
+**Package:** `@azure/cosmos` (`npm install @azure/cosmos`)
+
+**`src/index.ts`** performs all 7 steps:
+
+| # | Operation | API |
+|---|-----------|-----|
+| 1 | Client init | `new CosmosClient({ endpoint, key })` |
+| 2 | Create DB &#43; container | `createIfNotExists()` with partition key `/category` |
+| 3 | Create item | `container.items.create()` |
+| 4 | Read item | `container.item(id, partitionKey).read()` |
+| 5 | Query | Parameterized `SELECT * FROM c WHERE c.category = @category` |
+| 6 | Replace | `container.item(id, partitionKey).replace()` |
+| 7 | Delete | `container.item(id, partitionKey).delete()` |
+
+Error handling uses `StatusCodes` from the SDK to check for **404**, **409**, and **429**. Set `COSMOS_ENDPOINT` and `COSMOS_KEY` environment variables, then run with `npx tsc &amp;&amp; node dist/src/index.js`.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>28.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 18/23 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#eab308">18/23</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses @azure/cosmos package correctly, no deprecated unscoped packages</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses key-based authentication instead of @azure/identity with credential objects (e.g., DefaultAzureCredential)</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">CosmosClient constructed with endpoint and key, not endpoint and credential object</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Consistently uses async/await throughout; main function is async with proper await usage</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Query uses fetchAll() which collects all results in memory; should use for-await-of iteration over PagedAsyncIterableIterator</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">No long-running operations in Cosmos DB CRUD, criterion not applicable</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Catches generic errors with code property check, not specifically RestError type from @azure/core-rest-pipeline</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Only uses current @azure/cosmos package, no deprecated packages present</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">No use of @azure/logger or setLogLevel() for SDK diagnostic logging</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Valid package.json with @azure/cosmos, TypeScript, @types/node, and tsconfig.json present</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/cosmos npm package</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Package.json correctly includes @azure/cosmos ^4.9.3</td>
+          </tr>
+          
+          <tr>
+            <td>CosmosClient constructor with endpoint and key</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Correctly instantiates CosmosClient with endpoint and key as requested</td>
+          </tr>
+          
+          <tr>
+            <td>database.createIfNotExists() and container.createIfNotExists()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both methods correctly used to create TestDB database and Items container with partition key /category</td>
+          </tr>
+          
+          <tr>
+            <td>container.items.create() and item().read()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Creates item with items.create() and reads back with item(id, partitionKey).read()</td>
+          </tr>
+          
+          <tr>
+            <td>container.items.query() with SqlQuerySpec</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Query uses SqlQuerySpec with parameterized query (@category parameter)</td>
+          </tr>
+          
+          <tr>
+            <td>item().replace() and delete()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both item().replace() and item().delete() methods correctly implemented</td>
+          </tr>
+          
+          <tr>
+            <td>FeedResponse iteration</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses fetchAll() instead of iterating over FeedResponse with for-await-of pattern</td>
+          </tr>
+          
+          <tr>
+            <td>Error status codes</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Properly checks status codes using StatusCodes enum (NotFound, Conflict, TooManyRequests)</td>
+          </tr>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Code is syntactically correct TypeScript with proper imports and valid tsconfig.json</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">@azure/cosmos 4.9.3 is a current stable version</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Follows prompt requirements correctly; uses async/await and proper error handling</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Comprehensive try/catch with specific status code checks for NotFound, Conflict, and TooManyRequests</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Clean, well-structured, readable code with clear comments and proper TypeScript interfaces</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>The code correctly implements all required Cosmos DB CRUD operations with proper error handling and TypeScript types. However, it deviates from Azure SDK best practices by using key-based authentication instead of @azure/identity credentials, lacks @azure/logger integration, doesn&#39;t use RestError for typed exception handling, and uses fetchAll() instead of for-await-of pagination pattern.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>Correctly implements all 7 CRUD operations requested in the prompt</li><li>Uses proper async/await patterns throughout</li><li>Comprehensive error handling with specific status code checks (404, 409, 429)</li><li>Clean TypeScript code with proper interface definitions</li><li>Valid package.json with current @azure/cosmos package and TypeScript tooling</li><li>Proper use of partition key in all item operations</li><li>Well-structured code with clear comments</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>Uses key-based authentication instead of @azure/identity with credential objects (DefaultAzureCredential or specific token credential)</li><li>Query uses fetchAll() which loads all results into memory; should iterate with for-await-of over PagedAsyncIterableIterator</li><li>Missing @azure/logger integration for SDK diagnostic logging</li><li>Error handling uses generic error checking instead of catching RestError type with statusCode property</li><li>Client constructed with key parameter instead of credential object</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (2 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses @azure/cosmos package correctly, no deprecated unscoped packages&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Uses key-based authentication instead of @azure/identity with credential objects (e.g., DefaultAzureCredential)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;CosmosClient constructed with endpoint and key, not endpoint and credential object&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Consistently uses async/await throughout; main function is async with proper await usage&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Query uses fetchAll() which collects all results in memory; should use for-await-of iteration over PagedAsyncIterableIterator&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No long-running operations in Cosmos DB CRUD, criterion not applicable&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Catches generic errors with code property check, not specifically RestError type from @azure/core-rest-pipeline&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Only uses current @azure/cosmos package, no deprecated packages present&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Logging via @azure/logger&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;No use of @azure/logger or setLogLevel() for SDK diagnostic logging&#34;
+      },
+      {
+        &#34;name&#34;: &#34;package.json with Correct Dependencies&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Valid package.json with @azure/cosmos, T…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me carefully evaluate this generated TypeScript code against all the criteri…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me carefully evaluate this generated TypeScript code against all the criteria provided.
+
+## Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check if all Azure SDK dependencies use @azure/ scoped packages.
+   - package.json has `@azure/cosmos` - PASS
+
+2. **@azure/identity for Authentication** - Should include @azure/identity and use proper credential patterns.
+   - The code does NOT use @azure/identity at all. It uses endpoint &#43; key authentication instead of credential-based auth.
+   - This is NOT MET.
+
+3. **Client Constructor with Endpoint and Credential** - Should construct clients with endpoint URL and credential object.
+   - Uses `new CosmosClient({ endpoint, key })` which is endpoint &#43; key, not endpoint &#43; credential.
+   - NOT MET.
+
+4. **Async/Await Pattern** - Uses async/await for all async operations.
+   - Yes, the main function is async and uses await consistently. PASS.
+
+5. **Pagination with for-await-of** - List/query operations should use for-await-of.
+   - The code uses `container.items.query&lt;Item&gt;(querySpec).fetchAll()` which collects all results into memory.
+   - This is explicitly against the criterion which says &#34;Does not collect all pages into an array in memory (e.g., no Array.from() or manual page accumulation)&#34;.
+   - NOT MET.
+
+6. **LRO Pattern (beginXxx &#43; pollUntilDone)** - Long-running operations use begin* methods.
+   - No LROs in Cosmos DB CRUD operations, so this is N/A or could be considered PASS since there are no LROs to handle.
+   - I&#39;ll mark this as PASS (not applicable).
+
+7. **RestError Exception Handling** - Catches RestError with statusCode inspection.
+   - The code catches generic errors and checks for `code` property, not RestError specifically.
+   - Uses `StatusCodes` enum which is good, but doesn&#39;t catch RestError type specifically.
+   - PARTIAL - but the criterion is specific about RestError, so NOT MET.
+
+8. **No Deprecated Packages** - No deprecated packages.
+   - Only uses @azure/cosmos which is current.…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (1 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-sonnet-4.5</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#eab308">18/23</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="Uses @azure/cosmos package correctly, no deprecated unscoped packages">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses key-based authentication instead of @azure/identity with credential objects (e.g., DefaultAzureCredential)">❌ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="CosmosClient constructed with endpoint and key, not endpoint and credential object">❌ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Consistently uses async/await throughout; main function is async with proper await usage">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Query uses fetchAll() which collects all results in memory; should use for-await-of iteration over PagedAsyncIterableIterator">❌ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="No long-running operations in Cosmos DB CRUD, criterion not applicable">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Catches generic errors with code property check, not specifically RestError type from @azure/core-rest-pipeline">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="Only uses current @azure/cosmos package, no deprecated packages present">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="No use of @azure/logger or setLogLevel() for SDK diagnostic logging">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with @azure/cosmos, TypeScript, @types/node, and tsconfig.json present">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Package.json correctly includes @azure/cosmos ^4.9.3">✅ @azure/cosmos npm package</span> <span style="display:inline-block;margin:2px 4px" title="Correctly instantiates CosmosClient with endpoint and key as requested">✅ CosmosClient constructor with endpoint and key</span> <span style="display:inline-block;margin:2px 4px" title="Both methods correctly used to create TestDB database and Items container with partition key /category">✅ database.createIfNotExists() and container.createIfNotExists()</span> <span style="display:inline-block;margin:2px 4px" title="Creates item with items.create() and reads back with item(id, partitionKey).read()">✅ container.items.create() and item().read()</span> <span style="display:inline-block;margin:2px 4px" title="Query uses SqlQuerySpec with parameterized query (@category parameter)">✅ container.items.query() with SqlQuerySpec</span> <span style="display:inline-block;margin:2px 4px" title="Both item().replace() and item().delete() methods correctly implemented">✅ item().replace() and delete()</span> <span style="display:inline-block;margin:2px 4px" title="Uses fetchAll() instead of iterating over FeedResponse with for-await-of pattern">❌ FeedResponse iteration</span> <span style="display:inline-block;margin:2px 4px" title="Properly checks status codes using StatusCodes enum (NotFound, Conflict, TooManyRequests)">✅ Error status codes</span> <span style="display:inline-block;margin:2px 4px" title="Code is syntactically correct TypeScript with proper imports and valid tsconfig.json">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="@azure/cosmos 4.9.3 is a current stable version">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows prompt requirements correctly; uses async/await and proper error handling">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Comprehensive try/catch with specific status code checks for NotFound, Conflict, and TooManyRequests">✅ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured, readable code with clear comments and proper TypeScript interfaces">✅ Code Quality</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#eab308">18/23</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="Uses @azure/cosmos package correctly, no deprecated unscoped packages">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses key-based authentication instead of @azure/identity with credential objects (e.g., DefaultAzureCredential)">❌ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="CosmosClient constructed with endpoint and key, not endpoint and credential object">❌ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Consistently uses async/await throughout; main function is async with proper await usage">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Query uses fetchAll() which collects all results in memory; should use for-await-of iteration over PagedAsyncIterableIterator">❌ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="No long-running operations in Cosmos DB CRUD, criterion not applicable">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Catches generic errors with code property check, not specifically RestError type from @azure/core-rest-pipeline">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="Only uses current @azure/cosmos package, no deprecated packages present">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="No use of @azure/logger or setLogLevel() for SDK diagnostic logging">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with @azure/cosmos, TypeScript, @types/node, and tsconfig.json present">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Package.json correctly includes @azure/cosmos ^4.9.3">✅ @azure/cosmos npm package</span> <span style="display:inline-block;margin:2px 4px" title="Correctly instantiates CosmosClient with endpoint and key as requested">✅ CosmosClient constructor with endpoint and key</span> <span style="display:inline-block;margin:2px 4px" title="Both methods correctly used to create TestDB database and Items container with partition key /category">✅ database.createIfNotExists() and container.createIfNotExists()</span> <span style="display:inline-block;margin:2px 4px" title="Creates item with items.create() and reads back with item(id, partitionKey).read()">✅ container.items.create() and item().read()</span> <span style="display:inline-block;margin:2px 4px" title="Query uses SqlQuerySpec with parameterized query (@category parameter)">✅ container.items.query() with SqlQuerySpec</span> <span style="display:inline-block;margin:2px 4px" title="Both item().replace() and item().delete() methods correctly implemented">✅ item().replace() and delete()</span> <span style="display:inline-block;margin:2px 4px" title="Uses fetchAll() instead of iterating over FeedResponse with for-await-of pattern">❌ FeedResponse iteration</span> <span style="display:inline-block;margin:2px 4px" title="Properly checks status codes using StatusCodes enum (NotFound, Conflict, TooManyRequests)">✅ Error status codes</span> <span style="display:inline-block;margin:2px 4px" title="Code is syntactically correct TypeScript with proper imports and valid tsconfig.json">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="@azure/cosmos 4.9.3 is a current stable version">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows prompt requirements correctly; uses async/await and proper error handling">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Comprehensive try/catch with specific status code checks for NotFound, Conflict, and TooManyRequests">✅ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured, readable code with clear comments and proper TypeScript interfaces">✅ Code Quality</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-sonnet-4.5</code> — The code correctly implements all required Cosmos DB CRUD operations with proper error handling and TypeScript types. However, it deviates from Azure SDK best practices by using key-based authentication instead of @azure/identity credentials, lacks @azure/logger integration, doesn&#39;t use RestError for typed exception handling, and uses fetchAll() instead of for-await-of pagination pattern.</summary>
+      <p><strong>Issues:</strong></p><ul><li>Uses key-based authentication instead of @azure/identity with credential objects (DefaultAzureCredential or specific token credential)</li><li>Query uses fetchAll() which loads all results into memory; should iterate with for-await-of over PagedAsyncIterableIterator</li><li>Missing @azure/logger integration for SDK diagnostic logging</li><li>Error handling uses generic error checking instead of catching RestError type with statusCode property</li><li>Client constructed with key parameter instead of credential object</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Correctly implements all 7 CRUD operations requested in the prompt</li><li>Uses proper async/await patterns throughout</li><li>Comprehensive error handling with specific status code checks (404, 409, 429)</li><li>Clean TypeScript code with proper interface definitions</li><li>Valid package.json with current @azure/cosmos package and TypeScript tooling</li><li>Proper use of partition key in all item operations</li><li>Well-structured code with clear comments</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (2 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses @azure/cosmos package correctly, no deprecated unscoped packages&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Uses key-based authentication instead of @azure/identity with credential objects (e.g., DefaultAzureCredential)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;CosmosClient constructed with endpoint and key, not endpoint and credential object&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Consistently uses async/await throughout; main function is async with proper await usage&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Query uses fetchAll() which collects all results in memory; should use for-await-of iteration over PagedAsyncIterableIterator&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No long-running operations in Cosmos DB CRUD, criterion not applicable&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Catches generic errors with code property check, not specifically RestError type from @azure/core-rest-pipeline&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Only uses current @azure/cosmos package, no deprecated packages present&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Logging via @azure/logger&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;No use of @azure/logger or setLogLevel() for SDK diagnostic logging&#34;
+      },
+      {
+        &#34;name&#34;: &#34;package.json with Correct Dependencies&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Valid package.json with @azure/cosmos, T…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me carefully evaluate this generated TypeScript code against all the criteri…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me carefully evaluate this generated TypeScript code against all the criteria provided.
+
+## Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check if all Azure SDK dependencies use @azure/ scoped packages.
+   - package.json has `@azure/cosmos` - PASS
+
+2. **@azure/identity for Authentication** - Should include @azure/identity and use proper credential patterns.
+   - The code does NOT use @azure/identity at all. It uses endpoint &#43; key authentication instead of credential-based auth.
+   - This is NOT MET.
+
+3. **Client Constructor with Endpoint and Credential** - Should construct clients with endpoint URL and credential object.
+   - Uses `new CosmosClient({ endpoint, key })` which is endpoint &#43; key, not endpoint &#43; credential.
+   - NOT MET.
+
+4. **Async/Await Pattern** - Uses async/await for all async operations.
+   - Yes, the main function is async and uses await consistently. PASS.
+
+5. **Pagination with for-await-of** - List/query operations should use for-await-of.
+   - The code uses `container.items.query&lt;Item&gt;(querySpec).fetchAll()` which collects all results into memory.
+   - This is explicitly against the criterion which says &#34;Does not collect all pages into an array in memory (e.g., no Array.from() or manual page accumulation)&#34;.
+   - NOT MET.
+
+6. **LRO Pattern (beginXxx &#43; pollUntilDone)** - Long-running operations use begin* methods.
+   - No LROs in Cosmos DB CRUD operations, so this is N/A or could be considered PASS since there are no LROs to handle.
+   - I&#39;ll mark this as PASS (not applicable).
+
+7. **RestError Exception Handling** - Catches RestError with statusCode inspection.
+   - The code catches generic errors and checks for `code` property, not RestError specifically.
+   - Uses `StatusCodes` enum which is good, but doesn&#39;t catch RestError type specifically.
+   - PARTIAL - but the criterion is specific about RestError, so NOT MET.
+
+8. **No Deprecated Packages** - No deprecated packages.
+   - Only uses @azure/cosmos which is current.…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (2 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code correctly implements all required Cosmos DB CRUD operations with proper error handling and TypeScript types. However, it deviates from Azure SDK best practices by using key-based authentication instead of @azure/identity credentials, lacks @azure/logger integration, doesn&#39;t use RestError for typed exception handling, and uses fetchAll() instead of for-await-of pagination pattern.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code correctly implements all required Cosmos DB CRUD operations with proper error handling and TypeScript types. However, it deviates from Azure SDK best practices by using key-based authentication instead of @azure/identity credentials, lacks @azure/logger integration, doesn&#39;t use RestError for typed exception handling, and uses fetchAll() instead of for-await-of pagination pattern.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (4)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">3 .json, 1 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package-lock.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;lockfileVersion&#34;: 3,
+  &#34;requires&#34;: true,
+  &#34;packages&#34;: {
+    &#34;&#34;: {
+      &#34;name&#34;: &#34;hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;license&#34;: &#34;ISC&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/cosmos&#34;: &#34;^4.9.3&#34;
+      },
+      &#34;devDependencies&#34;: {
+        &#34;@types/node&#34;: &#34;^25.6.0&#34;,
+        &#34;typescript&#34;: &#34;^6.0.3&#34;
+      }
+    },
+    &#34;node_modules/@azure-rest/core-client&#34;: {
+      &#34;version&#34;: &#34;2.6.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure-rest/core-client/-/core-client-2.6.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iuFKDm8XPzNxPfRjhyU5/xKZmcRDzSuEghXDHHk4MjBV/wFL34GmYVBZnn9wmuoLBeS1qAw9ceMdaeJBPcB1QQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-auth&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-auth/-/core-auth-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ykRMW8PjVAn&#43;RS6ww5cmK9U2CyH9p4Q88YJwvUslfuMmN98w/2rdGRLPqJYObapBCdzBVeDgYWdJnFPFb7qzpg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-client&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-client/-/core-client-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Nh5PhEOeY6PrnxNPsEHRr9eimxLwgLlpmguQaHKBinFYA/RU9&#43;kOYVOQqOrTsCL&#43;KSxrLLl1gD8Dk5BFW/7l/w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;peer&#34;: true,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-http-compat&#34;: {
+      &#34;version&#34;: &#34;2.4.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-http-compat/-/core-http-compat-2.4.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-f1P96IB399YiN2ARYHP7EpZi3Bf3wH4SN2lGzrw7JVwm7bbsVYtf2iKSBwTywD2P62NOPZGHFSZi&#43;6jjb75JuA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      },
+      &#34;peerDependencies&#34;: {
+        &#34;@azure/core-client&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-lro&#34;: {
+      &#34;version&#34;: &#34;2.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-lro/-/core-lro-2.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0YIpccoX8m/k00O7mDDMdJpbr6mf1yWo2dfmxt5A8XVZVVMz2SSKaEbMCeJRvgQ0IaSlqhjT47p4hVIRRy90xw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-paging&#34;: {
+      &#34;version&#34;: &#34;1.6.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-paging/-/core-paging-1.6.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YKWi9YuCU04B55h25cnOYZHxXYtEvQEbKST5vqRga7hWY9ydd3FZHdeQF8pyh&#43;acWZvppw13M/LMGx0LABUVMA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-rest-pipeline&#34;: {
+      &#34;version&#34;: &#34;1.23.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-rest-pipeline/-/core-rest-pipeline-1.23.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Evs1INHo&#43;jUjwHi1T6SG6Ua/LHOQBCLuKEEE6efIpt4ZOoNonaT1kP32GoOcdNDbfqsD2445CPri3MubBy5DEQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.4&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-tracing&#34;: {
+      &#34;version&#34;: &#34;1.3.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-tracing/-/core-tracing-1.3.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-9MWKevR7Hz8kNzzPLfX4EAtGM2b8mr50HPDBvio96bURP/9C&#43;HjdH3sBlLSNNrvRAr5/k/svoH457gB5IKpmwQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-util&#34;: {
+      &#34;version&#34;: &#34;1.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-util/-/core-util-1.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-XPArKLzsvl0Hf0CaGyKHUyVgF7oDnhKoP85Xv6M4StF/1AhfORhZudHtOyf2s&#43;FcbuQ9dPRAjB8J2KvRRMUK2A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/cosmos&#34;: {
+      &#34;version&#34;: &#34;4.9.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/cosmos/-/cosmos-4.9.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-AWRj&#43;yhw1lybutNcsHJ8syxWXnTLvc3CPwwdCwG1I0I71f25ZcBkxneTeoaB3X57&#43;xl1nO&#43;zJKUqfm0RhpGUFA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.1&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/keyvault-keys&#34;: &#34;^4.9.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;fast-json-stable-stringify&#34;: &#34;^2.1.0&#34;,
+        &#34;priorityqueuejs&#34;: &#34;^2.0.0&#34;,
+        &#34;semaphore&#34;: &#34;^1.1.0&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/keyvault-common&#34;: {
+      &#34;version&#34;: &#34;2.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/keyvault-common/-/keyvault-common-2.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-aCDidWuKY06LWQ4x7/8TIXK6iRqTaRWRL3t7T&#43;LC&#43;j1b07HtoIsOxP/tU90G4jCSBn5TAyUTCtA4MS/y5Hudaw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure-rest/core-client&#34;: &#34;^2.3.3&#34;,
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.8.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/keyvault-keys&#34;: {
+      &#34;version&#34;: &#34;4.10.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/keyvault-keys/-/keyvault-keys-4.10.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-eDT7iXoBTRZ2n3fLiftuGJFD&#43;yjkiB1GNqzU2KbY1TLYeXeSPVTVgn2eJ5vmRTZ11978jy2Kg2wI7xa9Tyr8ag==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure-rest/core-client&#34;: &#34;^2.3.3&#34;,
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-http-compat&#34;: &#34;^2.2.0&#34;,
+        &#34;@azure/core-lro&#34;: &#34;^2.7.2&#34;,
+        &#34;@azure/core-paging&#34;: &#34;^1.6.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/keyvault-common&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/logger&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/logger/-/logger-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-fCqPIfOcLE&#43;CGqGPd66c8bZpwAji98tZ4JI9i/mlTNTlsIWslCfpg48s/ypyLxZTump5sypjrKn2/kY7q8oAbA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@types/node&#34;: {
+      &#34;version&#34;: &#34;25.6.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@types/node/-/node-25.6.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-&#43;qIYRKdNYJwY3vRCZMdJbPLJAtGjQBudzZzdzwQYkEPQd&#43;PJGixUL5QfvCLDaULoLv&#43;RhT3LDkwEfKaAkgSmNQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;undici-types&#34;: &#34;~7.19.0&#34;
+      }
+    },
+    &#34;node_modules/@typespec/ts-http-runtime&#34;: {
+      &#34;version&#34;: &#34;0.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@typespec/ts-http-runtime/-/ts-http-runtime-0.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-yURCknZhvywvQItHMMmFSo&#43;fq5arCUIyz/CVk7jD89MSai7dkaX8ufjCWp3NttLojoTVbcE72ri&#43;be/TnEbMHw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;http-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;https-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/agent-base&#34;: {
+      &#34;version&#34;: &#34;7.1.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MnA&#43;YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7&#43;jMO&#43;CUovTQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/debug&#34;: {
+      &#34;version&#34;: &#34;4.4.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/debug/-/debug-4.4.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-RGwwWnwQvkVfavKVt22FGLw&#43;xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;ms&#34;: &#34;^2.1.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;supports-color&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/fast-json-stable-stringify&#34;: {
+      &#34;version&#34;: &#34;2.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-lhd/wF&#43;Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/http-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ&#43;veqSOHci/PxBcDabeUNCzpOODJZig==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.0&#34;,
+        &#34;debug&#34;: &#34;^4.3.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/https-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vK9P5/iUfdl95AI&#43;JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.2&#34;,
+        &#34;debug&#34;: &#34;4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/ms&#34;: {
+      &#34;version&#34;: &#34;2.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ms/-/ms-2.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/priorityqueuejs&#34;: {
+      &#34;version&#34;: &#34;2.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/priorityqueuejs/-/priorityqueuejs-2.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-19BMarhgpq3x4ccvVi8k2QpJZcymo/iFUcrhPd4V96kYGovOdTsWwy7fxChYi4QY&#43;m2EnGBWSX9Buakz&#43;tWNQQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/semaphore&#34;: {
+      &#34;version&#34;: &#34;1.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/semaphore/-/semaphore-1.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-O4OZEaNtkMd/K0i6js9SL&#43;gqy0ZCBMgUvlSqHKi4IBdjhe7wB8pwztUk1BbZ1fmrvpwFrPbHzqd2w5pTcJH6LA==&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/tslib&#34;: {
+      &#34;version&#34;: &#34;2.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oJFu94HQb&#43;KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==&#34;,
+      &#34;license&#34;: &#34;0BSD&#34;
+    },
+    &#34;node_modules/typescript&#34;: {
+      &#34;version&#34;: &#34;6.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/typescript/-/typescript-6.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-y2TvuxSZPDyQakkFRPZHKFm&#43;KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;bin&#34;: {
+        &#34;tsc&#34;: &#34;bin/tsc&#34;,
+        &#34;tsserver&#34;: &#34;bin/tsserver&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.17&#34;
+      }
+    },
+    &#34;node_modules/undici-types&#34;: {
+      &#34;version&#34;: &#34;7.19.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/undici-types/-/undici-types-7.19.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-qYVnV5OEm2AW8cJMCpdV20CDyaN3g0AjDlOGf1OW4iaDEx8MwdtChUp4zu4H0VP3nDRF/8RKWH&#43;IPp9uW0YGZg==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    }
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;hyoka-cosmos-db-dp-js-ts-crud-baseline-claude-opus-4.6-3662470052&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;main&#34;: &#34;index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;test&#34;: &#34;echo \&#34;Error: no test specified\&#34; &amp;&amp; exit 1&#34;
+  },
+  &#34;keywords&#34;: [],
+  &#34;author&#34;: &#34;&#34;,
+  &#34;license&#34;: &#34;ISC&#34;,
+  &#34;dependencies&#34;: {
+    &#34;@azure/cosmos&#34;: &#34;^4.9.3&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^25.6.0&#34;,
+    &#34;typescript&#34;: &#34;^6.0.3&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\index.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { CosmosClient, Database, Container, StatusCodes } from &#34;@azure/cosmos&#34;;
+
+// ---------------------------------------------------------------------------
+// Configuration – replace with your actual Cosmos DB endpoint and key
+// ---------------------------------------------------------------------------
+const endpoint = process.env.COSMOS_ENDPOINT || &#34;&lt;your-cosmos-endpoint&gt;&#34;;
+const key = process.env.COSMOS_KEY || &#34;&lt;your-cosmos-key&gt;&#34;;
+
+const databaseId = &#34;TestDB&#34;;
+const containerId = &#34;Items&#34;;
+const partitionKeyPath = &#34;/category&#34;;
+
+// ---------------------------------------------------------------------------
+// Item interface
+// ---------------------------------------------------------------------------
+interface Item {
+  id: string;
+  category: string;
+  name: string;
+  quantity: number;
+}
+
+// ---------------------------------------------------------------------------
+// Main CRUD workflow
+// ---------------------------------------------------------------------------
+async function main(): Promise&lt;void&gt; {
+  // 1. Create a CosmosClient using endpoint and key
+  const client = new CosmosClient({ endpoint, key });
+
+  let database: Database;
+  let container: Container;
+
+  try {
+    // 2. Create database and container (with partition key /category)
+    ({ database } = await client.databases.createIfNotExists({
+      id: databaseId,
+    }));
+    console.log(`Database ready : ${database.id}`);
+
+    ({ container } = await database.containers.createIfNotExists({
+      id: containerId,
+      partitionKey: { paths: [partitionKeyPath] },
+    }));
+    console.log(`Container ready: ${container.id}`);
+
+    // 3. Create an item
+    const newItem: Item = {
+      id: &#34;item-1&#34;,
+      category: &#34;electronics&#34;,
+      name: &#34;Wireless Mouse&#34;,
+      quantity: 5,
+    };
+
+    const { resource: createdItem, statusCode: createStatus } =
+      await container.items.create&lt;Item&gt;(newItem);
+    console.log(
+      `\nCreated item   : ${createdItem?.id} (status ${createStatus})`
+    );
+
+    // 4. Read the item back using item().read()
+    const { resource: readItem, statusCode: readStatus } = await container
+      .item(newItem.id, newItem.category)
+      .read&lt;Item&gt;();
+    console.log(
+      `Read item      : ${readItem?.name}, qty=${readItem?.quantity} (status ${readStatus})`
+    );
+
+    // 5. Query items where category equals &#34;electronics&#34; (parameterized)
+    const querySpec = {
+      query: &#34;SELECT * FROM c WHERE c.category = @category&#34;,
+      parameters: [{ name: &#34;@category&#34;, value: &#34;electronics&#34; }],
+    };
+
+    const { resources: queryResults } = await container.items
+      .query&lt;Item&gt;(querySpec)
+      .fetchAll();
+    console.log(`\nQuery results  : ${queryResults.length} item(s)`);
+    for (const item of queryResults) {
+      console.log(`  - ${item.id}: ${item.name} (qty ${item.quantity})`);
+    }
+
+    // 6. Replace the item with updated quantity
+    const updatedItem: Item = { ...readItem!, quantity: 10 };
+    const { resource: replacedItem, statusCode: replaceStatus } =
+      await container
+        .item(updatedItem.id, updatedItem.category)
+        .replace&lt;Item&gt;(updatedItem);
+    console.log(
+      `\nReplaced item  : qty=${replacedItem?.quantity} (status ${replaceStatus})`
+    );
+
+    // 7. Delete the item
+    const { statusCode: deleteStatus } = await container
+      .item(newItem.id, newItem.category)
+      .delete();
+    console.log(`Deleted item   : ${newItem.id} (status ${deleteStatus})`);
+  } catch (error: unknown) {
+    // Handle Cosmos DB errors with status code checks
+    if (error instanceof Object &amp;&amp; &#34;code&#34; in error) {
+      const cosmosError = error as { code: number; message?: string };
+      switch (cosmosError.code) {
+        case StatusCodes.NotFound:
+          console.error(&#34;Resource not found (404).&#34;);
+          break;
+        case StatusCodes.Conflict:
+          console.error(&#34;Conflict – resource already exists (409).&#34;);
+          break;
+        case StatusCodes.TooManyRequests:
+          console.error(&#34;Rate limited (429). Retry after back-off.&#34;);
+          break;
+        default:
+          console.error(
+            `Cosmos DB error ${cosmosError.code}: ${cosmosError.message}`
+          );
+      }
+    } else {
+      console.error(&#34;Unexpected error:&#34;, error);
+    }
+    process.exitCode = 1;
+  }
+}
+
+main();
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  &#34;compilerOptions&#34;: {
+    // File Layout
+    // &#34;rootDir&#34;: &#34;./src&#34;,
+    &#34;outDir&#34;: &#34;dist&#34;,
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;target&#34;: &#34;es2020&#34;,
+    &#34;types&#34;: [&#34;node&#34;],
+    // For nodejs:
+    // &#34;lib&#34;: [&#34;esnext&#34;],
+    // &#34;types&#34;: [&#34;node&#34;],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    &#34;sourceMap&#34;: true,
+    &#34;declaration&#34;: true,
+    &#34;declarationMap&#34;: true,
+
+    // Stricter Typechecking Options
+    &#34;noUncheckedIndexedAccess&#34;: true,
+    &#34;exactOptionalPropertyTypes&#34;: true,
+
+    // Style Options
+    // &#34;noImplicitReturns&#34;: true,
+    // &#34;noImplicitOverride&#34;: true,
+    // &#34;noUnusedLocals&#34;: true,
+    // &#34;noUnusedParameters&#34;: true,
+    // &#34;noFallthroughCasesInSwitch&#34;: true,
+    // &#34;noPropertyAccessFromIndexSignature&#34;: true,
+
+    // Recommended Options
+    &#34;strict&#34;: true,
+    &#34;jsx&#34;: &#34;react-jsx&#34;,
+    &#34;verbatimModuleSyntax&#34;: false,
+    &#34;isolatedModules&#34;: true,
+    &#34;noUncheckedSideEffectImports&#34;: true,
+    &#34;moduleDetection&#34;: &#34;force&#34;,
+    &#34;skipLibCheck&#34;: true,
+
+    &#34;esModuleInterop&#34;: true,
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">50 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (50 actions, 13 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>50</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>13</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>12</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">12</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">1</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id cosmos-db-dp-js-ts-crud --config baseline/claude-opus-4.6</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

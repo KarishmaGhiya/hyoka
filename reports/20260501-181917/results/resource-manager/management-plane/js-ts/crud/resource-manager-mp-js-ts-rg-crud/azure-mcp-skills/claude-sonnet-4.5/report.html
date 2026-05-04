@@ -1,0 +1,4046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: resource-manager-mp-js-ts-rg-crud / azure-mcp-skills/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 resource-manager-mp-js-ts-rg-crud</h1>
+  <div class="subtitle">Config: <strong>azure-mcp-skills/claude-sonnet-4.5</strong> · 2026-05-02T01:26:34Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#eab308">21/23</strong></span>
+  <span class="meta-item">Duration: <strong>298.3s</strong></span>
+  <span class="meta-item">Files: <strong>8</strong></span>
+  <span class="meta-item">Tool Calls: <strong>23</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer create, list, update, and delete Azure Resource Groups using the JavaScript/TypeScript management SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>basic</td></tr>
+      <tr><td>Service</td><td>resource-manager</td></tr>
+      <tr><td>Plane</td><td>management-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>crud</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/arm-resources</code></td></tr>
+      <tr><td>Tags</td><td>resource-groups, management-plane, provisioning, getting-started</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>azure-identity-ts, azure-storage-blob-ts, azure-keyvault-secrets-ts, azure-keyvault-keys-ts, azure-cosmos-ts, azure-servicebus-ts, azure-eventhub-ts, azure-appconfiguration-ts, azure-storage-queue-ts, customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    <tr><td>Skills Invoked</td><td>azure-identity-ts</td></tr>
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=708103 out=12068</td></tr>
+    <tr><td>Turn Count</td><td>15</td></tr>
+    
+    <tr><td>Generation Duration</td><td>246.7s</td></tr>
+    <tr><td>Review Duration</td><td>51.3s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>10</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>7</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>3</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>skill: azure-identity-ts</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>stop_powershell</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program
+that manages Azure Resource Groups using the management plane SDK:
+1. Authenticate using DefaultAzureCredential from @azure/identity
+2. Create a ResourceManagementClient with the credential and subscription ID
+3. Create a new resource group in &#34;eastus&#34; region
+4. List all resource groups in the subscription using iteration
+5. Get details of the created resource group
+6. Update the resource group by adding a tag
+7. Delete the resource group using beginDeleteAndWait
+
+Show required npm packages and proper async/await patterns.
+Use the @azure/arm-resources package.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll help you create a TypeScript program for managing Azure Resource Groups using the management plane SDK. Let me first get the authentication patterns from the Azure Identity skill.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants a TypeScript program that manages Azure Resource Groups using the…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants a TypeScript program that manages Azure Resource Groups using the management plane SDK. This involves:
+1. Authentication with DefaultAzureCredential
+2. Creating a ResourceManagementClient
+3. CRUD operations on resource groups
+4. Proper async/await patterns
+
+This is a management plane operation using @azure/arm-resources, not a data plane SDK. I should check if there&#39;s a skill available for Azure Identity authentication patterns, but I don&#39;t see a specific skill for ARM/management plane SDKs in the available skills list. However, I do see &#34;azure-identity-ts&#34; skill which should help with authentication patterns.
+
+Let me invoke that skill first to get the proper authentication patterns, then create the TypeScript program.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure Resource Group management program&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">📚</div>
+      <div class="tl-card tl-card-skill">
+        <div class="tl-title">
+          <span>5.</span>
+          Skill loaded: azure-identity-ts
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>6.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>&lt;skill-context name=&#34;azure-identity-ts&#34;&gt;
+Base directory for this skill: C:\Users\kaghiya\.agents\skills\azure-identity-ts
+
+---
+name: azure-identity-ts
+description: &#34;Authenticate to Azure services with various credential types.&#34;
+risk: unknown
+source: community
+date_added: &#34;2026-02-27&#34;
+---
+
+# Azure Identity SDK for TypeScript
+
+Authenticate to Azure services with various credential types.
+
+## Installation
+
+```bash
+npm install @azure/identity
+```
+
+## Environment Variables
+
+### Service Principal (Secret)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_CLIENT_SECRET=&lt;client-secret&gt;
+```
+
+### Service Principal (Certificate)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_CLIENT_CERTIFICATE_PATH=/path/to/cert.pem
+AZURE_CLIENT_CERTIFICATE_PASSWORD=&lt;optional-password&gt;
+```
+
+### Workload Identity (Kubernetes)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_FEDERATED_TOKEN_FILE=/var/run/secrets/tokens/azure-identity
+```
+
+## DefaultAzureCredential (Recommended)
+
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+
+// Use with any Azure SDK client
+import { BlobServiceClient } from &#34;@azure/storage-blob&#34;;
+const blobClient = new BlobServiceClient(
+  &#34;https://&lt;account&gt;.blob.core.windows.net&#34;,
+  credential
+);
+```
+
+**Credential Chain Order:**
+1. EnvironmentCredential
+2. WorkloadIdentityCredential
+3. ManagedIdentityCredential
+4. VisualStudioCodeCredential
+5. AzureCliCredential
+6. AzurePowerShellCredential
+7. AzureDeveloperCliCredential
+
+## Managed Identity
+
+### System-Assigned
+
+```typescript
+import { ManagedIdentityCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ManagedIdentityCredential();
+```
+
+### User-Assigned (by Client ID)
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  clientId: &#34;&lt;user-assigned-client-id&gt;&#34;
+});
+```
+
+### User-Assigned (by Resource ID)
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  resourceId: &#34;/subscriptions/&lt;sub&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.ManagedIdentity/userAssignedIdentities/&lt;name&gt;&#34;
+});
+```
+
+## Service Principal
+
+### Client Secret
+
+```typescript
+import { ClientSecretCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ClientSecretCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  &#34;&lt;client-secret&gt;&#34;
+);
+```
+
+### Client Certificate
+
+```typescript
+import { ClientCertificateCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ClientCertificateCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  { certificatePath: &#34;/path/to/cert.pem&#34; }
+);
+
+// With password
+const credentialWithPwd = new ClientCertificateCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  { 
+    certificatePath: &#34;/path/to/cert.pem&#34;,
+    certificatePassword: &#34;&lt;password&gt;&#34;
+  }
+);
+```
+
+## Interactive Authentication
+
+### Browser-Based Login
+
+```typescript
+import { InteractiveBrowserCredential } from &#34;@azure/identity&#34;;
+
+const credential = new InteractiveBrowserCredential({
+  clientId: &#34;&lt;client-id&gt;&#34;,
+  tenantId: &#34;&lt;tenant-id&gt;&#34;,
+  loginHint: &#34;user@example.com&#34;
+});
+```
+
+### Device Code Flow
+
+```typescript
+import { DeviceCodeCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DeviceCodeCredential({
+  clientId: &#34;&lt;client-id&gt;&#34;,
+  tenantId: &#34;&lt;tenant-id&gt;&#34;,
+  userPromptCallback: (info) =&gt; {
+    console.log(info.message);
+    // &#34;To sign in, use a web browser to open...&#34;
+  }
+});
+```
+
+## Custom Credential Chain
+
+```typescript
+import { 
+  ChainedTokenCredential,
+  ManagedIdentityCredential,
+  AzureCliCredential
+} from &#34;@azure/identity&#34;;
+
+// Try managed identity first, fall back to CLI
+const credential = new ChainedTokenCredential(
+  new ManagedIdentityCredential(),
+  new AzureCliCredential()
+);
+```
+
+## Developer Credentials
+
+### Azure CLI
+
+```typescript
+import { AzureCliCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzureCliCredential();
+// Uses: az login
+```
+
+### Azure Developer CLI
+
+```typescript
+import { AzureDeveloperCliCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzureDeveloperCliCredential();
+// Uses: azd auth login
+```
+
+### Azure PowerShell
+
+```typescript
+import { AzurePowerShellCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzurePowerShellCredential();
+// Uses: Connect-AzAccount
+```
+
+## Sovereign Clouds
+
+```typescript
+import { ClientSecretCredential, AzureAuthorityHosts } from &#34;@azure/identity&#34;;
+
+// Azure Government
+const credential = new ClientSecretCredential(
+  &#34;&lt;tenant&gt;&#34;, &#34;&lt;client&gt;&#34;, &#34;&lt;secret&gt;&#34;,
+  { authorityHost: AzureAuthorityHosts.AzureGovernment }
+);
+
+// Azure China
+const credentialChina = new ClientSecretCredential(
+  &#34;&lt;tenant&gt;&#34;, &#34;&lt;client&gt;&#34;, &#34;&lt;secret&gt;&#34;,
+  { authorityHost: AzureAuthorityHosts.AzureChina }
+);
+```
+
+## Bearer Token Provider
+
+```typescript
+import { DefaultAzureCredential, getBearerTokenProvider } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+
+// Create a function that returns tokens
+const getAccessToken = getBearerTokenProvider(
+  credential,
+  &#34;https://cognitiveservices.azure.com/.default&#34;
+);
+
+// Use with APIs that need bearer tokens
+const token = await getAccessToken();
+```
+
+## Key Types
+
+```typescript
+import type { 
+  TokenCredential, 
+  AccessToken, 
+  GetTokenOptions 
+} from &#34;@azure/core-auth&#34;;
+
+import {
+  DefaultAzureCredential,
+  DefaultAzureCredentialOptions,
+  ManagedIdentityCredential,
+  ClientSecretCredential,
+  ClientCertificateCredential,
+  InteractiveBrowserCredential,
+  ChainedTokenCredential,
+  AzureCliCredential,
+  AzurePowerShellCredential,
+  AzureDeveloperCliCredential,
+  DeviceCodeCredential,
+  AzureAuthorityHosts
+} from &#34;@azure/identity&#34;;
+```
+
+## Custom Credential Implementation
+
+```typescript
+import type { TokenCredential, AccessToken, GetTokenOptions } from &#34;@azure/core-auth&#34;;
+
+class CustomCredential implements TokenCredential {
+  async getToken(
+    scopes: string | string[],
+    options?: GetTokenOptions
+  ): Promise&lt;AccessToken | null&gt; {
+    // Custom token acquisition logic
+    return {
+      token: &#34;&lt;access-token&gt;&#34;,
+      expiresOnTimestamp: Date.now() &#43; 3600000
+    };
+  }
+}
+```
+
+## Debugging
+
+```typescript
+import { setLogLevel, AzureLogger } from &#34;@azure/logger&#34;;
+
+setLogLevel(&#34;verbose&#34;);
+
+// Custom log handler
+AzureLogger.log = (...args) =&gt; {
+  console.log(&#34;[Azure]&#34;, ...args);
+};
+```
+
+## Best Practices
+
+1. **Use DefaultAzureCredential** - Works in development (CLI) and production (managed identity)
+2. **Never hardcode credentials** - Use environment variables or managed identity
+3. **Prefer managed identity** - No secrets to manage in production
+4. **Scope credentials appropriately** - Use user-assigned identity for multi-tenant scenarios
+5. **Handle token refresh** - Azure SDK handles this automatically
+6. **Use ChainedTokenCredential** - For custom fallback scenarios
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+
+&lt;/skill-context&gt;</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>7.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Now I&#39;ll create a complete TypeScript program for managing Azure Resource Groups. Let me create the necessary files:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>8.</span>
+          Now I have the Azure Identity skill context. I need to create a complete TypeScr…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>Now I have the Azure Identity skill context. I need to create a complete TypeScript program that:
+1. Uses DefaultAzureCredential from @azure/identity
+2. Creates a ResourceManagementClient from @azure/arm-resources
+3. Creates a resource group
+4. Lists all resource groups
+5. Gets details of the created resource group
+6. Updates the resource group with tags
+7. Deletes the resource group using beginDeleteAndWait
+
+I should create a complete, working example with:
+- Package.json with required dependencies
+- TypeScript configuration
+- Main program file with all operations
+- Proper error handling and async/await patterns
+- Clear comments
+
+Let me create these files.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-resource-group-management\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Resource Group management using management plane SDK\&#34;,\n  \&#34;main\&#34;: \&#34;dist/index.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node src/index.ts\&#34;\n  },\n  \&#34;keywords\&#34;: [\n    \&#34;azure\&#34;,\n    \&#34;resource-groups\&#34;,\n    \&#34;management\&#34;\n  ],\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/arm-resources\&#34;: \&#34;^5.2.0\&#34;,\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.11.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.3.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;, \&#34;dist\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { ResourceManagementClient } from \&#34;@azure/arm-resources\&#34;;\n\n/**\n * Azure Resource Group Management Example\n * \n * This program demonstrates how to:\n * 1. Authenticate using DefaultAzureCredential\n * 2. Create a ResourceManagementClient\n * 3. Create a resource group\n * 4. List all resource groups\n * 5. Get resource group details\n * 6. Update resource group tags\n * 7. Delete a resource group\n */\n\nasync function main() {\n  // Get subscription ID from environment variable\n  const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;\n  \n  if (!subscriptionId) {\n    throw new Error(\&#34;AZURE_SUBSCRIPTION_ID environment variable is required\&#34;);\n  }\n\n  console.log(\&#34;=\&#34;.repeat(60));\n  console.log(\&#34;Azure Resource Group Management Demo\&#34;);\n  console.log(\&#34;=\&#34;.repeat(60));\n  console.log();\n\n  // Step 1: Authenticate using DefaultAzureCredential\n  console.log(\&#34;🔐 Step 1: Authenticating with DefaultAzureCredential...\&#34;);\n  const credential = new DefaultAzureCredential();\n  console.log(\&#34;✅ Credential created successfully\&#34;);\n  console.log();\n\n  // Step 2: Create ResourceManagementClient\n  console.log(\&#34;🔧 Step 2: Creating ResourceManagementClient...\&#34;);\n  const client = new ResourceManagementClient(credential, subscriptionId);\n  console.log(\&#34;✅ Client created successfully\&#34;);\n  console.log(`   Subscription ID: ${subscriptionId}`);\n  console.log();\n\n  // Generate a unique resource group name\n  const timestamp = Date.now();\n  const resourceGroupName = `rg-demo-${timestamp}`;\n  const location = \&#34;eastus\&#34;;\n\n  // Step 3: Create a new resource group\n  console.log(\&#34;📦 Step 3: Creating resource group...\&#34;);\n  console.log(`   Name: ${resourceGroupName}`);\n  console.log(`   Location: ${location}`);\n  \n  const createResult = await client.resourceGroups.createOrUpdate(\n    resourceGroupName,\n    {\n      location: location,\n      tags: {\n        environment: \&#34;demo\&#34;,\n        createdBy: \&#34;typescript-sdk\&#34;\n      }\n    }\n  );\n  \n  console.log(\&#34;✅ Resource group created successfully\&#34;);\n  console.log(`   ID: ${createResult.id}`);\n  console.log(`   Provisioning State: ${createResult.properties?.provisioningState}`);\n  console.log();\n\n  // Step 4: List all resource groups\n  console.log(\&#34;📋 Step 4: Listing all resource groups in subscription...\&#34;);\n  let resourceGroupCount = 0;\n  \n  // Using async iteration to list all resource groups\n  for await (const resourceGroup of client.resourceGroups.list()) {\n    resourceGroupCount&#43;&#43;;\n    console.log(`   - ${resourceGroup.name} (${resourceGroup.location})`);\n    if (resourceGroup.tags) {\n      const tags = Object.entries(resourceGroup.tags)\n        .map(([key, value]) =\u003e `${key}=${value}`)\n        .join(\&#34;, \&#34;);\n      console.log(`     Tags: ${tags}`);\n    }\n  }\n  \n  console.log(`✅ Found ${resourceGroupCount} resource group(s)`);\n  console.log();\n\n  // Step 5: Get details of the created resource group\n  console.log(\&#34;🔍 Step 5: Getting details of created resource group...\&#34;);\n  const resourceGroup = await client.resourceGroups.get(resourceGroupName);\n  \n  console.log(\&#34;✅ Resource group details:\&#34;);\n  console.log(`   Name: ${resourceGroup.name}`);\n  console.log(`   Location: ${resourceGroup.location}`);\n  console.log(`   ID: ${resourceGroup.id}`);\n  console.log(`   Provisioning State: ${resourceGroup.properties?.provisioningState}`);\n  console.log(`   Managed By: ${resourceGroup.managedBy || \&#34;N/A\&#34;}`);\n  \n  if (resourceGroup.tags) {\n    console.log(\&#34;   Tags:\&#34;);\n    for (const [key, value] of Object.entries(resourceGroup.tags)) {\n      console.log(`     - ${key}: ${value}`);\n    }\n  }\n  console.log();\n\n  // Step 6: Update the resource group by adding a tag\n  console.log(\&#34;🏷️  Step 6: Updating resource group tags...\&#34;);\n  const updateResult = await client.resourceGroups.update(\n    resourceGroupName,\n    {\n      tags: {\n        ...resourceGroup.tags,\n        updated: \&#34;true\&#34;,\n        lastModified: new Date().toISOString()\n      }\n    }\n  );\n  \n  console.log(\&#34;✅ Resource group updated successfully\&#34;);\n  console.log(\&#34;   Updated tags:\&#34;);\n  if (updateResult.tags) {\n    for (const [key, value] of Object.entries(updateResult.tags)) {\n      console.log(`     - ${key}: ${value}`);\n    }\n  }\n  console.log();\n\n  // Step 7: Delete the resource group\n  console.log(\&#34;🗑️  Step 7: Deleting resource group...\&#34;);\n  console.log(\&#34;   This operation may take several minutes...\&#34;);\n  \n  // beginDeleteAndWait is a long-running operation that waits for completion\n  await client.resourceGroups.beginDeleteAndWait(resourceGroupName);\n  \n  console.log(\&#34;✅ Resource group deleted successfully\&#34;);\n  console.log();\n\n  // Verify deletion\n  console.log(\&#34;✔️  Verifying deletion...\&#34;);\n  try {\n    await client.resourceGroups.get(resourceGroupName);\n    console.log(\&#34;⚠️  Warning: Resource group still exists\&#34;);\n  } catch (error: any) {\n    if (error.statusCode === 404) {\n      console.log(\&#34;✅ Confirmed: Resource group no longer exists\&#34;);\n    } else {\n      throw error;\n    }\n  }\n  console.log();\n\n  console.log(\&#34;=\&#34;.repeat(60));\n  console.log(\&#34;Demo completed successfully! 🎉\&#34;);\n  console.log(\&#34;=\&#34;.repeat(60));\n}\n\n// Execute the main function with error handling\nmain().catch((error) =\u003e {\n  console.error(\&#34;❌ Error occurred:\&#34;);\n  console.error(error.message);\n  \n  if (error.code) {\n    console.error(`   Error Code: ${error.code}`);\n  }\n  \n  if (error.statusCode) {\n    console.error(`   Status Code: ${error.statusCode}`);\n  }\n  \n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Subscription ID (Required)\nAZURE_SUBSCRIPTION_ID=your-subscription-id-here\n\n# Optional: Service Principal Authentication\n# AZURE_TENANT_ID=your-tenant-id\n# AZURE_CLIENT_ID=your-client-id\n# AZURE_CLIENT_SECRET=your-client-secret\n\n# DefaultAzureCredential will use the following credential chain:\n# 1. EnvironmentCredential (environment variables above)\n# 2. WorkloadIdentityCredential (Kubernetes)\n# 3. ManagedIdentityCredential (Azure VM, App Service, etc.)\n# 4. VisualStudioCodeCredential\n# 5. AzureCliCredential (az login)\n# 6. AzurePowerShellCredential (Connect-AzAccount)\n# 7. AzureDeveloperCliCredential (azd auth login)\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>13.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Resource Group Management with TypeScript\n\nThis project demonstrates how to manage Azure Resource Groups using the Azure SDK for JavaScript/TypeScript with the management plane SDK.\n\n## Features\n\nThis program demonstrates:\n1. ✅ Authentication using `DefaultAzureCredential` from `@azure/identity`\n2. ✅ Creating a `ResourceManagementClient` with credential and subscription ID\n3. ✅ Creating a new resource group in \&#34;eastus\&#34; region\n4. ✅ Listing all resource groups using async iteration\n5. ✅ Getting details of a specific resource group\n6. ✅ Updating resource group tags\n7. ✅ Deleting a resource group using `beginDeleteAndWait`\n\n## Prerequisites\n\n- Node.js 18&#43; or 20&#43;\n- Azure subscription\n- Azure CLI installed (for `az login`) OR service principal credentials\n\n## Installation\n\n```bash\nnpm install\n```\n\n## Required Packages\n\n- `@azure/identity` (^4.0.0) - Authentication with DefaultAzureCredential\n- `@azure/arm-resources` (^5.2.0) - Azure Resource Management SDK\n\n## Configuration\n\n### Option 1: Azure CLI (Recommended for Development)\n\n```bash\naz login\n```\n\nThen set your subscription ID:\n\n```bash\nexport AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id\&#34;\n```\n\nOr on Windows:\n\n```powershell\n$env:AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id\&#34;\n```\n\n### Option 2: Service Principal (Recommended for Production)\n\nCreate a `.env` file (copy from `.env.example`):\n\n```bash\nAZURE_SUBSCRIPTION_ID=your-subscription-id\nAZURE_TENANT_ID=your-tenant-id\nAZURE_CLIENT_ID=your-client-id\nAZURE_CLIENT_SECRET=your-client-secret\n```\n\n### Option 3: Managed Identity\n\nWhen running in Azure (VM, App Service, Container Apps, etc.), no configuration is needed. The `DefaultAzureCredential` will automatically use the managed identity.\n\n## Usage\n\n### Build the project\n\n```bash\nnpm run build\n```\n\n### Run the compiled code\n\n```bash\nnpm start\n```\n\n### Run in development mode\n\n```bash\nnpm run dev\n```\n\n## Code Structure\n\n```\nsrc/\n└── index.ts          # Main program with all resource group operations\n\nKey sections in index.ts:\n- DefaultAzureCredential setup\n- ResourceManagementClient initialization\n- Resource group creation with tags\n- Async iteration for listing\n- Get operation for details\n- Update operation for tags\n- Long-running delete operation with beginDeleteAndWait\n```\n\n## Key Concepts\n\n### DefaultAzureCredential\n\nThe `DefaultAzureCredential` tries multiple authentication methods in order:\n1. Environment variables (service principal)\n2. Workload identity (Kubernetes)\n3. Managed identity\n4. Visual Studio Code\n5. Azure CLI\n6. Azure PowerShell\n7. Azure Developer CLI\n\nThis makes the code work seamlessly in both development and production environments.\n\n### Async/Await Patterns\n\nThe program uses modern async/await throughout:\n\n```typescript\n// Create (simple promise)\nconst result = await client.resourceGroups.createOrUpdate(name, params);\n\n// List (async iteration)\nfor await (const rg of client.resourceGroups.list()) {\n  console.log(rg.name);\n}\n\n// Delete (long-running operation)\nawait client.resourceGroups.beginDeleteAndWait(name);\n```\n\n### Long-Running Operations (LRO)\n\nThe `beginDeleteAndWait` method handles long-running operations automatically:\n- Starts the delete operation\n- Polls for completion\n- Returns when the operation completes\n\nFor more control, use `beginDelete()` which returns a poller:\n\n```typescript\nconst poller = await client.resourceGroups.beginDelete(name);\nconst result = await poller.pollUntilDone();\n```\n\n## Expected Output\n\n```\n============================================================\nAzure Resource Group Management Demo\n============================================================\n\n🔐 Step 1: Authenticating with DefaultAzureCredential...\n✅ Credential created successfully\n\n🔧 Step 2: Creating ResourceManagementClient...\n✅ Client created successfully\n   Subscription ID: your-sub-id\n\n📦 Step 3: Creating resource group...\n   Name: rg-demo-1234567890\n   Location: eastus\n✅ Resource group created successfully\n   ID: /subscriptions/.../resourceGroups/rg-demo-1234567890\n   Provisioning State: Succeeded\n\n📋 Step 4: Listing all resource groups in subscription...\n   - rg-demo-1234567890 (eastus)\n     Tags: environment=demo, createdBy=typescript-sdk\n   - other-rg (westus)\n✅ Found 2 resource group(s)\n\n🔍 Step 5: Getting details of created resource group...\n✅ Resource group details:\n   Name: rg-demo-1234567890\n   Location: eastus\n   Tags:\n     - environment: demo\n     - createdBy: typescript-sdk\n\n🏷️  Step 6: Updating resource group tags...\n✅ Resource group updated successfully\n   Updated tags:\n     - environment: demo\n     - createdBy: typescript-sdk\n     - updated: true\n     - lastModified: 2026-05-01T18:26:59.000Z\n\n🗑️  Step 7: Deleting resource group...\n   This operation may take several minutes...\n✅ Resource group deleted successfully\n\n✔️  Verifying deletion...\n✅ Confirmed: Resource group no longer exists\n\n============================================================\nDemo completed successfully! 🎉\n============================================================\n```\n\n## Error Handling\n\nThe program includes comprehensive error handling:\n- Validates required environment variables\n- Catches and displays API errors with status codes\n- Verifies deletion with 404 check\n\n## Best Practices Demonstrated\n\n1. ✅ Use `DefaultAzureCredential` for flexible authentication\n2. ✅ Use environment variables for configuration\n3. ✅ Use async/await for clean asynchronous code\n4. ✅ Use async iteration for paginated results\n5. ✅ Use `beginDeleteAndWait` for long-running operations\n6. ✅ Include proper error handling\n7. ✅ Add informative logging and progress indicators\n8. ✅ Verify operations (e.g., deletion confirmation)\n\n## Cleanup\n\nThe program automatically deletes the resource group it creates. If the program is interrupted, you can manually delete the resource group:\n\n```bash\naz group delete --name rg-demo-\u003ctimestamp\u003e --yes --no-wait\n```\n\n## License\n\nMIT\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>14.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Dependencies\nnode_modules/\n\n# Build output\ndist/\n\n# Environment variables\n.env\n\n# IDE\n.vscode/\n.idea/\n*.swp\n*.swo\n\n# OS\n.DS_Store\nThumbs.db\n\n# Logs\n*.log\nnpm-debug.log*\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\.gitignore&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>15.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Let me create the src directory and then the main file:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>16.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path \&#34;src\&#34; -Force | Out-Null; Write-Host \&#34;Created src directory\&#34;&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>17.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>18.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { ResourceManagementClient } from \&#34;@azure/arm-resources\&#34;;\n\n/**\n * Azure Resource Group Management Example\n * \n * This program demonstrates how to:\n * 1. Authenticate using DefaultAzureCredential\n * 2. Create a ResourceManagementClient\n * 3. Create a resource group\n * 4. List all resource groups\n * 5. Get resource group details\n * 6. Update resource group tags\n * 7. Delete a resource group\n */\n\nasync function main() {\n  // Get subscription ID from environment variable\n  const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;\n  \n  if (!subscriptionId) {\n    throw new Error(\&#34;AZURE_SUBSCRIPTION_ID environment variable is required\&#34;);\n  }\n\n  console.log(\&#34;=\&#34;.repeat(60));\n  console.log(\&#34;Azure Resource Group Management Demo\&#34;);\n  console.log(\&#34;=\&#34;.repeat(60));\n  console.log();\n\n  // Step 1: Authenticate using DefaultAzureCredential\n  console.log(\&#34;🔐 Step 1: Authenticating with DefaultAzureCredential...\&#34;);\n  const credential = new DefaultAzureCredential();\n  console.log(\&#34;✅ Credential created successfully\&#34;);\n  console.log();\n\n  // Step 2: Create ResourceManagementClient\n  console.log(\&#34;🔧 Step 2: Creating ResourceManagementClient...\&#34;);\n  const client = new ResourceManagementClient(credential, subscriptionId);\n  console.log(\&#34;✅ Client created successfully\&#34;);\n  console.log(`   Subscription ID: ${subscriptionId}`);\n  console.log();\n\n  // Generate a unique resource group name\n  const timestamp = Date.now();\n  const resourceGroupName = `rg-demo-${timestamp}`;\n  const location = \&#34;eastus\&#34;;\n\n  // Step 3: Create a new resource group\n  console.log(\&#34;📦 Step 3: Creating resource group...\&#34;);\n  console.log(`   Name: ${resourceGroupName}`);\n  console.log(`   Location: ${location}`);\n  \n  const createResult = await client.resourceGroups.createOrUpdate(\n    resourceGroupName,\n    {\n      location: location,\n      tags: {\n        environment: \&#34;demo\&#34;,\n        createdBy: \&#34;typescript-sdk\&#34;\n      }\n    }\n  );\n  \n  console.log(\&#34;✅ Resource group created successfully\&#34;);\n  console.log(`   ID: ${createResult.id}`);\n  console.log(`   Provisioning State: ${createResult.properties?.provisioningState}`);\n  console.log();\n\n  // Step 4: List all resource groups\n  console.log(\&#34;📋 Step 4: Listing all resource groups in subscription...\&#34;);\n  let resourceGroupCount = 0;\n  \n  // Using async iteration to list all resource groups\n  for await (const resourceGroup of client.resourceGroups.list()) {\n    resourceGroupCount&#43;&#43;;\n    console.log(`   - ${resourceGroup.name} (${resourceGroup.location})`);\n    if (resourceGroup.tags) {\n      const tags = Object.entries(resourceGroup.tags)\n        .map(([key, value]) =\u003e `${key}=${value}`)\n        .join(\&#34;, \&#34;);\n      console.log(`     Tags: ${tags}`);\n    }\n  }\n  \n  console.log(`✅ Found ${resourceGroupCount} resource group(s)`);\n  console.log();\n\n  // Step 5: Get details of the created resource group\n  console.log(\&#34;🔍 Step 5: Getting details of created resource group...\&#34;);\n  const resourceGroup = await client.resourceGroups.get(resourceGroupName);\n  \n  console.log(\&#34;✅ Resource group details:\&#34;);\n  console.log(`   Name: ${resourceGroup.name}`);\n  console.log(`   Location: ${resourceGroup.location}`);\n  console.log(`   ID: ${resourceGroup.id}`);\n  console.log(`   Provisioning State: ${resourceGroup.properties?.provisioningState}`);\n  console.log(`   Managed By: ${resourceGroup.managedBy || \&#34;N/A\&#34;}`);\n  \n  if (resourceGroup.tags) {\n    console.log(\&#34;   Tags:\&#34;);\n    for (const [key, value] of Object.entries(resourceGroup.tags)) {\n      console.log(`     - ${key}: ${value}`);\n    }\n  }\n  console.log();\n\n  // Step 6: Update the resource group by adding a tag\n  console.log(\&#34;🏷️  Step 6: Updating resource group tags...\&#34;);\n  const updateResult = await client.resourceGroups.update(\n    resourceGroupName,\n    {\n      tags: {\n        ...resourceGroup.tags,\n        updated: \&#34;true\&#34;,\n        lastModified: new Date().toISOString()\n      }\n    }\n  );\n  \n  console.log(\&#34;✅ Resource group updated successfully\&#34;);\n  console.log(\&#34;   Updated tags:\&#34;);\n  if (updateResult.tags) {\n    for (const [key, value] of Object.entries(updateResult.tags)) {\n      console.log(`     - ${key}: ${value}`);\n    }\n  }\n  console.log();\n\n  // Step 7: Delete the resource group\n  console.log(\&#34;🗑️  Step 7: Deleting resource group...\&#34;);\n  console.log(\&#34;   This operation may take several minutes...\&#34;);\n  \n  // beginDeleteAndWait is a long-running operation that waits for completion\n  await client.resourceGroups.beginDeleteAndWait(resourceGroupName);\n  \n  console.log(\&#34;✅ Resource group deleted successfully\&#34;);\n  console.log();\n\n  // Verify deletion\n  console.log(\&#34;✔️  Verifying deletion...\&#34;);\n  try {\n    await client.resourceGroups.get(resourceGroupName);\n    console.log(\&#34;⚠️  Warning: Resource group still exists\&#34;);\n  } catch (error: any) {\n    if (error.statusCode === 404) {\n      console.log(\&#34;✅ Confirmed: Resource group no longer exists\&#34;);\n    } else {\n      throw error;\n    }\n  }\n  console.log();\n\n  console.log(\&#34;=\&#34;.repeat(60));\n  console.log(\&#34;Demo completed successfully! 🎉\&#34;);\n  console.log(\&#34;=\&#34;.repeat(60));\n}\n\n// Execute the main function with error handling\nmain().catch((error) =\u003e {\n  console.error(\&#34;❌ Error occurred:\&#34;);\n  console.error(error.message);\n  \n  if (error.code) {\n    console.error(`   Error Code: ${error.code}`);\n  }\n  \n  if (error.statusCode) {\n    console.error(`   Status Code: ${error.statusCode}`);\n  }\n  \n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>19.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Now let me install the dependencies to verify the setup:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>20.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm install&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>21.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Excellent! Now let me compile the TypeScript code to verify it builds correctly:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>22.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm run build&#34;,&#34;description&#34;:&#34;Build TypeScript project&#34;,&#34;initial_wait&#34;:30}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>23.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! The project builds successfully. Let me verify the compiled output:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>24.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>25.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Great! Let me verify the compiled JavaScript:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>26.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\dist\\index.js&#34;,&#34;view_range&#34;:[1,30]}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>27.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! The compilation is successful. Now let me create a quick reference guide:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>28.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Quick Start Guide\n\n## 1. Install Dependencies\n\n```bash\nnpm install\n```\n\nThis installs:\n- `@azure/identity` - Authentication library\n- `@azure/arm-resources` - Resource Management SDK\n\n## 2. Configure Authentication\n\n### Option A: Azure CLI (Easiest for Development)\n\n```bash\n# Login to Azure\naz login\n\n# Set subscription (Windows PowerShell)\n$env:AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id-here\&#34;\n\n# Set subscription (Windows CMD)\nset AZURE_SUBSCRIPTION_ID=your-subscription-id-here\n\n# Set subscription (Linux/Mac)\nexport AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id-here\&#34;\n```\n\n### Option B: Service Principal\n\nSet environment variables:\n\n**Windows PowerShell:**\n```powershell\n$env:AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id\&#34;\n$env:AZURE_TENANT_ID=\&#34;your-tenant-id\&#34;\n$env:AZURE_CLIENT_ID=\&#34;your-client-id\&#34;\n$env:AZURE_CLIENT_SECRET=\&#34;your-client-secret\&#34;\n```\n\n**Linux/Mac:**\n```bash\nexport AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id\&#34;\nexport AZURE_TENANT_ID=\&#34;your-tenant-id\&#34;\nexport AZURE_CLIENT_ID=\&#34;your-client-id\&#34;\nexport AZURE_CLIENT_SECRET=\&#34;your-client-secret\&#34;\n```\n\n## 3. Run the Program\n\n### Build and Run\n```bash\nnpm run build\nnpm start\n```\n\n### Or Run Directly (Development)\n```bash\nnpm run dev\n```\n\n## Key Features Demonstrated\n\n✅ **DefaultAzureCredential** - Automatic authentication  \n✅ **ResourceManagementClient** - Management plane SDK client  \n✅ **createOrUpdate()** - Create resource group with tags  \n✅ **Async Iteration** - List all resource groups efficiently  \n✅ **get()** - Retrieve specific resource group details  \n✅ **update()** - Update resource group tags  \n✅ **beginDeleteAndWait()** - Delete with automatic polling  \n\n## Code Highlights\n\n### 1. Authentication\n```typescript\nimport { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\n\nconst credential = new DefaultAzureCredential();\n```\n\n### 2. Create Client\n```typescript\nimport { ResourceManagementClient } from \&#34;@azure/arm-resources\&#34;;\n\nconst client = new ResourceManagementClient(\n  credential, \n  subscriptionId\n);\n```\n\n### 3. Create Resource Group\n```typescript\nconst result = await client.resourceGroups.createOrUpdate(\n  \&#34;my-rg\&#34;,\n  {\n    location: \&#34;eastus\&#34;,\n    tags: { env: \&#34;demo\&#34; }\n  }\n);\n```\n\n### 4. List with Async Iteration\n```typescript\nfor await (const rg of client.resourceGroups.list()) {\n  console.log(rg.name);\n}\n```\n\n### 5. Get Details\n```typescript\nconst rg = await client.resourceGroups.get(\&#34;my-rg\&#34;);\nconsole.log(rg.properties?.provisioningState);\n```\n\n### 6. Update Tags\n```typescript\nawait client.resourceGroups.update(\&#34;my-rg\&#34;, {\n  tags: { updated: \&#34;true\&#34; }\n});\n```\n\n### 7. Delete (Long-Running Operation)\n```typescript\nawait client.resourceGroups.beginDeleteAndWait(\&#34;my-rg\&#34;);\n```\n\n## Expected Output\n\n```\n============================================================\nAzure Resource Group Management Demo\n============================================================\n\n🔐 Step 1: Authenticating with DefaultAzureCredential...\n✅ Credential created successfully\n\n🔧 Step 2: Creating ResourceManagementClient...\n✅ Client created successfully\n\n📦 Step 3: Creating resource group...\n✅ Resource group created successfully\n\n📋 Step 4: Listing all resource groups in subscription...\n✅ Found X resource group(s)\n\n🔍 Step 5: Getting details of created resource group...\n✅ Resource group details: [details shown]\n\n🏷️  Step 6: Updating resource group tags...\n✅ Resource group updated successfully\n\n🗑️  Step 7: Deleting resource group...\n✅ Resource group deleted successfully\n\n✔️  Verifying deletion...\n✅ Confirmed: Resource group no longer exists\n\n============================================================\nDemo completed successfully! 🎉\n============================================================\n```\n\n## Troubleshooting\n\n### Error: AZURE_SUBSCRIPTION_ID is required\n- Set the environment variable before running\n- Use `az account show` to get your subscription ID\n\n### Error: Authentication failed\n- Run `az login` if using Azure CLI\n- Verify service principal credentials if using environment variables\n- Check that your account has permissions to manage resource groups\n\n### Error: Permission denied\n- Ensure you have \&#34;Contributor\&#34; or \&#34;Owner\&#34; role on the subscription\n- Or at least \&#34;Resource Group Contributor\&#34; role\n\n## Learn More\n\n- [Azure Identity Documentation](https://learn.microsoft.com/azure/developer/javascript/sdk/authentication/)\n- [Azure Resource Management SDK](https://learn.microsoft.com/javascript/api/@azure/arm-resources/)\n- [DefaultAzureCredential](https://learn.microsoft.com/javascript/api/@azure/identity/defaultazurecredential)\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\QUICKSTART.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>29.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Let me create one more file to show a minimal example:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>30.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { ResourceManagementClient } from \&#34;@azure/arm-resources\&#34;;\n\n/**\n * Minimal Example: Azure Resource Group CRUD Operations\n * \n * This is a simplified version showing just the core operations.\n */\n\nasync function minimalExample() {\n  const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID!;\n  \n  // 1. Authenticate and create client\n  const credential = new DefaultAzureCredential();\n  const client = new ResourceManagementClient(credential, subscriptionId);\n  \n  const rgName = `rg-minimal-${Date.now()}`;\n  \n  try {\n    // 2. Create\n    console.log(\&#34;Creating resource group...\&#34;);\n    await client.resourceGroups.createOrUpdate(rgName, {\n      location: \&#34;eastus\&#34;,\n      tags: { purpose: \&#34;demo\&#34; }\n    });\n    console.log(\&#34;✓ Created\&#34;);\n    \n    // 3. List\n    console.log(\&#34;\\nListing all resource groups...\&#34;);\n    for await (const rg of client.resourceGroups.list()) {\n      console.log(`  - ${rg.name}`);\n    }\n    \n    // 4. Get\n    console.log(`\\nGetting details of ${rgName}...`);\n    const rg = await client.resourceGroups.get(rgName);\n    console.log(`✓ Location: ${rg.location}`);\n    \n    // 5. Update\n    console.log(\&#34;\\nUpdating tags...\&#34;);\n    await client.resourceGroups.update(rgName, {\n      tags: { ...rg.tags, updated: \&#34;true\&#34; }\n    });\n    console.log(\&#34;✓ Updated\&#34;);\n    \n    // 6. Delete\n    console.log(\&#34;\\nDeleting resource group...\&#34;);\n    await client.resourceGroups.beginDeleteAndWait(rgName);\n    console.log(\&#34;✓ Deleted\&#34;);\n    \n  } catch (error: any) {\n    console.error(\&#34;Error:\&#34;, error.message);\n    throw error;\n  }\n}\n\nminimalExample();\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\src\\minimal.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>31.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Excellent! Now let me create a summary document:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>32.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Resource Group Management - Summary\n\n## 📦 Project Files Created\n\n```\n├── src/\n│   ├── index.ts          # Full demo with all operations\n│   └── minimal.ts        # Simplified version\n├── package.json          # Dependencies and scripts\n├── tsconfig.json         # TypeScript configuration\n├── .env.example          # Environment variable template\n├── .gitignore           # Git ignore patterns\n├── README.md            # Complete documentation\n└── QUICKSTART.md        # Quick start guide\n```\n\n## 📚 Required NPM Packages\n\n```json\n{\n  \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;,\n  \&#34;@azure/arm-resources\&#34;: \&#34;^5.2.0\&#34;\n}\n```\n\n## 🔑 Key Operations Demonstrated\n\n### 1. Authentication with DefaultAzureCredential\n```typescript\nimport { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nconst credential = new DefaultAzureCredential();\n```\n\n**Credential chain:**\n- Environment variables (service principal)\n- Workload identity (Kubernetes)\n- Managed identity (Azure VM/App Service)\n- Azure CLI (`az login`)\n- Azure PowerShell\n- Azure Developer CLI\n\n### 2. Create ResourceManagementClient\n```typescript\nimport { ResourceManagementClient } from \&#34;@azure/arm-resources\&#34;;\nconst client = new ResourceManagementClient(credential, subscriptionId);\n```\n\n### 3. Create Resource Group\n```typescript\nconst result = await client.resourceGroups.createOrUpdate(\n  \&#34;my-resource-group\&#34;,\n  {\n    location: \&#34;eastus\&#34;,\n    tags: { environment: \&#34;demo\&#34; }\n  }\n);\n```\n\n### 4. List Resource Groups (Async Iteration)\n```typescript\nfor await (const rg of client.resourceGroups.list()) {\n  console.log(rg.name, rg.location);\n}\n```\n\n### 5. Get Resource Group Details\n```typescript\nconst rg = await client.resourceGroups.get(\&#34;my-resource-group\&#34;);\nconsole.log(rg.properties?.provisioningState);\n```\n\n### 6. Update Resource Group Tags\n```typescript\nawait client.resourceGroups.update(\&#34;my-resource-group\&#34;, {\n  tags: { \n    environment: \&#34;demo\&#34;,\n    updated: \&#34;true\&#34;\n  }\n});\n```\n\n### 7. Delete Resource Group (Long-Running Operation)\n```typescript\n// Automatically polls until completion\nawait client.resourceGroups.beginDeleteAndWait(\&#34;my-resource-group\&#34;);\n```\n\n## 🚀 How to Run\n\n### 1. Install Dependencies\n```bash\nnpm install\n```\n\n### 2. Set Environment Variable\n```bash\n# Windows PowerShell\n$env:AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id\&#34;\n\n# Linux/Mac\nexport AZURE_SUBSCRIPTION_ID=\&#34;your-subscription-id\&#34;\n```\n\n### 3. Authenticate\n```bash\naz login\n```\n\n### 4. Run\n```bash\n# Full demo\nnpm run build \u0026\u0026 npm start\n\n# Or development mode\nnpm run dev\n```\n\n## 🎯 Async/Await Patterns Used\n\n### Simple Promise\n```typescript\nconst result = await client.resourceGroups.createOrUpdate(name, params);\n```\n\n### Async Iteration (for paginated results)\n```typescript\nfor await (const item of client.resourceGroups.list()) {\n  // Process each item\n}\n```\n\n### Long-Running Operations (LRO)\n```typescript\n// Auto-polling version (recommended)\nawait client.resourceGroups.beginDeleteAndWait(name);\n\n// Manual polling version\nconst poller = await client.resourceGroups.beginDelete(name);\nconst result = await poller.pollUntilDone();\n```\n\n## 🔒 Authentication Options\n\n### Development (Azure CLI)\n```bash\naz login\n```\nNo environment variables needed except `AZURE_SUBSCRIPTION_ID`.\n\n### Production (Service Principal)\n```bash\nAZURE_SUBSCRIPTION_ID=xxx\nAZURE_TENANT_ID=xxx\nAZURE_CLIENT_ID=xxx\nAZURE_CLIENT_SECRET=xxx\n```\n\n### Azure Resources (Managed Identity)\nNo configuration needed - automatically uses the VM/App Service identity.\n\n## ✅ Features Implemented\n\n- ✅ DefaultAzureCredential authentication\n- ✅ ResourceManagementClient creation\n- ✅ Create resource group in \&#34;eastus\&#34;\n- ✅ List all resource groups with async iteration\n- ✅ Get resource group details\n- ✅ Update resource group tags\n- ✅ Delete resource group with beginDeleteAndWait\n- ✅ Proper async/await patterns\n- ✅ Error handling\n- ✅ TypeScript type safety\n- ✅ Comprehensive logging\n\n## 📖 Additional Resources\n\n- **Full Demo**: `src/index.ts` - Complete example with detailed logging\n- **Minimal Example**: `src/minimal.ts` - Simplified version\n- **Documentation**: `README.md` - Complete guide\n- **Quick Start**: `QUICKSTART.md` - Fast setup instructions\n\n## 🧪 Testing\n\nThe program:\n1. Creates a temporary resource group\n2. Performs all operations\n3. Cleans up by deleting the resource group\n4. Verifies deletion\n\nNo manual cleanup required!\n\n## 💡 Best Practices\n\n1. ✅ Use `DefaultAzureCredential` for flexible authentication\n2. ✅ Store subscription ID in environment variables\n3. ✅ Use async/await for clean asynchronous code\n4. ✅ Use async iteration for paginated results\n5. ✅ Use `beginDeleteAndWait()` for long-running operations\n6. ✅ Include comprehensive error handling\n7. ✅ Add logging for debugging and monitoring\n8. ✅ Clean up resources after use\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\SUMMARY.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>33.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Let me verify the build is still working and show you the final structure:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>34.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm run build 2\u003e\u00261 | Select-Object -Last 5&#34;,&#34;description&#34;:&#34;Rebuild to verify all files compile&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>35.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-ChildItem -Recurse -File | Where-Object { $_.Extension -in &#39;.ts&#39;,&#39;.json&#39;,&#39;.md&#39; } | Select-Object FullName | ForEach-Object { $_.FullName.Replace((Get-Location).Path &#43; &#39;\\&#39;, &#39;&#39;) }&#34;,&#34;description&#34;:&#34;Show project structure&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>36.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>37.</span>
+          <span class="tool-name">Tool call: stop_powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;shellId&#34;:&#34;4&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>38.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-ChildItem -Path . -File | Select-Object Name&#34;,&#34;description&#34;:&#34;Show root files&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>39.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;Get-ChildItem -Path .\\src -File | Select-Object Name&#34;,&#34;description&#34;:&#34;Show src files&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>40.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Let me show you the key code sections one more time:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>41.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-resource-manager-mp-js-ts-rg-crud-azure-mcp-skills-claude-sonnet-4.5-1476514392\\src\\index.ts&#34;,&#34;view_range&#34;:[1,40]}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>42.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>## Summary
+
+I&#39;ve created a complete TypeScript program for managing Azure Resource Groups! Here&#39;s what was delivered:
+
+### 📦 **Files Created:**
+
+1. **`src/index.ts`** - Full-featured demo with all 7 operations and detailed logging
+2. **`src/minimal.ts`** - Simplified version for quick reference
+3. **`package.json`** - Dependencies and npm scripts
+4. **`tsconfig.json`** - TypeScript configuration
+5. **`README.md`** - Complete documentation with examples
+6. **`QUICKSTART.md`** - Fast setup guide
+7. **`SUMMARY.md`** - Technical summary
+8. **`.env.example`** - Environment variable template
+
+### 📚 **NPM Packages:**
+
+- `@azure/identity` (^4.0.0) - DefaultAzureCredential authentication
+- `@azure/arm-resources` (^5.2.0) - Resource Management SDK
+
+### ✅ **All Requirements Implemented:**
+
+1. ✅ **DefaultAzureCredential** from @azure/identity
+2. ✅ **ResourceManagementClient** with credential and subscription ID
+3. ✅ **Create** resource group in &#34;eastus&#34; region
+4. ✅ **List** all resource groups using async iteration
+5. ✅ **Get** details of the created resource group
+6. ✅ **Update** tags on the resource group
+7. ✅ **Delete** using `beginDeleteAndWait()` (LRO pattern)
+
+### 🚀 **To Run:**
+
+```bash
+# Install
+npm install
+
+# Set subscription (Windows)
+$env:AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id&#34;
+
+# Authenticate
+az login
+
+# Run
+npm run build &amp;&amp; npm start
+```
+
+The program successfully compiles and demonstrates all async/await patterns, proper error handling, and follows Azure SDK best practices!</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>43.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 21/23 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#eab308">21/23</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/arm-resources). No deprecated unscoped packages.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Includes @azure/identity as dependency and uses DefaultAzureCredential for authentication, which is acceptable for demo/development code.</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">ResourceManagementClient correctly constructed with credential and subscriptionId (ARM clients don&#39;t require endpoint URL like data plane clients).</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses async/await throughout for all asynchronous operations. No .then()/.catch() chains. Top-level async function with proper error handling.</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">List operation uses &#39;for await (const resourceGroup of client.resourceGroups.list())&#39; to iterate over PagedAsyncIterableIterator. Does not collect all pages in memory.</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses beginDeleteAndWait() for long-running delete operation, which automatically polls until completion. Correct LRO pattern.</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Catches generic &#39;error: any&#39; and checks statusCode, but does not import or specifically catch RestError from @azure/core-rest-pipeline. Error handling is not type-safe.</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">No deprecated packages in package.json. All dependencies use current @azure/* track (no azure-storage, azure-arm-*, ms-rest-azure, etc.).</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Does not use @azure/logger for SDK diagnostic logging. Only uses console.log for user-facing output. No setLogLevel() or AZURE_LOG_LEVEL configuration.</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Valid package.json with all required @azure/* dependencies, TypeScript configuration, and appropriate devDependencies including @types/node.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/arm-resources and @azure/identity packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Both packages present in package.json dependencies with appropriate versions.</td>
+          </tr>
+          
+          <tr>
+            <td>DefaultAzureCredential for authentication</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">DefaultAzureCredential imported and used correctly for authentication with proper error message for missing subscription ID.</td>
+          </tr>
+          
+          <tr>
+            <td>ResourceManagementClient constructor</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Client correctly constructed with &#39;new ResourceManagementClient(credential, subscriptionId)&#39; pattern.</td>
+          </tr>
+          
+          <tr>
+            <td>resourceGroups.createOrUpdate()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Creates resource group with name, location &#39;eastus&#39;, and initial tags as required by prompt.</td>
+          </tr>
+          
+          <tr>
+            <td>resourceGroups.list() with async iteration</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">List operation uses &#39;for await...of&#39; syntax to iterate over all resource groups as required.</td>
+          </tr>
+          
+          <tr>
+            <td>resourceGroups.get()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses get() method to fetch details of created resource group and displays comprehensive information.</td>
+          </tr>
+          
+          <tr>
+            <td>resourceGroups.beginDeleteAndWait()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses beginDeleteAndWait() for long-running delete operation as specified in prompt, with verification afterward.</td>
+          </tr>
+          
+          <tr>
+            <td>Tag updates via resourceGroups.update()</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Updates resource group by adding tags using update() method with tags parameter, spreading existing tags and adding new ones.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">TypeScript configuration is valid, imports are correct, and code structure follows proper patterns. Should compile without errors.</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Package versions are current (@azure/identity ^4.0.0, @azure/arm-resources ^5.2.0) and align with latest stable releases.</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Follows Azure SDK best practices: DefaultAzureCredential, async/await patterns, proper resource cleanup, environment variable configuration, and async iteration for pagination.</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Includes error handling with try/catch, validates required environment variables, and verifies deletion. Displays error details including code and statusCode.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Clean, well-structured, readable code with descriptive comments, comprehensive logging, and proper organization. Includes documentation files and minimal example.</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>Excellent TypeScript implementation demonstrating all required Azure Resource Group management operations. The code correctly uses @azure/arm-resources and @azure/identity with proper async/await patterns, pagination, and LRO handling. All prompt requirements are met. Minor gaps: missing RestError-specific exception handling and @azure/logger integration for SDK diagnostics.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>Complete implementation of all 7 required operations (authenticate, create client, create RG, list, get, update tags, delete)</li><li>Correct use of async iteration with for-await-of for listing resource groups</li><li>Proper LRO pattern with beginDeleteAndWait() including deletion verification</li><li>Clean package.json with current Azure SDK versions and no deprecated packages</li><li>Excellent code organization with comprehensive documentation (README, QUICKSTART, SUMMARY) and minimal example</li><li>Proper async/await patterns throughout with top-level error handling</li><li>Good user experience with detailed console output and progress indicators</li><li>Validates required environment variables before execution</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>Does not import or catch RestError specifically - uses generic &#39;error: any&#39; with statusCode checking instead of type-safe error handling</li><li>No @azure/logger integration for SDK diagnostic logging - relies solely on console.log for output</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (2 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/arm-resources). No deprecated unscoped packages.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Includes @azure/identity as dependency and uses DefaultAzureCredential for authentication, which is acceptable for demo/development code.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;ResourceManagementClient correctly constructed with credential and subscriptionId (ARM clients don&#39;t require endpoint URL like data plane clients).&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses async/await throughout for all asynchronous operations. No .then()/.catch() chains. Top-level async function with proper error handling.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;List operation uses &#39;for await (const resourceGroup of client.resourceGroups.list())&#39; to iterate over PagedAsyncIterableIterator. Does not collect all pages in memory.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses beginDeleteAndWait() for long-running delete operation, which automatically polls until completion. Correct LRO pattern.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Catches generic &#39;error: any&#39; and checks statusCode, but does not import or specifically catch RestError from @azure/core-rest-pipeline. Error handling is not type-safe.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No deprecated packages in package.json. All dependen…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me carefully evaluate this TypeScript code against all the criteria mentione…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me carefully evaluate this TypeScript code against all the criteria mentioned.
+
+## Prompt-Specific Evaluation Criteria
+
+### Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check if all Azure SDK dependencies use @azure/ scoped packages
+2. **@azure/identity for Authentication** - Check if @azure/identity is included and DefaultAzureCredential is used
+3. **Client Constructor with Endpoint and Credential** - Check SDK client construction pattern
+4. **Async/Await Pattern** - Check for proper async/await usage
+5. **Pagination with for-await-of** - Check list operations use for-await-of
+6. **LRO Pattern (beginXxx &#43; pollUntilDone)** - Check long-running operations pattern
+7. **RestError Exception Handling** - Check error handling with RestError
+8. **No Deprecated Packages** - Verify no deprecated packages
+9. **Logging via @azure/logger** - Check for @azure/logger usage
+10. **package.json with Correct Dependencies** - Check package.json validity
+
+### Prompt-Specific Criteria:
+
+1. `@azure/arm-resources` and `@azure/identity` npm packages
+2. `DefaultAzureCredential` for authentication
+3. `ResourceManagementClient` constructor with credential and subscriptionId
+4. `resourceGroups.createOrUpdate()` with resource group name and parameters
+5. `resourceGroups.list()` with async iteration (`for await...of`)
+6. `resourceGroups.get()` for fetching details
+7. `resourceGroups.beginDeleteAndWait()` for long-running delete
+8. Tag updates via `resourceGroups.update()` with tags parameter
+
+Let me evaluate each:
+
+### Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages**: PASS - Uses `@azure/identity` and `@azure/arm-resources`, no deprecated packages
+
+
+2. **@azure/identity for Authentication**: PASS - Implements `@azure/identity` with DefaultAzureCredential, which is the standard approach for sample code.
+3. **Client Constructor with Endpoint and Credential**: PARTIAL PASS - ResourceManagementClient correctly instantiates with `new ResourceManagementC…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (1 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-sonnet-4.5</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#eab308">21/23</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/arm-resources). No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Includes @azure/identity as dependency and uses DefaultAzureCredential for authentication, which is acceptable for demo/development code.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="ResourceManagementClient correctly constructed with credential and subscriptionId (ARM clients don&#39;t require endpoint URL like data plane clients).">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Uses async/await throughout for all asynchronous operations. No .then()/.catch() chains. Top-level async function with proper error handling.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="List operation uses &#39;for await (const resourceGroup of client.resourceGroups.list())&#39; to iterate over PagedAsyncIterableIterator. Does not collect all pages in memory.">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Uses beginDeleteAndWait() for long-running delete operation, which automatically polls until completion. Correct LRO pattern.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Catches generic &#39;error: any&#39; and checks statusCode, but does not import or specifically catch RestError from @azure/core-rest-pipeline. Error handling is not type-safe.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="No deprecated packages in package.json. All dependencies use current @azure/* track (no azure-storage, azure-arm-*, ms-rest-azure, etc.).">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Does not use @azure/logger for SDK diagnostic logging. Only uses console.log for user-facing output. No setLogLevel() or AZURE_LOG_LEVEL configuration.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required @azure/* dependencies, TypeScript configuration, and appropriate devDependencies including @types/node.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both packages present in package.json dependencies with appropriate versions.">✅ @azure/arm-resources and @azure/identity packages</span> <span style="display:inline-block;margin:2px 4px" title="DefaultAzureCredential imported and used correctly for authentication with proper error message for missing subscription ID.">✅ DefaultAzureCredential for authentication</span> <span style="display:inline-block;margin:2px 4px" title="Client correctly constructed with &#39;new ResourceManagementClient(credential, subscriptionId)&#39; pattern.">✅ ResourceManagementClient constructor</span> <span style="display:inline-block;margin:2px 4px" title="Creates resource group with name, location &#39;eastus&#39;, and initial tags as required by prompt.">✅ resourceGroups.createOrUpdate()</span> <span style="display:inline-block;margin:2px 4px" title="List operation uses &#39;for await...of&#39; syntax to iterate over all resource groups as required.">✅ resourceGroups.list() with async iteration</span> <span style="display:inline-block;margin:2px 4px" title="Uses get() method to fetch details of created resource group and displays comprehensive information.">✅ resourceGroups.get()</span> <span style="display:inline-block;margin:2px 4px" title="Uses beginDeleteAndWait() for long-running delete operation as specified in prompt, with verification afterward.">✅ resourceGroups.beginDeleteAndWait()</span> <span style="display:inline-block;margin:2px 4px" title="Updates resource group by adding tags using update() method with tags parameter, spreading existing tags and adding new ones.">✅ Tag updates via resourceGroups.update()</span> <span style="display:inline-block;margin:2px 4px" title="TypeScript configuration is valid, imports are correct, and code structure follows proper patterns. Should compile without errors.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Package versions are current (@azure/identity ^4.0.0, @azure/arm-resources ^5.2.0) and align with latest stable releases.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows Azure SDK best practices: DefaultAzureCredential, async/await patterns, proper resource cleanup, environment variable configuration, and async iteration for pagination.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Includes error handling with try/catch, validates required environment variables, and verifies deletion. Displays error details including code and statusCode.">✅ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured, readable code with descriptive comments, comprehensive logging, and proper organization. Includes documentation files and minimal example.">✅ Code Quality</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#eab308">21/23</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/arm-resources). No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Includes @azure/identity as dependency and uses DefaultAzureCredential for authentication, which is acceptable for demo/development code.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="ResourceManagementClient correctly constructed with credential and subscriptionId (ARM clients don&#39;t require endpoint URL like data plane clients).">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Uses async/await throughout for all asynchronous operations. No .then()/.catch() chains. Top-level async function with proper error handling.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="List operation uses &#39;for await (const resourceGroup of client.resourceGroups.list())&#39; to iterate over PagedAsyncIterableIterator. Does not collect all pages in memory.">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="Uses beginDeleteAndWait() for long-running delete operation, which automatically polls until completion. Correct LRO pattern.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Catches generic &#39;error: any&#39; and checks statusCode, but does not import or specifically catch RestError from @azure/core-rest-pipeline. Error handling is not type-safe.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="No deprecated packages in package.json. All dependencies use current @azure/* track (no azure-storage, azure-arm-*, ms-rest-azure, etc.).">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Does not use @azure/logger for SDK diagnostic logging. Only uses console.log for user-facing output. No setLogLevel() or AZURE_LOG_LEVEL configuration.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required @azure/* dependencies, TypeScript configuration, and appropriate devDependencies including @types/node.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Both packages present in package.json dependencies with appropriate versions.">✅ @azure/arm-resources and @azure/identity packages</span> <span style="display:inline-block;margin:2px 4px" title="DefaultAzureCredential imported and used correctly for authentication with proper error message for missing subscription ID.">✅ DefaultAzureCredential for authentication</span> <span style="display:inline-block;margin:2px 4px" title="Client correctly constructed with &#39;new ResourceManagementClient(credential, subscriptionId)&#39; pattern.">✅ ResourceManagementClient constructor</span> <span style="display:inline-block;margin:2px 4px" title="Creates resource group with name, location &#39;eastus&#39;, and initial tags as required by prompt.">✅ resourceGroups.createOrUpdate()</span> <span style="display:inline-block;margin:2px 4px" title="List operation uses &#39;for await...of&#39; syntax to iterate over all resource groups as required.">✅ resourceGroups.list() with async iteration</span> <span style="display:inline-block;margin:2px 4px" title="Uses get() method to fetch details of created resource group and displays comprehensive information.">✅ resourceGroups.get()</span> <span style="display:inline-block;margin:2px 4px" title="Uses beginDeleteAndWait() for long-running delete operation as specified in prompt, with verification afterward.">✅ resourceGroups.beginDeleteAndWait()</span> <span style="display:inline-block;margin:2px 4px" title="Updates resource group by adding tags using update() method with tags parameter, spreading existing tags and adding new ones.">✅ Tag updates via resourceGroups.update()</span> <span style="display:inline-block;margin:2px 4px" title="TypeScript configuration is valid, imports are correct, and code structure follows proper patterns. Should compile without errors.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Package versions are current (@azure/identity ^4.0.0, @azure/arm-resources ^5.2.0) and align with latest stable releases.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows Azure SDK best practices: DefaultAzureCredential, async/await patterns, proper resource cleanup, environment variable configuration, and async iteration for pagination.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Includes error handling with try/catch, validates required environment variables, and verifies deletion. Displays error details including code and statusCode.">✅ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured, readable code with descriptive comments, comprehensive logging, and proper organization. Includes documentation files and minimal example.">✅ Code Quality</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-sonnet-4.5</code> — Excellent TypeScript implementation demonstrating all required Azure Resource Group management operations. The code correctly uses @azure/arm-resources and @azure/identity with proper async/await patterns, pagination, and LRO handling. All prompt requirements are met. Minor gaps: missing RestError-specific exception handling and @azure/logger integration for SDK diagnostics.</summary>
+      <p><strong>Issues:</strong></p><ul><li>Does not import or catch RestError specifically - uses generic &#39;error: any&#39; with statusCode checking instead of type-safe error handling</li><li>No @azure/logger integration for SDK diagnostic logging - relies solely on console.log for output</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Complete implementation of all 7 required operations (authenticate, create client, create RG, list, get, update tags, delete)</li><li>Correct use of async iteration with for-await-of for listing resource groups</li><li>Proper LRO pattern with beginDeleteAndWait() including deletion verification</li><li>Clean package.json with current Azure SDK versions and no deprecated packages</li><li>Excellent code organization with comprehensive documentation (README, QUICKSTART, SUMMARY) and minimal example</li><li>Proper async/await patterns throughout with top-level error handling</li><li>Good user experience with detailed console output and progress indicators</li><li>Validates required environment variables before execution</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (2 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/arm-resources). No deprecated unscoped packages.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Includes @azure/identity as dependency and uses DefaultAzureCredential for authentication, which is acceptable for demo/development code.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;ResourceManagementClient correctly constructed with credential and subscriptionId (ARM clients don&#39;t require endpoint URL like data plane clients).&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses async/await throughout for all asynchronous operations. No .then()/.catch() chains. Top-level async function with proper error handling.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;List operation uses &#39;for await (const resourceGroup of client.resourceGroups.list())&#39; to iterate over PagedAsyncIterableIterator. Does not collect all pages in memory.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses beginDeleteAndWait() for long-running delete operation, which automatically polls until completion. Correct LRO pattern.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Catches generic &#39;error: any&#39; and checks statusCode, but does not import or specifically catch RestError from @azure/core-rest-pipeline. Error handling is not type-safe.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No deprecated packages in package.json. All dependen…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me carefully evaluate this TypeScript code against all the criteria mentione…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me carefully evaluate this TypeScript code against all the criteria mentioned.
+
+## Prompt-Specific Evaluation Criteria
+
+### Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check if all Azure SDK dependencies use @azure/ scoped packages
+2. **@azure/identity for Authentication** - Check if @azure/identity is included and DefaultAzureCredential is used
+3. **Client Constructor with Endpoint and Credential** - Check SDK client construction pattern
+4. **Async/Await Pattern** - Check for proper async/await usage
+5. **Pagination with for-await-of** - Check list operations use for-await-of
+6. **LRO Pattern (beginXxx &#43; pollUntilDone)** - Check long-running operations pattern
+7. **RestError Exception Handling** - Check error handling with RestError
+8. **No Deprecated Packages** - Verify no deprecated packages
+9. **Logging via @azure/logger** - Check for @azure/logger usage
+10. **package.json with Correct Dependencies** - Check package.json validity
+
+### Prompt-Specific Criteria:
+
+1. `@azure/arm-resources` and `@azure/identity` npm packages
+2. `DefaultAzureCredential` for authentication
+3. `ResourceManagementClient` constructor with credential and subscriptionId
+4. `resourceGroups.createOrUpdate()` with resource group name and parameters
+5. `resourceGroups.list()` with async iteration (`for await...of`)
+6. `resourceGroups.get()` for fetching details
+7. `resourceGroups.beginDeleteAndWait()` for long-running delete
+8. Tag updates via `resourceGroups.update()` with tags parameter
+
+Let me evaluate each:
+
+### Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages**: PASS - Uses `@azure/identity` and `@azure/arm-resources`, no deprecated packages
+
+
+2. **@azure/identity for Authentication**: PASS - Implements `@azure/identity` with DefaultAzureCredential, which is the standard approach for sample code.
+3. **Client Constructor with Endpoint and Credential**: PARTIAL PASS - ResourceManagementClient correctly instantiates with `new ResourceManagementC…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (2 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">Excellent TypeScript implementation demonstrating all required Azure Resource Group management operations. The code correctly uses @azure/arm-resources and @azure/identity with proper async/await patterns, pagination, and LRO handling. All prompt requirements are met. Minor gaps: missing RestError-specific exception handling and @azure/logger integration for SDK diagnostics.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">Excellent TypeScript implementation demonstrating all required Azure Resource Group management operations. The code correctly uses @azure/arm-resources and @azure/identity with proper async/await patterns, pagination, and LRO handling. All prompt requirements are met. Minor gaps: missing RestError-specific exception handling and @azure/logger integration for SDK diagnostics.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (8)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">3 .md, 3 .json, 2 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> QUICKSTART.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Quick Start Guide
+
+## 1. Install Dependencies
+
+```bash
+npm install
+```
+
+This installs:
+- `@azure/identity` - Authentication library
+- `@azure/arm-resources` - Resource Management SDK
+
+## 2. Configure Authentication
+
+### Option A: Azure CLI (Easiest for Development)
+
+```bash
+# Login to Azure
+az login
+
+# Set subscription (Windows PowerShell)
+$env:AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id-here&#34;
+
+# Set subscription (Windows CMD)
+set AZURE_SUBSCRIPTION_ID=your-subscription-id-here
+
+# Set subscription (Linux/Mac)
+export AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id-here&#34;
+```
+
+### Option B: Service Principal
+
+Set environment variables:
+
+**Windows PowerShell:**
+```powershell
+$env:AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id&#34;
+$env:AZURE_TENANT_ID=&#34;your-tenant-id&#34;
+$env:AZURE_CLIENT_ID=&#34;your-client-id&#34;
+$env:AZURE_CLIENT_SECRET=&#34;your-client-secret&#34;
+```
+
+**Linux/Mac:**
+```bash
+export AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id&#34;
+export AZURE_TENANT_ID=&#34;your-tenant-id&#34;
+export AZURE_CLIENT_ID=&#34;your-client-id&#34;
+export AZURE_CLIENT_SECRET=&#34;your-client-secret&#34;
+```
+
+## 3. Run the Program
+
+### Build and Run
+```bash
+npm run build
+npm start
+```
+
+### Or Run Directly (Development)
+```bash
+npm run dev
+```
+
+## Key Features Demonstrated
+
+✅ **DefaultAzureCredential** - Automatic authentication  
+✅ **ResourceManagementClient** - Management plane SDK client  
+✅ **createOrUpdate()** - Create resource group with tags  
+✅ **Async Iteration** - List all resource groups efficiently  
+✅ **get()** - Retrieve specific resource group details  
+✅ **update()** - Update resource group tags  
+✅ **beginDeleteAndWait()** - Delete with automatic polling  
+
+## Code Highlights
+
+### 1. Authentication
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+```
+
+### 2. Create Client
+```typescript
+import { ResourceManagementClient } from &#34;@azure/arm-resources&#34;;
+
+const client = new ResourceManagementClient(
+  credential, 
+  subscriptionId
+);
+```
+
+### 3. Create Resource Group
+```typescript
+const result = await client.resourceGroups.createOrUpdate(
+  &#34;my-rg&#34;,
+  {
+    location: &#34;eastus&#34;,
+    tags: { env: &#34;demo&#34; }
+  }
+);
+```
+
+### 4. List with Async Iteration
+```typescript
+for await (const rg of client.resourceGroups.list()) {
+  console.log(rg.name);
+}
+```
+
+### 5. Get Details
+```typescript
+const rg = await client.resourceGroups.get(&#34;my-rg&#34;);
+console.log(rg.properties?.provisioningState);
+```
+
+### 6. Update Tags
+```typescript
+await client.resourceGroups.update(&#34;my-rg&#34;, {
+  tags: { updated: &#34;true&#34; }
+});
+```
+
+### 7. Delete (Long-Running Operation)
+```typescript
+await client.resourceGroups.beginDeleteAndWait(&#34;my-rg&#34;);
+```
+
+## Expected Output
+
+```
+============================================================
+Azure Resource Group Management Demo
+============================================================
+
+🔐 Step 1: Authenticating with DefaultAzureCredential...
+✅ Credential created successfully
+
+🔧 Step 2: Creating ResourceManagementClient...
+✅ Client created successfully
+
+📦 Step 3: Creating resource group...
+✅ Resource group created successfully
+
+📋 Step 4: Listing all resource groups in subscription...
+✅ Found X resource group(s)
+
+🔍 Step 5: Getting details of created resource group...
+✅ Resource group details: [details shown]
+
+🏷️  Step 6: Updating resource group tags...
+✅ Resource group updated successfully
+
+🗑️  Step 7: Deleting resource group...
+✅ Resource group deleted successfully
+
+✔️  Verifying deletion...
+✅ Confirmed: Resource group no longer exists
+
+============================================================
+Demo completed successfully! 🎉
+============================================================
+```
+
+## Troubleshooting
+
+### Error: AZURE_SUBSCRIPTION_ID is required
+- Set the environment variable before running
+- Use `az account show` to get your subscription ID
+
+### Error: Authentication failed
+- Run `az login` if using Azure CLI
+- Verify service principal credentials if using environment variables
+- Check that your account has permissions to manage resource groups
+
+### Error: Permission denied
+- Ensure you have &#34;Contributor&#34; or &#34;Owner&#34; role on the subscription
+- Or at least &#34;Resource Group Contributor&#34; role
+
+## Learn More
+
+- [Azure Identity Documentation](https://learn.microsoft.com/azure/developer/javascript/sdk/authentication/)
+- [Azure Resource Management SDK](https://learn.microsoft.com/javascript/api/@azure/arm-resources/)
+- [DefaultAzureCredential](https://learn.microsoft.com/javascript/api/@azure/identity/defaultazurecredential)
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> README.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Resource Group Management with TypeScript
+
+This project demonstrates how to manage Azure Resource Groups using the Azure SDK for JavaScript/TypeScript with the management plane SDK.
+
+## Features
+
+This program demonstrates:
+1. ✅ Authentication using `DefaultAzureCredential` from `@azure/identity`
+2. ✅ Creating a `ResourceManagementClient` with credential and subscription ID
+3. ✅ Creating a new resource group in &#34;eastus&#34; region
+4. ✅ Listing all resource groups using async iteration
+5. ✅ Getting details of a specific resource group
+6. ✅ Updating resource group tags
+7. ✅ Deleting a resource group using `beginDeleteAndWait`
+
+## Prerequisites
+
+- Node.js 18&#43; or 20&#43;
+- Azure subscription
+- Azure CLI installed (for `az login`) OR service principal credentials
+
+## Installation
+
+```bash
+npm install
+```
+
+## Required Packages
+
+- `@azure/identity` (^4.0.0) - Authentication with DefaultAzureCredential
+- `@azure/arm-resources` (^5.2.0) - Azure Resource Management SDK
+
+## Configuration
+
+### Option 1: Azure CLI (Recommended for Development)
+
+```bash
+az login
+```
+
+Then set your subscription ID:
+
+```bash
+export AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id&#34;
+```
+
+Or on Windows:
+
+```powershell
+$env:AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id&#34;
+```
+
+### Option 2: Service Principal (Recommended for Production)
+
+Create a `.env` file (copy from `.env.example`):
+
+```bash
+AZURE_SUBSCRIPTION_ID=your-subscription-id
+AZURE_TENANT_ID=your-tenant-id
+AZURE_CLIENT_ID=your-client-id
+AZURE_CLIENT_SECRET=your-client-secret
+```
+
+### Option 3: Managed Identity
+
+When running in Azure (VM, App Service, Container Apps, etc.), no configuration is needed. The `DefaultAzureCredential` will automatically use the managed identity.
+
+## Usage
+
+### Build the project
+
+```bash
+npm run build
+```
+
+### Run the compiled code
+
+```bash
+npm start
+```
+
+### Run in development mode
+
+```bash
+npm run dev
+```
+
+## Code Structure
+
+```
+src/
+└── index.ts          # Main program with all resource group operations
+
+Key sections in index.ts:
+- DefaultAzureCredential setup
+- ResourceManagementClient initialization
+- Resource group creation with tags
+- Async iteration for listing
+- Get operation for details
+- Update operation for tags
+- Long-running delete operation with beginDeleteAndWait
+```
+
+## Key Concepts
+
+### DefaultAzureCredential
+
+The `DefaultAzureCredential` tries multiple authentication methods in order:
+1. Environment variables (service principal)
+2. Workload identity (Kubernetes)
+3. Managed identity
+4. Visual Studio Code
+5. Azure CLI
+6. Azure PowerShell
+7. Azure Developer CLI
+
+This makes the code work seamlessly in both development and production environments.
+
+### Async/Await Patterns
+
+The program uses modern async/await throughout:
+
+```typescript
+// Create (simple promise)
+const result = await client.resourceGroups.createOrUpdate(name, params);
+
+// List (async iteration)
+for await (const rg of client.resourceGroups.list()) {
+  console.log(rg.name);
+}
+
+// Delete (long-running operation)
+await client.resourceGroups.beginDeleteAndWait(name);
+```
+
+### Long-Running Operations (LRO)
+
+The `beginDeleteAndWait` method handles long-running operations automatically:
+- Starts the delete operation
+- Polls for completion
+- Returns when the operation completes
+
+For more control, use `beginDelete()` which returns a poller:
+
+```typescript
+const poller = await client.resourceGroups.beginDelete(name);
+const result = await poller.pollUntilDone();
+```
+
+## Expected Output
+
+```
+============================================================
+Azure Resource Group Management Demo
+============================================================
+
+🔐 Step 1: Authenticating with DefaultAzureCredential...
+✅ Credential created successfully
+
+🔧 Step 2: Creating ResourceManagementClient...
+✅ Client created successfully
+   Subscription ID: your-sub-id
+
+📦 Step 3: Creating resource group...
+   Name: rg-demo-1234567890
+   Location: eastus
+✅ Resource group created successfully
+   ID: /subscriptions/.../resourceGroups/rg-demo-1234567890
+   Provisioning State: Succeeded
+
+📋 Step 4: Listing all resource groups in subscription...
+   - rg-demo-1234567890 (eastus)
+     Tags: environment=demo, createdBy=typescript-sdk
+   - other-rg (westus)
+✅ Found 2 resource group(s)
+
+🔍 Step 5: Getting details of created resource group...
+✅ Resource group details:
+   Name: rg-demo-1234567890
+   Location: eastus
+   Tags:
+     - environment: demo
+     - createdBy: typescript-sdk
+
+🏷️  Step 6: Updating resource group tags...
+✅ Resource group updated successfully
+   Updated tags:
+     - environment: demo
+     - createdBy: typescript-sdk
+     - updated: true
+     - lastModified: 2026-05-01T18:26:59.000Z
+
+🗑️  Step 7: Deleting resource group...
+   This operation may take several minutes...
+✅ Resource group deleted successfully
+
+✔️  Verifying deletion...
+✅ Confirmed: Resource group no longer exists
+
+============================================================
+Demo completed successfully! 🎉
+============================================================
+```
+
+## Error Handling
+
+The program includes comprehensive error handling:
+- Validates required environment variables
+- Catches and displays API errors with status codes
+- Verifies deletion with 404 check
+
+## Best Practices Demonstrated
+
+1. ✅ Use `DefaultAzureCredential` for flexible authentication
+2. ✅ Use environment variables for configuration
+3. ✅ Use async/await for clean asynchronous code
+4. ✅ Use async iteration for paginated results
+5. ✅ Use `beginDeleteAndWait` for long-running operations
+6. ✅ Include proper error handling
+7. ✅ Add informative logging and progress indicators
+8. ✅ Verify operations (e.g., deletion confirmation)
+
+## Cleanup
+
+The program automatically deletes the resource group it creates. If the program is interrupted, you can manually delete the resource group:
+
+```bash
+az group delete --name rg-demo-&lt;timestamp&gt; --yes --no-wait
+```
+
+## License
+
+MIT
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> SUMMARY.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Resource Group Management - Summary
+
+## 📦 Project Files Created
+
+```
+├── src/
+│   ├── index.ts          # Full demo with all operations
+│   └── minimal.ts        # Simplified version
+├── package.json          # Dependencies and scripts
+├── tsconfig.json         # TypeScript configuration
+├── .env.example          # Environment variable template
+├── .gitignore           # Git ignore patterns
+├── README.md            # Complete documentation
+└── QUICKSTART.md        # Quick start guide
+```
+
+## 📚 Required NPM Packages
+
+```json
+{
+  &#34;@azure/identity&#34;: &#34;^4.0.0&#34;,
+  &#34;@azure/arm-resources&#34;: &#34;^5.2.0&#34;
+}
+```
+
+## 🔑 Key Operations Demonstrated
+
+### 1. Authentication with DefaultAzureCredential
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+const credential = new DefaultAzureCredential();
+```
+
+**Credential chain:**
+- Environment variables (service principal)
+- Workload identity (Kubernetes)
+- Managed identity (Azure VM/App Service)
+- Azure CLI (`az login`)
+- Azure PowerShell
+- Azure Developer CLI
+
+### 2. Create ResourceManagementClient
+```typescript
+import { ResourceManagementClient } from &#34;@azure/arm-resources&#34;;
+const client = new ResourceManagementClient(credential, subscriptionId);
+```
+
+### 3. Create Resource Group
+```typescript
+const result = await client.resourceGroups.createOrUpdate(
+  &#34;my-resource-group&#34;,
+  {
+    location: &#34;eastus&#34;,
+    tags: { environment: &#34;demo&#34; }
+  }
+);
+```
+
+### 4. List Resource Groups (Async Iteration)
+```typescript
+for await (const rg of client.resourceGroups.list()) {
+  console.log(rg.name, rg.location);
+}
+```
+
+### 5. Get Resource Group Details
+```typescript
+const rg = await client.resourceGroups.get(&#34;my-resource-group&#34;);
+console.log(rg.properties?.provisioningState);
+```
+
+### 6. Update Resource Group Tags
+```typescript
+await client.resourceGroups.update(&#34;my-resource-group&#34;, {
+  tags: { 
+    environment: &#34;demo&#34;,
+    updated: &#34;true&#34;
+  }
+});
+```
+
+### 7. Delete Resource Group (Long-Running Operation)
+```typescript
+// Automatically polls until completion
+await client.resourceGroups.beginDeleteAndWait(&#34;my-resource-group&#34;);
+```
+
+## 🚀 How to Run
+
+### 1. Install Dependencies
+```bash
+npm install
+```
+
+### 2. Set Environment Variable
+```bash
+# Windows PowerShell
+$env:AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id&#34;
+
+# Linux/Mac
+export AZURE_SUBSCRIPTION_ID=&#34;your-subscription-id&#34;
+```
+
+### 3. Authenticate
+```bash
+az login
+```
+
+### 4. Run
+```bash
+# Full demo
+npm run build &amp;&amp; npm start
+
+# Or development mode
+npm run dev
+```
+
+## 🎯 Async/Await Patterns Used
+
+### Simple Promise
+```typescript
+const result = await client.resourceGroups.createOrUpdate(name, params);
+```
+
+### Async Iteration (for paginated results)
+```typescript
+for await (const item of client.resourceGroups.list()) {
+  // Process each item
+}
+```
+
+### Long-Running Operations (LRO)
+```typescript
+// Auto-polling version (recommended)
+await client.resourceGroups.beginDeleteAndWait(name);
+
+// Manual polling version
+const poller = await client.resourceGroups.beginDelete(name);
+const result = await poller.pollUntilDone();
+```
+
+## 🔒 Authentication Options
+
+### Development (Azure CLI)
+```bash
+az login
+```
+No environment variables needed except `AZURE_SUBSCRIPTION_ID`.
+
+### Production (Service Principal)
+```bash
+AZURE_SUBSCRIPTION_ID=xxx
+AZURE_TENANT_ID=xxx
+AZURE_CLIENT_ID=xxx
+AZURE_CLIENT_SECRET=xxx
+```
+
+### Azure Resources (Managed Identity)
+No configuration needed - automatically uses the VM/App Service identity.
+
+## ✅ Features Implemented
+
+- ✅ DefaultAzureCredential authentication
+- ✅ ResourceManagementClient creation
+- ✅ Create resource group in &#34;eastus&#34;
+- ✅ List all resource groups with async iteration
+- ✅ Get resource group details
+- ✅ Update resource group tags
+- ✅ Delete resource group with beginDeleteAndWait
+- ✅ Proper async/await patterns
+- ✅ Error handling
+- ✅ TypeScript type safety
+- ✅ Comprehensive logging
+
+## 📖 Additional Resources
+
+- **Full Demo**: `src/index.ts` - Complete example with detailed logging
+- **Minimal Example**: `src/minimal.ts` - Simplified version
+- **Documentation**: `README.md` - Complete guide
+- **Quick Start**: `QUICKSTART.md` - Fast setup instructions
+
+## 🧪 Testing
+
+The program:
+1. Creates a temporary resource group
+2. Performs all operations
+3. Cleans up by deleting the resource group
+4. Verifies deletion
+
+No manual cleanup required!
+
+## 💡 Best Practices
+
+1. ✅ Use `DefaultAzureCredential` for flexible authentication
+2. ✅ Store subscription ID in environment variables
+3. ✅ Use async/await for clean asynchronous code
+4. ✅ Use async iteration for paginated results
+5. ✅ Use `beginDeleteAndWait()` for long-running operations
+6. ✅ Include comprehensive error handling
+7. ✅ Add logging for debugging and monitoring
+8. ✅ Clean up resources after use
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package-lock.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-resource-group-management&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;lockfileVersion&#34;: 3,
+  &#34;requires&#34;: true,
+  &#34;packages&#34;: {
+    &#34;&#34;: {
+      &#34;name&#34;: &#34;azure-resource-group-management&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/arm-resources&#34;: &#34;^5.2.0&#34;,
+        &#34;@azure/identity&#34;: &#34;^4.0.0&#34;
+      },
+      &#34;devDependencies&#34;: {
+        &#34;@types/node&#34;: &#34;^20.11.0&#34;,
+        &#34;ts-node&#34;: &#34;^10.9.0&#34;,
+        &#34;typescript&#34;: &#34;^5.3.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;1.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-1.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-TrRLIoSQVzfAJX9H1JeFjzAoDGcoK1IYX1UImfceTZpsyYfWr09Ss1aHW1y5TrrR3iq6RZLBwJ3E24uwPhwahw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/arm-resources&#34;: {
+      &#34;version&#34;: &#34;5.2.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/arm-resources/-/arm-resources-5.2.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-wQyuhL8WQsLkW/KMdik8bLJIJCz3Z6mg/&#43;AKm0KedgK73SKhicSqYP&#43;ed3t&#43;43tLlRFltcrmGKMcHLQ&#43;Jhv/6A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-client&#34;: &#34;^1.7.0&#34;,
+        &#34;@azure/core-lro&#34;: &#34;^2.5.0&#34;,
+        &#34;@azure/core-paging&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.8.0&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-auth&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-auth/-/core-auth-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ykRMW8PjVAn&#43;RS6ww5cmK9U2CyH9p4Q88YJwvUslfuMmN98w/2rdGRLPqJYObapBCdzBVeDgYWdJnFPFb7qzpg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-auth/node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-client&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-client/-/core-client-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Nh5PhEOeY6PrnxNPsEHRr9eimxLwgLlpmguQaHKBinFYA/RU9&#43;kOYVOQqOrTsCL&#43;KSxrLLl1gD8Dk5BFW/7l/w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-client/node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-lro&#34;: {
+      &#34;version&#34;: &#34;2.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-lro/-/core-lro-2.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0YIpccoX8m/k00O7mDDMdJpbr6mf1yWo2dfmxt5A8XVZVVMz2SSKaEbMCeJRvgQ0IaSlqhjT47p4hVIRRy90xw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-lro/node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-paging&#34;: {
+      &#34;version&#34;: &#34;1.6.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-paging/-/core-paging-1.6.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YKWi9YuCU04B55h25cnOYZHxXYtEvQEbKST5vqRga7hWY9ydd3FZHdeQF8pyh&#43;acWZvppw13M/LMGx0LABUVMA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-rest-pipeline&#34;: {
+      &#34;version&#34;: &#34;1.23.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-rest-pipeline/-/core-rest-pipeline-1.23.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Evs1INHo&#43;jUjwHi1T6SG6Ua/LHOQBCLuKEEE6efIpt4ZOoNonaT1kP32GoOcdNDbfqsD2445CPri3MubBy5DEQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.4&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-rest-pipeline/node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-tracing&#34;: {
+      &#34;version&#34;: &#34;1.3.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-tracing/-/core-tracing-1.3.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-9MWKevR7Hz8kNzzPLfX4EAtGM2b8mr50HPDBvio96bURP/9C&#43;HjdH3sBlLSNNrvRAr5/k/svoH457gB5IKpmwQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-util&#34;: {
+      &#34;version&#34;: &#34;1.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-util/-/core-util-1.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-XPArKLzsvl0Hf0CaGyKHUyVgF7oDnhKoP85Xv6M4StF/1AhfORhZudHtOyf2s&#43;FcbuQ9dPRAjB8J2KvRRMUK2A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-util/node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/identity&#34;: {
+      &#34;version&#34;: &#34;4.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/identity/-/identity-4.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-5C/2WD5Vb1lHnZS16dNQRPMjN6oV/Upba&#43;C9nBIs15PmOi6A3ZGs4Lr2u60zw4S04gi&#43;u3cEXiqTVP7M4Pz3kw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-client&#34;: &#34;^1.9.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.17.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/msal-browser&#34;: &#34;^5.5.0&#34;,
+        &#34;@azure/msal-node&#34;: &#34;^5.1.0&#34;,
+        &#34;open&#34;: &#34;^10.1.0&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/identity/node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/logger&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/logger/-/logger-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-fCqPIfOcLE&#43;CGqGPd66c8bZpwAji98tZ4JI9i/mlTNTlsIWslCfpg48s/ypyLxZTump5sypjrKn2/kY7q8oAbA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-browser&#34;: {
+      &#34;version&#34;: &#34;5.9.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-browser/-/msal-browser-5.9.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-CzE&#43;4PefDSJWj26zU7G1bKchlGRRHMBFreG4tAlGuzyI8hAPiYGobaJvZBgZBf6L63iphX7VH&#43;ityL8VgEQz9Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-common&#34;: {
+      &#34;version&#34;: &#34;16.5.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-common/-/msal-common-16.5.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-GkDEL6TYo3HgT3UuqakdgE9PZfc1hMki6&#43;Hwgy1uddb/EauvAKfu85vVhuofRSo22D1xTnWt8Ucwfg4vSCVwvA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-node&#34;: {
+      &#34;version&#34;: &#34;5.1.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-node/-/msal-node-5.1.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ObTeMoNPmq19X3z40et9Xvs4ZoWVeJg43PZMRLG5iwVL&#43;2nCtAerG3YTDItqPp1CfXNwmCXBbg8jn1DOx65c3g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;,
+        &#34;jsonwebtoken&#34;: &#34;^9.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20&#34;
+      }
+    },
+    &#34;node_modules/@cspotcode/source-map-support&#34;: {
+      &#34;version&#34;: &#34;0.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@jridgewell/trace-mapping&#34;: &#34;0.3.9&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;
+      }
+    },
+    &#34;node_modules/@jridgewell/resolve-uri&#34;: {
+      &#34;version&#34;: &#34;3.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL&#43;UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0.0&#34;
+      }
+    },
+    &#34;node_modules/@jridgewell/sourcemap-codec&#34;: {
+      &#34;version&#34;: &#34;1.5.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-cYQ9310grqxueWbl&#43;WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@jridgewell/trace-mapping&#34;: {
+      &#34;version&#34;: &#34;0.3.9&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@jridgewell/resolve-uri&#34;: &#34;^3.0.3&#34;,
+        &#34;@jridgewell/sourcemap-codec&#34;: &#34;^1.4.10&#34;
+      }
+    },
+    &#34;node_modules/@tsconfig/node10&#34;: {
+      &#34;version&#34;: &#34;1.0.12&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.12.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-UCYBaeFvM11aU2y3YPZ//O5Rhj&#43;xKyzy7mvcIoAjASbigy8mHMryP5cK7dgjlz2hWxh1g5pLw084E0a/wlUSFQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@tsconfig/node12&#34;: {
+      &#34;version&#34;: &#34;1.0.11&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node12/-/node12-1.0.11.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-cqefuRsh12pWyGsIoBKJA9luFu3mRxCA&#43;ORZvA4ktLSzIuCUtWVxGIuXigEwO5/ywWFMZ2QEGKWvkZG1zDMTag==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@tsconfig/node14&#34;: {
+      &#34;version&#34;: &#34;1.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node14/-/node14-1.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ysT8mhdixWK6Hw3i1V2AeRqZ5WfXg1G43mqoYlM2nc6388Fq5jcXyr5mRsqViLx/GJYdoL0bfXD8nmF&#43;Zn/Iow==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@tsconfig/node16&#34;: {
+      &#34;version&#34;: &#34;1.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY&#43;A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@types/node&#34;: {
+      &#34;version&#34;: &#34;20.19.39&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@types/node/-/node-20.19.39.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-orrrD74MBUyK8jOAD/r0&#43;lfa1I2MO6I&#43;vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;undici-types&#34;: &#34;~6.21.0&#34;
+      }
+    },
+    &#34;node_modules/@typespec/ts-http-runtime&#34;: {
+      &#34;version&#34;: &#34;0.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@typespec/ts-http-runtime/-/ts-http-runtime-0.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-yURCknZhvywvQItHMMmFSo&#43;fq5arCUIyz/CVk7jD89MSai7dkaX8ufjCWp3NttLojoTVbcE72ri&#43;be/TnEbMHw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;http-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;https-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/acorn&#34;: {
+      &#34;version&#34;: &#34;8.16.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/acorn/-/acorn-8.16.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3&#43;82K6JgJlm/Y&#43;KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5&#43;4jh9sw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;bin&#34;: {
+        &#34;acorn&#34;: &#34;bin/acorn&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.4.0&#34;
+      }
+    },
+    &#34;node_modules/acorn-walk&#34;: {
+      &#34;version&#34;: &#34;8.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/acorn-walk/-/acorn-walk-8.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-HEHNfbars9v4pgpW6SO1KSPkfoS0xVOM/9UzkJltjlsHZmJasxg8aXkuZa7SMf8vKGIBhpUsPluQSqhJFCqebw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;acorn&#34;: &#34;^8.11.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.4.0&#34;
+      }
+    },
+    &#34;node_modules/agent-base&#34;: {
+      &#34;version&#34;: &#34;7.1.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MnA&#43;YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7&#43;jMO&#43;CUovTQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/arg&#34;: {
+      &#34;version&#34;: &#34;4.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/arg/-/arg-4.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ&#43;71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/buffer-equal-constant-time&#34;: {
+      &#34;version&#34;: &#34;1.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==&#34;,
+      &#34;license&#34;: &#34;BSD-3-Clause&#34;
+    },
+    &#34;node_modules/bundle-name&#34;: {
+      &#34;version&#34;: &#34;4.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/bundle-name/-/bundle-name-4.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-tjwM5exMg6BGRI&#43;kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy&#43;FqStSWvYmtfFMDLIxurorHwDKfDz5Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;run-applescript&#34;: &#34;^7.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/create-require&#34;: {
+      &#34;version&#34;: &#34;1.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/create-require/-/create-require-1.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf&#43;MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA&#43;ftRkP/3oKQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/debug&#34;: {
+      &#34;version&#34;: &#34;4.4.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/debug/-/debug-4.4.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-RGwwWnwQvkVfavKVt22FGLw&#43;xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;ms&#34;: &#34;^2.1.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;supports-color&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/default-browser&#34;: {
+      &#34;version&#34;: &#34;5.5.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser/-/default-browser-5.5.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-H9LMLr5zwIbSxrmvikGuI/5KGhZ8E2zH3stkMgM5LpOWDutGM2JZaj460Udnf1a&#43;946zc7YBgrqEWwbk7zHvGw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;bundle-name&#34;: &#34;^4.1.0&#34;,
+        &#34;default-browser-id&#34;: &#34;^5.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/default-browser-id&#34;: {
+      &#34;version&#34;: &#34;5.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser-id/-/default-browser-id-5.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-x1VCxdX4t&#43;8wVfd1so/9w&#43;vQ4vx7lKd2Qp5tDRutErwmR85OgmfX7RlLRMWafRMY7hbEiXIbudNrjOAPa/hL8Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/define-lazy-prop&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-N&#43;MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/diff&#34;: {
+      &#34;version&#34;: &#34;4.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/diff/-/diff-4.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-X07nttJQkwkfKfvTPG/KSnE2OMdcUCao6&#43;eXF3wmnIQRn2aPAHH3VxDbDOdegkd6JbPsXqShpvEOHfAT&#43;nCNwQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;BSD-3-Clause&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.3.1&#34;
+      }
+    },
+    &#34;node_modules/ecdsa-sig-formatter&#34;: {
+      &#34;version&#34;: &#34;1.0.11&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==&#34;,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/http-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ&#43;veqSOHci/PxBcDabeUNCzpOODJZig==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.0&#34;,
+        &#34;debug&#34;: &#34;^4.3.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/https-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vK9P5/iUfdl95AI&#43;JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.2&#34;,
+        &#34;debug&#34;: &#34;4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/is-docker&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-docker/-/is-docker-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;bin&#34;: {
+        &#34;is-docker&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;^12.20.0 || ^14.13.1 || &gt;=16.0.0&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-inside-container&#34;: {
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-inside-container/-/is-inside-container-1.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk&#43;MG/Qxmp/vtETEF3tRA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-docker&#34;: &#34;^3.0.0&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;is-inside-container&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-wsl&#34;: {
+      &#34;version&#34;: &#34;3.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-wsl/-/is-wsl-3.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-e6rvdUCiQCAuumZslxRJWR/Doq4VpPR82kqclvcS0efgt430SlGIk05vdCN58&#43;VrzgtIcfNODjozVielycD4Sw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/jsonwebtoken&#34;: {
+      &#34;version&#34;: &#34;9.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MT/xP0CrubFRNLNKvxJ2BYfy53Zkm&#43;&#43;5bX9dtuPbqAeQpTVe0MQTFhao8&#43;Cp//EmJp244xt6Drw/GVEGCUj40g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jws&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.includes&#34;: &#34;^4.3.0&#34;,
+        &#34;lodash.isboolean&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isinteger&#34;: &#34;^4.0.4&#34;,
+        &#34;lodash.isnumber&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isplainobject&#34;: &#34;^4.0.6&#34;,
+        &#34;lodash.isstring&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.once&#34;: &#34;^4.0.0&#34;,
+        &#34;ms&#34;: &#34;^2.1.1&#34;,
+        &#34;semver&#34;: &#34;^7.5.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;,
+        &#34;npm&#34;: &#34;&gt;=6&#34;
+      }
+    },
+    &#34;node_modules/jwa&#34;: {
+      &#34;version&#34;: &#34;2.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jwa/-/jwa-2.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-hRF04fqJIP8Abbkq5NKGN0Bbr3JxlQ&#43;qhZufXVr0DvujKy93ZCbXZMHDL4EOtodSbCWxOqR8MS1tXA5hwqCXDg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;buffer-equal-constant-time&#34;: &#34;^1.0.1&#34;,
+        &#34;ecdsa-sig-formatter&#34;: &#34;1.0.11&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/jws&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jws/-/jws-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-EKI/M/yqPncGUUh44xz0PxSidXFr/&#43;r0pA70&#43;gIYhjv&#43;et7yxM&#43;s29Y&#43;VGDkovRofQem0fs7Uvf4&#43;YmAdyRduA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jwa&#34;: &#34;^2.0.1&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/lodash.includes&#34;: {
+      &#34;version&#34;: &#34;4.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isboolean&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Bz5mupy2SVbPHURB98VAcw&#43;aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isinteger&#34;: {
+      &#34;version&#34;: &#34;4.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isnumber&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-QYqzpfwO3/CWf3XP&#43;Z&#43;tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk&#43;NXmTBcc97zw9t1FQrw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isplainobject&#34;: {
+      &#34;version&#34;: &#34;4.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F&#43;MFOBA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isstring&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0wJxfxH1wgO3GrbuP&#43;dTTk7op&#43;6L41QCXbGINEmD&#43;ny/G/eCqGzxyCsh7159S&#43;mgDDcoarnBw6PC1PS5&#43;wUGgw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.once&#34;: {
+      &#34;version&#34;: &#34;4.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/make-error&#34;: {
+      &#34;version&#34;: &#34;1.3.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;ISC&#34;
+    },
+    &#34;node_modules/ms&#34;: {
+      &#34;version&#34;: &#34;2.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ms/-/ms-2.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/open&#34;: {
+      &#34;version&#34;: &#34;10.2.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/open/-/open-10.2.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YgBpdJHPyQ2UE5x&#43;hlSXcnejzAvD0b22U2OuAP&#43;8OnlJT&#43;PjWPxtgmGqKKc&#43;RgTM63U9gN0YzrYc71R2WT/hTA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;default-browser&#34;: &#34;^5.2.1&#34;,
+        &#34;define-lazy-prop&#34;: &#34;^3.0.0&#34;,
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;,
+        &#34;wsl-utils&#34;: &#34;^0.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/run-applescript&#34;: {
+      &#34;version&#34;: &#34;7.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/run-applescript/-/run-applescript-7.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7&#43;xC9bGulGI8&#43;TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/safe-buffer&#34;: {
+      &#34;version&#34;: &#34;5.2.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F&#43;ppbRo70&#43;YeaDxkw5Dd8NPN&#43;GD6bjnYm2VuPuCXmpuYvmCXQ==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/semver&#34;: {
+      &#34;version&#34;: &#34;7.7.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/semver/-/semver-7.7.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM&#43;MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==&#34;,
+      &#34;license&#34;: &#34;ISC&#34;,
+      &#34;bin&#34;: {
+        &#34;semver&#34;: &#34;bin/semver.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=10&#34;
+      }
+    },
+    &#34;node_modules/ts-node&#34;: {
+      &#34;version&#34;: &#34;10.9.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ts-node/-/ts-node-10.9.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB&#43;fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@cspotcode/source-map-support&#34;: &#34;^0.8.0&#34;,
+        &#34;@tsconfig/node10&#34;: &#34;^1.0.7&#34;,
+        &#34;@tsconfig/node12&#34;: &#34;^1.0.7&#34;,
+        &#34;@tsconfig/node14&#34;: &#34;^1.0.0&#34;,
+        &#34;@tsconfig/node16&#34;: &#34;^1.0.2&#34;,
+        &#34;acorn&#34;: &#34;^8.4.1&#34;,
+        &#34;acorn-walk&#34;: &#34;^8.1.1&#34;,
+        &#34;arg&#34;: &#34;^4.1.0&#34;,
+        &#34;create-require&#34;: &#34;^1.1.0&#34;,
+        &#34;diff&#34;: &#34;^4.0.1&#34;,
+        &#34;make-error&#34;: &#34;^1.1.1&#34;,
+        &#34;v8-compile-cache-lib&#34;: &#34;^3.0.1&#34;,
+        &#34;yn&#34;: &#34;3.1.1&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;ts-node&#34;: &#34;dist/bin.js&#34;,
+        &#34;ts-node-cwd&#34;: &#34;dist/bin-cwd.js&#34;,
+        &#34;ts-node-esm&#34;: &#34;dist/bin-esm.js&#34;,
+        &#34;ts-node-script&#34;: &#34;dist/bin-script.js&#34;,
+        &#34;ts-node-transpile-only&#34;: &#34;dist/bin-transpile.js&#34;,
+        &#34;ts-script&#34;: &#34;dist/bin-script-deprecated.js&#34;
+      },
+      &#34;peerDependencies&#34;: {
+        &#34;@swc/core&#34;: &#34;&gt;=1.2.50&#34;,
+        &#34;@swc/wasm&#34;: &#34;&gt;=1.2.50&#34;,
+        &#34;@types/node&#34;: &#34;*&#34;,
+        &#34;typescript&#34;: &#34;&gt;=2.7&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;@swc/core&#34;: {
+          &#34;optional&#34;: true
+        },
+        &#34;@swc/wasm&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/tslib&#34;: {
+      &#34;version&#34;: &#34;2.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oJFu94HQb&#43;KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==&#34;,
+      &#34;license&#34;: &#34;0BSD&#34;
+    },
+    &#34;node_modules/typescript&#34;: {
+      &#34;version&#34;: &#34;5.9.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;bin&#34;: {
+        &#34;tsc&#34;: &#34;bin/tsc&#34;,
+        &#34;tsserver&#34;: &#34;bin/tsserver&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.17&#34;
+      }
+    },
+    &#34;node_modules/undici-types&#34;: {
+      &#34;version&#34;: &#34;6.21.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp&#43;7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/v8-compile-cache-lib&#34;: {
+      &#34;version&#34;: &#34;3.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-wa7YjyUGfNZngI/vtK0UHAN&#43;lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB&#43;VfufLh3JlF2KdTK3xg==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/wsl-utils&#34;: {
+      &#34;version&#34;: &#34;0.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/wsl-utils/-/wsl-utils-0.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-wsl&#34;: &#34;^3.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/yn&#34;: {
+      &#34;version&#34;: &#34;3.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/yn/-/yn-3.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6&#34;
+      }
+    }
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-resource-group-management&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Azure Resource Group management using management plane SDK&#34;,
+  &#34;main&#34;: &#34;dist/index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/index.js&#34;,
+    &#34;dev&#34;: &#34;ts-node src/index.ts&#34;
+  },
+  &#34;keywords&#34;: [
+    &#34;azure&#34;,
+    &#34;resource-groups&#34;,
+    &#34;management&#34;
+  ],
+  &#34;dependencies&#34;: {
+    &#34;@azure/arm-resources&#34;: &#34;^5.2.0&#34;,
+    &#34;@azure/identity&#34;: &#34;^4.0.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.11.0&#34;,
+    &#34;typescript&#34;: &#34;^5.3.0&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.0&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\index.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+import { ResourceManagementClient } from &#34;@azure/arm-resources&#34;;
+
+/**
+ * Azure Resource Group Management Example
+ * 
+ * This program demonstrates how to:
+ * 1. Authenticate using DefaultAzureCredential
+ * 2. Create a ResourceManagementClient
+ * 3. Create a resource group
+ * 4. List all resource groups
+ * 5. Get resource group details
+ * 6. Update resource group tags
+ * 7. Delete a resource group
+ */
+
+async function main() {
+  // Get subscription ID from environment variable
+  const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
+  
+  if (!subscriptionId) {
+    throw new Error(&#34;AZURE_SUBSCRIPTION_ID environment variable is required&#34;);
+  }
+
+  console.log(&#34;=&#34;.repeat(60));
+  console.log(&#34;Azure Resource Group Management Demo&#34;);
+  console.log(&#34;=&#34;.repeat(60));
+  console.log();
+
+  // Step 1: Authenticate using DefaultAzureCredential
+  console.log(&#34;🔐 Step 1: Authenticating with DefaultAzureCredential...&#34;);
+  const credential = new DefaultAzureCredential();
+  console.log(&#34;✅ Credential created successfully&#34;);
+  console.log();
+
+  // Step 2: Create ResourceManagementClient
+  console.log(&#34;🔧 Step 2: Creating ResourceManagementClient...&#34;);
+  const client = new ResourceManagementClient(credential, subscriptionId);
+  console.log(&#34;✅ Client created successfully&#34;);
+  console.log(`   Subscription ID: ${subscriptionId}`);
+  console.log();
+
+  // Generate a unique resource group name
+  const timestamp = Date.now();
+  const resourceGroupName = `rg-demo-${timestamp}`;
+  const location = &#34;eastus&#34;;
+
+  // Step 3: Create a new resource group
+  console.log(&#34;📦 Step 3: Creating resource group...&#34;);
+  console.log(`   Name: ${resourceGroupName}`);
+  console.log(`   Location: ${location}`);
+  
+  const createResult = await client.resourceGroups.createOrUpdate(
+    resourceGroupName,
+    {
+      location: location,
+      tags: {
+        environment: &#34;demo&#34;,
+        createdBy: &#34;typescript-sdk&#34;
+      }
+    }
+  );
+  
+  console.log(&#34;✅ Resource group created successfully&#34;);
+  console.log(`   ID: ${createResult.id}`);
+  console.log(`   Provisioning State: ${createResult.properties?.provisioningState}`);
+  console.log();
+
+  // Step 4: List all resource groups
+  console.log(&#34;📋 Step 4: Listing all resource groups in subscription...&#34;);
+  let resourceGroupCount = 0;
+  
+  // Using async iteration to list all resource groups
+  for await (const resourceGroup of client.resourceGroups.list()) {
+    resourceGroupCount&#43;&#43;;
+    console.log(`   - ${resourceGroup.name} (${resourceGroup.location})`);
+    if (resourceGroup.tags) {
+      const tags = Object.entries(resourceGroup.tags)
+        .map(([key, value]) =&gt; `${key}=${value}`)
+        .join(&#34;, &#34;);
+      console.log(`     Tags: ${tags}`);
+    }
+  }
+  
+  console.log(`✅ Found ${resourceGroupCount} resource group(s)`);
+  console.log();
+
+  // Step 5: Get details of the created resource group
+  console.log(&#34;🔍 Step 5: Getting details of created resource group...&#34;);
+  const resourceGroup = await client.resourceGroups.get(resourceGroupName);
+  
+  console.log(&#34;✅ Resource group details:&#34;);
+  console.log(`   Name: ${resourceGroup.name}`);
+  console.log(`   Location: ${resourceGroup.location}`);
+  console.log(`   ID: ${resourceGroup.id}`);
+  console.log(`   Provisioning State: ${resourceGroup.properties?.provisioningState}`);
+  console.log(`   Managed By: ${resourceGroup.managedBy || &#34;N/A&#34;}`);
+  
+  if (resourceGroup.tags) {
+    console.log(&#34;   Tags:&#34;);
+    for (const [key, value] of Object.entries(resourceGroup.tags)) {
+      console.log(`     - ${key}: ${value}`);
+    }
+  }
+  console.log();
+
+  // Step 6: Update the resource group by adding a tag
+  console.log(&#34;🏷️  Step 6: Updating resource group tags...&#34;);
+  const updateResult = await client.resourceGroups.update(
+    resourceGroupName,
+    {
+      tags: {
+        ...resourceGroup.tags,
+        updated: &#34;true&#34;,
+        lastModified: new Date().toISOString()
+      }
+    }
+  );
+  
+  console.log(&#34;✅ Resource group updated successfully&#34;);
+  console.log(&#34;   Updated tags:&#34;);
+  if (updateResult.tags) {
+    for (const [key, value] of Object.entries(updateResult.tags)) {
+      console.log(`     - ${key}: ${value}`);
+    }
+  }
+  console.log();
+
+  // Step 7: Delete the resource group
+  console.log(&#34;🗑️  Step 7: Deleting resource group...&#34;);
+  console.log(&#34;   This operation may take several minutes...&#34;);
+  
+  // beginDeleteAndWait is a long-running operation that waits for completion
+  await client.resourceGroups.beginDeleteAndWait(resourceGroupName);
+  
+  console.log(&#34;✅ Resource group deleted successfully&#34;);
+  console.log();
+
+  // Verify deletion
+  console.log(&#34;✔️  Verifying deletion...&#34;);
+  try {
+    await client.resourceGroups.get(resourceGroupName);
+    console.log(&#34;⚠️  Warning: Resource group still exists&#34;);
+  } catch (error: any) {
+    if (error.statusCode === 404) {
+      console.log(&#34;✅ Confirmed: Resource group no longer exists&#34;);
+    } else {
+      throw error;
+    }
+  }
+  console.log();
+
+  console.log(&#34;=&#34;.repeat(60));
+  console.log(&#34;Demo completed successfully! 🎉&#34;);
+  console.log(&#34;=&#34;.repeat(60));
+}
+
+// Execute the main function with error handling
+main().catch((error) =&gt; {
+  console.error(&#34;❌ Error occurred:&#34;);
+  console.error(error.message);
+  
+  if (error.code) {
+    console.error(`   Error Code: ${error.code}`);
+  }
+  
+  if (error.statusCode) {
+    console.error(`   Status Code: ${error.statusCode}`);
+  }
+  
+  process.exit(1);
+});
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\minimal.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+import { ResourceManagementClient } from &#34;@azure/arm-resources&#34;;
+
+/**
+ * Minimal Example: Azure Resource Group CRUD Operations
+ * 
+ * This is a simplified version showing just the core operations.
+ */
+
+async function minimalExample() {
+  const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID!;
+  
+  // 1. Authenticate and create client
+  const credential = new DefaultAzureCredential();
+  const client = new ResourceManagementClient(credential, subscriptionId);
+  
+  const rgName = `rg-minimal-${Date.now()}`;
+  
+  try {
+    // 2. Create
+    console.log(&#34;Creating resource group...&#34;);
+    await client.resourceGroups.createOrUpdate(rgName, {
+      location: &#34;eastus&#34;,
+      tags: { purpose: &#34;demo&#34; }
+    });
+    console.log(&#34;✓ Created&#34;);
+    
+    // 3. List
+    console.log(&#34;\nListing all resource groups...&#34;);
+    for await (const rg of client.resourceGroups.list()) {
+      console.log(`  - ${rg.name}`);
+    }
+    
+    // 4. Get
+    console.log(`\nGetting details of ${rgName}...`);
+    const rg = await client.resourceGroups.get(rgName);
+    console.log(`✓ Location: ${rg.location}`);
+    
+    // 5. Update
+    console.log(&#34;\nUpdating tags...&#34;);
+    await client.resourceGroups.update(rgName, {
+      tags: { ...rg.tags, updated: &#34;true&#34; }
+    });
+    console.log(&#34;✓ Updated&#34;);
+    
+    // 6. Delete
+    console.log(&#34;\nDeleting resource group...&#34;);
+    await client.resourceGroups.beginDeleteAndWait(rgName);
+    console.log(&#34;✓ Deleted&#34;);
+    
+  } catch (error: any) {
+    console.error(&#34;Error:&#34;, error.message);
+    throw error;
+  }
+}
+
+minimalExample();
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2020&#34;],
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./src&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;moduleResolution&#34;: &#34;node&#34;
+  },
+  &#34;include&#34;: [&#34;src/**/*&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;dist&#34;]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">70 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (70 actions, 23 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>70</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>23</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>15</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">22</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">1</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id resource-manager-mp-js-ts-rg-crud --config azure-mcp-skills/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

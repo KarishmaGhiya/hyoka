@@ -1,0 +1,2882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: identity-dp-js-ts-service-principal / azure-mcp/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 identity-dp-js-ts-service-principal</h1>
+  <div class="subtitle">Config: <strong>azure-mcp/claude-sonnet-4.5</strong> · 2026-05-02T01:31:41Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#eab308">15/20</strong></span>
+  <span class="meta-item">Duration: <strong>185.9s</strong></span>
+  <span class="meta-item">Files: <strong>5</strong></span>
+  <span class="meta-item">Tool Calls: <strong>13</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer authenticate with a Service Principal (client secret) using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>identity</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>auth</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/identity</code></td></tr>
+      <tr><td>Tags</td><td>authentication, service-principal, client-secret</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=323904 out=6293</td></tr>
+    <tr><td>Turn Count</td><td>8</td></tr>
+    
+    <tr><td>Generation Duration</td><td>123.8s</td></tr>
+    <tr><td>Review Duration</td><td>61.7s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>7</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>3</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>view</td>
+      <td>2</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program that
+authenticates to Azure using a Service Principal with client secret. The program should:
+1. Install and import @azure/identity with ClientSecretCredential
+2. Read tenant ID, client ID, and client secret from environment variables
+3. Create a ClientSecretCredential instance
+4. Use it to create an Azure SDK client (e.g., SecretClient from @azure/keyvault-secrets)
+5. Perform an operation to verify the credential works
+6. Handle AuthenticationError for invalid credentials
+
+Include a package.json with all dependencies, use dotenv for environment variable
+management, and use async/await throughout.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a complete TypeScript program that demonstrates Azure authentication using a Service Principal with client secret.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants me to create a TypeScript program that demonstrates authenticatio…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants me to create a TypeScript program that demonstrates authentication to Azure using a Service Principal with client secret. Let me break down the requirements:
+
+1. Install and import @azure/identity with ClientSecretCredential
+2. Read tenant ID, client ID, and client secret from environment variables
+3. Create a ClientSecretCredential instance
+4. Use it to create an Azure SDK client (e.g., SecretClient from @azure/keyvault-secrets)
+5. Perform an operation to verify the credential works
+6. Handle AuthenticationError for invalid credentials
+7. Include a package.json with all dependencies
+8. Use dotenv for environment variable management
+9. Use async/await throughout
+
+This is a straightforward task. I should:
+1. Create a package.json with the required dependencies
+2. Create a TypeScript configuration file (tsconfig.json)
+3. Create the main TypeScript program
+4. Create a .env.example file to show what environment variables are needed
+5. Create a README.md to explain how to use the program
+
+Let me start by creating these files.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure Service Principal auth program&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-service-principal-auth\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Service Principal authentication with client secret\&#34;,\n  \&#34;main\&#34;: \&#34;dist/index.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node src/index.ts\&#34;\n  },\n  \&#34;keywords\&#34;: [\n    \&#34;azure\&#34;,\n    \&#34;authentication\&#34;,\n    \&#34;service-principal\&#34;,\n    \&#34;typescript\&#34;\n  ],\n  \&#34;author\&#34;: \&#34;\&#34;,\n  \&#34;license\&#34;: \&#34;MIT\&#34;,\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;,\n    \&#34;@azure/keyvault-secrets\&#34;: \&#34;^4.8.0\&#34;,\n    \&#34;dotenv\&#34;: \&#34;^16.4.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.11.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.2\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.3.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { ClientSecretCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { AuthenticationError } from \&#34;@azure/identity\&#34;;\nimport * as dotenv from \&#34;dotenv\&#34;;\n\n// Load environment variables from .env file\ndotenv.config();\n\ninterface AzureConfig {\n  tenantId: string;\n  clientId: string;\n  clientSecret: string;\n  keyVaultUrl: string;\n}\n\n/**\n * Validates that all required environment variables are present\n */\nfunction validateEnvironmentVariables(): AzureConfig {\n  const tenantId = process.env.AZURE_TENANT_ID;\n  const clientId = process.env.AZURE_CLIENT_ID;\n  const clientSecret = process.env.AZURE_CLIENT_SECRET;\n  const keyVaultUrl = process.env.AZURE_KEYVAULT_URL;\n\n  if (!tenantId || !clientId || !clientSecret || !keyVaultUrl) {\n    throw new Error(\n      \&#34;Missing required environment variables. Please ensure AZURE_TENANT_ID, \&#34; &#43;\n      \&#34;AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_KEYVAULT_URL are set.\&#34;\n    );\n  }\n\n  return {\n    tenantId,\n    clientId,\n    clientSecret,\n    keyVaultUrl,\n  };\n}\n\n/**\n * Authenticates to Azure using Service Principal with client secret\n * and performs a Key Vault operation to verify the credential works\n */\nasync function authenticateWithServicePrincipal(): Promise\u003cvoid\u003e {\n  try {\n    console.log(\&#34;🔐 Azure Service Principal Authentication Demo\\n\&#34;);\n\n    // Step 1: Validate environment variables\n    console.log(\&#34;Step 1: Validating environment variables...\&#34;);\n    const config = validateEnvironmentVariables();\n    console.log(\&#34;✓ Environment variables loaded successfully\\n\&#34;);\n\n    // Step 2: Create ClientSecretCredential\n    console.log(\&#34;Step 2: Creating ClientSecretCredential...\&#34;);\n    const credential = new ClientSecretCredential(\n      config.tenantId,\n      config.clientId,\n      config.clientSecret\n    );\n    console.log(\&#34;✓ Credential created successfully\\n\&#34;);\n\n    // Step 3: Create Azure SDK client (SecretClient)\n    console.log(\&#34;Step 3: Creating SecretClient for Key Vault...\&#34;);\n    const secretClient = new SecretClient(config.keyVaultUrl, credential);\n    console.log(`✓ SecretClient created for: ${config.keyVaultUrl}\\n`);\n\n    // Step 4: Perform an operation to verify the credential works\n    console.log(\&#34;Step 4: Verifying credential by listing secrets...\&#34;);\n    \n    // List secrets (this will trigger authentication)\n    const secretsIterator = secretClient.listPropertiesOfSecrets();\n    const secrets: string[] = [];\n    \n    for await (const secretProperties of secretsIterator) {\n      secrets.push(secretProperties.name);\n    }\n\n    console.log(\&#34;✓ Authentication successful!\&#34;);\n    console.log(`✓ Found ${secrets.length} secret(s) in Key Vault`);\n    \n    if (secrets.length \u003e 0) {\n      console.log(\&#34;\\nSecrets in Key Vault:\&#34;);\n      secrets.forEach((name, index) =\u003e {\n        console.log(`  ${index &#43; 1}. ${name}`);\n      });\n    } else {\n      console.log(\&#34;\\n(No secrets found in Key Vault - this is normal for a new vault)\&#34;);\n    }\n\n    console.log(\&#34;\\n✅ All operations completed successfully!\&#34;);\n\n  } catch (error) {\n    // Step 5: Handle AuthenticationError for invalid credentials\n    if (error instanceof AuthenticationError) {\n      console.error(\&#34;\\n❌ Authentication Error:\&#34;);\n      console.error(\&#34;Failed to authenticate with the provided credentials.\&#34;);\n      console.error(\&#34;\\nPossible causes:\&#34;);\n      console.error(\&#34;  • Invalid tenant ID, client ID, or client secret\&#34;);\n      console.error(\&#34;  • Service Principal does not exist or is disabled\&#34;);\n      console.error(\&#34;  • Service Principal does not have access to the Key Vault\&#34;);\n      console.error(\&#34;\\nError details:\&#34;, error.message);\n    } else if (error instanceof Error) {\n      console.error(\&#34;\\n❌ Error:\&#34;, error.message);\n      \n      // Check for specific error types\n      if (error.message.includes(\&#34;ENOTFOUND\&#34;) || error.message.includes(\&#34;network\&#34;)) {\n        console.error(\&#34;\\nThis appears to be a network error. Please check:\&#34;);\n        console.error(\&#34;  • Your internet connection\&#34;);\n        console.error(\&#34;  • The Key Vault URL is correct\&#34;);\n        console.error(\&#34;  • The Key Vault exists and is accessible\&#34;);\n      } else if (error.message.includes(\&#34;Forbidden\&#34;) || error.message.includes(\&#34;403\&#34;)) {\n        console.error(\&#34;\\nAccess forbidden. Please ensure:\&#34;);\n        console.error(\&#34;  • The Service Principal has appropriate permissions\&#34;);\n        console.error(\&#34;  • Key Vault access policies are configured correctly\&#34;);\n      }\n    } else {\n      console.error(\&#34;\\n❌ Unknown error:\&#34;, error);\n    }\n    \n    process.exit(1);\n  }\n}\n\n// Run the authentication demo\nauthenticateWithServicePrincipal();\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>8.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Service Principal Configuration\n# Copy this file to .env and fill in your actual values\n\n# Azure Tenant ID (Directory ID)\nAZURE_TENANT_ID=your-tenant-id-here\n\n# Azure Application (Client) ID\nAZURE_CLIENT_ID=your-client-id-here\n\n# Azure Client Secret\nAZURE_CLIENT_SECRET=your-client-secret-here\n\n# Azure Key Vault URL (e.g., https://your-keyvault-name.vault.azure.net/)\nAZURE_KEYVAULT_URL=https://your-keyvault-name.vault.azure.net/\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Dependencies\nnode_modules/\n\n# Build output\ndist/\n\n# Environment variables\n.env\n\n# IDE\n.vscode/\n.idea/\n\n# OS files\n.DS_Store\nThumbs.db\n\n# Logs\n*.log\nnpm-debug.log*\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\.gitignore&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Service Principal Authentication with TypeScript\n\nThis project demonstrates how to authenticate to Azure using a Service Principal with client secret using TypeScript and the Azure Identity SDK.\n\n## Features\n\n- ✅ Authenticates using ClientSecretCredential from @azure/identity\n- ✅ Reads credentials from environment variables using dotenv\n- ✅ Demonstrates usage with Azure Key Vault SecretClient\n- ✅ Comprehensive error handling for authentication failures\n- ✅ Full TypeScript support with type safety\n- ✅ Async/await throughout\n\n## Prerequisites\n\n- Node.js (v18 or higher recommended)\n- An Azure subscription\n- An Azure Service Principal with client secret\n- An Azure Key Vault (for testing the credential)\n\n## Setup\n\n### 1. Install Dependencies\n\n```bash\nnpm install\n```\n\n### 2. Create a Service Principal\n\nIf you don&#39;t have a Service Principal, create one using Azure CLI:\n\n```bash\naz ad sp create-for-rbac --name \&#34;my-app-service-principal\&#34; --role contributor\n```\n\nThis will output:\n```json\n{\n  \&#34;appId\&#34;: \&#34;your-client-id\&#34;,\n  \&#34;displayName\&#34;: \&#34;my-app-service-principal\&#34;,\n  \&#34;password\&#34;: \&#34;your-client-secret\&#34;,\n  \&#34;tenant\&#34;: \&#34;your-tenant-id\&#34;\n}\n```\n\n### 3. Create a Key Vault (if needed)\n\n```bash\naz keyvault create --name \&#34;your-keyvault-name\&#34; --resource-group \&#34;your-resource-group\&#34; --location \&#34;eastus\&#34;\n```\n\n### 4. Grant Service Principal Access to Key Vault\n\n```bash\naz keyvault set-policy --name \&#34;your-keyvault-name\&#34; --spn \&#34;your-client-id\&#34; --secret-permissions get list\n```\n\n### 5. Configure Environment Variables\n\nCopy `.env.example` to `.env`:\n\n```bash\ncp .env.example .env\n```\n\nEdit `.env` and fill in your values:\n\n```env\nAZURE_TENANT_ID=your-tenant-id\nAZURE_CLIENT_ID=your-client-id\nAZURE_CLIENT_SECRET=your-client-secret\nAZURE_KEYVAULT_URL=https://your-keyvault-name.vault.azure.net/\n```\n\n## Usage\n\n### Development Mode (with ts-node)\n\n```bash\nnpm run dev\n```\n\n### Production Mode\n\nBuild and run:\n\n```bash\nnpm run build\nnpm start\n```\n\n## How It Works\n\n1. **Environment Variables**: The application loads credentials from environment variables using dotenv\n2. **ClientSecretCredential**: Creates a credential object with tenant ID, client ID, and client secret\n3. **Azure SDK Client**: Initializes a SecretClient for Azure Key Vault using the credential\n4. **Verification**: Lists secrets in the Key Vault to verify authentication works\n5. **Error Handling**: Catches and handles AuthenticationError and other errors with helpful messages\n\n## Error Handling\n\nThe application handles various error scenarios:\n\n- **AuthenticationError**: Invalid credentials or access issues\n- **Network Errors**: Connection problems or incorrect URLs\n- **Permission Errors**: Service Principal lacks required permissions\n- **Missing Environment Variables**: Required configuration not provided\n\n## Security Best Practices\n\n- ✅ Never commit `.env` file to version control\n- ✅ Use Azure Key Vault to store secrets in production\n- ✅ Rotate client secrets regularly\n- ✅ Follow principle of least privilege for Service Principal permissions\n- ✅ Use Managed Identities when possible (for Azure-hosted applications)\n\n## Project Structure\n\n```\n.\n├── src/\n│   └── index.ts          # Main application code\n├── dist/                 # Compiled JavaScript (generated)\n├── .env.example          # Example environment variables\n├── .gitignore           # Git ignore patterns\n├── package.json         # Dependencies and scripts\n├── tsconfig.json        # TypeScript configuration\n└── README.md            # This file\n```\n\n## Dependencies\n\n- **@azure/identity**: Azure authentication library\n- **@azure/keyvault-secrets**: Azure Key Vault client\n- **dotenv**: Environment variable management\n- **typescript**: TypeScript compiler\n- **ts-node**: TypeScript execution for development\n\n## Troubleshooting\n\n### \&#34;Missing required environment variables\&#34;\n- Ensure `.env` file exists and contains all required variables\n- Check that variable names match exactly\n\n### \&#34;Authentication Error\&#34;\n- Verify tenant ID, client ID, and client secret are correct\n- Ensure Service Principal exists and is not disabled\n- Check that Service Principal has access to the Key Vault\n\n### \&#34;Access Forbidden\&#34; (403)\n- Grant appropriate permissions to the Service Principal\n- Update Key Vault access policies\n\n## License\n\nMIT\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>11.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I need to create the `src` directory first, then create the main TypeScript file:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path \&#34;src\&#34; -Force&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>13.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>14.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { ClientSecretCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { AuthenticationError } from \&#34;@azure/identity\&#34;;\nimport * as dotenv from \&#34;dotenv\&#34;;\n\n// Load environment variables from .env file\ndotenv.config();\n\ninterface AzureConfig {\n  tenantId: string;\n  clientId: string;\n  clientSecret: string;\n  keyVaultUrl: string;\n}\n\n/**\n * Validates that all required environment variables are present\n */\nfunction validateEnvironmentVariables(): AzureConfig {\n  const tenantId = process.env.AZURE_TENANT_ID;\n  const clientId = process.env.AZURE_CLIENT_ID;\n  const clientSecret = process.env.AZURE_CLIENT_SECRET;\n  const keyVaultUrl = process.env.AZURE_KEYVAULT_URL;\n\n  if (!tenantId || !clientId || !clientSecret || !keyVaultUrl) {\n    throw new Error(\n      \&#34;Missing required environment variables. Please ensure AZURE_TENANT_ID, \&#34; &#43;\n      \&#34;AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_KEYVAULT_URL are set.\&#34;\n    );\n  }\n\n  return {\n    tenantId,\n    clientId,\n    clientSecret,\n    keyVaultUrl,\n  };\n}\n\n/**\n * Authenticates to Azure using Service Principal with client secret\n * and performs a Key Vault operation to verify the credential works\n */\nasync function authenticateWithServicePrincipal(): Promise\u003cvoid\u003e {\n  try {\n    console.log(\&#34;🔐 Azure Service Principal Authentication Demo\\n\&#34;);\n\n    // Step 1: Validate environment variables\n    console.log(\&#34;Step 1: Validating environment variables...\&#34;);\n    const config = validateEnvironmentVariables();\n    console.log(\&#34;✓ Environment variables loaded successfully\\n\&#34;);\n\n    // Step 2: Create ClientSecretCredential\n    console.log(\&#34;Step 2: Creating ClientSecretCredential...\&#34;);\n    const credential = new ClientSecretCredential(\n      config.tenantId,\n      config.clientId,\n      config.clientSecret\n    );\n    console.log(\&#34;✓ Credential created successfully\\n\&#34;);\n\n    // Step 3: Create Azure SDK client (SecretClient)\n    console.log(\&#34;Step 3: Creating SecretClient for Key Vault...\&#34;);\n    const secretClient = new SecretClient(config.keyVaultUrl, credential);\n    console.log(`✓ SecretClient created for: ${config.keyVaultUrl}\\n`);\n\n    // Step 4: Perform an operation to verify the credential works\n    console.log(\&#34;Step 4: Verifying credential by listing secrets...\&#34;);\n    \n    // List secrets (this will trigger authentication)\n    const secretsIterator = secretClient.listPropertiesOfSecrets();\n    const secrets: string[] = [];\n    \n    for await (const secretProperties of secretsIterator) {\n      secrets.push(secretProperties.name);\n    }\n\n    console.log(\&#34;✓ Authentication successful!\&#34;);\n    console.log(`✓ Found ${secrets.length} secret(s) in Key Vault`);\n    \n    if (secrets.length \u003e 0) {\n      console.log(\&#34;\\nSecrets in Key Vault:\&#34;);\n      secrets.forEach((name, index) =\u003e {\n        console.log(`  ${index &#43; 1}. ${name}`);\n      });\n    } else {\n      console.log(\&#34;\\n(No secrets found in Key Vault - this is normal for a new vault)\&#34;);\n    }\n\n    console.log(\&#34;\\n✅ All operations completed successfully!\&#34;);\n\n  } catch (error) {\n    // Step 5: Handle AuthenticationError for invalid credentials\n    if (error instanceof AuthenticationError) {\n      console.error(\&#34;\\n❌ Authentication Error:\&#34;);\n      console.error(\&#34;Failed to authenticate with the provided credentials.\&#34;);\n      console.error(\&#34;\\nPossible causes:\&#34;);\n      console.error(\&#34;  • Invalid tenant ID, client ID, or client secret\&#34;);\n      console.error(\&#34;  • Service Principal does not exist or is disabled\&#34;);\n      console.error(\&#34;  • Service Principal does not have access to the Key Vault\&#34;);\n      console.error(\&#34;\\nError details:\&#34;, error.message);\n    } else if (error instanceof Error) {\n      console.error(\&#34;\\n❌ Error:\&#34;, error.message);\n      \n      // Check for specific error types\n      if (error.message.includes(\&#34;ENOTFOUND\&#34;) || error.message.includes(\&#34;network\&#34;)) {\n        console.error(\&#34;\\nThis appears to be a network error. Please check:\&#34;);\n        console.error(\&#34;  • Your internet connection\&#34;);\n        console.error(\&#34;  • The Key Vault URL is correct\&#34;);\n        console.error(\&#34;  • The Key Vault exists and is accessible\&#34;);\n      } else if (error.message.includes(\&#34;Forbidden\&#34;) || error.message.includes(\&#34;403\&#34;)) {\n        console.error(\&#34;\\nAccess forbidden. Please ensure:\&#34;);\n        console.error(\&#34;  • The Service Principal has appropriate permissions\&#34;);\n        console.error(\&#34;  • Key Vault access policies are configured correctly\&#34;);\n      }\n    } else {\n      console.error(\&#34;\\n❌ Unknown error:\&#34;, error);\n    }\n    \n    process.exit(1);\n  }\n}\n\n// Run the authentication demo\nauthenticateWithServicePrincipal();\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>15.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Now let me install the dependencies to verify everything is set up correctly:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>16.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm install&#34;,&#34;description&#34;:&#34;Install npm dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>17.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Excellent! Now let&#39;s verify the TypeScript compilation works:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>18.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;npm run build&#34;,&#34;description&#34;:&#34;Build TypeScript project&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>19.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! Let me verify the build output was created:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>20.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>21.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Great! Let me check the compiled JavaScript:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>22.</span>
+          <span class="tool-name">Tool call: view</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-claude-sonnet-4.5-3942821566\\dist&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>23.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! ✅ I&#39;ve successfully created a complete TypeScript program for Azure Service Principal authentication. Here&#39;s what was created:
+
+## 📦 Project Structure
+
+- **`src/index.ts`** - Main TypeScript program with all required functionality:
+  - ClientSecretCredential from @azure/identity
+  - Environment variable loading with dotenv
+  - SecretClient example using Azure Key Vault
+  - Comprehensive error handling for AuthenticationError
+  - Async/await throughout
+  
+- **`package.json`** - All dependencies including:
+  - @azure/identity (^4.0.0)
+  - @azure/keyvault-secrets (^4.8.0)
+  - dotenv (^16.4.0)
+  - TypeScript &amp; dev dependencies
+
+- **`tsconfig.json`** - TypeScript configuration
+- **`.env.example`** - Template for environment variables
+- **`.gitignore`** - Security best practices
+- **`README.md`** - Complete documentation
+
+## 🚀 Key Features
+
+1. ✅ **Service Principal Authentication** - Uses ClientSecretCredential
+2. ✅ **Environment Variables** - Secure credential management with dotenv
+3. ✅ **Verification** - Lists Key Vault secrets to prove authentication works
+4. ✅ **Error Handling** - Catches AuthenticationError with helpful diagnostics
+5. ✅ **TypeScript** - Full type safety
+6. ✅ **Async/Await** - Modern async patterns throughout
+
+## 📝 Usage
+
+1. Copy `.env.example` to `.env` and fill in your Azure credentials
+2. Run `npm run dev` (development) or `npm run build &amp;&amp; npm start` (production)
+
+The program has been built and is ready to use! Dependencies are installed and TypeScript compilation is successful.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>24.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 15/20 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#eab308">15/20</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/keyvault-secrets). No deprecated unscoped packages.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Includes @azure/identity with ClientSecretCredential, a production-appropriate specific Entra token credential.</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">SecretClient constructed correctly with endpoint URL and credential: new SecretClient(config.keyVaultUrl, credential)</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses async/await throughout. Main function is async, no .then()/.catch() chains, clean async patterns.</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Correctly uses for-await-of over PagedAsyncIterableIterator: for await (const secretProperties of secretsIterator)</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">No long-running operations in this code. N/A but no violations present.</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Does not catch RestError with statusCode inspection. Uses string matching on error messages instead of proper RestError type checking.</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All dependencies are current @azure/* track. No deprecated packages like azure-storage, ms-rest-azure, etc.</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Does not use @azure/logger. Uses console.log instead of setLogLevel() or AZURE_LOG_LEVEL environment variable.</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Valid package.json with all required @azure/* dependencies, TypeScript, and @types/node.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity package with ClientSecretCredential</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Correctly imports and uses ClientSecretCredential from @azure/identity.</td>
+          </tr>
+          
+          <tr>
+            <td>Constructor parameters: tenantId, clientId, clientSecret</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">ClientSecretCredential constructed with correct parameters: new ClientSecretCredential(tenantId, clientId, clientSecret)</td>
+          </tr>
+          
+          <tr>
+            <td>Passing credential to Azure SDK clients</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Credential correctly passed to SecretClient constructor.</td>
+          </tr>
+          
+          <tr>
+            <td>dotenv or environment variable patterns</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses dotenv package with dotenv.config() and reads from process.env. Includes validation function.</td>
+          </tr>
+          
+          <tr>
+            <td>AuthenticationError handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Attempts to catch AuthenticationError but this type is not exported from @azure/identity v4.x. The import statement is invalid and would cause a build error.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Code would not build due to invalid import: AuthenticationError is not exported from @azure/identity. This would cause a TypeScript compilation error.</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">@azure/identity ^4.0.0 and @azure/keyvault-secrets ^4.8.0 are current stable versions.</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Follows Azure SDK best practices: specific credential type, async/await, environment variables, proper client construction.</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Error handling approach has issues: invalid AuthenticationError import, uses string matching instead of RestError type checking, no retry logic.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Clean, well-structured code with good comments, validation function, and helpful console output.</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>The code demonstrates good structure and follows most Azure SDK patterns correctly, including ClientSecretCredential usage, async/await, pagination, and environment variable management. However, it has critical flaws: (1) invalid AuthenticationError import that would prevent compilation, (2) missing RestError exception handling with statusCode inspection, (3) no @azure/logger usage for SDK diagnostics. The error handling uses string matching on error messages rather than proper type checking.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>Correct use of ClientSecretCredential with proper constructor parameters</li><li>Clean pagination pattern with for-await-of</li><li>Proper async/await throughout with no .then()/.catch() chains</li><li>Good environment variable validation with helpful error messages</li><li>Comprehensive README with setup instructions and troubleshooting</li><li>Well-structured code with validation function and clear flow</li><li>Uses latest @azure/* scoped packages with no deprecated dependencies</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>AuthenticationError is not exported from @azure/identity v4.x - this import would cause a build failure</li><li>Missing RestError exception handling - should catch RestError and inspect statusCode for service errors (403, 404, etc.)</li><li>No @azure/logger usage - should use setLogLevel() or AZURE_LOG_LEVEL environment variable for SDK diagnostic logging</li><li>Error handling uses string matching (error.message.includes) instead of proper error type checking</li><li>No retry logic for transient failures</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (6 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll evaluate this generated TypeScript code by attempting to verify build capability and checking all criteria systematically.</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              I need to evaluate the generated TypeScript code against the original prompt, at…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>I need to evaluate the generated TypeScript code against the original prompt, attribute-matched criteria, prompt-specific criteria, and general quality criteria.
+
+Let me systematically check each criterion:
+
+## Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check package.json for @azure/ scoped packages
+   - Dependencies: @azure/identity, @azure/keyvault-secrets
+   - All are correctly scoped. PASS
+
+2. **@azure/identity for Authentication** - Check if @azure/identity is used
+   - Uses ClientSecretCredential from @azure/identity
+   - This is a specific Entra token credential (production-appropriate)
+   - PASS
+
+3. **Client Constructor with Endpoint and Credential** - Check SecretClient constructor
+   - `new SecretClient(config.keyVaultUrl, credential)` - correct pattern
+   - PASS
+
+4. **Async/Await Pattern** - Check for async/await usage
+   - Main function is async
+   - Uses `for await` for iteration
+   - No .then()/.catch() chains
+   - PASS
+
+5. **Pagination with for-await-of** - Check pagination pattern
+   - `for await (const secretProperties of secretsIterator)` - correct
+   - Does not collect all into array first (builds array incrementally)
+   - PASS
+
+6. **LRO Pattern** - Check for long-running operations
+   - No LRO operations used in this code (listPropertiesOfSecrets is not an LRO)
+   - N/A but no violations - PASS
+
+7. **RestError Exception Handling** - Check error handling
+   - Catches AuthenticationError (from @azure/identity)
+   - Does NOT catch RestError specifically
+   - The code should catch RestError for service errors (403, network issues)
+   - FAIL (uses generic Error catching instead of RestError)
+
+8. **No Deprecated Packages** - Check package.json
+   - All packages are current @azure/* track
+   - PASS
+
+9. **Logging via @azure/logger** - Check for @azure/logger usage
+   - No @azure/logger import or usage
+   - Uses console.log instead
+   - FAIL
+
+10. **package.json with Correct Dependencies** - Check package.json
+    - Has @azure/id…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Evaluating generated code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>4.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-1845310747&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-1845310747; npm install 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>6.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll proceed with static analysis of the code since I cannot access the directory. Let me evaluate all criteria:
+
+```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/keyvault-secrets). No deprecated unscoped packages.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Includes @azure/identity with ClientSecretCredential, a production-appropriate specific Entra token credential.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;SecretClient constructed correctly with endpoint URL and credential: new SecretClient(config.keyVaultUrl, credential)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses async/await throughout. Main function is async, no .then()/.catch() chains, clean async patterns.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Correctly uses for-await-of over PagedAsyncIterableIterator: for await (const secretProperties of secretsIterator)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No long-running operations in this code. N/A but no violations present.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Does not catch RestError with statusCode inspection. Uses string matching on error messages instead of proper RestError type checking.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All dependencies are current @azure/* track. No deprecated packages like azure-storage, ms-rest-azure, etc.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Logging via @azure/logger&#34;,
+…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (1 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-sonnet-4.5</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#eab308">15/20</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/keyvault-secrets). No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Includes @azure/identity with ClientSecretCredential, a production-appropriate specific Entra token credential.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="SecretClient constructed correctly with endpoint URL and credential: new SecretClient(config.keyVaultUrl, credential)">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Uses async/await throughout. Main function is async, no .then()/.catch() chains, clean async patterns.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Correctly uses for-await-of over PagedAsyncIterableIterator: for await (const secretProperties of secretsIterator)">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="No long-running operations in this code. N/A but no violations present.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Does not catch RestError with statusCode inspection. Uses string matching on error messages instead of proper RestError type checking.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="All dependencies are current @azure/* track. No deprecated packages like azure-storage, ms-rest-azure, etc.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Does not use @azure/logger. Uses console.log instead of setLogLevel() or AZURE_LOG_LEVEL environment variable.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required @azure/* dependencies, TypeScript, and @types/node.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Correctly imports and uses ClientSecretCredential from @azure/identity.">✅ @azure/identity package with ClientSecretCredential</span> <span style="display:inline-block;margin:2px 4px" title="ClientSecretCredential constructed with correct parameters: new ClientSecretCredential(tenantId, clientId, clientSecret)">✅ Constructor parameters: tenantId, clientId, clientSecret</span> <span style="display:inline-block;margin:2px 4px" title="Credential correctly passed to SecretClient constructor.">✅ Passing credential to Azure SDK clients</span> <span style="display:inline-block;margin:2px 4px" title="Uses dotenv package with dotenv.config() and reads from process.env. Includes validation function.">✅ dotenv or environment variable patterns</span> <span style="display:inline-block;margin:2px 4px" title="Attempts to catch AuthenticationError but this type is not exported from @azure/identity v4.x. The import statement is invalid and would cause a build error.">❌ AuthenticationError handling</span> <span style="display:inline-block;margin:2px 4px" title="Code would not build due to invalid import: AuthenticationError is not exported from @azure/identity. This would cause a TypeScript compilation error.">❌ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="@azure/identity ^4.0.0 and @azure/keyvault-secrets ^4.8.0 are current stable versions.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows Azure SDK best practices: specific credential type, async/await, environment variables, proper client construction.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Error handling approach has issues: invalid AuthenticationError import, uses string matching instead of RestError type checking, no retry logic.">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured code with good comments, validation function, and helpful console output.">✅ Code Quality</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#eab308">15/20</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/keyvault-secrets). No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Includes @azure/identity with ClientSecretCredential, a production-appropriate specific Entra token credential.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="SecretClient constructed correctly with endpoint URL and credential: new SecretClient(config.keyVaultUrl, credential)">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Uses async/await throughout. Main function is async, no .then()/.catch() chains, clean async patterns.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Correctly uses for-await-of over PagedAsyncIterableIterator: for await (const secretProperties of secretsIterator)">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="No long-running operations in this code. N/A but no violations present.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Does not catch RestError with statusCode inspection. Uses string matching on error messages instead of proper RestError type checking.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="All dependencies are current @azure/* track. No deprecated packages like azure-storage, ms-rest-azure, etc.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Does not use @azure/logger. Uses console.log instead of setLogLevel() or AZURE_LOG_LEVEL environment variable.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required @azure/* dependencies, TypeScript, and @types/node.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Correctly imports and uses ClientSecretCredential from @azure/identity.">✅ @azure/identity package with ClientSecretCredential</span> <span style="display:inline-block;margin:2px 4px" title="ClientSecretCredential constructed with correct parameters: new ClientSecretCredential(tenantId, clientId, clientSecret)">✅ Constructor parameters: tenantId, clientId, clientSecret</span> <span style="display:inline-block;margin:2px 4px" title="Credential correctly passed to SecretClient constructor.">✅ Passing credential to Azure SDK clients</span> <span style="display:inline-block;margin:2px 4px" title="Uses dotenv package with dotenv.config() and reads from process.env. Includes validation function.">✅ dotenv or environment variable patterns</span> <span style="display:inline-block;margin:2px 4px" title="Attempts to catch AuthenticationError but this type is not exported from @azure/identity v4.x. The import statement is invalid and would cause a build error.">❌ AuthenticationError handling</span> <span style="display:inline-block;margin:2px 4px" title="Code would not build due to invalid import: AuthenticationError is not exported from @azure/identity. This would cause a TypeScript compilation error.">❌ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="@azure/identity ^4.0.0 and @azure/keyvault-secrets ^4.8.0 are current stable versions.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows Azure SDK best practices: specific credential type, async/await, environment variables, proper client construction.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Error handling approach has issues: invalid AuthenticationError import, uses string matching instead of RestError type checking, no retry logic.">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured code with good comments, validation function, and helpful console output.">✅ Code Quality</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-sonnet-4.5</code> — The code demonstrates good structure and follows most Azure SDK patterns correctly, including ClientSecretCredential usage, async/await, pagination, and environment variable management. However, it has critical flaws: (1) invalid AuthenticationError import that would prevent compilation, (2) missing RestError exception handling with statusCode inspection, (3) no @azure/logger usage for SDK diagnostics. The error handling uses string matching on error messages rather than proper type checking.</summary>
+      <p><strong>Issues:</strong></p><ul><li>AuthenticationError is not exported from @azure/identity v4.x - this import would cause a build failure</li><li>Missing RestError exception handling - should catch RestError and inspect statusCode for service errors (403, 404, etc.)</li><li>No @azure/logger usage - should use setLogLevel() or AZURE_LOG_LEVEL environment variable for SDK diagnostic logging</li><li>Error handling uses string matching (error.message.includes) instead of proper error type checking</li><li>No retry logic for transient failures</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Correct use of ClientSecretCredential with proper constructor parameters</li><li>Clean pagination pattern with for-await-of</li><li>Proper async/await throughout with no .then()/.catch() chains</li><li>Good environment variable validation with helpful error messages</li><li>Comprehensive README with setup instructions and troubleshooting</li><li>Well-structured code with validation function and clear flow</li><li>Uses latest @azure/* scoped packages with no deprecated dependencies</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (6 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll evaluate this generated TypeScript code by attempting to verify build capability and checking all criteria systematically.</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              I need to evaluate the generated TypeScript code against the original prompt, at…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>I need to evaluate the generated TypeScript code against the original prompt, attribute-matched criteria, prompt-specific criteria, and general quality criteria.
+
+Let me systematically check each criterion:
+
+## Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check package.json for @azure/ scoped packages
+   - Dependencies: @azure/identity, @azure/keyvault-secrets
+   - All are correctly scoped. PASS
+
+2. **@azure/identity for Authentication** - Check if @azure/identity is used
+   - Uses ClientSecretCredential from @azure/identity
+   - This is a specific Entra token credential (production-appropriate)
+   - PASS
+
+3. **Client Constructor with Endpoint and Credential** - Check SecretClient constructor
+   - `new SecretClient(config.keyVaultUrl, credential)` - correct pattern
+   - PASS
+
+4. **Async/Await Pattern** - Check for async/await usage
+   - Main function is async
+   - Uses `for await` for iteration
+   - No .then()/.catch() chains
+   - PASS
+
+5. **Pagination with for-await-of** - Check pagination pattern
+   - `for await (const secretProperties of secretsIterator)` - correct
+   - Does not collect all into array first (builds array incrementally)
+   - PASS
+
+6. **LRO Pattern** - Check for long-running operations
+   - No LRO operations used in this code (listPropertiesOfSecrets is not an LRO)
+   - N/A but no violations - PASS
+
+7. **RestError Exception Handling** - Check error handling
+   - Catches AuthenticationError (from @azure/identity)
+   - Does NOT catch RestError specifically
+   - The code should catch RestError for service errors (403, network issues)
+   - FAIL (uses generic Error catching instead of RestError)
+
+8. **No Deprecated Packages** - Check package.json
+   - All packages are current @azure/* track
+   - PASS
+
+9. **Logging via @azure/logger** - Check for @azure/logger usage
+   - No @azure/logger import or usage
+   - Uses console.log instead
+   - FAIL
+
+10. **package.json with Correct Dependencies** - Check package.json
+    - Has @azure/id…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Evaluating generated code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>4.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-1845310747&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: powershell</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;cd C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-1845310747; npm install 2\u003e\u00261&#34;,&#34;description&#34;:&#34;Install dependencies&#34;,&#34;initial_wait&#34;:60}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>6.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll proceed with static analysis of the code since I cannot access the directory. Let me evaluate all criteria:
+
+```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All Azure SDK dependencies use @azure/ scoped packages (@azure/identity, @azure/keyvault-secrets). No deprecated unscoped packages.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Includes @azure/identity with ClientSecretCredential, a production-appropriate specific Entra token credential.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;SecretClient constructed correctly with endpoint URL and credential: new SecretClient(config.keyVaultUrl, credential)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses async/await throughout. Main function is async, no .then()/.catch() chains, clean async patterns.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Correctly uses for-await-of over PagedAsyncIterableIterator: for await (const secretProperties of secretsIterator)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No long-running operations in this code. N/A but no violations present.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Does not catch RestError with statusCode inspection. Uses string matching on error messages instead of proper RestError type checking.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;All dependencies are current @azure/* track. No deprecated packages like azure-storage, ms-rest-azure, etc.&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Logging via @azure/logger&#34;,
+…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (2 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code demonstrates good structure and follows most Azure SDK patterns correctly, including ClientSecretCredential usage, async/await, pagination, and environment variable management. However, it has critical flaws: (1) invalid AuthenticationError import that would prevent compilation, (2) missing RestError exception handling with statusCode inspection, (3) no @azure/logger usage for SDK diagnostics. The error handling uses string matching on error messages rather than proper type checking.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code demonstrates good structure and follows most Azure SDK patterns correctly, including ClientSecretCredential usage, async/await, pagination, and environment variable management. However, it has critical flaws: (1) invalid AuthenticationError import that would prevent compilation, (2) missing RestError exception handling with statusCode inspection, (3) no @azure/logger usage for SDK diagnostics. The error handling uses string matching on error messages rather than proper type checking.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (5)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">3 .json, 1 .md, 1 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> README.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Service Principal Authentication with TypeScript
+
+This project demonstrates how to authenticate to Azure using a Service Principal with client secret using TypeScript and the Azure Identity SDK.
+
+## Features
+
+- ✅ Authenticates using ClientSecretCredential from @azure/identity
+- ✅ Reads credentials from environment variables using dotenv
+- ✅ Demonstrates usage with Azure Key Vault SecretClient
+- ✅ Comprehensive error handling for authentication failures
+- ✅ Full TypeScript support with type safety
+- ✅ Async/await throughout
+
+## Prerequisites
+
+- Node.js (v18 or higher recommended)
+- An Azure subscription
+- An Azure Service Principal with client secret
+- An Azure Key Vault (for testing the credential)
+
+## Setup
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Create a Service Principal
+
+If you don&#39;t have a Service Principal, create one using Azure CLI:
+
+```bash
+az ad sp create-for-rbac --name &#34;my-app-service-principal&#34; --role contributor
+```
+
+This will output:
+```json
+{
+  &#34;appId&#34;: &#34;your-client-id&#34;,
+  &#34;displayName&#34;: &#34;my-app-service-principal&#34;,
+  &#34;password&#34;: &#34;your-client-secret&#34;,
+  &#34;tenant&#34;: &#34;your-tenant-id&#34;
+}
+```
+
+### 3. Create a Key Vault (if needed)
+
+```bash
+az keyvault create --name &#34;your-keyvault-name&#34; --resource-group &#34;your-resource-group&#34; --location &#34;eastus&#34;
+```
+
+### 4. Grant Service Principal Access to Key Vault
+
+```bash
+az keyvault set-policy --name &#34;your-keyvault-name&#34; --spn &#34;your-client-id&#34; --secret-permissions get list
+```
+
+### 5. Configure Environment Variables
+
+Copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and fill in your values:
+
+```env
+AZURE_TENANT_ID=your-tenant-id
+AZURE_CLIENT_ID=your-client-id
+AZURE_CLIENT_SECRET=your-client-secret
+AZURE_KEYVAULT_URL=https://your-keyvault-name.vault.azure.net/
+```
+
+## Usage
+
+### Development Mode (with ts-node)
+
+```bash
+npm run dev
+```
+
+### Production Mode
+
+Build and run:
+
+```bash
+npm run build
+npm start
+```
+
+## How It Works
+
+1. **Environment Variables**: The application loads credentials from environment variables using dotenv
+2. **ClientSecretCredential**: Creates a credential object with tenant ID, client ID, and client secret
+3. **Azure SDK Client**: Initializes a SecretClient for Azure Key Vault using the credential
+4. **Verification**: Lists secrets in the Key Vault to verify authentication works
+5. **Error Handling**: Catches and handles AuthenticationError and other errors with helpful messages
+
+## Error Handling
+
+The application handles various error scenarios:
+
+- **AuthenticationError**: Invalid credentials or access issues
+- **Network Errors**: Connection problems or incorrect URLs
+- **Permission Errors**: Service Principal lacks required permissions
+- **Missing Environment Variables**: Required configuration not provided
+
+## Security Best Practices
+
+- ✅ Never commit `.env` file to version control
+- ✅ Use Azure Key Vault to store secrets in production
+- ✅ Rotate client secrets regularly
+- ✅ Follow principle of least privilege for Service Principal permissions
+- ✅ Use Managed Identities when possible (for Azure-hosted applications)
+
+## Project Structure
+
+```
+.
+├── src/
+│   └── index.ts          # Main application code
+├── dist/                 # Compiled JavaScript (generated)
+├── .env.example          # Example environment variables
+├── .gitignore           # Git ignore patterns
+├── package.json         # Dependencies and scripts
+├── tsconfig.json        # TypeScript configuration
+└── README.md            # This file
+```
+
+## Dependencies
+
+- **@azure/identity**: Azure authentication library
+- **@azure/keyvault-secrets**: Azure Key Vault client
+- **dotenv**: Environment variable management
+- **typescript**: TypeScript compiler
+- **ts-node**: TypeScript execution for development
+
+## Troubleshooting
+
+### &#34;Missing required environment variables&#34;
+- Ensure `.env` file exists and contains all required variables
+- Check that variable names match exactly
+
+### &#34;Authentication Error&#34;
+- Verify tenant ID, client ID, and client secret are correct
+- Ensure Service Principal exists and is not disabled
+- Check that Service Principal has access to the Key Vault
+
+### &#34;Access Forbidden&#34; (403)
+- Grant appropriate permissions to the Service Principal
+- Update Key Vault access policies
+
+## License
+
+MIT
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package-lock.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-service-principal-auth&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;lockfileVersion&#34;: 3,
+  &#34;requires&#34;: true,
+  &#34;packages&#34;: {
+    &#34;&#34;: {
+      &#34;name&#34;: &#34;azure-service-principal-auth&#34;,
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/identity&#34;: &#34;^4.0.0&#34;,
+        &#34;@azure/keyvault-secrets&#34;: &#34;^4.8.0&#34;,
+        &#34;dotenv&#34;: &#34;^16.4.0&#34;
+      },
+      &#34;devDependencies&#34;: {
+        &#34;@types/node&#34;: &#34;^20.11.0&#34;,
+        &#34;ts-node&#34;: &#34;^10.9.2&#34;,
+        &#34;typescript&#34;: &#34;^5.3.0&#34;
+      }
+    },
+    &#34;node_modules/@azure-rest/core-client&#34;: {
+      &#34;version&#34;: &#34;2.6.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure-rest/core-client/-/core-client-2.6.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iuFKDm8XPzNxPfRjhyU5/xKZmcRDzSuEghXDHHk4MjBV/wFL34GmYVBZnn9wmuoLBeS1qAw9ceMdaeJBPcB1QQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/abort-controller&#34;: {
+      &#34;version&#34;: &#34;2.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/abort-controller/-/abort-controller-2.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nBrLsEWm4J2u5LpAPjxADTlq3trDgVZZXHNKabeXZtpq3d3AbN/KGO82R87rdDz5/lYB024rtEf10/q0urNgsA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-auth&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-auth/-/core-auth-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ykRMW8PjVAn&#43;RS6ww5cmK9U2CyH9p4Q88YJwvUslfuMmN98w/2rdGRLPqJYObapBCdzBVeDgYWdJnFPFb7qzpg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-client&#34;: {
+      &#34;version&#34;: &#34;1.10.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-client/-/core-client-1.10.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Nh5PhEOeY6PrnxNPsEHRr9eimxLwgLlpmguQaHKBinFYA/RU9&#43;kOYVOQqOrTsCL&#43;KSxrLLl1gD8Dk5BFW/7l/w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.22.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-lro&#34;: {
+      &#34;version&#34;: &#34;2.7.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-lro/-/core-lro-2.7.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0YIpccoX8m/k00O7mDDMdJpbr6mf1yWo2dfmxt5A8XVZVVMz2SSKaEbMCeJRvgQ0IaSlqhjT47p4hVIRRy90xw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-paging&#34;: {
+      &#34;version&#34;: &#34;1.6.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-paging/-/core-paging-1.6.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YKWi9YuCU04B55h25cnOYZHxXYtEvQEbKST5vqRga7hWY9ydd3FZHdeQF8pyh&#43;acWZvppw13M/LMGx0LABUVMA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-rest-pipeline&#34;: {
+      &#34;version&#34;: &#34;1.23.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-rest-pipeline/-/core-rest-pipeline-1.23.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Evs1INHo&#43;jUjwHi1T6SG6Ua/LHOQBCLuKEEE6efIpt4ZOoNonaT1kP32GoOcdNDbfqsD2445CPri3MubBy5DEQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.13.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.3.0&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.4&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-tracing&#34;: {
+      &#34;version&#34;: &#34;1.3.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-tracing/-/core-tracing-1.3.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-9MWKevR7Hz8kNzzPLfX4EAtGM2b8mr50HPDBvio96bURP/9C&#43;HjdH3sBlLSNNrvRAr5/k/svoH457gB5IKpmwQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/core-util&#34;: {
+      &#34;version&#34;: &#34;1.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/core-util/-/core-util-1.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-XPArKLzsvl0Hf0CaGyKHUyVgF7oDnhKoP85Xv6M4StF/1AhfORhZudHtOyf2s&#43;FcbuQ9dPRAjB8J2KvRRMUK2A==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/identity&#34;: {
+      &#34;version&#34;: &#34;4.13.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/identity/-/identity-4.13.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-5C/2WD5Vb1lHnZS16dNQRPMjN6oV/Upba&#43;C9nBIs15PmOi6A3ZGs4Lr2u60zw4S04gi&#43;u3cEXiqTVP7M4Pz3kw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-client&#34;: &#34;^1.9.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.17.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/msal-browser&#34;: &#34;^5.5.0&#34;,
+        &#34;@azure/msal-node&#34;: &#34;^5.1.0&#34;,
+        &#34;open&#34;: &#34;^10.1.0&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/keyvault-common&#34;: {
+      &#34;version&#34;: &#34;2.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/keyvault-common/-/keyvault-common-2.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-aCDidWuKY06LWQ4x7/8TIXK6iRqTaRWRL3t7T&#43;LC&#43;j1b07HtoIsOxP/tU90G4jCSBn5TAyUTCtA4MS/y5Hudaw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure-rest/core-client&#34;: &#34;^2.3.3&#34;,
+        &#34;@azure/abort-controller&#34;: &#34;^2.0.0&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.3.0&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.8.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.0.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.10.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;tslib&#34;: &#34;^2.2.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/keyvault-secrets&#34;: {
+      &#34;version&#34;: &#34;4.11.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/keyvault-secrets/-/keyvault-secrets-4.11.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-tLBcPeJX4s95Whe0t1G1dM8lBDmmuz7qBh8WN0PAQ8vBVFTUb5sZsf8fRXNejEZPYS7sND/PesJnAMIXs9mFyw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure-rest/core-client&#34;: &#34;^2.3.3&#34;,
+        &#34;@azure/abort-controller&#34;: &#34;^2.1.2&#34;,
+        &#34;@azure/core-auth&#34;: &#34;^1.9.0&#34;,
+        &#34;@azure/core-lro&#34;: &#34;^2.7.2&#34;,
+        &#34;@azure/core-paging&#34;: &#34;^1.6.2&#34;,
+        &#34;@azure/core-rest-pipeline&#34;: &#34;^1.19.0&#34;,
+        &#34;@azure/core-tracing&#34;: &#34;^1.2.0&#34;,
+        &#34;@azure/core-util&#34;: &#34;^1.11.0&#34;,
+        &#34;@azure/keyvault-common&#34;: &#34;^2.1.0&#34;,
+        &#34;@azure/logger&#34;: &#34;^1.1.4&#34;,
+        &#34;tslib&#34;: &#34;^2.8.1&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/logger&#34;: {
+      &#34;version&#34;: &#34;1.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/logger/-/logger-1.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-fCqPIfOcLE&#43;CGqGPd66c8bZpwAji98tZ4JI9i/mlTNTlsIWslCfpg48s/ypyLxZTump5sypjrKn2/kY7q8oAbA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@typespec/ts-http-runtime&#34;: &#34;^0.3.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-browser&#34;: {
+      &#34;version&#34;: &#34;5.9.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-browser/-/msal-browser-5.9.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-CzE&#43;4PefDSJWj26zU7G1bKchlGRRHMBFreG4tAlGuzyI8hAPiYGobaJvZBgZBf6L63iphX7VH&#43;ityL8VgEQz9Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-common&#34;: {
+      &#34;version&#34;: &#34;16.5.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-common/-/msal-common-16.5.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-GkDEL6TYo3HgT3UuqakdgE9PZfc1hMki6&#43;Hwgy1uddb/EauvAKfu85vVhuofRSo22D1xTnWt8Ucwfg4vSCVwvA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.8.0&#34;
+      }
+    },
+    &#34;node_modules/@azure/msal-node&#34;: {
+      &#34;version&#34;: &#34;5.1.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@azure/msal-node/-/msal-node-5.1.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ObTeMoNPmq19X3z40et9Xvs4ZoWVeJg43PZMRLG5iwVL&#43;2nCtAerG3YTDItqPp1CfXNwmCXBbg8jn1DOx65c3g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@azure/msal-common&#34;: &#34;16.5.2&#34;,
+        &#34;jsonwebtoken&#34;: &#34;^9.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20&#34;
+      }
+    },
+    &#34;node_modules/@cspotcode/source-map-support&#34;: {
+      &#34;version&#34;: &#34;0.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@jridgewell/trace-mapping&#34;: &#34;0.3.9&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;
+      }
+    },
+    &#34;node_modules/@jridgewell/resolve-uri&#34;: {
+      &#34;version&#34;: &#34;3.1.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL&#43;UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0.0&#34;
+      }
+    },
+    &#34;node_modules/@jridgewell/sourcemap-codec&#34;: {
+      &#34;version&#34;: &#34;1.5.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-cYQ9310grqxueWbl&#43;WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@jridgewell/trace-mapping&#34;: {
+      &#34;version&#34;: &#34;0.3.9&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@jridgewell/resolve-uri&#34;: &#34;^3.0.3&#34;,
+        &#34;@jridgewell/sourcemap-codec&#34;: &#34;^1.4.10&#34;
+      }
+    },
+    &#34;node_modules/@tsconfig/node10&#34;: {
+      &#34;version&#34;: &#34;1.0.12&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.12.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-UCYBaeFvM11aU2y3YPZ//O5Rhj&#43;xKyzy7mvcIoAjASbigy8mHMryP5cK7dgjlz2hWxh1g5pLw084E0a/wlUSFQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@tsconfig/node12&#34;: {
+      &#34;version&#34;: &#34;1.0.11&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node12/-/node12-1.0.11.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-cqefuRsh12pWyGsIoBKJA9luFu3mRxCA&#43;ORZvA4ktLSzIuCUtWVxGIuXigEwO5/ywWFMZ2QEGKWvkZG1zDMTag==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@tsconfig/node14&#34;: {
+      &#34;version&#34;: &#34;1.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node14/-/node14-1.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-ysT8mhdixWK6Hw3i1V2AeRqZ5WfXg1G43mqoYlM2nc6388Fq5jcXyr5mRsqViLx/GJYdoL0bfXD8nmF&#43;Zn/Iow==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@tsconfig/node16&#34;: {
+      &#34;version&#34;: &#34;1.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY&#43;A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/@types/node&#34;: {
+      &#34;version&#34;: &#34;20.19.39&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@types/node/-/node-20.19.39.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-orrrD74MBUyK8jOAD/r0&#43;lfa1I2MO6I&#43;vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;undici-types&#34;: &#34;~6.21.0&#34;
+      }
+    },
+    &#34;node_modules/@typespec/ts-http-runtime&#34;: {
+      &#34;version&#34;: &#34;0.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/@typespec/ts-http-runtime/-/ts-http-runtime-0.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-yURCknZhvywvQItHMMmFSo&#43;fq5arCUIyz/CVk7jD89MSai7dkaX8ufjCWp3NttLojoTVbcE72ri&#43;be/TnEbMHw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;http-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;https-proxy-agent&#34;: &#34;^7.0.0&#34;,
+        &#34;tslib&#34;: &#34;^2.6.2&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=20.0.0&#34;
+      }
+    },
+    &#34;node_modules/acorn&#34;: {
+      &#34;version&#34;: &#34;8.16.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/acorn/-/acorn-8.16.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3&#43;82K6JgJlm/Y&#43;KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5&#43;4jh9sw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;bin&#34;: {
+        &#34;acorn&#34;: &#34;bin/acorn&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.4.0&#34;
+      }
+    },
+    &#34;node_modules/acorn-walk&#34;: {
+      &#34;version&#34;: &#34;8.3.5&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/acorn-walk/-/acorn-walk-8.3.5.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-HEHNfbars9v4pgpW6SO1KSPkfoS0xVOM/9UzkJltjlsHZmJasxg8aXkuZa7SMf8vKGIBhpUsPluQSqhJFCqebw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;acorn&#34;: &#34;^8.11.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.4.0&#34;
+      }
+    },
+    &#34;node_modules/agent-base&#34;: {
+      &#34;version&#34;: &#34;7.1.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MnA&#43;YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7&#43;jMO&#43;CUovTQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/arg&#34;: {
+      &#34;version&#34;: &#34;4.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/arg/-/arg-4.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ&#43;71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/buffer-equal-constant-time&#34;: {
+      &#34;version&#34;: &#34;1.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==&#34;,
+      &#34;license&#34;: &#34;BSD-3-Clause&#34;
+    },
+    &#34;node_modules/bundle-name&#34;: {
+      &#34;version&#34;: &#34;4.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/bundle-name/-/bundle-name-4.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-tjwM5exMg6BGRI&#43;kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy&#43;FqStSWvYmtfFMDLIxurorHwDKfDz5Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;run-applescript&#34;: &#34;^7.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/create-require&#34;: {
+      &#34;version&#34;: &#34;1.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/create-require/-/create-require-1.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf&#43;MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA&#43;ftRkP/3oKQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/debug&#34;: {
+      &#34;version&#34;: &#34;4.4.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/debug/-/debug-4.4.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-RGwwWnwQvkVfavKVt22FGLw&#43;xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;ms&#34;: &#34;^2.1.3&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6.0&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;supports-color&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/default-browser&#34;: {
+      &#34;version&#34;: &#34;5.5.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser/-/default-browser-5.5.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-H9LMLr5zwIbSxrmvikGuI/5KGhZ8E2zH3stkMgM5LpOWDutGM2JZaj460Udnf1a&#43;946zc7YBgrqEWwbk7zHvGw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;bundle-name&#34;: &#34;^4.1.0&#34;,
+        &#34;default-browser-id&#34;: &#34;^5.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/default-browser-id&#34;: {
+      &#34;version&#34;: &#34;5.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/default-browser-id/-/default-browser-id-5.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-x1VCxdX4t&#43;8wVfd1so/9w&#43;vQ4vx7lKd2Qp5tDRutErwmR85OgmfX7RlLRMWafRMY7hbEiXIbudNrjOAPa/hL8Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/define-lazy-prop&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-N&#43;MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/diff&#34;: {
+      &#34;version&#34;: &#34;4.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/diff/-/diff-4.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-X07nttJQkwkfKfvTPG/KSnE2OMdcUCao6&#43;eXF3wmnIQRn2aPAHH3VxDbDOdegkd6JbPsXqShpvEOHfAT&#43;nCNwQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;BSD-3-Clause&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=0.3.1&#34;
+      }
+    },
+    &#34;node_modules/dotenv&#34;: {
+      &#34;version&#34;: &#34;16.6.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/dotenv/-/dotenv-16.6.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==&#34;,
+      &#34;license&#34;: &#34;BSD-2-Clause&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://dotenvx.com&#34;
+      }
+    },
+    &#34;node_modules/ecdsa-sig-formatter&#34;: {
+      &#34;version&#34;: &#34;1.0.11&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==&#34;,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;dependencies&#34;: {
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/http-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ&#43;veqSOHci/PxBcDabeUNCzpOODJZig==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.0&#34;,
+        &#34;debug&#34;: &#34;^4.3.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/https-proxy-agent&#34;: {
+      &#34;version&#34;: &#34;7.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vK9P5/iUfdl95AI&#43;JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;agent-base&#34;: &#34;^7.1.2&#34;,
+        &#34;debug&#34;: &#34;4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;= 14&#34;
+      }
+    },
+    &#34;node_modules/is-docker&#34;: {
+      &#34;version&#34;: &#34;3.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-docker/-/is-docker-3.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;bin&#34;: {
+        &#34;is-docker&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;^12.20.0 || ^14.13.1 || &gt;=16.0.0&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-inside-container&#34;: {
+      &#34;version&#34;: &#34;1.0.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-inside-container/-/is-inside-container-1.0.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk&#43;MG/Qxmp/vtETEF3tRA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-docker&#34;: &#34;^3.0.0&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;is-inside-container&#34;: &#34;cli.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/is-wsl&#34;: {
+      &#34;version&#34;: &#34;3.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/is-wsl/-/is-wsl-3.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-e6rvdUCiQCAuumZslxRJWR/Doq4VpPR82kqclvcS0efgt430SlGIk05vdCN58&#43;VrzgtIcfNODjozVielycD4Sw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=16&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/jsonwebtoken&#34;: {
+      &#34;version&#34;: &#34;9.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-MT/xP0CrubFRNLNKvxJ2BYfy53Zkm&#43;&#43;5bX9dtuPbqAeQpTVe0MQTFhao8&#43;Cp//EmJp244xt6Drw/GVEGCUj40g==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jws&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.includes&#34;: &#34;^4.3.0&#34;,
+        &#34;lodash.isboolean&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isinteger&#34;: &#34;^4.0.4&#34;,
+        &#34;lodash.isnumber&#34;: &#34;^3.0.3&#34;,
+        &#34;lodash.isplainobject&#34;: &#34;^4.0.6&#34;,
+        &#34;lodash.isstring&#34;: &#34;^4.0.1&#34;,
+        &#34;lodash.once&#34;: &#34;^4.0.0&#34;,
+        &#34;ms&#34;: &#34;^2.1.1&#34;,
+        &#34;semver&#34;: &#34;^7.5.4&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=12&#34;,
+        &#34;npm&#34;: &#34;&gt;=6&#34;
+      }
+    },
+    &#34;node_modules/jwa&#34;: {
+      &#34;version&#34;: &#34;2.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jwa/-/jwa-2.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-hRF04fqJIP8Abbkq5NKGN0Bbr3JxlQ&#43;qhZufXVr0DvujKy93ZCbXZMHDL4EOtodSbCWxOqR8MS1tXA5hwqCXDg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;buffer-equal-constant-time&#34;: &#34;^1.0.1&#34;,
+        &#34;ecdsa-sig-formatter&#34;: &#34;1.0.11&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/jws&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/jws/-/jws-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-EKI/M/yqPncGUUh44xz0PxSidXFr/&#43;r0pA70&#43;gIYhjv&#43;et7yxM&#43;s29Y&#43;VGDkovRofQem0fs7Uvf4&#43;YmAdyRduA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;jwa&#34;: &#34;^2.0.1&#34;,
+        &#34;safe-buffer&#34;: &#34;^5.0.1&#34;
+      }
+    },
+    &#34;node_modules/lodash.includes&#34;: {
+      &#34;version&#34;: &#34;4.3.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isboolean&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Bz5mupy2SVbPHURB98VAcw&#43;aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isinteger&#34;: {
+      &#34;version&#34;: &#34;4.0.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isnumber&#34;: {
+      &#34;version&#34;: &#34;3.0.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-QYqzpfwO3/CWf3XP&#43;Z&#43;tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk&#43;NXmTBcc97zw9t1FQrw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isplainobject&#34;: {
+      &#34;version&#34;: &#34;4.0.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F&#43;MFOBA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.isstring&#34;: {
+      &#34;version&#34;: &#34;4.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-0wJxfxH1wgO3GrbuP&#43;dTTk7op&#43;6L41QCXbGINEmD&#43;ny/G/eCqGzxyCsh7159S&#43;mgDDcoarnBw6PC1PS5&#43;wUGgw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/lodash.once&#34;: {
+      &#34;version&#34;: &#34;4.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/make-error&#34;: {
+      &#34;version&#34;: &#34;1.3.6&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;ISC&#34;
+    },
+    &#34;node_modules/ms&#34;: {
+      &#34;version&#34;: &#34;2.1.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ms/-/ms-2.1.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/open&#34;: {
+      &#34;version&#34;: &#34;10.2.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/open/-/open-10.2.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-YgBpdJHPyQ2UE5x&#43;hlSXcnejzAvD0b22U2OuAP&#43;8OnlJT&#43;PjWPxtgmGqKKc&#43;RgTM63U9gN0YzrYc71R2WT/hTA==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;default-browser&#34;: &#34;^5.2.1&#34;,
+        &#34;define-lazy-prop&#34;: &#34;^3.0.0&#34;,
+        &#34;is-inside-container&#34;: &#34;^1.0.0&#34;,
+        &#34;wsl-utils&#34;: &#34;^0.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/run-applescript&#34;: {
+      &#34;version&#34;: &#34;7.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/run-applescript/-/run-applescript-7.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7&#43;xC9bGulGI8&#43;TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/safe-buffer&#34;: {
+      &#34;version&#34;: &#34;5.2.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F&#43;ppbRo70&#43;YeaDxkw5Dd8NPN&#43;GD6bjnYm2VuPuCXmpuYvmCXQ==&#34;,
+      &#34;funding&#34;: [
+        {
+          &#34;type&#34;: &#34;github&#34;,
+          &#34;url&#34;: &#34;https://github.com/sponsors/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;patreon&#34;,
+          &#34;url&#34;: &#34;https://www.patreon.com/feross&#34;
+        },
+        {
+          &#34;type&#34;: &#34;consulting&#34;,
+          &#34;url&#34;: &#34;https://feross.org/support&#34;
+        }
+      ],
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/semver&#34;: {
+      &#34;version&#34;: &#34;7.7.4&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/semver/-/semver-7.7.4.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM&#43;MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==&#34;,
+      &#34;license&#34;: &#34;ISC&#34;,
+      &#34;bin&#34;: {
+        &#34;semver&#34;: &#34;bin/semver.js&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=10&#34;
+      }
+    },
+    &#34;node_modules/ts-node&#34;: {
+      &#34;version&#34;: &#34;10.9.2&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/ts-node/-/ts-node-10.9.2.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB&#43;fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;@cspotcode/source-map-support&#34;: &#34;^0.8.0&#34;,
+        &#34;@tsconfig/node10&#34;: &#34;^1.0.7&#34;,
+        &#34;@tsconfig/node12&#34;: &#34;^1.0.7&#34;,
+        &#34;@tsconfig/node14&#34;: &#34;^1.0.0&#34;,
+        &#34;@tsconfig/node16&#34;: &#34;^1.0.2&#34;,
+        &#34;acorn&#34;: &#34;^8.4.1&#34;,
+        &#34;acorn-walk&#34;: &#34;^8.1.1&#34;,
+        &#34;arg&#34;: &#34;^4.1.0&#34;,
+        &#34;create-require&#34;: &#34;^1.1.0&#34;,
+        &#34;diff&#34;: &#34;^4.0.1&#34;,
+        &#34;make-error&#34;: &#34;^1.1.1&#34;,
+        &#34;v8-compile-cache-lib&#34;: &#34;^3.0.1&#34;,
+        &#34;yn&#34;: &#34;3.1.1&#34;
+      },
+      &#34;bin&#34;: {
+        &#34;ts-node&#34;: &#34;dist/bin.js&#34;,
+        &#34;ts-node-cwd&#34;: &#34;dist/bin-cwd.js&#34;,
+        &#34;ts-node-esm&#34;: &#34;dist/bin-esm.js&#34;,
+        &#34;ts-node-script&#34;: &#34;dist/bin-script.js&#34;,
+        &#34;ts-node-transpile-only&#34;: &#34;dist/bin-transpile.js&#34;,
+        &#34;ts-script&#34;: &#34;dist/bin-script-deprecated.js&#34;
+      },
+      &#34;peerDependencies&#34;: {
+        &#34;@swc/core&#34;: &#34;&gt;=1.2.50&#34;,
+        &#34;@swc/wasm&#34;: &#34;&gt;=1.2.50&#34;,
+        &#34;@types/node&#34;: &#34;*&#34;,
+        &#34;typescript&#34;: &#34;&gt;=2.7&#34;
+      },
+      &#34;peerDependenciesMeta&#34;: {
+        &#34;@swc/core&#34;: {
+          &#34;optional&#34;: true
+        },
+        &#34;@swc/wasm&#34;: {
+          &#34;optional&#34;: true
+        }
+      }
+    },
+    &#34;node_modules/tslib&#34;: {
+      &#34;version&#34;: &#34;2.8.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-oJFu94HQb&#43;KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==&#34;,
+      &#34;license&#34;: &#34;0BSD&#34;
+    },
+    &#34;node_modules/typescript&#34;: {
+      &#34;version&#34;: &#34;5.9.3&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;Apache-2.0&#34;,
+      &#34;bin&#34;: {
+        &#34;tsc&#34;: &#34;bin/tsc&#34;,
+        &#34;tsserver&#34;: &#34;bin/tsserver&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=14.17&#34;
+      }
+    },
+    &#34;node_modules/undici-types&#34;: {
+      &#34;version&#34;: &#34;6.21.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp&#43;7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/v8-compile-cache-lib&#34;: {
+      &#34;version&#34;: &#34;3.0.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-wa7YjyUGfNZngI/vtK0UHAN&#43;lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB&#43;VfufLh3JlF2KdTK3xg==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;
+    },
+    &#34;node_modules/wsl-utils&#34;: {
+      &#34;version&#34;: &#34;0.1.0&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/wsl-utils/-/wsl-utils-0.1.0.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==&#34;,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;dependencies&#34;: {
+        &#34;is-wsl&#34;: &#34;^3.1.0&#34;
+      },
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=18&#34;
+      },
+      &#34;funding&#34;: {
+        &#34;url&#34;: &#34;https://github.com/sponsors/sindresorhus&#34;
+      }
+    },
+    &#34;node_modules/yn&#34;: {
+      &#34;version&#34;: &#34;3.1.1&#34;,
+      &#34;resolved&#34;: &#34;https://registry.npmjs.org/yn/-/yn-3.1.1.tgz&#34;,
+      &#34;integrity&#34;: &#34;sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==&#34;,
+      &#34;dev&#34;: true,
+      &#34;license&#34;: &#34;MIT&#34;,
+      &#34;engines&#34;: {
+        &#34;node&#34;: &#34;&gt;=6&#34;
+      }
+    }
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-service-principal-auth&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Azure Service Principal authentication with client secret&#34;,
+  &#34;main&#34;: &#34;dist/index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/index.js&#34;,
+    &#34;dev&#34;: &#34;ts-node src/index.ts&#34;
+  },
+  &#34;keywords&#34;: [
+    &#34;azure&#34;,
+    &#34;authentication&#34;,
+    &#34;service-principal&#34;,
+    &#34;typescript&#34;
+  ],
+  &#34;author&#34;: &#34;&#34;,
+  &#34;license&#34;: &#34;MIT&#34;,
+  &#34;dependencies&#34;: {
+    &#34;@azure/identity&#34;: &#34;^4.0.0&#34;,
+    &#34;@azure/keyvault-secrets&#34;: &#34;^4.8.0&#34;,
+    &#34;dotenv&#34;: &#34;^16.4.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.11.0&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.2&#34;,
+    &#34;typescript&#34;: &#34;^5.3.0&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\index.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { ClientSecretCredential } from &#34;@azure/identity&#34;;
+import { SecretClient } from &#34;@azure/keyvault-secrets&#34;;
+import { AuthenticationError } from &#34;@azure/identity&#34;;
+import * as dotenv from &#34;dotenv&#34;;
+
+// Load environment variables from .env file
+dotenv.config();
+
+interface AzureConfig {
+  tenantId: string;
+  clientId: string;
+  clientSecret: string;
+  keyVaultUrl: string;
+}
+
+/**
+ * Validates that all required environment variables are present
+ */
+function validateEnvironmentVariables(): AzureConfig {
+  const tenantId = process.env.AZURE_TENANT_ID;
+  const clientId = process.env.AZURE_CLIENT_ID;
+  const clientSecret = process.env.AZURE_CLIENT_SECRET;
+  const keyVaultUrl = process.env.AZURE_KEYVAULT_URL;
+
+  if (!tenantId || !clientId || !clientSecret || !keyVaultUrl) {
+    throw new Error(
+      &#34;Missing required environment variables. Please ensure AZURE_TENANT_ID, &#34; &#43;
+      &#34;AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_KEYVAULT_URL are set.&#34;
+    );
+  }
+
+  return {
+    tenantId,
+    clientId,
+    clientSecret,
+    keyVaultUrl,
+  };
+}
+
+/**
+ * Authenticates to Azure using Service Principal with client secret
+ * and performs a Key Vault operation to verify the credential works
+ */
+async function authenticateWithServicePrincipal(): Promise&lt;void&gt; {
+  try {
+    console.log(&#34;🔐 Azure Service Principal Authentication Demo\n&#34;);
+
+    // Step 1: Validate environment variables
+    console.log(&#34;Step 1: Validating environment variables...&#34;);
+    const config = validateEnvironmentVariables();
+    console.log(&#34;✓ Environment variables loaded successfully\n&#34;);
+
+    // Step 2: Create ClientSecretCredential
+    console.log(&#34;Step 2: Creating ClientSecretCredential...&#34;);
+    const credential = new ClientSecretCredential(
+      config.tenantId,
+      config.clientId,
+      config.clientSecret
+    );
+    console.log(&#34;✓ Credential created successfully\n&#34;);
+
+    // Step 3: Create Azure SDK client (SecretClient)
+    console.log(&#34;Step 3: Creating SecretClient for Key Vault...&#34;);
+    const secretClient = new SecretClient(config.keyVaultUrl, credential);
+    console.log(`✓ SecretClient created for: ${config.keyVaultUrl}\n`);
+
+    // Step 4: Perform an operation to verify the credential works
+    console.log(&#34;Step 4: Verifying credential by listing secrets...&#34;);
+    
+    // List secrets (this will trigger authentication)
+    const secretsIterator = secretClient.listPropertiesOfSecrets();
+    const secrets: string[] = [];
+    
+    for await (const secretProperties of secretsIterator) {
+      secrets.push(secretProperties.name);
+    }
+
+    console.log(&#34;✓ Authentication successful!&#34;);
+    console.log(`✓ Found ${secrets.length} secret(s) in Key Vault`);
+    
+    if (secrets.length &gt; 0) {
+      console.log(&#34;\nSecrets in Key Vault:&#34;);
+      secrets.forEach((name, index) =&gt; {
+        console.log(`  ${index &#43; 1}. ${name}`);
+      });
+    } else {
+      console.log(&#34;\n(No secrets found in Key Vault - this is normal for a new vault)&#34;);
+    }
+
+    console.log(&#34;\n✅ All operations completed successfully!&#34;);
+
+  } catch (error) {
+    // Step 5: Handle AuthenticationError for invalid credentials
+    if (error instanceof AuthenticationError) {
+      console.error(&#34;\n❌ Authentication Error:&#34;);
+      console.error(&#34;Failed to authenticate with the provided credentials.&#34;);
+      console.error(&#34;\nPossible causes:&#34;);
+      console.error(&#34;  • Invalid tenant ID, client ID, or client secret&#34;);
+      console.error(&#34;  • Service Principal does not exist or is disabled&#34;);
+      console.error(&#34;  • Service Principal does not have access to the Key Vault&#34;);
+      console.error(&#34;\nError details:&#34;, error.message);
+    } else if (error instanceof Error) {
+      console.error(&#34;\n❌ Error:&#34;, error.message);
+      
+      // Check for specific error types
+      if (error.message.includes(&#34;ENOTFOUND&#34;) || error.message.includes(&#34;network&#34;)) {
+        console.error(&#34;\nThis appears to be a network error. Please check:&#34;);
+        console.error(&#34;  • Your internet connection&#34;);
+        console.error(&#34;  • The Key Vault URL is correct&#34;);
+        console.error(&#34;  • The Key Vault exists and is accessible&#34;);
+      } else if (error.message.includes(&#34;Forbidden&#34;) || error.message.includes(&#34;403&#34;)) {
+        console.error(&#34;\nAccess forbidden. Please ensure:&#34;);
+        console.error(&#34;  • The Service Principal has appropriate permissions&#34;);
+        console.error(&#34;  • Key Vault access policies are configured correctly&#34;);
+      }
+    } else {
+      console.error(&#34;\n❌ Unknown error:&#34;, error);
+    }
+    
+    process.exit(1);
+  }
+}
+
+// Run the authentication demo
+authenticateWithServicePrincipal();
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2020&#34;],
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./src&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;moduleResolution&#34;: &#34;node&#34;
+  },
+  &#34;include&#34;: [&#34;src/**/*&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">38 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (38 actions, 13 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>38</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>13</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>8</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">12</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">1</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id identity-dp-js-ts-service-principal --config azure-mcp/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

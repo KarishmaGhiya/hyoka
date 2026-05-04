@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: identity-dp-js-ts-managed-identity / baseline/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 identity-dp-js-ts-managed-identity</h1>
+  <div class="subtitle">Config: <strong>baseline/claude-sonnet-4.5</strong> · 2026-05-01T23:11:30Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#eab308">19/21</strong></span>
+  <span class="meta-item">Duration: <strong>153.2s</strong></span>
+  <span class="meta-item">Files: <strong>3</strong></span>
+  <span class="meta-item">Tool Calls: <strong>4</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer use Managed Identity to authenticate Azure SDK clients using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>identity</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>auth</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/identity</code></td></tr>
+      <tr><td>Tags</td><td>authentication, managed-identity, azure-hosted</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>customize-cloud-agent</td></tr>
+    
+    
+    
+    
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=41031 out=8041</td></tr>
+    <tr><td>Turn Count</td><td>2</td></tr>
+    
+    <tr><td>Generation Duration</td><td>101.8s</td></tr>
+    <tr><td>Review Duration</td><td>51.3s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>3</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Show me how to
+use Managed Identity to authenticate Azure SDK clients in Node.js. Cover:
+1. System-assigned vs user-assigned managed identity
+2. How to create a ManagedIdentityCredential for each type
+3. Using it with Azure SDK clients
+4. Local development fallback strategies
+5. Common pitfalls and error handling
+
+Provide TypeScript examples for both identity types.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll create a comprehensive guide on using Managed Identity with Azure SDK clients in Node.js/TypeScript.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user is asking for guidance on using Managed Identity to authenticate Azure …
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user is asking for guidance on using Managed Identity to authenticate Azure SDK clients in Node.js. This is a technical question about Azure authentication patterns. I should provide comprehensive TypeScript examples covering:
+
+1. System-assigned vs user-assigned managed identity
+2. Creating ManagedIdentityCredential for each type
+3. Using with Azure SDK clients
+4. Local development fallback strategies
+5. Common pitfalls and error handling
+
+This is a straightforward educational request - I should create a comprehensive guide with examples. I&#39;ll create a TypeScript file with well-documented examples covering all these points.
+
+Let me create a structured guide with code examples.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Managed Identity guide&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>5.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;/**\n * Azure Managed Identity Authentication Guide for Node.js/TypeScript\n * \n * This guide covers using Managed Identity to authenticate Azure SDK clients,\n * including both system-assigned and user-assigned identities.\n */\n\nimport { \n  ManagedIdentityCredential,\n  DefaultAzureCredential,\n  ChainedTokenCredential\n} from \&#34;@azure/identity\&#34;;\nimport { BlobServiceClient } from \&#34;@azure/storage-blob\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { QueueClient } from \&#34;@azure/storage-queue\&#34;;\n\n// ============================================================================\n// 1. SYSTEM-ASSIGNED vs USER-ASSIGNED MANAGED IDENTITY\n// ============================================================================\n\n/**\n * SYSTEM-ASSIGNED MANAGED IDENTITY:\n * - Automatically created and tied to a single Azure resource (VM, App Service, etc.)\n * - Lifecycle is bound to the resource - deleted when resource is deleted\n * - No need to manage credentials or rotation\n * - Unique per resource\n * - Use when: Single resource needs access to Azure services\n * \n * USER-ASSIGNED MANAGED IDENTITY:\n * - Created as a standalone Azure resource\n * - Can be assigned to multiple Azure resources\n * - Independent lifecycle from resources using it\n * - Shared identity across resources\n * - Use when: Multiple resources need the same permissions, or you want to\n *   separate identity lifecycle from resource lifecycle\n */\n\n// ============================================================================\n// 2. CREATING ManagedIdentityCredential\n// ============================================================================\n\n/**\n * System-Assigned Managed Identity\n * No configuration needed - automatically uses the system-assigned identity\n */\nfunction createSystemAssignedCredential(): ManagedIdentityCredential {\n  return new ManagedIdentityCredential();\n}\n\n/**\n * User-Assigned Managed Identity (by Client ID)\n * Specify the client ID of the user-assigned managed identity\n */\nfunction createUserAssignedCredentialByClientId(clientId: string): ManagedIdentityCredential {\n  return new ManagedIdentityCredential({\n    clientId: clientId // e.g., \&#34;12345678-1234-1234-1234-123456789012\&#34;\n  });\n}\n\n/**\n * User-Assigned Managed Identity (by Resource ID)\n * Use the full Azure resource ID\n */\nfunction createUserAssignedCredentialByResourceId(resourceId: string): ManagedIdentityCredential {\n  return new ManagedIdentityCredential({\n    resourceId: resourceId // e.g., \&#34;/subscriptions/{sub}/resourcegroups/{rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{name}\&#34;\n  });\n}\n\n/**\n * User-Assigned Managed Identity (by Object ID)\n * Less common, but supported\n */\nfunction createUserAssignedCredentialByObjectId(objectId: string): ManagedIdentityCredential {\n  return new ManagedIdentityCredential({\n    objectId: objectId\n  });\n}\n\n// ============================================================================\n// 3. USING WITH AZURE SDK CLIENTS\n// ============================================================================\n\n/**\n * Example: Using System-Assigned Managed Identity with Azure Blob Storage\n */\nasync function exampleBlobStorageWithSystemAssigned() {\n  const credential = new ManagedIdentityCredential();\n  const storageAccountName = \&#34;mystorageaccount\&#34;;\n  const blobServiceClient = new BlobServiceClient(\n    `https://${storageAccountName}.blob.core.windows.net`,\n    credential\n  );\n\n  try {\n    // List containers\n    const containers = blobServiceClient.listContainers();\n    for await (const container of containers) {\n      console.log(`Container: ${container.name}`);\n    }\n  } catch (error) {\n    console.error(\&#34;Error accessing blob storage:\&#34;, error);\n    throw error;\n  }\n}\n\n/**\n * Example: Using User-Assigned Managed Identity with Azure Key Vault\n */\nasync function exampleKeyVaultWithUserAssigned(userAssignedClientId: string) {\n  const credential = new ManagedIdentityCredential({\n    clientId: userAssignedClientId\n  });\n\n  const vaultUrl = \&#34;https://myvault.vault.azure.net\&#34;;\n  const secretClient = new SecretClient(vaultUrl, credential);\n\n  try {\n    // Get a secret\n    const secret = await secretClient.getSecret(\&#34;my-secret\&#34;);\n    console.log(`Secret value: ${secret.value}`);\n  } catch (error) {\n    console.error(\&#34;Error accessing Key Vault:\&#34;, error);\n    throw error;\n  }\n}\n\n/**\n * Example: Using with multiple Azure services\n */\nasync function exampleMultipleServices() {\n  const credential = new ManagedIdentityCredential();\n\n  // Storage Queue\n  const queueClient = new QueueClient(\n    \&#34;https://mystorageaccount.queue.core.windows.net/myqueue\&#34;,\n    credential\n  );\n\n  // Key Vault\n  const secretClient = new SecretClient(\n    \&#34;https://myvault.vault.azure.net\&#34;,\n    credential\n  );\n\n  // Blob Storage\n  const blobServiceClient = new BlobServiceClient(\n    \&#34;https://mystorageaccount.blob.core.windows.net\&#34;,\n    credential\n  );\n\n  // Use all services with the same credential\n  await queueClient.sendMessage(\&#34;Hello from Managed Identity!\&#34;);\n  const secret = await secretClient.getSecret(\&#34;connection-string\&#34;);\n  const containers = blobServiceClient.listContainers();\n}\n\n// ============================================================================\n// 4. LOCAL DEVELOPMENT FALLBACK STRATEGIES\n// ============================================================================\n\n/**\n * Strategy 1: DefaultAzureCredential\n * Recommended for most scenarios - tries multiple authentication methods in order:\n * 1. EnvironmentCredential (env vars)\n * 2. WorkloadIdentityCredential (Kubernetes)\n * 3. ManagedIdentityCredential (Azure resources)\n * 4. AzureCliCredential (local development)\n * 5. AzurePowerShellCredential (local development)\n * 6. AzureDeveloperCliCredential (local development)\n */\nfunction strategyDefaultCredential() {\n  // Works in Azure (Managed Identity) AND locally (Azure CLI, VS Code, etc.)\n  const credential = new DefaultAzureCredential();\n\n  const blobServiceClient = new BlobServiceClient(\n    \&#34;https://mystorageaccount.blob.core.windows.net\&#34;,\n    credential\n  );\n\n  return blobServiceClient;\n}\n\n/**\n * Strategy 2: ChainedTokenCredential with explicit fallback\n * More control over the authentication chain\n */\nfunction strategyChainedCredential() {\n  const { AzureCliCredential, EnvironmentCredential } = require(\&#34;@azure/identity\&#34;);\n\n  const credential = new ChainedTokenCredential(\n    new ManagedIdentityCredential(), // Try Managed Identity first (production)\n    new AzureCliCredential(),         // Fallback to Azure CLI (local dev)\n    new EnvironmentCredential()       // Fallback to env vars\n  );\n\n  const blobServiceClient = new BlobServiceClient(\n    \&#34;https://mystorageaccount.blob.core.windows.net\&#34;,\n    credential\n  );\n\n  return blobServiceClient;\n}\n\n/**\n * Strategy 3: Environment-based selection\n * Explicitly choose credential based on environment\n */\nfunction strategyEnvironmentBased() {\n  const isProduction = process.env.NODE_ENV === \&#34;production\&#34;;\n  const isAzure = process.env.AZURE_CLIENT_ID !== undefined || \n                  process.env.IDENTITY_ENDPOINT !== undefined;\n\n  let credential;\n\n  if (isAzure) {\n    // Running in Azure - use Managed Identity\n    const clientId = process.env.AZURE_CLIENT_ID;\n    credential = clientId \n      ? new ManagedIdentityCredential({ clientId })\n      : new ManagedIdentityCredential();\n  } else {\n    // Running locally - use DefaultAzureCredential for dev convenience\n    credential = new DefaultAzureCredential();\n  }\n\n  return credential;\n}\n\n/**\n * Strategy 4: User-Assigned MI in Azure, Service Principal locally\n */\nfunction strategyUserAssignedWithServicePrincipal() {\n  const { ClientSecretCredential } = require(\&#34;@azure/identity\&#34;);\n\n  const userAssignedClientId = process.env.MANAGED_IDENTITY_CLIENT_ID;\n  \n  let credential;\n\n  if (userAssignedClientId) {\n    // Azure environment with User-Assigned MI\n    credential = new ManagedIdentityCredential({\n      clientId: userAssignedClientId\n    });\n  } else if (process.env.AZURE_TENANT_ID \u0026\u0026 \n             process.env.AZURE_CLIENT_ID \u0026\u0026 \n             process.env.AZURE_CLIENT_SECRET) {\n    // Local development with Service Principal\n    credential = new ClientSecretCredential(\n      process.env.AZURE_TENANT_ID,\n      process.env.AZURE_CLIENT_ID,\n      process.env.AZURE_CLIENT_SECRET\n    );\n  } else {\n    // Fallback to DefaultAzureCredential\n    credential = new DefaultAzureCredential();\n  }\n\n  return credential;\n}\n\n// ============================================================================\n// 5. COMMON PITFALLS AND ERROR HANDLING\n// ============================================================================\n\n/**\n * Pitfall 1: Missing Role Assignments\n * The managed identity must have appropriate RBAC roles assigned\n */\nasync function handleMissingRoleAssignment() {\n  const credential = new ManagedIdentityCredential();\n  const blobServiceClient = new BlobServiceClient(\n    \&#34;https://mystorageaccount.blob.core.windows.net\&#34;,\n    credential\n  );\n\n  try {\n    const containers = blobServiceClient.listContainers();\n    for await (const container of containers) {\n      console.log(container.name);\n    }\n  } catch (error: any) {\n    if (error.statusCode === 403) {\n      console.error(\&#34;Access denied - Managed Identity may lack required role assignment\&#34;);\n      console.error(\&#34;Ensure the identity has &#39;Storage Blob Data Reader&#39; or appropriate role\&#34;);\n      // Required role examples:\n      // - Storage Blob Data Reader (read blobs)\n      // - Storage Blob Data Contributor (read/write blobs)\n      // - Key Vault Secrets User (read secrets)\n    }\n    throw error;\n  }\n}\n\n/**\n * Pitfall 2: Wrong User-Assigned Identity\n * When multiple user-assigned identities are attached, specify the correct one\n */\nasync function handleMultipleUserAssignedIdentities() {\n  const correctClientId = process.env.MANAGED_IDENTITY_CLIENT_ID;\n\n  if (!correctClientId) {\n    throw new Error(\n      \&#34;When multiple user-assigned identities exist, MANAGED_IDENTITY_CLIENT_ID must be specified\&#34;\n    );\n  }\n\n  const credential = new ManagedIdentityCredential({\n    clientId: correctClientId\n  });\n\n  // Use credential...\n}\n\n/**\n * Pitfall 3: Managed Identity not available in environment\n * Handle cases where code runs outside Azure\n */\nasync function handleManagedIdentityUnavailable() {\n  try {\n    const credential = new ManagedIdentityCredential();\n    \n    // Test if credential works by requesting a token\n    const scope = \&#34;https://storage.azure.com/.default\&#34;;\n    const token = await credential.getToken(scope);\n    \n    console.log(\&#34;Managed Identity available\&#34;);\n    return credential;\n  } catch (error: any) {\n    if (error.message?.includes(\&#34;ManagedIdentityCredential authentication failed\&#34;)) {\n      console.warn(\&#34;Managed Identity not available, falling back to DefaultAzureCredential\&#34;);\n      return new DefaultAzureCredential();\n    }\n    throw error;\n  }\n}\n\n/**\n * Pitfall 4: Token expiration and retry logic\n * Azure SDK handles token refresh automatically, but be aware of retry scenarios\n */\nasync function handleTokenExpirationWithRetry() {\n  const credential = new ManagedIdentityCredential();\n  const maxRetries = 3;\n  \n  for (let attempt = 1; attempt \u003c= maxRetries; attempt&#43;&#43;) {\n    try {\n      const secretClient = new SecretClient(\n        \&#34;https://myvault.vault.azure.net\&#34;,\n        credential\n      );\n      \n      const secret = await secretClient.getSecret(\&#34;my-secret\&#34;);\n      return secret.value;\n    } catch (error: any) {\n      if (attempt === maxRetries) {\n        console.error(\&#34;Failed after all retries:\&#34;, error.message);\n        throw error;\n      }\n      \n      // Retry on transient errors\n      if (error.statusCode === 429 || error.statusCode \u003e= 500) {\n        const delay = Math.pow(2, attempt) * 1000;\n        console.warn(`Attempt ${attempt} failed, retrying in ${delay}ms...`);\n        await new Promise(resolve =\u003e setTimeout(resolve, delay));\n      } else {\n        throw error;\n      }\n    }\n  }\n}\n\n/**\n * Pitfall 5: Scope/Resource URI confusion\n * Different Azure services require different scope values\n */\nasync function demonstrateProperScopes() {\n  const credential = new ManagedIdentityCredential();\n\n  // Common scope patterns:\n  const storageScope = \&#34;https://storage.azure.com/.default\&#34;;\n  const keyVaultScope = \&#34;https://vault.azure.net/.default\&#34;;\n  const managementScope = \&#34;https://management.azure.com/.default\&#34;;\n  const graphScope = \&#34;https://graph.microsoft.com/.default\&#34;;\n\n  // Get token for specific scope\n  const token = await credential.getToken(storageScope);\n  console.log(`Token expires at: ${token.expiresOnTimestamp}`);\n}\n\n/**\n * Comprehensive error handling example\n */\nasync function comprehensiveErrorHandling() {\n  const credential = new ManagedIdentityCredential();\n  const vaultUrl = \&#34;https://myvault.vault.azure.net\&#34;;\n  const secretClient = new SecretClient(vaultUrl, credential);\n\n  try {\n    const secret = await secretClient.getSecret(\&#34;my-secret\&#34;);\n    return secret.value;\n  } catch (error: any) {\n    // Authentication/Authorization errors\n    if (error.statusCode === 401) {\n      console.error(\&#34;Authentication failed - Managed Identity token may be invalid\&#34;);\n    } else if (error.statusCode === 403) {\n      console.error(\&#34;Authorization failed - Identity lacks required permissions\&#34;);\n      console.error(`Required: &#39;Key Vault Secrets User&#39; role on ${vaultUrl}`);\n    }\n    // Resource not found\n    else if (error.statusCode === 404) {\n      console.error(\&#34;Secret not found or Key Vault does not exist\&#34;);\n    }\n    // Throttling\n    else if (error.statusCode === 429) {\n      console.error(\&#34;Too many requests - implement exponential backoff\&#34;);\n    }\n    // Network/transient errors\n    else if (error.code === \&#34;ECONNREFUSED\&#34; || error.code === \&#34;ETIMEDOUT\&#34;) {\n      console.error(\&#34;Network error - service may be temporarily unavailable\&#34;);\n    }\n    // Managed Identity not available\n    else if (error.message?.includes(\&#34;ManagedIdentityCredential\&#34;)) {\n      console.error(\&#34;Managed Identity not available in this environment\&#34;);\n      console.error(\&#34;Ensure app is running in Azure with MI enabled\&#34;);\n    }\n    else {\n      console.error(\&#34;Unexpected error:\&#34;, error.message);\n    }\n\n    throw error;\n  }\n}\n\n// ============================================================================\n// COMPLETE PRODUCTION EXAMPLE\n// ============================================================================\n\n/**\n * Production-ready example with all best practices\n */\nexport class AzureServiceManager {\n  private credential: ManagedIdentityCredential | DefaultAzureCredential;\n  private blobServiceClient: BlobServiceClient;\n  private secretClient: SecretClient;\n\n  constructor(storageAccountName: string, keyVaultName: string) {\n    // Use DefaultAzureCredential for flexibility (works locally and in Azure)\n    this.credential = new DefaultAzureCredential({\n      // Optionally specify managed identity client ID for user-assigned MI\n      managedIdentityClientId: process.env.MANAGED_IDENTITY_CLIENT_ID\n    });\n\n    this.blobServiceClient = new BlobServiceClient(\n      `https://${storageAccountName}.blob.core.windows.net`,\n      this.credential\n    );\n\n    this.secretClient = new SecretClient(\n      `https://${keyVaultName}.vault.azure.net`,\n      this.credential\n    );\n  }\n\n  async uploadBlob(containerName: string, blobName: string, content: string): Promise\u003cvoid\u003e {\n    try {\n      const containerClient = this.blobServiceClient.getContainerClient(containerName);\n      \n      // Ensure container exists\n      await containerClient.createIfNotExists();\n      \n      const blockBlobClient = containerClient.getBlockBlobClient(blobName);\n      await blockBlobClient.upload(content, content.length);\n      \n      console.log(`Blob uploaded: ${blobName}`);\n    } catch (error: any) {\n      this.handleStorageError(error, \&#34;uploadBlob\&#34;);\n      throw error;\n    }\n  }\n\n  async getSecret(secretName: string): Promise\u003cstring\u003e {\n    try {\n      const secret = await this.secretClient.getSecret(secretName);\n      return secret.value || \&#34;\&#34;;\n    } catch (error: any) {\n      this.handleKeyVaultError(error, secretName);\n      throw error;\n    }\n  }\n\n  private handleStorageError(error: any, operation: string): void {\n    console.error(`Storage operation &#39;${operation}&#39; failed:`, {\n      statusCode: error.statusCode,\n      code: error.code,\n      message: error.message\n    });\n\n    if (error.statusCode === 403) {\n      console.error(\&#34;Required role: &#39;Storage Blob Data Contributor&#39;\&#34;);\n    }\n  }\n\n  private handleKeyVaultError(error: any, secretName: string): void {\n    console.error(`Key Vault operation failed for secret &#39;${secretName}&#39;:`, {\n      statusCode: error.statusCode,\n      message: error.message\n    });\n\n    if (error.statusCode === 403) {\n      console.error(\&#34;Required role: &#39;Key Vault Secrets User&#39;\&#34;);\n    }\n  }\n}\n\n// Usage example\nasync function main() {\n  const manager = new AzureServiceManager(\&#34;mystorageaccount\&#34;, \&#34;myvault\&#34;);\n  \n  // Get configuration from Key Vault\n  const connectionString = await manager.getSecret(\&#34;db-connection-string\&#34;);\n  \n  // Upload data to Blob Storage\n  await manager.uploadBlob(\&#34;data\&#34;, \&#34;config.json\&#34;, JSON.stringify({ \n    version: \&#34;1.0\&#34;,\n    connectionString \n  }));\n}\n\n// ============================================================================\n// BEST PRACTICES SUMMARY\n// ============================================================================\n\n/**\n * BEST PRACTICES:\n * \n * 1. Use DefaultAzureCredential for most scenarios\n *    - Works in Azure (Managed Identity) and locally (Azure CLI, VS Code)\n *    - Simplifies development and deployment\n * \n * 2. Specify User-Assigned MI client ID when needed\n *    - Use environment variable: MANAGED_IDENTITY_CLIENT_ID\n *    - Pass to DefaultAzureCredential options: managedIdentityClientId\n * \n * 3. Assign minimal RBAC roles required\n *    - Storage: \&#34;Storage Blob Data Reader/Contributor\&#34;\n *    - Key Vault: \&#34;Key Vault Secrets User\&#34;\n *    - Avoid \&#34;Owner\&#34; or \&#34;Contributor\&#34; roles\n * \n * 4. Handle errors gracefully\n *    - Check for 401/403 status codes\n *    - Log useful context for debugging\n *    - Implement retry logic for transient failures\n * \n * 5. Test locally with Azure CLI\n *    - Run: az login\n *    - Assign your user the same roles as the managed identity\n *    - Verify DefaultAzureCredential works before deploying\n * \n * 6. Enable Managed Identity on Azure resources\n *    - App Service: Identity blade → System assigned → On\n *    - VM: Identity → System assigned → Status → On\n *    - User-assigned: Create identity, then assign to resources\n * \n * 7. Monitor and audit\n *    - Enable diagnostic logs for the managed identity\n *    - Review role assignments regularly\n *    - Use Azure Monitor for authentication failures\n */\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-baseline-claude-sonnet-4.5-636877393\\managed-identity-guide.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>6.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-managed-identity-examples\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Managed Identity authentication examples for Node.js/TypeScript\&#34;,\n  \&#34;main\&#34;: \&#34;managed-identity-guide.ts\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/managed-identity-guide.js\&#34;\n  },\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;,\n    \&#34;@azure/storage-blob\&#34;: \&#34;^12.17.0\&#34;,\n    \&#34;@azure/keyvault-secrets\&#34;: \&#34;^4.8.0\&#34;,\n    \&#34;@azure/storage-queue\&#34;: \&#34;^12.16.0\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.10.0\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.3.0\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-baseline-claude-sonnet-4.5-636877393\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>7.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Managed Identity Authentication Guide\n\nComplete guide for using Managed Identity with Azure SDK clients in Node.js/TypeScript.\n\n## Quick Start\n\n### 1. Install Dependencies\n\n```bash\nnpm install @azure/identity @azure/storage-blob @azure/keyvault-secrets\n```\n\n### 2. System-Assigned Managed Identity (Simplest)\n\n```typescript\nimport { ManagedIdentityCredential } from \&#34;@azure/identity\&#34;;\nimport { BlobServiceClient } from \&#34;@azure/storage-blob\&#34;;\n\nconst credential = new ManagedIdentityCredential();\nconst client = new BlobServiceClient(\n  \&#34;https://mystorageaccount.blob.core.windows.net\&#34;,\n  credential\n);\n```\n\n### 3. User-Assigned Managed Identity\n\n```typescript\nconst credential = new ManagedIdentityCredential({\n  clientId: \&#34;12345678-1234-1234-1234-123456789012\&#34;\n});\n```\n\n### 4. DefaultAzureCredential (Recommended)\n\nWorks both in Azure and locally for development:\n\n```typescript\nimport { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\n\nconst credential = new DefaultAzureCredential();\n// Works in Azure with Managed Identity\n// Works locally with Azure CLI (az login)\n```\n\n## Key Differences\n\n### System-Assigned vs User-Assigned\n\n| Feature | System-Assigned | User-Assigned |\n|---------|----------------|---------------|\n| **Lifecycle** | Tied to resource | Independent resource |\n| **Scope** | Single resource | Multiple resources |\n| **Use Case** | Single app needs access | Shared identity across apps |\n| **Setup** | Enable on resource | Create identity, then assign |\n| **Code** | `new ManagedIdentityCredential()` | `new ManagedIdentityCredential({ clientId })` |\n\n## Local Development\n\n### Option 1: Azure CLI (Recommended)\n\n```bash\naz login\n```\n\nThen use `DefaultAzureCredential` - it will automatically use your Azure CLI credentials locally.\n\n### Option 2: Environment Variables\n\n```bash\nexport AZURE_TENANT_ID=\&#34;...\&#34;\nexport AZURE_CLIENT_ID=\&#34;...\&#34;\nexport AZURE_CLIENT_SECRET=\&#34;...\&#34;\n```\n\n### Option 3: Explicit Fallback\n\n```typescript\nimport { ManagedIdentityCredential, AzureCliCredential, ChainedTokenCredential } from \&#34;@azure/identity\&#34;;\n\nconst credential = new ChainedTokenCredential(\n  new ManagedIdentityCredential(), // Azure\n  new AzureCliCredential()         // Local\n);\n```\n\n## Common Pitfalls\n\n### 1. Missing Role Assignments\n\n**Error:** 403 Forbidden\n\n**Solution:** Assign RBAC roles to the managed identity:\n\n```bash\n# Storage\naz role assignment create \\\n  --role \&#34;Storage Blob Data Contributor\&#34; \\\n  --assignee \u003cidentity-client-id\u003e \\\n  --scope /subscriptions/\u003csub\u003e/resourceGroups/\u003crg\u003e/providers/Microsoft.Storage/storageAccounts/\u003caccount\u003e\n\n# Key Vault\naz role assignment create \\\n  --role \&#34;Key Vault Secrets User\&#34; \\\n  --assignee \u003cidentity-client-id\u003e \\\n  --scope /subscriptions/\u003csub\u003e/resourceGroups/\u003crg\u003e/providers/Microsoft.KeyVault/vaults/\u003cvault\u003e\n```\n\n### 2. Multiple User-Assigned Identities\n\n**Error:** \&#34;Multiple user assigned identities exist, please specify the identity\&#34;\n\n**Solution:** Specify the client ID:\n\n```typescript\nconst credential = new ManagedIdentityCredential({\n  clientId: process.env.MANAGED_IDENTITY_CLIENT_ID\n});\n```\n\n### 3. Not Available Locally\n\n**Error:** \&#34;ManagedIdentityCredential authentication failed\&#34;\n\n**Solution:** Use `DefaultAzureCredential` instead:\n\n```typescript\nconst credential = new DefaultAzureCredential();\n```\n\n### 4. Wrong Scope\n\nEach Azure service requires a specific scope:\n\n```typescript\n// Storage\nconst scope = \&#34;https://storage.azure.com/.default\&#34;;\n\n// Key Vault\nconst scope = \&#34;https://vault.azure.net/.default\&#34;;\n\n// Azure Resource Manager\nconst scope = \&#34;https://management.azure.com/.default\&#34;;\n```\n\n## Enable Managed Identity\n\n### App Service / Function App\n\n```bash\naz webapp identity assign \\\n  --name \u003capp-name\u003e \\\n  --resource-group \u003cresource-group\u003e\n```\n\nOr in Azure Portal: **App Service → Identity → System assigned → Status: On**\n\n### Virtual Machine\n\n```bash\naz vm identity assign \\\n  --name \u003cvm-name\u003e \\\n  --resource-group \u003cresource-group\u003e\n```\n\n### User-Assigned Identity\n\n```bash\n# Create identity\naz identity create \\\n  --name \u003cidentity-name\u003e \\\n  --resource-group \u003cresource-group\u003e\n\n# Assign to App Service\naz webapp identity assign \\\n  --name \u003capp-name\u003e \\\n  --resource-group \u003cresource-group\u003e \\\n  --identities \u003cidentity-resource-id\u003e\n```\n\n## Complete Example\n\n```typescript\nimport { DefaultAzureCredential } from \&#34;@azure/identity\&#34;;\nimport { BlobServiceClient } from \&#34;@azure/storage-blob\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\n\nexport class AzureServices {\n  private credential = new DefaultAzureCredential();\n\n  async uploadToBlob(content: string) {\n    const client = new BlobServiceClient(\n      \&#34;https://mystorageaccount.blob.core.windows.net\&#34;,\n      this.credential\n    );\n    \n    const container = client.getContainerClient(\&#34;data\&#34;);\n    await container.createIfNotExists();\n    \n    const blob = container.getBlockBlobClient(\&#34;file.txt\&#34;);\n    await blob.upload(content, content.length);\n  }\n\n  async getSecret(name: string): Promise\u003cstring\u003e {\n    const client = new SecretClient(\n      \&#34;https://myvault.vault.azure.net\&#34;,\n      this.credential\n    );\n    \n    const secret = await client.getSecret(name);\n    return secret.value || \&#34;\&#34;;\n  }\n}\n```\n\n## Troubleshooting\n\n### Check if Managed Identity is enabled\n\n```bash\n# App Service\naz webapp identity show --name \u003capp-name\u003e --resource-group \u003crg\u003e\n\n# VM\naz vm identity show --name \u003cvm-name\u003e --resource-group \u003crg\u003e\n```\n\n### Test locally with Azure CLI\n\n```bash\naz login\naz account show\n\n# Verify you have access\naz storage blob list --account-name mystorageaccount --container-name data --auth-mode login\n```\n\n### View role assignments\n\n```bash\naz role assignment list --assignee \u003cidentity-client-id\u003e\n```\n\n## Best Practices\n\n1. **Use `DefaultAzureCredential`** - Works everywhere (Azure &#43; local)\n2. **Assign minimal roles** - Only give permissions needed\n3. **Handle errors** - Check for 401/403 and log useful messages\n4. **Use User-Assigned MI** - When sharing identity across resources\n5. **Test locally** - Use Azure CLI to simulate Managed Identity locally\n6. **Environment variables** - Store client IDs in config, not code\n7. **Monitor** - Enable diagnostic logs for authentication issues\n\n## Resources\n\n- [Azure Identity SDK Docs](https://learn.microsoft.com/en-us/javascript/api/@azure/identity)\n- [Managed Identity Overview](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)\n- [DefaultAzureCredential](https://learn.microsoft.com/en-us/javascript/api/@azure/identity/defaultazurecredential)\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-managed-identity-baseline-claude-sonnet-4.5-636877393\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>8.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! I&#39;ve created a comprehensive guide on using Managed Identity with Azure SDK clients in Node.js/TypeScript. Here&#39;s what I&#39;ve provided:
+
+## 📁 Files Created
+
+1. **managed-identity-guide.ts** - Complete TypeScript examples covering:
+   - System-assigned vs user-assigned identity differences
+   - Creating `ManagedIdentityCredential` for each type
+   - Using with Azure SDK clients (Blob Storage, Key Vault, Queues)
+   - 4 local development fallback strategies
+   - Common pitfalls with detailed error handling
+   - Production-ready complete example
+
+2. **README.md** - Quick reference guide with:
+   - Quick start examples
+   - Comparison table
+   - Common pitfalls and solutions
+   - Azure CLI commands to enable MI and assign roles
+   - Troubleshooting steps
+
+3. **package.json** - Required dependencies
+
+## 🎯 Key Highlights
+
+**System-Assigned (Simple):**
+```typescript
+const credential = new ManagedIdentityCredential();
+```
+
+**User-Assigned (Shared):**
+```typescript
+const credential = new ManagedIdentityCredential({
+  clientId: &#34;your-client-id&#34;
+});
+```
+
+**Best Practice (Works everywhere):**
+```typescript
+const credential = new DefaultAzureCredential();
+```
+
+The guide covers all 5 areas you requested with practical examples, error handling patterns, and best practices used in production Azure applications!</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>9.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 19/21 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#eab308">19/21</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All dependencies use @azure/ scoped packages (@azure/identity, @azure/storage-blob, @azure/keyvault-secrets, @azure/storage-queue). No deprecated unscoped packages.</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses @azure/identity with ManagedIdentityCredential for production and DefaultAzureCredential for dev. No hardcoded credentials.</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All SDK clients (BlobServiceClient, SecretClient, QueueClient) constructed with endpoint URL and credential object.</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">All asynchronous operations use async/await. No .then()/.catch() chains or callback patterns.</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">List operations use for-await-of pattern (e.g., &#39;for await (const container of containers)&#39;).</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">N/A - No long-running operations required by prompt. Prompt focuses on authentication, not LROs.</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Error handling checks statusCode but doesn&#39;t import or catch RestError type from @azure/core-rest-pipeline. Uses &#39;catch (error: any)&#39; instead of typed exception handling.</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">package.json contains only current @azure/* packages. No deprecated packages like azure-storage, ms-rest-azure, etc.</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses console.log/console.error instead of @azure/logger. Missing @azure/logger dependency and setLogLevel() usage for SDK diagnostics.</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Valid package.json with all required @azure/* dependencies and TypeScript devDependencies.</td>
+          </tr>
+          
+          <tr>
+            <td>ManagedIdentityCredential class from @azure/identity</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">ManagedIdentityCredential is properly imported and used throughout examples.</td>
+          </tr>
+          
+          <tr>
+            <td>System-assigned: no parameters needed</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">System-assigned MI shown correctly with &#39;new ManagedIdentityCredential()&#39; without parameters.</td>
+          </tr>
+          
+          <tr>
+            <td>User-assigned: passing the client ID in options</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">User-assigned MI demonstrated with &#39;new ManagedIdentityCredential({ clientId })&#39; and alternative resourceId/objectId options.</td>
+          </tr>
+          
+          <tr>
+            <td>Integration with DefaultAzureCredential chain</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">DefaultAzureCredential shown with managedIdentityClientId option and credential chain explanation.</td>
+          </tr>
+          
+          <tr>
+            <td>CredentialUnavailableError when not running in Azure</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Error handling includes checking for ManagedIdentityCredential authentication failures with appropriate fallback to DefaultAzureCredential.</td>
+          </tr>
+          
+          <tr>
+            <td>ChainedTokenCredential for local fallback</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">ChainedTokenCredential demonstrated in strategyChainedCredential function with ManagedIdentityCredential -&gt; AzureCliCredential -&gt; EnvironmentCredential chain.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">TypeScript syntax is valid, imports are correct, and code structure is sound. Should compile without errors.</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Package versions are reasonably current (@azure/identity ^4.0.0, @azure/storage-blob ^12.17.0). Not absolute latest but within acceptable range.</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Follows Azure SDK best practices: DefaultAzureCredential for flexibility, proper credential patterns, environment-based configuration, and minimal RBAC principle.</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Comprehensive error handling with status code checks (401, 403, 404, 429), retry logic with exponential backoff, and helpful error messages.</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Well-structured with clear sections, comprehensive examples, detailed comments, multiple strategies, and production-ready class example.</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>Comprehensive and well-structured guide covering all required aspects of Managed Identity authentication. Excellent examples for both system-assigned and user-assigned identities, multiple local development fallback strategies, and thorough error handling. Minor gaps: missing RestError typed exception handling and @azure/logger integration for SDK diagnostics.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>Comprehensive coverage of both system-assigned and user-assigned managed identities with multiple configuration examples</li><li>Excellent local development fallback strategies including DefaultAzureCredential, ChainedTokenCredential, and environment-based selection</li><li>Thorough error handling with specific status code checks (401, 403, 404, 429) and retry logic with exponential backoff</li><li>Production-ready AzureServiceManager class demonstrating best practices</li><li>Clear documentation of common pitfalls with actionable solutions</li><li>Well-organized code structure with educational comments and multiple practical examples</li><li>Proper async/await patterns and pagination with for-await-of</li><li>Includes scope examples for different Azure services</li><li>Comprehensive README with troubleshooting guide and Azure CLI commands</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>Does not use RestError type for exception handling - catches generic &#39;any&#39; type instead of importing RestError from @azure/core-rest-pipeline</li><li>Missing @azure/logger dependency and SDK diagnostic logging implementation - uses console.log/error instead of setLogLevel()</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (2 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{&#34;scores&#34;:{&#34;criteria&#34;:[{&#34;name&#34;:&#34;Correct @azure/ Scoped Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All dependencies use @azure/ scoped packages (@azure/identity, @azure/storage-blob, @azure/keyvault-secrets, @azure/storage-queue). No deprecated unscoped packages.&#34;},{&#34;name&#34;:&#34;@azure/identity for Authentication&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses @azure/identity with ManagedIdentityCredential for production and DefaultAzureCredential for dev. No hardcoded credentials.&#34;},{&#34;name&#34;:&#34;Client Constructor with Endpoint and Credential&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All SDK clients (BlobServiceClient, SecretClient, QueueClient) constructed with endpoint URL and credential object.&#34;},{&#34;name&#34;:&#34;Async/Await Pattern&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All asynchronous operations use async/await. No .then()/.catch() chains or callback patterns.&#34;},{&#34;name&#34;:&#34;Pagination with for-await-of&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;List operations use for-await-of pattern (e.g., &#39;for await (const container of containers)&#39;).&#34;},{&#34;name&#34;:&#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;N/A - No long-running operations required by prompt. Prompt focuses on authentication, not LROs.&#34;},{&#34;name&#34;:&#34;RestError Exception Handling&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Error handling checks statusCode but doesn&#39;t import or catch RestError type from @azure/core-rest-pipeline. Uses &#39;catch (error: any)&#39; instead of typed exception handling.&#34;},{&#34;name&#34;:&#34;No Deprecated Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;package.json contains only current @azure/* packages. No deprecated packages like azure-storage, ms-rest-azure, etc.&#34;},{&#34;name&#34;:&#34;Logging via @azure/logger&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Uses console.log/console.error instead of @azure/logger. Missing @azure/logger dependency and setLogLevel() usage for SDK diagnostics.&#34;},{&#34;name&#34;:&#34;package.json with Correct Dependencies&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Valid package.json with all required @azure/* dependencies and TypeScript devDependencies.&#34;},{&#34;name&#34;:&#34;ManagedIdentityCredential class from @azure/identity&#34;,&#34;passed&#34;:true,&#34;…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me carefully evaluate the generated code against all criteria.
+
+## Attribute…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me carefully evaluate the generated code against all criteria.
+
+## Attribute-Matched Criteria
+
+1. **Correct @azure/ Scoped Packages** - Check if all dependencies use @azure/ scoped packages
+   - package.json shows: @azure/identity, @azure/storage-blob, @azure/keyvault-secrets, @azure/storage-queue
+   - All are @azure/ scoped. No deprecated packages. ✓ PASS
+
+2. **@azure/identity for Authentication** - Check if @azure/identity is used
+   - @azure/identity is listed in dependencies
+   - Code uses ManagedIdentityCredential, DefaultAzureCredential, ChainedTokenCredential
+   - For production, uses ManagedIdentityCredential (specific credential)
+   - For local dev, uses DefaultAzureCredential
+   - No hardcoded connection strings or keys ✓ PASS
+
+3. **Client Constructor with Endpoint and Credential** - Check SDK client construction
+   - BlobServiceClient: `new BlobServiceClient(url, credential)` ✓
+   - SecretClient: `new SecretClient(vaultUrl, credential)` ✓
+   - QueueClient: `new QueueClient(url, credential)` ✓
+   - All use endpoint &#43; credential pattern ✓ PASS
+
+4. **Async/Await Pattern** - Check for async/await usage
+   - All async functions use async/await
+   - No .then()/.catch() chains
+   - No callback patterns
+   - Functions that call async operations are properly marked async ✓ PASS
+
+5. **Pagination with for-await-of** - Check list operations
+   - `blobServiceClient.listContainers()` uses `for await (const container of containers)`
+   - Uses for-await-of pattern correctly ✓ PASS
+
+6. **LRO Pattern (beginXxx &#43; pollUntilDone)** - Check long-running operations
+   - Long-running operations aren&#39;t demonstrated since the prompt focuses on authentication rather than LROs
+   - Not applicable to the requirements ✓ PASS (N/A)
+
+7. **RestError Exception Handling** - Check error handling
+   - Error handling checks `error.statusCode` which is the correct pattern
+   - However, it doesn&#39;t explicitly import or catch `RestError` type
+   - Uses `catch (error: any)` i…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (1 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-sonnet-4.5</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#eab308">19/21</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="All dependencies use @azure/ scoped packages (@azure/identity, @azure/storage-blob, @azure/keyvault-secrets, @azure/storage-queue). No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses @azure/identity with ManagedIdentityCredential for production and DefaultAzureCredential for dev. No hardcoded credentials.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="All SDK clients (BlobServiceClient, SecretClient, QueueClient) constructed with endpoint URL and credential object.">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="All asynchronous operations use async/await. No .then()/.catch() chains or callback patterns.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="List operations use for-await-of pattern (e.g., &#39;for await (const container of containers)&#39;).">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="N/A - No long-running operations required by prompt. Prompt focuses on authentication, not LROs.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Error handling checks statusCode but doesn&#39;t import or catch RestError type from @azure/core-rest-pipeline. Uses &#39;catch (error: any)&#39; instead of typed exception handling.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="package.json contains only current @azure/* packages. No deprecated packages like azure-storage, ms-rest-azure, etc.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses console.log/console.error instead of @azure/logger. Missing @azure/logger dependency and setLogLevel() usage for SDK diagnostics.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required @azure/* dependencies and TypeScript devDependencies.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="ManagedIdentityCredential is properly imported and used throughout examples.">✅ ManagedIdentityCredential class from @azure/identity</span> <span style="display:inline-block;margin:2px 4px" title="System-assigned MI shown correctly with &#39;new ManagedIdentityCredential()&#39; without parameters.">✅ System-assigned: no parameters needed</span> <span style="display:inline-block;margin:2px 4px" title="User-assigned MI demonstrated with &#39;new ManagedIdentityCredential({ clientId })&#39; and alternative resourceId/objectId options.">✅ User-assigned: passing the client ID in options</span> <span style="display:inline-block;margin:2px 4px" title="DefaultAzureCredential shown with managedIdentityClientId option and credential chain explanation.">✅ Integration with DefaultAzureCredential chain</span> <span style="display:inline-block;margin:2px 4px" title="Error handling includes checking for ManagedIdentityCredential authentication failures with appropriate fallback to DefaultAzureCredential.">✅ CredentialUnavailableError when not running in Azure</span> <span style="display:inline-block;margin:2px 4px" title="ChainedTokenCredential demonstrated in strategyChainedCredential function with ManagedIdentityCredential -&gt; AzureCliCredential -&gt; EnvironmentCredential chain.">✅ ChainedTokenCredential for local fallback</span> <span style="display:inline-block;margin:2px 4px" title="TypeScript syntax is valid, imports are correct, and code structure is sound. Should compile without errors.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Package versions are reasonably current (@azure/identity ^4.0.0, @azure/storage-blob ^12.17.0). Not absolute latest but within acceptable range.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows Azure SDK best practices: DefaultAzureCredential for flexibility, proper credential patterns, environment-based configuration, and minimal RBAC principle.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Comprehensive error handling with status code checks (401, 403, 404, 429), retry logic with exponential backoff, and helpful error messages.">✅ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Well-structured with clear sections, comprehensive examples, detailed comments, multiple strategies, and production-ready class example.">✅ Code Quality</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#eab308">19/21</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="All dependencies use @azure/ scoped packages (@azure/identity, @azure/storage-blob, @azure/keyvault-secrets, @azure/storage-queue). No deprecated unscoped packages.">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses @azure/identity with ManagedIdentityCredential for production and DefaultAzureCredential for dev. No hardcoded credentials.">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="All SDK clients (BlobServiceClient, SecretClient, QueueClient) constructed with endpoint URL and credential object.">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="All asynchronous operations use async/await. No .then()/.catch() chains or callback patterns.">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="List operations use for-await-of pattern (e.g., &#39;for await (const container of containers)&#39;).">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="N/A - No long-running operations required by prompt. Prompt focuses on authentication, not LROs.">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Error handling checks statusCode but doesn&#39;t import or catch RestError type from @azure/core-rest-pipeline. Uses &#39;catch (error: any)&#39; instead of typed exception handling.">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="package.json contains only current @azure/* packages. No deprecated packages like azure-storage, ms-rest-azure, etc.">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses console.log/console.error instead of @azure/logger. Missing @azure/logger dependency and setLogLevel() usage for SDK diagnostics.">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with all required @azure/* dependencies and TypeScript devDependencies.">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="ManagedIdentityCredential is properly imported and used throughout examples.">✅ ManagedIdentityCredential class from @azure/identity</span> <span style="display:inline-block;margin:2px 4px" title="System-assigned MI shown correctly with &#39;new ManagedIdentityCredential()&#39; without parameters.">✅ System-assigned: no parameters needed</span> <span style="display:inline-block;margin:2px 4px" title="User-assigned MI demonstrated with &#39;new ManagedIdentityCredential({ clientId })&#39; and alternative resourceId/objectId options.">✅ User-assigned: passing the client ID in options</span> <span style="display:inline-block;margin:2px 4px" title="DefaultAzureCredential shown with managedIdentityClientId option and credential chain explanation.">✅ Integration with DefaultAzureCredential chain</span> <span style="display:inline-block;margin:2px 4px" title="Error handling includes checking for ManagedIdentityCredential authentication failures with appropriate fallback to DefaultAzureCredential.">✅ CredentialUnavailableError when not running in Azure</span> <span style="display:inline-block;margin:2px 4px" title="ChainedTokenCredential demonstrated in strategyChainedCredential function with ManagedIdentityCredential -&gt; AzureCliCredential -&gt; EnvironmentCredential chain.">✅ ChainedTokenCredential for local fallback</span> <span style="display:inline-block;margin:2px 4px" title="TypeScript syntax is valid, imports are correct, and code structure is sound. Should compile without errors.">✅ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Package versions are reasonably current (@azure/identity ^4.0.0, @azure/storage-blob ^12.17.0). Not absolute latest but within acceptable range.">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows Azure SDK best practices: DefaultAzureCredential for flexibility, proper credential patterns, environment-based configuration, and minimal RBAC principle.">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Comprehensive error handling with status code checks (401, 403, 404, 429), retry logic with exponential backoff, and helpful error messages.">✅ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Well-structured with clear sections, comprehensive examples, detailed comments, multiple strategies, and production-ready class example.">✅ Code Quality</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-sonnet-4.5</code> — Comprehensive and well-structured guide covering all required aspects of Managed Identity authentication. Excellent examples for both system-assigned and user-assigned identities, multiple local development fallback strategies, and thorough error handling. Minor gaps: missing RestError typed exception handling and @azure/logger integration for SDK diagnostics.</summary>
+      <p><strong>Issues:</strong></p><ul><li>Does not use RestError type for exception handling - catches generic &#39;any&#39; type instead of importing RestError from @azure/core-rest-pipeline</li><li>Missing @azure/logger dependency and SDK diagnostic logging implementation - uses console.log/error instead of setLogLevel()</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Comprehensive coverage of both system-assigned and user-assigned managed identities with multiple configuration examples</li><li>Excellent local development fallback strategies including DefaultAzureCredential, ChainedTokenCredential, and environment-based selection</li><li>Thorough error handling with specific status code checks (401, 403, 404, 429) and retry logic with exponential backoff</li><li>Production-ready AzureServiceManager class demonstrating best practices</li><li>Clear documentation of common pitfalls with actionable solutions</li><li>Well-organized code structure with educational comments and multiple practical examples</li><li>Proper async/await patterns and pagination with for-await-of</li><li>Includes scope examples for different Azure services</li><li>Comprehensive README with troubleshooting guide and Azure CLI commands</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (2 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>```json
+{&#34;scores&#34;:{&#34;criteria&#34;:[{&#34;name&#34;:&#34;Correct @azure/ Scoped Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All dependencies use @azure/ scoped packages (@azure/identity, @azure/storage-blob, @azure/keyvault-secrets, @azure/storage-queue). No deprecated unscoped packages.&#34;},{&#34;name&#34;:&#34;@azure/identity for Authentication&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Uses @azure/identity with ManagedIdentityCredential for production and DefaultAzureCredential for dev. No hardcoded credentials.&#34;},{&#34;name&#34;:&#34;Client Constructor with Endpoint and Credential&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All SDK clients (BlobServiceClient, SecretClient, QueueClient) constructed with endpoint URL and credential object.&#34;},{&#34;name&#34;:&#34;Async/Await Pattern&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;All asynchronous operations use async/await. No .then()/.catch() chains or callback patterns.&#34;},{&#34;name&#34;:&#34;Pagination with for-await-of&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;List operations use for-await-of pattern (e.g., &#39;for await (const container of containers)&#39;).&#34;},{&#34;name&#34;:&#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;N/A - No long-running operations required by prompt. Prompt focuses on authentication, not LROs.&#34;},{&#34;name&#34;:&#34;RestError Exception Handling&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Error handling checks statusCode but doesn&#39;t import or catch RestError type from @azure/core-rest-pipeline. Uses &#39;catch (error: any)&#39; instead of typed exception handling.&#34;},{&#34;name&#34;:&#34;No Deprecated Packages&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;package.json contains only current @azure/* packages. No deprecated packages like azure-storage, ms-rest-azure, etc.&#34;},{&#34;name&#34;:&#34;Logging via @azure/logger&#34;,&#34;passed&#34;:false,&#34;reason&#34;:&#34;Uses console.log/console.error instead of @azure/logger. Missing @azure/logger dependency and setLogLevel() usage for SDK diagnostics.&#34;},{&#34;name&#34;:&#34;package.json with Correct Dependencies&#34;,&#34;passed&#34;:true,&#34;reason&#34;:&#34;Valid package.json with all required @azure/* dependencies and TypeScript devDependencies.&#34;},{&#34;name&#34;:&#34;ManagedIdentityCredential class from @azure/identity&#34;,&#34;passed&#34;:true,&#34;…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me carefully evaluate the generated code against all criteria.
+
+## Attribute…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me carefully evaluate the generated code against all criteria.
+
+## Attribute-Matched Criteria
+
+1. **Correct @azure/ Scoped Packages** - Check if all dependencies use @azure/ scoped packages
+   - package.json shows: @azure/identity, @azure/storage-blob, @azure/keyvault-secrets, @azure/storage-queue
+   - All are @azure/ scoped. No deprecated packages. ✓ PASS
+
+2. **@azure/identity for Authentication** - Check if @azure/identity is used
+   - @azure/identity is listed in dependencies
+   - Code uses ManagedIdentityCredential, DefaultAzureCredential, ChainedTokenCredential
+   - For production, uses ManagedIdentityCredential (specific credential)
+   - For local dev, uses DefaultAzureCredential
+   - No hardcoded connection strings or keys ✓ PASS
+
+3. **Client Constructor with Endpoint and Credential** - Check SDK client construction
+   - BlobServiceClient: `new BlobServiceClient(url, credential)` ✓
+   - SecretClient: `new SecretClient(vaultUrl, credential)` ✓
+   - QueueClient: `new QueueClient(url, credential)` ✓
+   - All use endpoint &#43; credential pattern ✓ PASS
+
+4. **Async/Await Pattern** - Check for async/await usage
+   - All async functions use async/await
+   - No .then()/.catch() chains
+   - No callback patterns
+   - Functions that call async operations are properly marked async ✓ PASS
+
+5. **Pagination with for-await-of** - Check list operations
+   - `blobServiceClient.listContainers()` uses `for await (const container of containers)`
+   - Uses for-await-of pattern correctly ✓ PASS
+
+6. **LRO Pattern (beginXxx &#43; pollUntilDone)** - Check long-running operations
+   - Long-running operations aren&#39;t demonstrated since the prompt focuses on authentication rather than LROs
+   - Not applicable to the requirements ✓ PASS (N/A)
+
+7. **RestError Exception Handling** - Check error handling
+   - Error handling checks `error.statusCode` which is the correct pattern
+   - However, it doesn&#39;t explicitly import or catch `RestError` type
+   - Uses `catch (error: any)` i…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (2 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">Comprehensive and well-structured guide covering all required aspects of Managed Identity authentication. Excellent examples for both system-assigned and user-assigned identities, multiple local development fallback strategies, and thorough error handling. Minor gaps: missing RestError typed exception handling and @azure/logger integration for SDK diagnostics.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">Comprehensive and well-structured guide covering all required aspects of Managed Identity authentication. Excellent examples for both system-assigned and user-assigned identities, multiple local development fallback strategies, and thorough error handling. Minor gaps: missing RestError typed exception handling and @azure/logger integration for SDK diagnostics.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (3)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">1 .md, 1 .ts, 1 .json</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> README.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Managed Identity Authentication Guide
+
+Complete guide for using Managed Identity with Azure SDK clients in Node.js/TypeScript.
+
+## Quick Start
+
+### 1. Install Dependencies
+
+```bash
+npm install @azure/identity @azure/storage-blob @azure/keyvault-secrets
+```
+
+### 2. System-Assigned Managed Identity (Simplest)
+
+```typescript
+import { ManagedIdentityCredential } from &#34;@azure/identity&#34;;
+import { BlobServiceClient } from &#34;@azure/storage-blob&#34;;
+
+const credential = new ManagedIdentityCredential();
+const client = new BlobServiceClient(
+  &#34;https://mystorageaccount.blob.core.windows.net&#34;,
+  credential
+);
+```
+
+### 3. User-Assigned Managed Identity
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  clientId: &#34;12345678-1234-1234-1234-123456789012&#34;
+});
+```
+
+### 4. DefaultAzureCredential (Recommended)
+
+Works both in Azure and locally for development:
+
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+// Works in Azure with Managed Identity
+// Works locally with Azure CLI (az login)
+```
+
+## Key Differences
+
+### System-Assigned vs User-Assigned
+
+| Feature | System-Assigned | User-Assigned |
+|---------|----------------|---------------|
+| **Lifecycle** | Tied to resource | Independent resource |
+| **Scope** | Single resource | Multiple resources |
+| **Use Case** | Single app needs access | Shared identity across apps |
+| **Setup** | Enable on resource | Create identity, then assign |
+| **Code** | `new ManagedIdentityCredential()` | `new ManagedIdentityCredential({ clientId })` |
+
+## Local Development
+
+### Option 1: Azure CLI (Recommended)
+
+```bash
+az login
+```
+
+Then use `DefaultAzureCredential` - it will automatically use your Azure CLI credentials locally.
+
+### Option 2: Environment Variables
+
+```bash
+export AZURE_TENANT_ID=&#34;...&#34;
+export AZURE_CLIENT_ID=&#34;...&#34;
+export AZURE_CLIENT_SECRET=&#34;...&#34;
+```
+
+### Option 3: Explicit Fallback
+
+```typescript
+import { ManagedIdentityCredential, AzureCliCredential, ChainedTokenCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ChainedTokenCredential(
+  new ManagedIdentityCredential(), // Azure
+  new AzureCliCredential()         // Local
+);
+```
+
+## Common Pitfalls
+
+### 1. Missing Role Assignments
+
+**Error:** 403 Forbidden
+
+**Solution:** Assign RBAC roles to the managed identity:
+
+```bash
+# Storage
+az role assignment create \
+  --role &#34;Storage Blob Data Contributor&#34; \
+  --assignee &lt;identity-client-id&gt; \
+  --scope /subscriptions/&lt;sub&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.Storage/storageAccounts/&lt;account&gt;
+
+# Key Vault
+az role assignment create \
+  --role &#34;Key Vault Secrets User&#34; \
+  --assignee &lt;identity-client-id&gt; \
+  --scope /subscriptions/&lt;sub&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.KeyVault/vaults/&lt;vault&gt;
+```
+
+### 2. Multiple User-Assigned Identities
+
+**Error:** &#34;Multiple user assigned identities exist, please specify the identity&#34;
+
+**Solution:** Specify the client ID:
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  clientId: process.env.MANAGED_IDENTITY_CLIENT_ID
+});
+```
+
+### 3. Not Available Locally
+
+**Error:** &#34;ManagedIdentityCredential authentication failed&#34;
+
+**Solution:** Use `DefaultAzureCredential` instead:
+
+```typescript
+const credential = new DefaultAzureCredential();
+```
+
+### 4. Wrong Scope
+
+Each Azure service requires a specific scope:
+
+```typescript
+// Storage
+const scope = &#34;https://storage.azure.com/.default&#34;;
+
+// Key Vault
+const scope = &#34;https://vault.azure.net/.default&#34;;
+
+// Azure Resource Manager
+const scope = &#34;https://management.azure.com/.default&#34;;
+```
+
+## Enable Managed Identity
+
+### App Service / Function App
+
+```bash
+az webapp identity assign \
+  --name &lt;app-name&gt; \
+  --resource-group &lt;resource-group&gt;
+```
+
+Or in Azure Portal: **App Service → Identity → System assigned → Status: On**
+
+### Virtual Machine
+
+```bash
+az vm identity assign \
+  --name &lt;vm-name&gt; \
+  --resource-group &lt;resource-group&gt;
+```
+
+### User-Assigned Identity
+
+```bash
+# Create identity
+az identity create \
+  --name &lt;identity-name&gt; \
+  --resource-group &lt;resource-group&gt;
+
+# Assign to App Service
+az webapp identity assign \
+  --name &lt;app-name&gt; \
+  --resource-group &lt;resource-group&gt; \
+  --identities &lt;identity-resource-id&gt;
+```
+
+## Complete Example
+
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+import { BlobServiceClient } from &#34;@azure/storage-blob&#34;;
+import { SecretClient } from &#34;@azure/keyvault-secrets&#34;;
+
+export class AzureServices {
+  private credential = new DefaultAzureCredential();
+
+  async uploadToBlob(content: string) {
+    const client = new BlobServiceClient(
+      &#34;https://mystorageaccount.blob.core.windows.net&#34;,
+      this.credential
+    );
+    
+    const container = client.getContainerClient(&#34;data&#34;);
+    await container.createIfNotExists();
+    
+    const blob = container.getBlockBlobClient(&#34;file.txt&#34;);
+    await blob.upload(content, content.length);
+  }
+
+  async getSecret(name: string): Promise&lt;string&gt; {
+    const client = new SecretClient(
+      &#34;https://myvault.vault.azure.net&#34;,
+      this.credential
+    );
+    
+    const secret = await client.getSecret(name);
+    return secret.value || &#34;&#34;;
+  }
+}
+```
+
+## Troubleshooting
+
+### Check if Managed Identity is enabled
+
+```bash
+# App Service
+az webapp identity show --name &lt;app-name&gt; --resource-group &lt;rg&gt;
+
+# VM
+az vm identity show --name &lt;vm-name&gt; --resource-group &lt;rg&gt;
+```
+
+### Test locally with Azure CLI
+
+```bash
+az login
+az account show
+
+# Verify you have access
+az storage blob list --account-name mystorageaccount --container-name data --auth-mode login
+```
+
+### View role assignments
+
+```bash
+az role assignment list --assignee &lt;identity-client-id&gt;
+```
+
+## Best Practices
+
+1. **Use `DefaultAzureCredential`** - Works everywhere (Azure &#43; local)
+2. **Assign minimal roles** - Only give permissions needed
+3. **Handle errors** - Check for 401/403 and log useful messages
+4. **Use User-Assigned MI** - When sharing identity across resources
+5. **Test locally** - Use Azure CLI to simulate Managed Identity locally
+6. **Environment variables** - Store client IDs in config, not code
+7. **Monitor** - Enable diagnostic logs for authentication issues
+
+## Resources
+
+- [Azure Identity SDK Docs](https://learn.microsoft.com/en-us/javascript/api/@azure/identity)
+- [Managed Identity Overview](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)
+- [DefaultAzureCredential](https://learn.microsoft.com/en-us/javascript/api/@azure/identity/defaultazurecredential)
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> managed-identity-guide.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>/**
+ * Azure Managed Identity Authentication Guide for Node.js/TypeScript
+ * 
+ * This guide covers using Managed Identity to authenticate Azure SDK clients,
+ * including both system-assigned and user-assigned identities.
+ */
+
+import { 
+  ManagedIdentityCredential,
+  DefaultAzureCredential,
+  ChainedTokenCredential
+} from &#34;@azure/identity&#34;;
+import { BlobServiceClient } from &#34;@azure/storage-blob&#34;;
+import { SecretClient } from &#34;@azure/keyvault-secrets&#34;;
+import { QueueClient } from &#34;@azure/storage-queue&#34;;
+
+// ============================================================================
+// 1. SYSTEM-ASSIGNED vs USER-ASSIGNED MANAGED IDENTITY
+// ============================================================================
+
+/**
+ * SYSTEM-ASSIGNED MANAGED IDENTITY:
+ * - Automatically created and tied to a single Azure resource (VM, App Service, etc.)
+ * - Lifecycle is bound to the resource - deleted when resource is deleted
+ * - No need to manage credentials or rotation
+ * - Unique per resource
+ * - Use when: Single resource needs access to Azure services
+ * 
+ * USER-ASSIGNED MANAGED IDENTITY:
+ * - Created as a standalone Azure resource
+ * - Can be assigned to multiple Azure resources
+ * - Independent lifecycle from resources using it
+ * - Shared identity across resources
+ * - Use when: Multiple resources need the same permissions, or you want to
+ *   separate identity lifecycle from resource lifecycle
+ */
+
+// ============================================================================
+// 2. CREATING ManagedIdentityCredential
+// ============================================================================
+
+/**
+ * System-Assigned Managed Identity
+ * No configuration needed - automatically uses the system-assigned identity
+ */
+function createSystemAssignedCredential(): ManagedIdentityCredential {
+  return new ManagedIdentityCredential();
+}
+
+/**
+ * User-Assigned Managed Identity (by Client ID)
+ * Specify the client ID of the user-assigned managed identity
+ */
+function createUserAssignedCredentialByClientId(clientId: string): ManagedIdentityCredential {
+  return new ManagedIdentityCredential({
+    clientId: clientId // e.g., &#34;12345678-1234-1234-1234-123456789012&#34;
+  });
+}
+
+/**
+ * User-Assigned Managed Identity (by Resource ID)
+ * Use the full Azure resource ID
+ */
+function createUserAssignedCredentialByResourceId(resourceId: string): ManagedIdentityCredential {
+  return new ManagedIdentityCredential({
+    resourceId: resourceId // e.g., &#34;/subscriptions/{sub}/resourcegroups/{rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{name}&#34;
+  });
+}
+
+/**
+ * User-Assigned Managed Identity (by Object ID)
+ * Less common, but supported
+ */
+function createUserAssignedCredentialByObjectId(objectId: string): ManagedIdentityCredential {
+  return new ManagedIdentityCredential({
+    objectId: objectId
+  });
+}
+
+// ============================================================================
+// 3. USING WITH AZURE SDK CLIENTS
+// ============================================================================
+
+/**
+ * Example: Using System-Assigned Managed Identity with Azure Blob Storage
+ */
+async function exampleBlobStorageWithSystemAssigned() {
+  const credential = new ManagedIdentityCredential();
+  const storageAccountName = &#34;mystorageaccount&#34;;
+  const blobServiceClient = new BlobServiceClient(
+    `https://${storageAccountName}.blob.core.windows.net`,
+    credential
+  );
+
+  try {
+    // List containers
+    const containers = blobServiceClient.listContainers();
+    for await (const container of containers) {
+      console.log(`Container: ${container.name}`);
+    }
+  } catch (error) {
+    console.error(&#34;Error accessing blob storage:&#34;, error);
+    throw error;
+  }
+}
+
+/**
+ * Example: Using User-Assigned Managed Identity with Azure Key Vault
+ */
+async function exampleKeyVaultWithUserAssigned(userAssignedClientId: string) {
+  const credential = new ManagedIdentityCredential({
+    clientId: userAssignedClientId
+  });
+
+  const vaultUrl = &#34;https://myvault.vault.azure.net&#34;;
+  const secretClient = new SecretClient(vaultUrl, credential);
+
+  try {
+    // Get a secret
+    const secret = await secretClient.getSecret(&#34;my-secret&#34;);
+    console.log(`Secret value: ${secret.value}`);
+  } catch (error) {
+    console.error(&#34;Error accessing Key Vault:&#34;, error);
+    throw error;
+  }
+}
+
+/**
+ * Example: Using with multiple Azure services
+ */
+async function exampleMultipleServices() {
+  const credential = new ManagedIdentityCredential();
+
+  // Storage Queue
+  const queueClient = new QueueClient(
+    &#34;https://mystorageaccount.queue.core.windows.net/myqueue&#34;,
+    credential
+  );
+
+  // Key Vault
+  const secretClient = new SecretClient(
+    &#34;https://myvault.vault.azure.net&#34;,
+    credential
+  );
+
+  // Blob Storage
+  const blobServiceClient = new BlobServiceClient(
+    &#34;https://mystorageaccount.blob.core.windows.net&#34;,
+    credential
+  );
+
+  // Use all services with the same credential
+  await queueClient.sendMessage(&#34;Hello from Managed Identity!&#34;);
+  const secret = await secretClient.getSecret(&#34;connection-string&#34;);
+  const containers = blobServiceClient.listContainers();
+}
+
+// ============================================================================
+// 4. LOCAL DEVELOPMENT FALLBACK STRATEGIES
+// ============================================================================
+
+/**
+ * Strategy 1: DefaultAzureCredential
+ * Recommended for most scenarios - tries multiple authentication methods in order:
+ * 1. EnvironmentCredential (env vars)
+ * 2. WorkloadIdentityCredential (Kubernetes)
+ * 3. ManagedIdentityCredential (Azure resources)
+ * 4. AzureCliCredential (local development)
+ * 5. AzurePowerShellCredential (local development)
+ * 6. AzureDeveloperCliCredential (local development)
+ */
+function strategyDefaultCredential() {
+  // Works in Azure (Managed Identity) AND locally (Azure CLI, VS Code, etc.)
+  const credential = new DefaultAzureCredential();
+
+  const blobServiceClient = new BlobServiceClient(
+    &#34;https://mystorageaccount.blob.core.windows.net&#34;,
+    credential
+  );
+
+  return blobServiceClient;
+}
+
+/**
+ * Strategy 2: ChainedTokenCredential with explicit fallback
+ * More control over the authentication chain
+ */
+function strategyChainedCredential() {
+  const { AzureCliCredential, EnvironmentCredential } = require(&#34;@azure/identity&#34;);
+
+  const credential = new ChainedTokenCredential(
+    new ManagedIdentityCredential(), // Try Managed Identity first (production)
+    new AzureCliCredential(),         // Fallback to Azure CLI (local dev)
+    new EnvironmentCredential()       // Fallback to env vars
+  );
+
+  const blobServiceClient = new BlobServiceClient(
+    &#34;https://mystorageaccount.blob.core.windows.net&#34;,
+    credential
+  );
+
+  return blobServiceClient;
+}
+
+/**
+ * Strategy 3: Environment-based selection
+ * Explicitly choose credential based on environment
+ */
+function strategyEnvironmentBased() {
+  const isProduction = process.env.NODE_ENV === &#34;production&#34;;
+  const isAzure = process.env.AZURE_CLIENT_ID !== undefined || 
+                  process.env.IDENTITY_ENDPOINT !== undefined;
+
+  let credential;
+
+  if (isAzure) {
+    // Running in Azure - use Managed Identity
+    const clientId = process.env.AZURE_CLIENT_ID;
+    credential = clientId 
+      ? new ManagedIdentityCredential({ clientId })
+      : new ManagedIdentityCredential();
+  } else {
+    // Running locally - use DefaultAzureCredential for dev convenience
+    credential = new DefaultAzureCredential();
+  }
+
+  return credential;
+}
+
+/**
+ * Strategy 4: User-Assigned MI in Azure, Service Principal locally
+ */
+function strategyUserAssignedWithServicePrincipal() {
+  const { ClientSecretCredential } = require(&#34;@azure/identity&#34;);
+
+  const userAssignedClientId = process.env.MANAGED_IDENTITY_CLIENT_ID;
+  
+  let credential;
+
+  if (userAssignedClientId) {
+    // Azure environment with User-Assigned MI
+    credential = new ManagedIdentityCredential({
+      clientId: userAssignedClientId
+    });
+  } else if (process.env.AZURE_TENANT_ID &amp;&amp; 
+             process.env.AZURE_CLIENT_ID &amp;&amp; 
+             process.env.AZURE_CLIENT_SECRET) {
+    // Local development with Service Principal
+    credential = new ClientSecretCredential(
+      process.env.AZURE_TENANT_ID,
+      process.env.AZURE_CLIENT_ID,
+      process.env.AZURE_CLIENT_SECRET
+    );
+  } else {
+    // Fallback to DefaultAzureCredential
+    credential = new DefaultAzureCredential();
+  }
+
+  return credential;
+}
+
+// ============================================================================
+// 5. COMMON PITFALLS AND ERROR HANDLING
+// ============================================================================
+
+/**
+ * Pitfall 1: Missing Role Assignments
+ * The managed identity must have appropriate RBAC roles assigned
+ */
+async function handleMissingRoleAssignment() {
+  const credential = new ManagedIdentityCredential();
+  const blobServiceClient = new BlobServiceClient(
+    &#34;https://mystorageaccount.blob.core.windows.net&#34;,
+    credential
+  );
+
+  try {
+    const containers = blobServiceClient.listContainers();
+    for await (const container of containers) {
+      console.log(container.name);
+    }
+  } catch (error: any) {
+    if (error.statusCode === 403) {
+      console.error(&#34;Access denied - Managed Identity may lack required role assignment&#34;);
+      console.error(&#34;Ensure the identity has &#39;Storage Blob Data Reader&#39; or appropriate role&#34;);
+      // Required role examples:
+      // - Storage Blob Data Reader (read blobs)
+      // - Storage Blob Data Contributor (read/write blobs)
+      // - Key Vault Secrets User (read secrets)
+    }
+    throw error;
+  }
+}
+
+/**
+ * Pitfall 2: Wrong User-Assigned Identity
+ * When multiple user-assigned identities are attached, specify the correct one
+ */
+async function handleMultipleUserAssignedIdentities() {
+  const correctClientId = process.env.MANAGED_IDENTITY_CLIENT_ID;
+
+  if (!correctClientId) {
+    throw new Error(
+      &#34;When multiple user-assigned identities exist, MANAGED_IDENTITY_CLIENT_ID must be specified&#34;
+    );
+  }
+
+  const credential = new ManagedIdentityCredential({
+    clientId: correctClientId
+  });
+
+  // Use credential...
+}
+
+/**
+ * Pitfall 3: Managed Identity not available in environment
+ * Handle cases where code runs outside Azure
+ */
+async function handleManagedIdentityUnavailable() {
+  try {
+    const credential = new ManagedIdentityCredential();
+    
+    // Test if credential works by requesting a token
+    const scope = &#34;https://storage.azure.com/.default&#34;;
+    const token = await credential.getToken(scope);
+    
+    console.log(&#34;Managed Identity available&#34;);
+    return credential;
+  } catch (error: any) {
+    if (error.message?.includes(&#34;ManagedIdentityCredential authentication failed&#34;)) {
+      console.warn(&#34;Managed Identity not available, falling back to DefaultAzureCredential&#34;);
+      return new DefaultAzureCredential();
+    }
+    throw error;
+  }
+}
+
+/**
+ * Pitfall 4: Token expiration and retry logic
+ * Azure SDK handles token refresh automatically, but be aware of retry scenarios
+ */
+async function handleTokenExpirationWithRetry() {
+  const credential = new ManagedIdentityCredential();
+  const maxRetries = 3;
+  
+  for (let attempt = 1; attempt &lt;= maxRetries; attempt&#43;&#43;) {
+    try {
+      const secretClient = new SecretClient(
+        &#34;https://myvault.vault.azure.net&#34;,
+        credential
+      );
+      
+      const secret = await secretClient.getSecret(&#34;my-secret&#34;);
+      return secret.value;
+    } catch (error: any) {
+      if (attempt === maxRetries) {
+        console.error(&#34;Failed after all retries:&#34;, error.message);
+        throw error;
+      }
+      
+      // Retry on transient errors
+      if (error.statusCode === 429 || error.statusCode &gt;= 500) {
+        const delay = Math.pow(2, attempt) * 1000;
+        console.warn(`Attempt ${attempt} failed, retrying in ${delay}ms...`);
+        await new Promise(resolve =&gt; setTimeout(resolve, delay));
+      } else {
+        throw error;
+      }
+    }
+  }
+}
+
+/**
+ * Pitfall 5: Scope/Resource URI confusion
+ * Different Azure services require different scope values
+ */
+async function demonstrateProperScopes() {
+  const credential = new ManagedIdentityCredential();
+
+  // Common scope patterns:
+  const storageScope = &#34;https://storage.azure.com/.default&#34;;
+  const keyVaultScope = &#34;https://vault.azure.net/.default&#34;;
+  const managementScope = &#34;https://management.azure.com/.default&#34;;
+  const graphScope = &#34;https://graph.microsoft.com/.default&#34;;
+
+  // Get token for specific scope
+  const token = await credential.getToken(storageScope);
+  console.log(`Token expires at: ${token.expiresOnTimestamp}`);
+}
+
+/**
+ * Comprehensive error handling example
+ */
+async function comprehensiveErrorHandling() {
+  const credential = new ManagedIdentityCredential();
+  const vaultUrl = &#34;https://myvault.vault.azure.net&#34;;
+  const secretClient = new SecretClient(vaultUrl, credential);
+
+  try {
+    const secret = await secretClient.getSecret(&#34;my-secret&#34;);
+    return secret.value;
+  } catch (error: any) {
+    // Authentication/Authorization errors
+    if (error.statusCode === 401) {
+      console.error(&#34;Authentication failed - Managed Identity token may be invalid&#34;);
+    } else if (error.statusCode === 403) {
+      console.error(&#34;Authorization failed - Identity lacks required permissions&#34;);
+      console.error(`Required: &#39;Key Vault Secrets User&#39; role on ${vaultUrl}`);
+    }
+    // Resource not found
+    else if (error.statusCode === 404) {
+      console.error(&#34;Secret not found or Key Vault does not exist&#34;);
+    }
+    // Throttling
+    else if (error.statusCode === 429) {
+      console.error(&#34;Too many requests - implement exponential backoff&#34;);
+    }
+    // Network/transient errors
+    else if (error.code === &#34;ECONNREFUSED&#34; || error.code === &#34;ETIMEDOUT&#34;) {
+      console.error(&#34;Network error - service may be temporarily unavailable&#34;);
+    }
+    // Managed Identity not available
+    else if (error.message?.includes(&#34;ManagedIdentityCredential&#34;)) {
+      console.error(&#34;Managed Identity not available in this environment&#34;);
+      console.error(&#34;Ensure app is running in Azure with MI enabled&#34;);
+    }
+    else {
+      console.error(&#34;Unexpected error:&#34;, error.message);
+    }
+
+    throw error;
+  }
+}
+
+// ============================================================================
+// COMPLETE PRODUCTION EXAMPLE
+// ============================================================================
+
+/**
+ * Production-ready example with all best practices
+ */
+export class AzureServiceManager {
+  private credential: ManagedIdentityCredential | DefaultAzureCredential;
+  private blobServiceClient: BlobServiceClient;
+  private secretClient: SecretClient;
+
+  constructor(storageAccountName: string, keyVaultName: string) {
+    // Use DefaultAzureCredential for flexibility (works locally and in Azure)
+    this.credential = new DefaultAzureCredential({
+      // Optionally specify managed identity client ID for user-assigned MI
+      managedIdentityClientId: process.env.MANAGED_IDENTITY_CLIENT_ID
+    });
+
+    this.blobServiceClient = new BlobServiceClient(
+      `https://${storageAccountName}.blob.core.windows.net`,
+      this.credential
+    );
+
+    this.secretClient = new SecretClient(
+      `https://${keyVaultName}.vault.azure.net`,
+      this.credential
+    );
+  }
+
+  async uploadBlob(containerName: string, blobName: string, content: string): Promise&lt;void&gt; {
+    try {
+      const containerClient = this.blobServiceClient.getContainerClient(containerName);
+      
+      // Ensure container exists
+      await containerClient.createIfNotExists();
+      
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+      await blockBlobClient.upload(content, content.length);
+      
+      console.log(`Blob uploaded: ${blobName}`);
+    } catch (error: any) {
+      this.handleStorageError(error, &#34;uploadBlob&#34;);
+      throw error;
+    }
+  }
+
+  async getSecret(secretName: string): Promise&lt;string&gt; {
+    try {
+      const secret = await this.secretClient.getSecret(secretName);
+      return secret.value || &#34;&#34;;
+    } catch (error: any) {
+      this.handleKeyVaultError(error, secretName);
+      throw error;
+    }
+  }
+
+  private handleStorageError(error: any, operation: string): void {
+    console.error(`Storage operation &#39;${operation}&#39; failed:`, {
+      statusCode: error.statusCode,
+      code: error.code,
+      message: error.message
+    });
+
+    if (error.statusCode === 403) {
+      console.error(&#34;Required role: &#39;Storage Blob Data Contributor&#39;&#34;);
+    }
+  }
+
+  private handleKeyVaultError(error: any, secretName: string): void {
+    console.error(`Key Vault operation failed for secret &#39;${secretName}&#39;:`, {
+      statusCode: error.statusCode,
+      message: error.message
+    });
+
+    if (error.statusCode === 403) {
+      console.error(&#34;Required role: &#39;Key Vault Secrets User&#39;&#34;);
+    }
+  }
+}
+
+// Usage example
+async function main() {
+  const manager = new AzureServiceManager(&#34;mystorageaccount&#34;, &#34;myvault&#34;);
+  
+  // Get configuration from Key Vault
+  const connectionString = await manager.getSecret(&#34;db-connection-string&#34;);
+  
+  // Upload data to Blob Storage
+  await manager.uploadBlob(&#34;data&#34;, &#34;config.json&#34;, JSON.stringify({ 
+    version: &#34;1.0&#34;,
+    connectionString 
+  }));
+}
+
+// ============================================================================
+// BEST PRACTICES SUMMARY
+// ============================================================================
+
+/**
+ * BEST PRACTICES:
+ * 
+ * 1. Use DefaultAzureCredential for most scenarios
+ *    - Works in Azure (Managed Identity) and locally (Azure CLI, VS Code)
+ *    - Simplifies development and deployment
+ * 
+ * 2. Specify User-Assigned MI client ID when needed
+ *    - Use environment variable: MANAGED_IDENTITY_CLIENT_ID
+ *    - Pass to DefaultAzureCredential options: managedIdentityClientId
+ * 
+ * 3. Assign minimal RBAC roles required
+ *    - Storage: &#34;Storage Blob Data Reader/Contributor&#34;
+ *    - Key Vault: &#34;Key Vault Secrets User&#34;
+ *    - Avoid &#34;Owner&#34; or &#34;Contributor&#34; roles
+ * 
+ * 4. Handle errors gracefully
+ *    - Check for 401/403 status codes
+ *    - Log useful context for debugging
+ *    - Implement retry logic for transient failures
+ * 
+ * 5. Test locally with Azure CLI
+ *    - Run: az login
+ *    - Assign your user the same roles as the managed identity
+ *    - Verify DefaultAzureCredential works before deploying
+ * 
+ * 6. Enable Managed Identity on Azure resources
+ *    - App Service: Identity blade → System assigned → On
+ *    - VM: Identity → System assigned → Status → On
+ *    - User-assigned: Create identity, then assign to resources
+ * 
+ * 7. Monitor and audit
+ *    - Enable diagnostic logs for the managed identity
+ *    - Review role assignments regularly
+ *    - Use Azure Monitor for authentication failures
+ */
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-managed-identity-examples&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Azure Managed Identity authentication examples for Node.js/TypeScript&#34;,
+  &#34;main&#34;: &#34;managed-identity-guide.ts&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/managed-identity-guide.js&#34;
+  },
+  &#34;dependencies&#34;: {
+    &#34;@azure/identity&#34;: &#34;^4.0.0&#34;,
+    &#34;@azure/storage-blob&#34;: &#34;^12.17.0&#34;,
+    &#34;@azure/keyvault-secrets&#34;: &#34;^4.8.0&#34;,
+    &#34;@azure/storage-queue&#34;: &#34;^12.16.0&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.10.0&#34;,
+    &#34;typescript&#34;: &#34;^5.3.0&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">11 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (11 actions, 4 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>11</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>4</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>2</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">4</strong> <span>succeeded</span></div>
+        
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id identity-dp-js-ts-managed-identity --config baseline/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

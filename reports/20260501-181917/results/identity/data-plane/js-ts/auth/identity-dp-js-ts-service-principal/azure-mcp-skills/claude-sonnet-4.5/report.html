@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report: identity-dp-js-ts-service-principal / azure-mcp-skills/claude-sonnet-4.5</title>
+<style>
+  :root {
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --gray: #6b7280; --bg: #f8fafc; --card-bg: #fff; --border: #e2e8f0;
+    --text: #0f172a; --text-muted: #64748b; --purple: #7c3aed; --blue: #2563eb;
+    --indigo: #4f46e5;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+   
+  .nav { margin-bottom: 1.5rem; }
+  .nav a { color: var(--blue); text-decoration: none; font-size: 0.9rem; }
+  .nav a:hover { text-decoration: underline; }
+
+   
+  .report-header { margin-bottom: 2rem; }
+  .report-header h1 { font-size: 1.5rem; margin: 0 0 0.25rem 0; }
+  .report-header .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+   
+  .result-banner { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .result-banner.pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .result-banner.fail { background: #fef2f2; border: 1px solid #fecaca; }
+  .result-banner .verdict { font-size: 1.25rem; font-weight: 700; }
+  .result-banner .meta-item { color: var(--text-muted); }
+  .result-banner .meta-item strong { color: var(--text); }
+
+   
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .badge-pass { background: #dcfce7; color: #166534; }
+  .badge-fail { background: #fef2f2; color: #991b1b; }
+  .badge-stub { background: #fef3c7; color: #92400e; }
+
+   
+  .section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: #f8fafc; }
+  .section-header h2 { font-size: 1rem; margin: 0; font-weight: 600; }
+  .section-header .icon { font-size: 1.1rem; }
+  .section-body { padding: 1rem; }
+
+   
+  details { margin: 0.5rem 0; }
+  details > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; color: var(--text); user-select: none; }
+  details > summary:hover { color: var(--blue); }
+  details[open] > summary { margin-bottom: 0.5rem; }
+
+   
+  pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0; white-space: pre-wrap; word-break: break-word; }
+  code { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 0.85em; }
+  p code, li code { background: #f1f5f9; color: var(--indigo); padding: 1px 5px; border-radius: 3px; }
+
+   
+  .file-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+  .file-card-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.85rem; }
+  .file-card-header .file-icon { opacity: 0.7; }
+  .file-card pre { margin: 0; border-radius: 0; }
+  .file-card details { margin: 0; }
+  .file-card details > summary { padding: 0.4rem 1rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+
+   
+  .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin: 0.75rem 0; }
+  .score-card { text-align: center; padding: 0.75rem 0.5rem; border-radius: 6px; background: #f8fafc; border: 1px solid var(--border); }
+  .score-card .value { font-size: 1.4rem; font-weight: 700; }
+  .score-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .overall-score { text-align: center; margin: 1rem 0; }
+  .overall-score .value { font-size: 2.5rem; font-weight: 700; }
+  .overall-score .label { font-size: 0.85rem; color: var(--text-muted); }
+
+   
+  .findings-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .findings-list li { padding: 0.2rem 0; font-size: 0.9rem; }
+
+   
+  .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }
+  .error-box h3 { margin: 0 0 0.5rem 0; color: #991b1b; }
+
+   
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+  .meta-table td:first-child { font-weight: 600; width: 120px; color: var(--text-muted); }
+
+   
+  .verify-banner { padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem; }
+  .verify-pass { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .verify-fail { background: #fef2f2; border: 1px solid #fecaca; }
+
+   
+  .review-comment { background: #fef3c7; color: #92400e; display: block; border-left: 3px solid #f59e0b; padding-left: 0.5rem; margin: 1px 0; }
+  .reviewed-file pre { white-space: pre-wrap; word-break: break-word; }
+
+   
+  .tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 8px; border-radius: 12px; font-size: 0.78rem; margin: 1px 2px; }
+
+   
+  .phase { margin-bottom: 1.5rem; }
+  .phase-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; font-weight: 700; font-size: 1rem; border-radius: 8px 8px 0 0; }
+  .phase-gen .phase-header { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .phase-review .phase-header { background: #faf5ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+  .timeline { position: relative; padding: 1.25rem 1rem 0.5rem 3.5rem; border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; background: var(--card-bg); }
+  .timeline::before { content: ''; position: absolute; left: 1.6rem; top: 0; bottom: 0; width: 2px; }
+  .phase-gen .timeline::before { background: #93c5fd; }
+  .phase-review .timeline::before { background: #c4b5fd; }
+
+  .tl-step { position: relative; margin-bottom: 1.25rem; }
+  .tl-step:last-child { margin-bottom: 0.5rem; }
+  .tl-marker { position: absolute; left: -2.65rem; top: 0.1rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; background: #fff; border: 2px solid var(--border); z-index: 1; }
+  .phase-gen .tl-marker { border-color: #93c5fd; }
+  .phase-review .tl-marker { border-color: #c4b5fd; }
+
+  .tl-card { padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #fafbfc; }
+  .tl-card-tool { border-left: 3px solid var(--indigo); }
+  .tl-card-reasoning { border-left: 3px solid #93c5fd; }
+  .tl-card-prompt { border-left: 3px solid var(--blue); }
+  .tl-card-message { border-left: 3px solid #6366f1; }
+  .tl-card-complete { border-left: 3px solid var(--green); background: #f0fdf4; }
+
+  .tl-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tl-title .tool-name { font-family: monospace; color: var(--purple); }
+  .tl-title .mcp-server { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
+  .tl-meta { display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .tl-card details { margin: 0.4rem 0 0 0; }
+  .tl-card details summary { font-size: 0.85rem; font-weight: 500; }
+  .tl-card pre { font-size: 0.8rem; margin: 0.25rem 0 0 0; max-height: 300px; overflow-y: auto; }
+  .tl-error { color: var(--red); font-size: 0.85rem; margin-top: 0.3rem; }
+
+  
+   
+  .atl-section { margin-bottom: 1.25rem; }
+  .atl-summary-bar { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.75rem 1rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem; }
+  .atl-stat { display: flex; align-items: center; gap: 0.25rem; }
+  .atl-stat strong { color: var(--text); }
+  .atl-stat span { color: var(--text-muted); }
+  .atl-filter { margin-bottom: 0.75rem; }
+  .atl-filter input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; background: var(--card-bg); color: var(--text); }
+  .atl-filter input::placeholder { color: var(--text-muted); }
+  .atl-list { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--card-bg); }
+  .atl-row { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+  .atl-row:last-child { border-bottom: none; }
+  .atl-row.atl-tool_call { border-left: 3px solid var(--indigo); }
+  .atl-row.atl-skill { border-left: 3px solid #22c55e; background: #f0fdf4; }
+  .atl-row.atl-skill_ref { border-left: 3px solid #86efac; background: #f0fdf4; }
+  .atl-row.atl-turn_start { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-turn_end { border-left: 3px solid var(--blue); background: #f8fafc; }
+  .atl-row.atl-reasoning { border-left: 3px solid #93c5fd; }
+  .atl-row.atl-message { border-left: 3px solid #6366f1; }
+  .atl-row.atl-intent { border-left: 3px solid var(--purple); }
+  .atl-idx { min-width: 2rem; color: var(--text-muted); font-family: monospace; font-size: 0.8rem; text-align: right; padding-top: 0.1rem; }
+  .atl-icon { font-size: 0.9rem; min-width: 1.5rem; text-align: center; padding-top: 0.1rem; }
+  .atl-body { flex: 1; min-width: 0; }
+  .atl-label { font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .atl-label code { font-size: 0.82em; color: var(--purple); background: #f3f0ff; padding: 1px 6px; border-radius: 3px; }
+  .atl-meta { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .atl-success { color: var(--green); }
+  .atl-failure { color: var(--red); }
+  .atl-row details { margin-top: 0.3rem; }
+  .atl-row details summary { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+  .atl-row details summary:hover { color: var(--blue); }
+  .atl-row pre { font-size: 0.78rem; margin: 0.2rem 0 0 0; max-height: 200px; overflow-y: auto; }
+  
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="../../../../../../../../summary.html">← Back to Summary</a></div>
+
+<div class="report-header">
+  <h1>📋 identity-dp-js-ts-service-principal</h1>
+  <div class="subtitle">Config: <strong>azure-mcp-skills/claude-sonnet-4.5</strong> · 2026-05-02T01:31:35Z</div>
+</div>
+
+
+
+
+<div class="result-banner fail">
+  <span class="verdict">❌ FAILED</span>
+  <span class="meta-item">Score: <strong style="color:#eab308">15/20</strong></span>
+  <span class="meta-item">Duration: <strong>152.7s</strong></span>
+  <span class="meta-item">Files: <strong>4</strong></span>
+  <span class="meta-item">Tool Calls: <strong>10</strong></span>
+  
+</div>
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📋</span><h2>Prompt Details</h2></div>
+  <div class="section-body">
+    <table class="meta-table">
+      <tr><td>Description</td><td>Can a developer authenticate with a Service Principal (client secret) using the JavaScript/TypeScript SDK?
+</td></tr>
+      <tr><td>Difficulty</td><td>intermediate</td></tr>
+      <tr><td>Service</td><td>identity</td></tr>
+      <tr><td>Plane</td><td>data-plane</td></tr>
+      <tr><td>Language</td><td>js-ts</td></tr>
+      <tr><td>Category</td><td>auth</td></tr>
+      <tr><td>SDK Package</td><td><code>@azure/identity</code></td></tr>
+      <tr><td>Tags</td><td>authentication, service-principal, client-secret</td></tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔧</span><h2>Environment & Configuration</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><td>Model</td><td>claude-sonnet-4.5</td></tr>
+    <tr><td>Skills Loaded</td><td>azure-identity-ts, azure-storage-blob-ts, azure-keyvault-secrets-ts, azure-keyvault-keys-ts, azure-cosmos-ts, azure-servicebus-ts, azure-eventhub-ts, azure-appconfiguration-ts, azure-storage-queue-ts, customize-cloud-agent</td></tr>
+    
+    
+    <tr><td>MCP Servers</td><td>azure</td></tr>
+    <tr><td>Skills Invoked</td><td>azure-identity-ts</td></tr>
+    
+    <tr><td>Safety Boundaries</td><td>✅ Active</td></tr>
+    <tr><td>Cloud Access</td><td>❌ Denied</td></tr>
+    <tr><td>Token Usage</td><td>in=210799 out=6333</td></tr>
+    <tr><td>Turn Count</td><td>5</td></tr>
+    
+    <tr><td>Generation Duration</td><td>98.6s</td></tr>
+    <tr><td>Review Duration</td><td>53.5s</td></tr>
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📊</span><h2>Tool & Skill Usage</h2></div>
+  <div class="section-body">
+  <table class="meta-table">
+    <tr><th>Tool / Skill</th><th>Calls</th><th>Source</th></tr>
+    
+    <tr>
+      <td>create</td>
+      <td>7</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>powershell</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>report_intent</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+    <tr>
+      <td>skill: azure-identity-ts</td>
+      <td>1</td>
+      <td>built-in</td>
+    </tr>
+    
+  </table>
+  </div>
+</div>
+
+
+
+
+<div class="phase phase-gen">
+  <div class="phase-header"><span>🧪</span> Generation Timeline</div>
+  <div class="timeline">
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>1.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>Write a TypeScript program that
+authenticates to Azure using a Service Principal with client secret. The program should:
+1. Install and import @azure/identity with ClientSecretCredential
+2. Read tenant ID, client ID, and client secret from environment variables
+3. Create a ClientSecretCredential instance
+4. Use it to create an Azure SDK client (e.g., SecretClient from @azure/keyvault-secrets)
+5. Perform an operation to verify the credential works
+6. Handle AuthenticationError for invalid credentials
+
+Include a package.json with all dependencies, use dotenv for environment variable
+management, and use async/await throughout.</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>2.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>I&#39;ll help you create a TypeScript program for Azure Service Principal authentication. Let me first invoke the Azure Identity skill to get the best practices and patterns.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>3.</span>
+          The user wants a TypeScript program that:
+1. Authenticates to Azure using Servic…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>The user wants a TypeScript program that:
+1. Authenticates to Azure using Service Principal with client secret
+2. Uses @azure/identity with ClientSecretCredential
+3. Reads credentials from environment variables
+4. Creates an Azure SDK client (SecretClient from @azure/keyvault-secrets)
+5. Performs an operation to verify it works
+6. Handles AuthenticationError
+
+I should invoke the azure-identity-ts skill first to get SDK-specific patterns and best practices for authentication using Service Principal.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>4.</span>
+          <span class="tool-name">Tool call: report_intent</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Creating Azure auth program&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">📚</div>
+      <div class="tl-card tl-card-skill">
+        <div class="tl-title">
+          <span>5.</span>
+          Skill loaded: azure-identity-ts
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">📝</div>
+      <div class="tl-card tl-card-prompt">
+        <div class="tl-title">
+          <span>6.</span>
+          Prompt sent
+        </div>
+        
+        
+        <details open><summary>Show prompt</summary><pre>&lt;skill-context name=&#34;azure-identity-ts&#34;&gt;
+Base directory for this skill: C:\Users\kaghiya\.agents\skills\azure-identity-ts
+
+---
+name: azure-identity-ts
+description: &#34;Authenticate to Azure services with various credential types.&#34;
+risk: unknown
+source: community
+date_added: &#34;2026-02-27&#34;
+---
+
+# Azure Identity SDK for TypeScript
+
+Authenticate to Azure services with various credential types.
+
+## Installation
+
+```bash
+npm install @azure/identity
+```
+
+## Environment Variables
+
+### Service Principal (Secret)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_CLIENT_SECRET=&lt;client-secret&gt;
+```
+
+### Service Principal (Certificate)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_CLIENT_CERTIFICATE_PATH=/path/to/cert.pem
+AZURE_CLIENT_CERTIFICATE_PASSWORD=&lt;optional-password&gt;
+```
+
+### Workload Identity (Kubernetes)
+
+```bash
+AZURE_TENANT_ID=&lt;tenant-id&gt;
+AZURE_CLIENT_ID=&lt;client-id&gt;
+AZURE_FEDERATED_TOKEN_FILE=/var/run/secrets/tokens/azure-identity
+```
+
+## DefaultAzureCredential (Recommended)
+
+```typescript
+import { DefaultAzureCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+
+// Use with any Azure SDK client
+import { BlobServiceClient } from &#34;@azure/storage-blob&#34;;
+const blobClient = new BlobServiceClient(
+  &#34;https://&lt;account&gt;.blob.core.windows.net&#34;,
+  credential
+);
+```
+
+**Credential Chain Order:**
+1. EnvironmentCredential
+2. WorkloadIdentityCredential
+3. ManagedIdentityCredential
+4. VisualStudioCodeCredential
+5. AzureCliCredential
+6. AzurePowerShellCredential
+7. AzureDeveloperCliCredential
+
+## Managed Identity
+
+### System-Assigned
+
+```typescript
+import { ManagedIdentityCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ManagedIdentityCredential();
+```
+
+### User-Assigned (by Client ID)
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  clientId: &#34;&lt;user-assigned-client-id&gt;&#34;
+});
+```
+
+### User-Assigned (by Resource ID)
+
+```typescript
+const credential = new ManagedIdentityCredential({
+  resourceId: &#34;/subscriptions/&lt;sub&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.ManagedIdentity/userAssignedIdentities/&lt;name&gt;&#34;
+});
+```
+
+## Service Principal
+
+### Client Secret
+
+```typescript
+import { ClientSecretCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ClientSecretCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  &#34;&lt;client-secret&gt;&#34;
+);
+```
+
+### Client Certificate
+
+```typescript
+import { ClientCertificateCredential } from &#34;@azure/identity&#34;;
+
+const credential = new ClientCertificateCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  { certificatePath: &#34;/path/to/cert.pem&#34; }
+);
+
+// With password
+const credentialWithPwd = new ClientCertificateCredential(
+  &#34;&lt;tenant-id&gt;&#34;,
+  &#34;&lt;client-id&gt;&#34;,
+  { 
+    certificatePath: &#34;/path/to/cert.pem&#34;,
+    certificatePassword: &#34;&lt;password&gt;&#34;
+  }
+);
+```
+
+## Interactive Authentication
+
+### Browser-Based Login
+
+```typescript
+import { InteractiveBrowserCredential } from &#34;@azure/identity&#34;;
+
+const credential = new InteractiveBrowserCredential({
+  clientId: &#34;&lt;client-id&gt;&#34;,
+  tenantId: &#34;&lt;tenant-id&gt;&#34;,
+  loginHint: &#34;user@example.com&#34;
+});
+```
+
+### Device Code Flow
+
+```typescript
+import { DeviceCodeCredential } from &#34;@azure/identity&#34;;
+
+const credential = new DeviceCodeCredential({
+  clientId: &#34;&lt;client-id&gt;&#34;,
+  tenantId: &#34;&lt;tenant-id&gt;&#34;,
+  userPromptCallback: (info) =&gt; {
+    console.log(info.message);
+    // &#34;To sign in, use a web browser to open...&#34;
+  }
+});
+```
+
+## Custom Credential Chain
+
+```typescript
+import { 
+  ChainedTokenCredential,
+  ManagedIdentityCredential,
+  AzureCliCredential
+} from &#34;@azure/identity&#34;;
+
+// Try managed identity first, fall back to CLI
+const credential = new ChainedTokenCredential(
+  new ManagedIdentityCredential(),
+  new AzureCliCredential()
+);
+```
+
+## Developer Credentials
+
+### Azure CLI
+
+```typescript
+import { AzureCliCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzureCliCredential();
+// Uses: az login
+```
+
+### Azure Developer CLI
+
+```typescript
+import { AzureDeveloperCliCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzureDeveloperCliCredential();
+// Uses: azd auth login
+```
+
+### Azure PowerShell
+
+```typescript
+import { AzurePowerShellCredential } from &#34;@azure/identity&#34;;
+
+const credential = new AzurePowerShellCredential();
+// Uses: Connect-AzAccount
+```
+
+## Sovereign Clouds
+
+```typescript
+import { ClientSecretCredential, AzureAuthorityHosts } from &#34;@azure/identity&#34;;
+
+// Azure Government
+const credential = new ClientSecretCredential(
+  &#34;&lt;tenant&gt;&#34;, &#34;&lt;client&gt;&#34;, &#34;&lt;secret&gt;&#34;,
+  { authorityHost: AzureAuthorityHosts.AzureGovernment }
+);
+
+// Azure China
+const credentialChina = new ClientSecretCredential(
+  &#34;&lt;tenant&gt;&#34;, &#34;&lt;client&gt;&#34;, &#34;&lt;secret&gt;&#34;,
+  { authorityHost: AzureAuthorityHosts.AzureChina }
+);
+```
+
+## Bearer Token Provider
+
+```typescript
+import { DefaultAzureCredential, getBearerTokenProvider } from &#34;@azure/identity&#34;;
+
+const credential = new DefaultAzureCredential();
+
+// Create a function that returns tokens
+const getAccessToken = getBearerTokenProvider(
+  credential,
+  &#34;https://cognitiveservices.azure.com/.default&#34;
+);
+
+// Use with APIs that need bearer tokens
+const token = await getAccessToken();
+```
+
+## Key Types
+
+```typescript
+import type { 
+  TokenCredential, 
+  AccessToken, 
+  GetTokenOptions 
+} from &#34;@azure/core-auth&#34;;
+
+import {
+  DefaultAzureCredential,
+  DefaultAzureCredentialOptions,
+  ManagedIdentityCredential,
+  ClientSecretCredential,
+  ClientCertificateCredential,
+  InteractiveBrowserCredential,
+  ChainedTokenCredential,
+  AzureCliCredential,
+  AzurePowerShellCredential,
+  AzureDeveloperCliCredential,
+  DeviceCodeCredential,
+  AzureAuthorityHosts
+} from &#34;@azure/identity&#34;;
+```
+
+## Custom Credential Implementation
+
+```typescript
+import type { TokenCredential, AccessToken, GetTokenOptions } from &#34;@azure/core-auth&#34;;
+
+class CustomCredential implements TokenCredential {
+  async getToken(
+    scopes: string | string[],
+    options?: GetTokenOptions
+  ): Promise&lt;AccessToken | null&gt; {
+    // Custom token acquisition logic
+    return {
+      token: &#34;&lt;access-token&gt;&#34;,
+      expiresOnTimestamp: Date.now() &#43; 3600000
+    };
+  }
+}
+```
+
+## Debugging
+
+```typescript
+import { setLogLevel, AzureLogger } from &#34;@azure/logger&#34;;
+
+setLogLevel(&#34;verbose&#34;);
+
+// Custom log handler
+AzureLogger.log = (...args) =&gt; {
+  console.log(&#34;[Azure]&#34;, ...args);
+};
+```
+
+## Best Practices
+
+1. **Use DefaultAzureCredential** - Works in development (CLI) and production (managed identity)
+2. **Never hardcode credentials** - Use environment variables or managed identity
+3. **Prefer managed identity** - No secrets to manage in production
+4. **Scope credentials appropriately** - Use user-assigned identity for multi-tenant scenarios
+5. **Handle token refresh** - Azure SDK handles this automatically
+6. **Use ChainedTokenCredential** - For custom fallback scenarios
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
+
+## Limitations
+- Use this skill only when the task clearly matches the scope described above.
+- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
+- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+
+&lt;/skill-context&gt;</pre></details>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>7.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Now I&#39;ll create a complete TypeScript program with Service Principal authentication. Let me create the necessary files:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🤔</div>
+      <div class="tl-card tl-card-reasoning">
+        <div class="tl-title">
+          <span>8.</span>
+          Now I have the Azure Identity skill context. I need to create a TypeScript progr…
+        </div>
+        
+        
+        
+        <details><summary>Show reasoning</summary><pre>Now I have the Azure Identity skill context. I need to create a TypeScript program that:
+1. Uses ClientSecretCredential from @azure/identity
+2. Reads credentials from environment variables
+3. Creates an Azure SDK client (using SecretClient from @azure/keyvault-secrets)
+4. Performs an operation to verify the credential works
+5. Handles AuthenticationError
+6. Includes package.json, uses dotenv, and async/await
+
+Let me create the necessary files.</pre></details>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>9.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;name\&#34;: \&#34;azure-service-principal-auth\&#34;,\n  \&#34;version\&#34;: \&#34;1.0.0\&#34;,\n  \&#34;description\&#34;: \&#34;Azure Service Principal authentication with ClientSecretCredential\&#34;,\n  \&#34;main\&#34;: \&#34;dist/index.js\&#34;,\n  \&#34;scripts\&#34;: {\n    \&#34;build\&#34;: \&#34;tsc\&#34;,\n    \&#34;start\&#34;: \&#34;node dist/index.js\&#34;,\n    \&#34;dev\&#34;: \&#34;ts-node src/index.ts\&#34;\n  },\n  \&#34;keywords\&#34;: [\n    \&#34;azure\&#34;,\n    \&#34;authentication\&#34;,\n    \&#34;service-principal\&#34;\n  ],\n  \&#34;author\&#34;: \&#34;\&#34;,\n  \&#34;license\&#34;: \&#34;MIT\&#34;,\n  \&#34;dependencies\&#34;: {\n    \&#34;@azure/identity\&#34;: \&#34;^4.0.0\&#34;,\n    \&#34;@azure/keyvault-secrets\&#34;: \&#34;^4.7.0\&#34;,\n    \&#34;dotenv\&#34;: \&#34;^16.3.1\&#34;\n  },\n  \&#34;devDependencies\&#34;: {\n    \&#34;@types/node\&#34;: \&#34;^20.10.0\&#34;,\n    \&#34;ts-node\&#34;: \&#34;^10.9.2\&#34;,\n    \&#34;typescript\&#34;: \&#34;^5.3.3\&#34;\n  }\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\package.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>10.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;{\n  \&#34;compilerOptions\&#34;: {\n    \&#34;target\&#34;: \&#34;ES2020\&#34;,\n    \&#34;module\&#34;: \&#34;commonjs\&#34;,\n    \&#34;lib\&#34;: [\&#34;ES2020\&#34;],\n    \&#34;outDir\&#34;: \&#34;./dist\&#34;,\n    \&#34;rootDir\&#34;: \&#34;./src\&#34;,\n    \&#34;strict\&#34;: true,\n    \&#34;esModuleInterop\&#34;: true,\n    \&#34;skipLibCheck\&#34;: true,\n    \&#34;forceConsistentCasingInFileNames\&#34;: true,\n    \&#34;resolveJsonModule\&#34;: true,\n    \&#34;moduleResolution\&#34;: \&#34;node\&#34;\n  },\n  \&#34;include\&#34;: [\&#34;src/**/*\&#34;],\n  \&#34;exclude\&#34;: [\&#34;node_modules\&#34;, \&#34;dist\&#34;]\n}\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\tsconfig.json&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>11.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Service Principal Credentials\nAZURE_TENANT_ID=your-tenant-id-here\nAZURE_CLIENT_ID=your-client-id-here\nAZURE_CLIENT_SECRET=your-client-secret-here\n\n# Azure Key Vault URL (example)\nAZURE_KEYVAULT_URL=https://your-keyvault-name.vault.azure.net/\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\.env.example&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>12.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { ClientSecretCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { AuthenticationError } from \&#34;@azure/identity\&#34;;\nimport dotenv from \&#34;dotenv\&#34;;\n\n// Load environment variables from .env file\ndotenv.config();\n\n/**\n * Main function to authenticate and test Azure Service Principal\n */\nasync function main(): Promise\u003cvoid\u003e {\n  try {\n    console.log(\&#34;Starting Azure Service Principal authentication...\\n\&#34;);\n\n    // 1. Read credentials from environment variables\n    const tenantId = process.env.AZURE_TENANT_ID;\n    const clientId = process.env.AZURE_CLIENT_ID;\n    const clientSecret = process.env.AZURE_CLIENT_SECRET;\n    const keyVaultUrl = process.env.AZURE_KEYVAULT_URL;\n\n    // Validate required environment variables\n    if (!tenantId || !clientId || !clientSecret) {\n      throw new Error(\n        \&#34;Missing required environment variables. Please ensure AZURE_TENANT_ID, \&#34; &#43;\n        \&#34;AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET are set.\&#34;\n      );\n    }\n\n    if (!keyVaultUrl) {\n      throw new Error(\n        \&#34;Missing AZURE_KEYVAULT_URL environment variable. \&#34; &#43;\n        \&#34;Please set it to your Key Vault URL (e.g., https://your-vault.vault.azure.net/)\&#34;\n      );\n    }\n\n    console.log(\&#34;✓ Environment variables loaded\&#34;);\n    console.log(`  Tenant ID: ${tenantId.substring(0, 8)}...`);\n    console.log(`  Client ID: ${clientId.substring(0, 8)}...`);\n    console.log(`  Key Vault URL: ${keyVaultUrl}\\n`);\n\n    // 2. Create ClientSecretCredential instance\n    console.log(\&#34;Creating ClientSecretCredential...\&#34;);\n    const credential = new ClientSecretCredential(\n      tenantId,\n      clientId,\n      clientSecret\n    );\n    console.log(\&#34;✓ ClientSecretCredential created\\n\&#34;);\n\n    // 3. Create Azure SDK client (SecretClient for Key Vault)\n    console.log(\&#34;Creating SecretClient for Key Vault...\&#34;);\n    const secretClient = new SecretClient(keyVaultUrl, credential);\n    console.log(\&#34;✓ SecretClient created\\n\&#34;);\n\n    // 4. Perform an operation to verify the credential works\n    console.log(\&#34;Testing authentication by listing secrets...\&#34;);\n    \n    // List secrets to verify authentication\n    const secretsIterator = secretClient.listPropertiesOfSecrets();\n    const secrets: string[] = [];\n    \n    let count = 0;\n    for await (const secretProperties of secretsIterator) {\n      secrets.push(secretProperties.name);\n      count&#43;&#43;;\n      // Limit to first 5 secrets for demo\n      if (count \u003e= 5) break;\n    }\n\n    console.log(\&#34;✓ Authentication successful!\&#34;);\n    console.log(`  Found ${count} secret(s) in Key Vault`);\n    \n    if (secrets.length \u003e 0) {\n      console.log(\&#34;  Secrets:\&#34;);\n      secrets.forEach(name =\u003e console.log(`    - ${name}`));\n    } else {\n      console.log(\&#34;  (No secrets found in Key Vault)\&#34;);\n    }\n\n    console.log(\&#34;\\n✅ Service Principal authentication test completed successfully!\&#34;);\n\n  } catch (error) {\n    // 5. Handle AuthenticationError for invalid credentials\n    if (error instanceof AuthenticationError) {\n      console.error(\&#34;\\n❌ Authentication failed!\&#34;);\n      console.error(\&#34;Error details:\&#34;);\n      console.error(`  Message: ${error.message}`);\n      console.error(`  Error Code: ${error.name}`);\n      console.error(\&#34;\\nPossible causes:\&#34;);\n      console.error(\&#34;  - Invalid tenant ID, client ID, or client secret\&#34;);\n      console.error(\&#34;  - Service Principal doesn&#39;t have access to the Key Vault\&#34;);\n      console.error(\&#34;  - Service Principal might be disabled or expired\&#34;);\n      console.error(\&#34;  - Incorrect Azure environment or authority host\&#34;);\n      process.exit(1);\n    } else if (error instanceof Error) {\n      console.error(\&#34;\\n❌ An error occurred:\&#34;);\n      console.error(`  ${error.message}`);\n      \n      if (error.message.includes(\&#34;Key Vault\&#34;)) {\n        console.error(\&#34;\\nTroubleshooting Key Vault access:\&#34;);\n        console.error(\&#34;  1. Ensure the Key Vault URL is correct\&#34;);\n        console.error(\&#34;  2. Verify the Service Principal has &#39;Get&#39; and &#39;List&#39; permissions\&#34;);\n        console.error(\&#34;  3. Check if Key Vault firewall allows your IP address\&#34;);\n        console.error(\&#34;  4. Confirm the Key Vault exists and is accessible\&#34;);\n      }\n      \n      process.exit(1);\n    } else {\n      console.error(\&#34;\\n❌ An unexpected error occurred:\&#34;, error);\n      process.exit(1);\n    }\n  }\n}\n\n// Run the main function\nmain().catch(error =\u003e {\n  console.error(\&#34;Unhandled error:\&#34;, error);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>13.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Azure Service Principal Authentication with TypeScript\n\nThis project demonstrates how to authenticate to Azure using a Service Principal with client secret credentials using the `@azure/identity` package.\n\n## Features\n\n- ✅ ClientSecretCredential authentication\n- ✅ Environment variable management with dotenv\n- ✅ Azure Key Vault integration for verification\n- ✅ Comprehensive error handling for AuthenticationError\n- ✅ Full TypeScript support with async/await\n\n## Prerequisites\n\n1. **Azure Service Principal**: Create a Service Principal with client secret\n2. **Azure Key Vault**: A Key Vault instance for testing authentication\n3. **Node.js**: Version 18 or higher\n4. **Permissions**: Service Principal must have access to the Key Vault\n\n## Setup\n\n### 1. Install Dependencies\n\n```bash\nnpm install\n```\n\n### 2. Configure Environment Variables\n\nCopy `.env.example` to `.env` and fill in your Azure credentials:\n\n```bash\ncp .env.example .env\n```\n\nEdit `.env`:\n\n```env\nAZURE_TENANT_ID=your-tenant-id-here\nAZURE_CLIENT_ID=your-client-id-here\nAZURE_CLIENT_SECRET=your-client-secret-here\nAZURE_KEYVAULT_URL=https://your-keyvault-name.vault.azure.net/\n```\n\n### 3. Grant Key Vault Permissions\n\nEnsure your Service Principal has the following permissions on the Key Vault:\n\n```bash\n# Using Azure CLI\naz keyvault set-policy \\\n  --name \u003cyour-keyvault-name\u003e \\\n  --spn \u003cyour-client-id\u003e \\\n  --secret-permissions get list\n```\n\nOr use Azure RBAC:\n\n```bash\naz role assignment create \\\n  --role \&#34;Key Vault Secrets User\&#34; \\\n  --assignee \u003cyour-client-id\u003e \\\n  --scope /subscriptions/\u003csubscription-id\u003e/resourceGroups/\u003crg-name\u003e/providers/Microsoft.KeyVault/vaults/\u003cvault-name\u003e\n```\n\n## Usage\n\n### Development Mode (with ts-node)\n\n```bash\nnpm run dev\n```\n\n### Production Mode\n\n```bash\n# Build TypeScript to JavaScript\nnpm run build\n\n# Run compiled JavaScript\nnpm start\n```\n\n## How It Works\n\n1. **Load Environment Variables**: Uses `dotenv` to read credentials from `.env` file\n2. **Create Credential**: Instantiates `ClientSecretCredential` with tenant ID, client ID, and client secret\n3. **Initialize SDK Client**: Creates a `SecretClient` from `@azure/keyvault-secrets`\n4. **Verify Authentication**: Lists secrets in Key Vault to confirm the credential works\n5. **Error Handling**: Catches `AuthenticationError` for invalid credentials with helpful troubleshooting tips\n\n## Error Handling\n\nThe program handles various error scenarios:\n\n- **Missing environment variables**: Clear error message indicating which variables are required\n- **AuthenticationError**: Specific handling for authentication failures with troubleshooting tips\n- **Key Vault access errors**: Guidance on permissions and network access\n- **General errors**: Graceful error handling with descriptive messages\n\n## Expected Output\n\n### Success\n\n```\nStarting Azure Service Principal authentication...\n\n✓ Environment variables loaded\n  Tenant ID: 12345678...\n  Client ID: abcdefgh...\n  Key Vault URL: https://my-vault.vault.azure.net/\n\nCreating ClientSecretCredential...\n✓ ClientSecretCredential created\n\nCreating SecretClient for Key Vault...\n✓ SecretClient created\n\nTesting authentication by listing secrets...\n✓ Authentication successful!\n  Found 3 secret(s) in Key Vault\n  Secrets:\n    - database-password\n    - api-key\n    - connection-string\n\n✅ Service Principal authentication test completed successfully!\n```\n\n### Authentication Failure\n\n```\n❌ Authentication failed!\nError details:\n  Message: Client authentication failed\n  Error Code: AuthenticationError\n\nPossible causes:\n  - Invalid tenant ID, client ID, or client secret\n  - Service Principal doesn&#39;t have access to the Key Vault\n  - Service Principal might be disabled or expired\n  - Incorrect Azure environment or authority host\n```\n\n## Project Structure\n\n```\n.\n├── src/\n│   └── index.ts          # Main application code\n├── dist/                 # Compiled JavaScript (generated)\n├── .env                  # Environment variables (not committed)\n├── .env.example          # Environment variables template\n├── package.json          # Dependencies and scripts\n├── tsconfig.json         # TypeScript configuration\n└── README.md            # This file\n```\n\n## Dependencies\n\n- **@azure/identity**: Azure authentication library\n- **@azure/keyvault-secrets**: Azure Key Vault SDK for testing\n- **dotenv**: Environment variable management\n- **typescript**: TypeScript compiler\n- **ts-node**: TypeScript execution for development\n\n## Security Best Practices\n\n1. **Never commit `.env` file** to version control\n2. **Use Managed Identity** in production when running on Azure (VM, App Service, Functions, etc.)\n3. **Rotate secrets regularly** using Azure Key Vault\n4. **Use least privilege** for Service Principal permissions\n5. **Consider using certificate-based authentication** for higher security\n\n## Alternative Authentication Methods\n\nThis example uses `ClientSecretCredential`, but `@azure/identity` supports many credential types:\n\n- **DefaultAzureCredential**: Best for both development and production\n- **ManagedIdentityCredential**: For Azure-hosted applications\n- **ClientCertificateCredential**: Certificate-based Service Principal auth\n- **AzureCliCredential**: Uses `az login` credentials\n- **InteractiveBrowserCredential**: Browser-based login for user apps\n\n## Troubleshooting\n\n### \&#34;Authentication failed\&#34;\n- Verify tenant ID, client ID, and client secret are correct\n- Check if Service Principal is active in Azure AD\n\n### \&#34;Key Vault access denied\&#34;\n- Ensure Service Principal has Key Vault permissions\n- Check Key Vault firewall settings\n- Verify the Key Vault URL is correct\n\n### \&#34;Module not found\&#34;\n- Run `npm install` to install dependencies\n- Ensure Node.js version 18&#43; is installed\n\n## Resources\n\n- [Azure Identity SDK Documentation](https://learn.microsoft.com/en-us/javascript/api/@azure/identity)\n- [Service Principal Authentication](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)\n- [Azure Key Vault SDK](https://learn.microsoft.com/en-us/javascript/api/@azure/keyvault-secrets)\n\n## License\n\nMIT\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\README.md&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>14.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;# Dependencies\nnode_modules/\n\n# Environment variables\n.env\n\n# Build output\ndist/\n\n# IDE\n.vscode/\n.idea/\n\n# OS\n.DS_Store\nThumbs.db\n\n# Logs\n*.log\nnpm-debug.log*\n\n# TypeScript\n*.tsbuildinfo\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\.gitignore&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>15.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Let me create the src directory and then the main TypeScript file:</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>16.</span>
+          <span class="tool-name">Tool call: powershell</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;command&#34;:&#34;New-Item -ItemType Directory -Path \&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\src\&#34; -Force | Out-Null; Write-Host \&#34;Directory created\&#34;&#34;,&#34;description&#34;:&#34;Create src directory&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>17.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔧</div>
+      <div class="tl-card tl-card-tool_call">
+        <div class="tl-title">
+          <span>18.</span>
+          <span class="tool-name">Tool call: create</span>
+        </div>
+        
+        <div class="tl-meta">
+          
+          
+        </div>
+        
+        
+        
+        
+        
+          
+          <details><summary>Show arguments</summary><pre>{&#34;file_text&#34;:&#34;import { ClientSecretCredential } from \&#34;@azure/identity\&#34;;\nimport { SecretClient } from \&#34;@azure/keyvault-secrets\&#34;;\nimport { AuthenticationError } from \&#34;@azure/identity\&#34;;\nimport dotenv from \&#34;dotenv\&#34;;\n\n// Load environment variables from .env file\ndotenv.config();\n\n/**\n * Main function to authenticate and test Azure Service Principal\n */\nasync function main(): Promise\u003cvoid\u003e {\n  try {\n    console.log(\&#34;Starting Azure Service Principal authentication...\\n\&#34;);\n\n    // 1. Read credentials from environment variables\n    const tenantId = process.env.AZURE_TENANT_ID;\n    const clientId = process.env.AZURE_CLIENT_ID;\n    const clientSecret = process.env.AZURE_CLIENT_SECRET;\n    const keyVaultUrl = process.env.AZURE_KEYVAULT_URL;\n\n    // Validate required environment variables\n    if (!tenantId || !clientId || !clientSecret) {\n      throw new Error(\n        \&#34;Missing required environment variables. Please ensure AZURE_TENANT_ID, \&#34; &#43;\n        \&#34;AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET are set.\&#34;\n      );\n    }\n\n    if (!keyVaultUrl) {\n      throw new Error(\n        \&#34;Missing AZURE_KEYVAULT_URL environment variable. \&#34; &#43;\n        \&#34;Please set it to your Key Vault URL (e.g., https://your-vault.vault.azure.net/)\&#34;\n      );\n    }\n\n    console.log(\&#34;✓ Environment variables loaded\&#34;);\n    console.log(`  Tenant ID: ${tenantId.substring(0, 8)}...`);\n    console.log(`  Client ID: ${clientId.substring(0, 8)}...`);\n    console.log(`  Key Vault URL: ${keyVaultUrl}\\n`);\n\n    // 2. Create ClientSecretCredential instance\n    console.log(\&#34;Creating ClientSecretCredential...\&#34;);\n    const credential = new ClientSecretCredential(\n      tenantId,\n      clientId,\n      clientSecret\n    );\n    console.log(\&#34;✓ ClientSecretCredential created\\n\&#34;);\n\n    // 3. Create Azure SDK client (SecretClient for Key Vault)\n    console.log(\&#34;Creating SecretClient for Key Vault...\&#34;);\n    const secretClient = new SecretClient(keyVaultUrl, credential);\n    console.log(\&#34;✓ SecretClient created\\n\&#34;);\n\n    // 4. Perform an operation to verify the credential works\n    console.log(\&#34;Testing authentication by listing secrets...\&#34;);\n    \n    // List secrets to verify authentication\n    const secretsIterator = secretClient.listPropertiesOfSecrets();\n    const secrets: string[] = [];\n    \n    let count = 0;\n    for await (const secretProperties of secretsIterator) {\n      secrets.push(secretProperties.name);\n      count&#43;&#43;;\n      // Limit to first 5 secrets for demo\n      if (count \u003e= 5) break;\n    }\n\n    console.log(\&#34;✓ Authentication successful!\&#34;);\n    console.log(`  Found ${count} secret(s) in Key Vault`);\n    \n    if (secrets.length \u003e 0) {\n      console.log(\&#34;  Secrets:\&#34;);\n      secrets.forEach(name =\u003e console.log(`    - ${name}`));\n    } else {\n      console.log(\&#34;  (No secrets found in Key Vault)\&#34;);\n    }\n\n    console.log(\&#34;\\n✅ Service Principal authentication test completed successfully!\&#34;);\n\n  } catch (error) {\n    // 5. Handle AuthenticationError for invalid credentials\n    if (error instanceof AuthenticationError) {\n      console.error(\&#34;\\n❌ Authentication failed!\&#34;);\n      console.error(\&#34;Error details:\&#34;);\n      console.error(`  Message: ${error.message}`);\n      console.error(`  Error Code: ${error.name}`);\n      console.error(\&#34;\\nPossible causes:\&#34;);\n      console.error(\&#34;  - Invalid tenant ID, client ID, or client secret\&#34;);\n      console.error(\&#34;  - Service Principal doesn&#39;t have access to the Key Vault\&#34;);\n      console.error(\&#34;  - Service Principal might be disabled or expired\&#34;);\n      console.error(\&#34;  - Incorrect Azure environment or authority host\&#34;);\n      process.exit(1);\n    } else if (error instanceof Error) {\n      console.error(\&#34;\\n❌ An error occurred:\&#34;);\n      console.error(`  ${error.message}`);\n      \n      if (error.message.includes(\&#34;Key Vault\&#34;)) {\n        console.error(\&#34;\\nTroubleshooting Key Vault access:\&#34;);\n        console.error(\&#34;  1. Ensure the Key Vault URL is correct\&#34;);\n        console.error(\&#34;  2. Verify the Service Principal has &#39;Get&#39; and &#39;List&#39; permissions\&#34;);\n        console.error(\&#34;  3. Check if Key Vault firewall allows your IP address\&#34;);\n        console.error(\&#34;  4. Confirm the Key Vault exists and is accessible\&#34;);\n      }\n      \n      process.exit(1);\n    } else {\n      console.error(\&#34;\\n❌ An unexpected error occurred:\&#34;, error);\n      process.exit(1);\n    }\n  }\n}\n\n// Run the main function\nmain().catch(error =\u003e {\n  console.error(\&#34;Unhandled error:\&#34;, error);\n  process.exit(1);\n});\n&#34;,&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-identity-dp-js-ts-service-principal-azure-mcp-skills-claude-sonnet-4.5-100012374\\src\\index.ts&#34;}</pre></details>
+          
+          
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💬</div>
+      <div class="tl-card tl-card-message">
+        <div class="tl-title">
+          <span>19.</span>
+          Agent reply
+        </div>
+        
+        
+        
+        
+        <details><summary>Show reply</summary><pre>Perfect! I&#39;ve created a complete TypeScript program for Azure Service Principal authentication. Here&#39;s what I&#39;ve set up:
+
+## 📁 Project Structure
+
+**Core Files:**
+- `src/index.ts` - Main TypeScript application with ClientSecretCredential
+- `package.json` - Dependencies and npm scripts
+- `tsconfig.json` - TypeScript compiler configuration
+- `.env.example` - Environment variables template
+- `.gitignore` - Files to exclude from version control
+- `README.md` - Comprehensive documentation
+
+## ✨ Key Features
+
+1. **ClientSecretCredential** - Authenticates using Service Principal with client secret
+2. **Environment Variables** - Uses dotenv to load credentials from `.env` file
+3. **Azure SDK Integration** - Uses SecretClient from `@azure/keyvault-secrets` to verify authentication
+4. **Error Handling** - Catches `AuthenticationError` with helpful troubleshooting tips
+5. **Async/Await** - Modern async patterns throughout
+6. **TypeScript** - Full type safety and modern TypeScript features
+
+## 🚀 Usage
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Configure environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your Azure credentials
+   ```
+
+3. **Run the program:**
+   ```bash
+   npm run dev    # Development mode with ts-node
+   npm run build  # Build TypeScript
+   npm start      # Run compiled JavaScript
+   ```
+
+The program will authenticate to Azure and list secrets from your Key Vault to verify the credentials work. It includes comprehensive error handling for authentication failures and helpful debugging information.</pre></details>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">✅</div>
+      <div class="tl-card tl-card-complete">
+        <div class="tl-title">
+          <span>20.</span>
+          Generation complete
+        </div>
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="phase phase-review">
+  <div class="phase-header"><span>📊</span> Code Review <span style="margin-left:auto;font-size:0.85rem">Score: 15/20 criteria passed</span></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker">📊</div>
+      <div class="tl-card">
+        <div class="overall-score">
+          <div class="value" style="color:#eab308">15/20</div>
+          <div class="label">Criteria Passed</div>
+        </div>
+        
+        <table class="meta-table" style="width:100%;margin-top:1rem">
+          <thead><tr><th style="text-align:left">Criterion</th><th style="width:60px;text-align:center">Result</th><th style="text-align:left">Reason</th></tr></thead>
+          <tbody>
+          
+          <tr>
+            <td>Correct @azure/ Scoped Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses @azure/identity and @azure/keyvault-secrets - both correct scoped packages</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity for Authentication</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses ClientSecretCredential from @azure/identity for authentication</td>
+          </tr>
+          
+          <tr>
+            <td>Client Constructor with Endpoint and Credential</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">SecretClient constructed correctly: new SecretClient(keyVaultUrl, credential)</td>
+          </tr>
+          
+          <tr>
+            <td>Async/Await Pattern</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses async/await throughout with top-level async main() function</td>
+          </tr>
+          
+          <tr>
+            <td>Pagination with for-await-of</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses for-await-of over listPropertiesOfSecrets() iterator correctly</td>
+          </tr>
+          
+          <tr>
+            <td>LRO Pattern (beginXxx &#43; pollUntilDone)</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">N/A - no long-running operations in this code</td>
+          </tr>
+          
+          <tr>
+            <td>RestError Exception Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Does not catch RestError from @azure/core-rest-pipeline. Only handles AuthenticationError and generic Error</td>
+          </tr>
+          
+          <tr>
+            <td>No Deprecated Packages</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">No deprecated packages (azure-storage, azure-arm-*, ms-rest-*) in package.json</td>
+          </tr>
+          
+          <tr>
+            <td>Logging via @azure/logger</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">@azure/logger not imported or used. No setLogLevel() or AZURE_LOG_LEVEL configuration</td>
+          </tr>
+          
+          <tr>
+            <td>package.json with Correct Dependencies</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Valid package.json with @azure/identity, @azure/keyvault-secrets, dotenv, and TypeScript config</td>
+          </tr>
+          
+          <tr>
+            <td>@azure/identity with ClientSecretCredential</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Imports and uses ClientSecretCredential correctly</td>
+          </tr>
+          
+          <tr>
+            <td>Constructor parameters: tenantId, clientId, clientSecret</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">ClientSecretCredential instantiated with all three required parameters</td>
+          </tr>
+          
+          <tr>
+            <td>Passing credential to Azure SDK clients</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Credential passed to SecretClient constructor as second parameter</td>
+          </tr>
+          
+          <tr>
+            <td>dotenv or environment variable patterns</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Uses dotenv.config() and reads from process.env correctly</td>
+          </tr>
+          
+          <tr>
+            <td>AuthenticationError handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Attempts to import AuthenticationError from @azure/identity but this is not a valid export - will cause build error</td>
+          </tr>
+          
+          <tr>
+            <td>Code Builds</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Will not build: AuthenticationError is not exported from @azure/identity package</td>
+          </tr>
+          
+          <tr>
+            <td>Latest Package Versions</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Package versions are reasonable (@azure/identity ^4.0.0, @azure/keyvault-secrets ^4.7.0)</td>
+          </tr>
+          
+          <tr>
+            <td>Best Practices</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Follows good practices: environment variables, proper client construction, validation</td>
+          </tr>
+          
+          <tr>
+            <td>Error Handling</td>
+            <td style="text-align:center">❌</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Attempts AuthenticationError handling but import is invalid. Missing RestError handling for Key Vault errors</td>
+          </tr>
+          
+          <tr>
+            <td>Code Quality</td>
+            <td style="text-align:center">✅</td>
+            <td style="font-size:0.85rem;color:var(--text-muted)">Clean, well-structured, readable code with good documentation</td>
+          </tr>
+          
+          </tbody>
+        </table>
+        
+        <p>The code demonstrates a solid understanding of Azure SDK patterns including proper client construction, async/await, pagination, and dotenv configuration. However, it has a critical build error: AuthenticationError is not a valid import from @azure/identity. The code also lacks RestError handling and @azure/logger integration required by the rubric.</p>
+      </div>
+    </div>
+    
+    <div class="tl-step">
+      <div class="tl-marker">💪</div>
+      <div class="tl-card">
+        <div class="tl-title">Strengths</div>
+        <ul class="findings-list"><li>Correct @azure/ scoped packages and client construction pattern</li><li>Proper async/await and for-await-of pagination usage</li><li>Good environment variable validation and dotenv integration</li><li>Clean code structure with helpful console output</li><li>Comprehensive README with setup instructions</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">⚠️</div>
+      <div class="tl-card">
+        <div class="tl-title">Issues</div>
+        <ul class="findings-list"><li>CRITICAL: AuthenticationError import will fail - not exported from @azure/identity</li><li>Missing RestError exception handling for Azure SDK errors</li><li>No @azure/logger integration for SDK diagnostics</li><li>Error handling attempts instanceof check on non-existent AuthenticationError class</li></ul>
+      </div>
+    </div>
+    
+    
+    <div class="tl-step">
+      <div class="tl-marker">🔍</div>
+      <div class="tl-card">
+        <div class="tl-title">Review Session Activity (7 steps)</div>
+        <details><summary>Show reviewer actions timeline</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll evaluate the generated code by checking it against all criteria, including verifying package versions and attempting to identify any build issues.</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me analyze the generated code against the rubric systematically.
+
+## Attribu…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me analyze the generated code against the rubric systematically.
+
+## Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check package.json for @azure/ scoped packages
+2. **@azure/identity for Authentication** - Check for @azure/identity and ClientSecretCredential usage
+3. **Client Constructor with Endpoint and Credential** - Check SecretClient constructor
+4. **Async/Await Pattern** - Check for async/await usage
+5. **Pagination with for-await-of** - Check listPropertiesOfSecrets usage
+6. **LRO Pattern** - Not applicable to this code (no LROs)
+7. **RestError Exception Handling** - Check error handling
+8. **No Deprecated Packages** - Check package.json
+9. **Logging via @azure/logger** - Check for @azure/logger usage
+10. **package.json with Correct Dependencies** - Check package.json validity
+
+## Prompt-Specific Criteria:
+
+- `@azure/identity` package with `ClientSecretCredential` class
+- Constructor parameters: tenantId, clientId, clientSecret
+- Passing credential to Azure SDK clients
+- dotenv or environment variable patterns
+- `AuthenticationError` handling
+
+## General Criteria:
+
+1. Code Builds - Need to check if it would build
+2. Latest Package Versions - Need to verify
+3. Best Practices - Check adherence
+4. Error Handling - Check error handling
+5. Code Quality - Check code structure
+
+Let me go through each:
+
+### Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - YES, uses @azure/identity and @azure/keyvault-secrets
+2. **@azure/identity for Authentication** - YES, uses ClientSecretCredential from @azure/identity
+3. **Client Constructor with Endpoint and Credential** - YES, `new SecretClient(keyVaultUrl, credential)`
+
+
+4. **Async/Await Pattern** - YES, async/await is used throughout with a top-level async function
+5. **Pagination with for-await-of** - YES, iterates over secrets using `for await (const secretProperties of secretsIterator)`
+6. **LRO Pattern** - N/A (no long-running operations present)
+7. **RestError Exception Han…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Reviewing generated Azure code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>4.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-357212737\\src\\index.ts&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-357212737\\package.json&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>6.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-357212737\\tsconfig.json&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>7.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>Based on the code provided in the prompt, I can perform the evaluation. Let me analyze the code systematically:
+
+```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses @azure/identity and @azure/keyvault-secrets - both correct scoped packages&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses ClientSecretCredential from @azure/identity for authentication&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;SecretClient constructed correctly: new SecretClient(keyVaultUrl, credential)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses async/await throughout with top-level async main() function&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses for-await-of over listPropertiesOfSecrets() iterator correctly&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;N/A - no long-running operations in this code&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Does not catch RestError from @azure/core-rest-pipeline. Only handles AuthenticationError and generic Error&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No deprecated packages (azure-storage, azure-arm-*, ms-rest-*) in package.json&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Logging via @azure/logger&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;@azure/logger not imported or used. No setLogLevel() or AZURE_LOG_LEVEL configuration&#34;
+      },
+      {
+        &#34;name&#34;: &#34;package.json with Correct Dependencies&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Valid package.json with @azure/identity, @azure/keyvaul…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">👥</span><h2>Review Panel (1 reviewers)</h2></div>
+  <div class="section-body">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;table-layout:auto">
+      <thead><tr><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Reviewer</th><th style="background:#f8fafc;padding:0.75rem;text-align:center;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Score</th><th style="background:#f8fafc;padding:0.75rem;text-align:left;font-size:0.85rem;color:var(--text-muted);border-bottom:2px solid var(--border)">Criteria Results</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;white-space:nowrap"><code>claude-sonnet-4.5</code></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9;text-align:center"><strong style="color:#eab308">15/20</strong></td>
+          <td style="padding:0.75rem;border-bottom:1px solid #f1f5f9"><span style="display:inline-block;margin:2px 4px" title="Uses @azure/identity and @azure/keyvault-secrets - both correct scoped packages">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses ClientSecretCredential from @azure/identity for authentication">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="SecretClient constructed correctly: new SecretClient(keyVaultUrl, credential)">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Uses async/await throughout with top-level async main() function">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Uses for-await-of over listPropertiesOfSecrets() iterator correctly">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="N/A - no long-running operations in this code">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Does not catch RestError from @azure/core-rest-pipeline. Only handles AuthenticationError and generic Error">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="No deprecated packages (azure-storage, azure-arm-*, ms-rest-*) in package.json">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="@azure/logger not imported or used. No setLogLevel() or AZURE_LOG_LEVEL configuration">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with @azure/identity, @azure/keyvault-secrets, dotenv, and TypeScript config">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Imports and uses ClientSecretCredential correctly">✅ @azure/identity with ClientSecretCredential</span> <span style="display:inline-block;margin:2px 4px" title="ClientSecretCredential instantiated with all three required parameters">✅ Constructor parameters: tenantId, clientId, clientSecret</span> <span style="display:inline-block;margin:2px 4px" title="Credential passed to SecretClient constructor as second parameter">✅ Passing credential to Azure SDK clients</span> <span style="display:inline-block;margin:2px 4px" title="Uses dotenv.config() and reads from process.env correctly">✅ dotenv or environment variable patterns</span> <span style="display:inline-block;margin:2px 4px" title="Attempts to import AuthenticationError from @azure/identity but this is not a valid export - will cause build error">❌ AuthenticationError handling</span> <span style="display:inline-block;margin:2px 4px" title="Will not build: AuthenticationError is not exported from @azure/identity package">❌ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Package versions are reasonable (@azure/identity ^4.0.0, @azure/keyvault-secrets ^4.7.0)">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows good practices: environment variables, proper client construction, validation">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Attempts AuthenticationError handling but import is invalid. Missing RestError handling for Key Vault errors">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured, readable code with good documentation">✅ Code Quality</span> </td>
+        </tr>
+        
+        
+        <tr style="font-weight:700;border-top:2px solid var(--border)">
+          <td style="padding:0.75rem">🏆 Consensus</td>
+          <td style="padding:0.75rem;text-align:center"><strong style="color:#eab308">15/20</strong></td>
+          <td style="padding:0.75rem"><span style="display:inline-block;margin:2px 4px" title="Uses @azure/identity and @azure/keyvault-secrets - both correct scoped packages">✅ Correct @azure/ Scoped Packages</span> <span style="display:inline-block;margin:2px 4px" title="Uses ClientSecretCredential from @azure/identity for authentication">✅ @azure/identity for Authentication</span> <span style="display:inline-block;margin:2px 4px" title="SecretClient constructed correctly: new SecretClient(keyVaultUrl, credential)">✅ Client Constructor with Endpoint and Credential</span> <span style="display:inline-block;margin:2px 4px" title="Uses async/await throughout with top-level async main() function">✅ Async/Await Pattern</span> <span style="display:inline-block;margin:2px 4px" title="Uses for-await-of over listPropertiesOfSecrets() iterator correctly">✅ Pagination with for-await-of</span> <span style="display:inline-block;margin:2px 4px" title="N/A - no long-running operations in this code">✅ LRO Pattern (beginXxx &#43; pollUntilDone)</span> <span style="display:inline-block;margin:2px 4px" title="Does not catch RestError from @azure/core-rest-pipeline. Only handles AuthenticationError and generic Error">❌ RestError Exception Handling</span> <span style="display:inline-block;margin:2px 4px" title="No deprecated packages (azure-storage, azure-arm-*, ms-rest-*) in package.json">✅ No Deprecated Packages</span> <span style="display:inline-block;margin:2px 4px" title="@azure/logger not imported or used. No setLogLevel() or AZURE_LOG_LEVEL configuration">❌ Logging via @azure/logger</span> <span style="display:inline-block;margin:2px 4px" title="Valid package.json with @azure/identity, @azure/keyvault-secrets, dotenv, and TypeScript config">✅ package.json with Correct Dependencies</span> <span style="display:inline-block;margin:2px 4px" title="Imports and uses ClientSecretCredential correctly">✅ @azure/identity with ClientSecretCredential</span> <span style="display:inline-block;margin:2px 4px" title="ClientSecretCredential instantiated with all three required parameters">✅ Constructor parameters: tenantId, clientId, clientSecret</span> <span style="display:inline-block;margin:2px 4px" title="Credential passed to SecretClient constructor as second parameter">✅ Passing credential to Azure SDK clients</span> <span style="display:inline-block;margin:2px 4px" title="Uses dotenv.config() and reads from process.env correctly">✅ dotenv or environment variable patterns</span> <span style="display:inline-block;margin:2px 4px" title="Attempts to import AuthenticationError from @azure/identity but this is not a valid export - will cause build error">❌ AuthenticationError handling</span> <span style="display:inline-block;margin:2px 4px" title="Will not build: AuthenticationError is not exported from @azure/identity package">❌ Code Builds</span> <span style="display:inline-block;margin:2px 4px" title="Package versions are reasonable (@azure/identity ^4.0.0, @azure/keyvault-secrets ^4.7.0)">✅ Latest Package Versions</span> <span style="display:inline-block;margin:2px 4px" title="Follows good practices: environment variables, proper client construction, validation">✅ Best Practices</span> <span style="display:inline-block;margin:2px 4px" title="Attempts AuthenticationError handling but import is invalid. Missing RestError handling for Key Vault errors">❌ Error Handling</span> <span style="display:inline-block;margin:2px 4px" title="Clean, well-structured, readable code with good documentation">✅ Code Quality</span> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    <details style="margin-top:0.75rem">
+      <summary><code>claude-sonnet-4.5</code> — The code demonstrates a solid understanding of Azure SDK patterns including proper client construction, async/await, pagination, and dotenv configuration. However, it has a critical build error: AuthenticationError is not a valid import from @azure/identity. The code also lacks RestError handling and @azure/logger integration required by the rubric.</summary>
+      <p><strong>Issues:</strong></p><ul><li>CRITICAL: AuthenticationError import will fail - not exported from @azure/identity</li><li>Missing RestError exception handling for Azure SDK errors</li><li>No @azure/logger integration for SDK diagnostics</li><li>Error handling attempts instanceof check on non-existent AuthenticationError class</li></ul>
+      <p><strong>Strengths:</strong></p><ul><li>Correct @azure/ scoped packages and client construction pattern</li><li>Proper async/await and for-await-of pagination usage</li><li>Good environment variable validation and dotenv integration</li><li>Clean code structure with helpful console output</li><li>Comprehensive README with setup instructions</li></ul>
+      
+      <details style="margin-top:0.5rem">
+        <summary>🔍 Reviewer Actions Timeline (7 steps)</summary>
+        <div class="timeline" style="margin-top:0.5rem">
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>1.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>I&#39;ll evaluate the generated code by checking it against all criteria, including verifying package versions and attempting to identify any build issues.</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🤔</div>
+          <div class="tl-card tl-card-reasoning">
+            <div class="tl-title">
+              <span>2.</span>
+              Let me analyze the generated code against the rubric systematically.
+
+## Attribu…
+            </div>
+            
+            
+            <details><summary>Show reasoning</summary><pre>Let me analyze the generated code against the rubric systematically.
+
+## Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - Check package.json for @azure/ scoped packages
+2. **@azure/identity for Authentication** - Check for @azure/identity and ClientSecretCredential usage
+3. **Client Constructor with Endpoint and Credential** - Check SecretClient constructor
+4. **Async/Await Pattern** - Check for async/await usage
+5. **Pagination with for-await-of** - Check listPropertiesOfSecrets usage
+6. **LRO Pattern** - Not applicable to this code (no LROs)
+7. **RestError Exception Handling** - Check error handling
+8. **No Deprecated Packages** - Check package.json
+9. **Logging via @azure/logger** - Check for @azure/logger usage
+10. **package.json with Correct Dependencies** - Check package.json validity
+
+## Prompt-Specific Criteria:
+
+- `@azure/identity` package with `ClientSecretCredential` class
+- Constructor parameters: tenantId, clientId, clientSecret
+- Passing credential to Azure SDK clients
+- dotenv or environment variable patterns
+- `AuthenticationError` handling
+
+## General Criteria:
+
+1. Code Builds - Need to check if it would build
+2. Latest Package Versions - Need to verify
+3. Best Practices - Check adherence
+4. Error Handling - Check error handling
+5. Code Quality - Check code structure
+
+Let me go through each:
+
+### Attribute-Matched Criteria:
+
+1. **Correct @azure/ Scoped Packages** - YES, uses @azure/identity and @azure/keyvault-secrets
+2. **@azure/identity for Authentication** - YES, uses ClientSecretCredential from @azure/identity
+3. **Client Constructor with Endpoint and Credential** - YES, `new SecretClient(keyVaultUrl, credential)`
+
+
+4. **Async/Await Pattern** - YES, async/await is used throughout with a top-level async function
+5. **Pagination with for-await-of** - YES, iterates over secrets using `for await (const secretProperties of secretsIterator)`
+6. **LRO Pattern** - N/A (no long-running operations present)
+7. **RestError Exception Han…</pre></details>
+            
+            
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>3.</span>
+              <span class="tool-name">Tool call: report_intent</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;intent&#34;:&#34;Reviewing generated Azure code&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>4.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-357212737\\src\\index.ts&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>5.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-357212737\\package.json&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">🔧</div>
+          <div class="tl-card tl-card-tool_call">
+            <div class="tl-title">
+              <span>6.</span>
+              <span class="tool-name">Tool call: view</span>
+            </div>
+            
+            <div class="tl-meta">
+              
+            </div>
+            
+            
+            
+            
+              
+              <details><summary>Show arguments</summary><pre>{&#34;path&#34;:&#34;C:\\Users\\kaghiya\\AppData\\Local\\Temp\\hyoka-review-claude-sonnet-4.5-357212737\\tsconfig.json&#34;}</pre></details>
+              
+              
+            
+            
+          </div>
+        </div>
+        
+        <div class="tl-step">
+          <div class="tl-marker">💬</div>
+          <div class="tl-card tl-card-message">
+            <div class="tl-title">
+              <span>7.</span>
+              Reviewer response
+            </div>
+            
+            
+            
+            <details><summary>Show response</summary><pre>Based on the code provided in the prompt, I can perform the evaluation. Let me analyze the code systematically:
+
+```json
+{
+  &#34;scores&#34;: {
+    &#34;criteria&#34;: [
+      {
+        &#34;name&#34;: &#34;Correct @azure/ Scoped Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses @azure/identity and @azure/keyvault-secrets - both correct scoped packages&#34;
+      },
+      {
+        &#34;name&#34;: &#34;@azure/identity for Authentication&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses ClientSecretCredential from @azure/identity for authentication&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Client Constructor with Endpoint and Credential&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;SecretClient constructed correctly: new SecretClient(keyVaultUrl, credential)&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Async/Await Pattern&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses async/await throughout with top-level async main() function&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Pagination with for-await-of&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Uses for-await-of over listPropertiesOfSecrets() iterator correctly&#34;
+      },
+      {
+        &#34;name&#34;: &#34;LRO Pattern (beginXxx &#43; pollUntilDone)&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;N/A - no long-running operations in this code&#34;
+      },
+      {
+        &#34;name&#34;: &#34;RestError Exception Handling&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;Does not catch RestError from @azure/core-rest-pipeline. Only handles AuthenticationError and generic Error&#34;
+      },
+      {
+        &#34;name&#34;: &#34;No Deprecated Packages&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;No deprecated packages (azure-storage, azure-arm-*, ms-rest-*) in package.json&#34;
+      },
+      {
+        &#34;name&#34;: &#34;Logging via @azure/logger&#34;,
+        &#34;passed&#34;: false,
+        &#34;reason&#34;: &#34;@azure/logger not imported or used. No setLogLevel() or AZURE_LOG_LEVEL configuration&#34;
+      },
+      {
+        &#34;name&#34;: &#34;package.json with Correct Dependencies&#34;,
+        &#34;passed&#34;: true,
+        &#34;reason&#34;: &#34;Valid package.json with @azure/identity, @azure/keyvaul…</pre></details>
+            
+            
+            
+          </div>
+        </div>
+        
+        </div>
+      </details>
+      
+    </details>
+    
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🎯</span><h2>Grader Results (2 graders)</h2></div>
+  <div class="section-body">
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code demonstrates a solid understanding of Azure SDK patterns including proper client construction, async/await, pagination, and dotenv configuration. However, it has a critical build error: AuthenticationError is not a valid import from @azure/identity. The code also lacks RestError handling and @azure/logger integration required by the rubric.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    <div style="margin-bottom:1.5rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff">
+      <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;background:#f8fafc;border-bottom:1px solid var(--border)">
+        <code style="font-weight:600">claude-sonnet-4.5</code>
+        <span style="font-size:0.8rem;padding:2px 8px;border-radius:4px;background:#e2e8f0">review</span>
+        
+      </div>
+      <div style="padding:0.75rem 1rem">
+        
+        <p style="font-size:0.85rem;color:var(--text-muted)">The code demonstrates a solid understanding of Azure SDK patterns including proper client construction, async/await, pagination, and dotenv configuration. However, it has a critical build error: AuthenticationError is not a valid import from @azure/identity. The code also lacks RestError handling and @azure/logger integration required by the rubric.</p>
+        
+        
+        
+        
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">📁</span><h2>Generated Files (4)</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">2 .json, 1 .md, 1 .ts</span></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Files are saved in the <code>generated-code/</code> subdirectory alongside this report.</p>
+    
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> README.md</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre># Azure Service Principal Authentication with TypeScript
+
+This project demonstrates how to authenticate to Azure using a Service Principal with client secret credentials using the `@azure/identity` package.
+
+## Features
+
+- ✅ ClientSecretCredential authentication
+- ✅ Environment variable management with dotenv
+- ✅ Azure Key Vault integration for verification
+- ✅ Comprehensive error handling for AuthenticationError
+- ✅ Full TypeScript support with async/await
+
+## Prerequisites
+
+1. **Azure Service Principal**: Create a Service Principal with client secret
+2. **Azure Key Vault**: A Key Vault instance for testing authentication
+3. **Node.js**: Version 18 or higher
+4. **Permissions**: Service Principal must have access to the Key Vault
+
+## Setup
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Copy `.env.example` to `.env` and fill in your Azure credentials:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env`:
+
+```env
+AZURE_TENANT_ID=your-tenant-id-here
+AZURE_CLIENT_ID=your-client-id-here
+AZURE_CLIENT_SECRET=your-client-secret-here
+AZURE_KEYVAULT_URL=https://your-keyvault-name.vault.azure.net/
+```
+
+### 3. Grant Key Vault Permissions
+
+Ensure your Service Principal has the following permissions on the Key Vault:
+
+```bash
+# Using Azure CLI
+az keyvault set-policy \
+  --name &lt;your-keyvault-name&gt; \
+  --spn &lt;your-client-id&gt; \
+  --secret-permissions get list
+```
+
+Or use Azure RBAC:
+
+```bash
+az role assignment create \
+  --role &#34;Key Vault Secrets User&#34; \
+  --assignee &lt;your-client-id&gt; \
+  --scope /subscriptions/&lt;subscription-id&gt;/resourceGroups/&lt;rg-name&gt;/providers/Microsoft.KeyVault/vaults/&lt;vault-name&gt;
+```
+
+## Usage
+
+### Development Mode (with ts-node)
+
+```bash
+npm run dev
+```
+
+### Production Mode
+
+```bash
+# Build TypeScript to JavaScript
+npm run build
+
+# Run compiled JavaScript
+npm start
+```
+
+## How It Works
+
+1. **Load Environment Variables**: Uses `dotenv` to read credentials from `.env` file
+2. **Create Credential**: Instantiates `ClientSecretCredential` with tenant ID, client ID, and client secret
+3. **Initialize SDK Client**: Creates a `SecretClient` from `@azure/keyvault-secrets`
+4. **Verify Authentication**: Lists secrets in Key Vault to confirm the credential works
+5. **Error Handling**: Catches `AuthenticationError` for invalid credentials with helpful troubleshooting tips
+
+## Error Handling
+
+The program handles various error scenarios:
+
+- **Missing environment variables**: Clear error message indicating which variables are required
+- **AuthenticationError**: Specific handling for authentication failures with troubleshooting tips
+- **Key Vault access errors**: Guidance on permissions and network access
+- **General errors**: Graceful error handling with descriptive messages
+
+## Expected Output
+
+### Success
+
+```
+Starting Azure Service Principal authentication...
+
+✓ Environment variables loaded
+  Tenant ID: 12345678...
+  Client ID: abcdefgh...
+  Key Vault URL: https://my-vault.vault.azure.net/
+
+Creating ClientSecretCredential...
+✓ ClientSecretCredential created
+
+Creating SecretClient for Key Vault...
+✓ SecretClient created
+
+Testing authentication by listing secrets...
+✓ Authentication successful!
+  Found 3 secret(s) in Key Vault
+  Secrets:
+    - database-password
+    - api-key
+    - connection-string
+
+✅ Service Principal authentication test completed successfully!
+```
+
+### Authentication Failure
+
+```
+❌ Authentication failed!
+Error details:
+  Message: Client authentication failed
+  Error Code: AuthenticationError
+
+Possible causes:
+  - Invalid tenant ID, client ID, or client secret
+  - Service Principal doesn&#39;t have access to the Key Vault
+  - Service Principal might be disabled or expired
+  - Incorrect Azure environment or authority host
+```
+
+## Project Structure
+
+```
+.
+├── src/
+│   └── index.ts          # Main application code
+├── dist/                 # Compiled JavaScript (generated)
+├── .env                  # Environment variables (not committed)
+├── .env.example          # Environment variables template
+├── package.json          # Dependencies and scripts
+├── tsconfig.json         # TypeScript configuration
+└── README.md            # This file
+```
+
+## Dependencies
+
+- **@azure/identity**: Azure authentication library
+- **@azure/keyvault-secrets**: Azure Key Vault SDK for testing
+- **dotenv**: Environment variable management
+- **typescript**: TypeScript compiler
+- **ts-node**: TypeScript execution for development
+
+## Security Best Practices
+
+1. **Never commit `.env` file** to version control
+2. **Use Managed Identity** in production when running on Azure (VM, App Service, Functions, etc.)
+3. **Rotate secrets regularly** using Azure Key Vault
+4. **Use least privilege** for Service Principal permissions
+5. **Consider using certificate-based authentication** for higher security
+
+## Alternative Authentication Methods
+
+This example uses `ClientSecretCredential`, but `@azure/identity` supports many credential types:
+
+- **DefaultAzureCredential**: Best for both development and production
+- **ManagedIdentityCredential**: For Azure-hosted applications
+- **ClientCertificateCredential**: Certificate-based Service Principal auth
+- **AzureCliCredential**: Uses `az login` credentials
+- **InteractiveBrowserCredential**: Browser-based login for user apps
+
+## Troubleshooting
+
+### &#34;Authentication failed&#34;
+- Verify tenant ID, client ID, and client secret are correct
+- Check if Service Principal is active in Azure AD
+
+### &#34;Key Vault access denied&#34;
+- Ensure Service Principal has Key Vault permissions
+- Check Key Vault firewall settings
+- Verify the Key Vault URL is correct
+
+### &#34;Module not found&#34;
+- Run `npm install` to install dependencies
+- Ensure Node.js version 18&#43; is installed
+
+## Resources
+
+- [Azure Identity SDK Documentation](https://learn.microsoft.com/en-us/javascript/api/@azure/identity)
+- [Service Principal Authentication](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
+- [Azure Key Vault SDK](https://learn.microsoft.com/en-us/javascript/api/@azure/keyvault-secrets)
+
+## License
+
+MIT
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> package.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;name&#34;: &#34;azure-service-principal-auth&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;Azure Service Principal authentication with ClientSecretCredential&#34;,
+  &#34;main&#34;: &#34;dist/index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;build&#34;: &#34;tsc&#34;,
+    &#34;start&#34;: &#34;node dist/index.js&#34;,
+    &#34;dev&#34;: &#34;ts-node src/index.ts&#34;
+  },
+  &#34;keywords&#34;: [
+    &#34;azure&#34;,
+    &#34;authentication&#34;,
+    &#34;service-principal&#34;
+  ],
+  &#34;author&#34;: &#34;&#34;,
+  &#34;license&#34;: &#34;MIT&#34;,
+  &#34;dependencies&#34;: {
+    &#34;@azure/identity&#34;: &#34;^4.0.0&#34;,
+    &#34;@azure/keyvault-secrets&#34;: &#34;^4.7.0&#34;,
+    &#34;dotenv&#34;: &#34;^16.3.1&#34;
+  },
+  &#34;devDependencies&#34;: {
+    &#34;@types/node&#34;: &#34;^20.10.0&#34;,
+    &#34;ts-node&#34;: &#34;^10.9.2&#34;,
+    &#34;typescript&#34;: &#34;^5.3.3&#34;
+  }
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> src\index.ts</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>import { ClientSecretCredential } from &#34;@azure/identity&#34;;
+import { SecretClient } from &#34;@azure/keyvault-secrets&#34;;
+import { AuthenticationError } from &#34;@azure/identity&#34;;
+import dotenv from &#34;dotenv&#34;;
+
+// Load environment variables from .env file
+dotenv.config();
+
+/**
+ * Main function to authenticate and test Azure Service Principal
+ */
+async function main(): Promise&lt;void&gt; {
+  try {
+    console.log(&#34;Starting Azure Service Principal authentication...\n&#34;);
+
+    // 1. Read credentials from environment variables
+    const tenantId = process.env.AZURE_TENANT_ID;
+    const clientId = process.env.AZURE_CLIENT_ID;
+    const clientSecret = process.env.AZURE_CLIENT_SECRET;
+    const keyVaultUrl = process.env.AZURE_KEYVAULT_URL;
+
+    // Validate required environment variables
+    if (!tenantId || !clientId || !clientSecret) {
+      throw new Error(
+        &#34;Missing required environment variables. Please ensure AZURE_TENANT_ID, &#34; &#43;
+        &#34;AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET are set.&#34;
+      );
+    }
+
+    if (!keyVaultUrl) {
+      throw new Error(
+        &#34;Missing AZURE_KEYVAULT_URL environment variable. &#34; &#43;
+        &#34;Please set it to your Key Vault URL (e.g., https://your-vault.vault.azure.net/)&#34;
+      );
+    }
+
+    console.log(&#34;✓ Environment variables loaded&#34;);
+    console.log(`  Tenant ID: ${tenantId.substring(0, 8)}...`);
+    console.log(`  Client ID: ${clientId.substring(0, 8)}...`);
+    console.log(`  Key Vault URL: ${keyVaultUrl}\n`);
+
+    // 2. Create ClientSecretCredential instance
+    console.log(&#34;Creating ClientSecretCredential...&#34;);
+    const credential = new ClientSecretCredential(
+      tenantId,
+      clientId,
+      clientSecret
+    );
+    console.log(&#34;✓ ClientSecretCredential created\n&#34;);
+
+    // 3. Create Azure SDK client (SecretClient for Key Vault)
+    console.log(&#34;Creating SecretClient for Key Vault...&#34;);
+    const secretClient = new SecretClient(keyVaultUrl, credential);
+    console.log(&#34;✓ SecretClient created\n&#34;);
+
+    // 4. Perform an operation to verify the credential works
+    console.log(&#34;Testing authentication by listing secrets...&#34;);
+    
+    // List secrets to verify authentication
+    const secretsIterator = secretClient.listPropertiesOfSecrets();
+    const secrets: string[] = [];
+    
+    let count = 0;
+    for await (const secretProperties of secretsIterator) {
+      secrets.push(secretProperties.name);
+      count&#43;&#43;;
+      // Limit to first 5 secrets for demo
+      if (count &gt;= 5) break;
+    }
+
+    console.log(&#34;✓ Authentication successful!&#34;);
+    console.log(`  Found ${count} secret(s) in Key Vault`);
+    
+    if (secrets.length &gt; 0) {
+      console.log(&#34;  Secrets:&#34;);
+      secrets.forEach(name =&gt; console.log(`    - ${name}`));
+    } else {
+      console.log(&#34;  (No secrets found in Key Vault)&#34;);
+    }
+
+    console.log(&#34;\n✅ Service Principal authentication test completed successfully!&#34;);
+
+  } catch (error) {
+    // 5. Handle AuthenticationError for invalid credentials
+    if (error instanceof AuthenticationError) {
+      console.error(&#34;\n❌ Authentication failed!&#34;);
+      console.error(&#34;Error details:&#34;);
+      console.error(`  Message: ${error.message}`);
+      console.error(`  Error Code: ${error.name}`);
+      console.error(&#34;\nPossible causes:&#34;);
+      console.error(&#34;  - Invalid tenant ID, client ID, or client secret&#34;);
+      console.error(&#34;  - Service Principal doesn&#39;t have access to the Key Vault&#34;);
+      console.error(&#34;  - Service Principal might be disabled or expired&#34;);
+      console.error(&#34;  - Incorrect Azure environment or authority host&#34;);
+      process.exit(1);
+    } else if (error instanceof Error) {
+      console.error(&#34;\n❌ An error occurred:&#34;);
+      console.error(`  ${error.message}`);
+      
+      if (error.message.includes(&#34;Key Vault&#34;)) {
+        console.error(&#34;\nTroubleshooting Key Vault access:&#34;);
+        console.error(&#34;  1. Ensure the Key Vault URL is correct&#34;);
+        console.error(&#34;  2. Verify the Service Principal has &#39;Get&#39; and &#39;List&#39; permissions&#34;);
+        console.error(&#34;  3. Check if Key Vault firewall allows your IP address&#34;);
+        console.error(&#34;  4. Confirm the Key Vault exists and is accessible&#34;);
+      }
+      
+      process.exit(1);
+    } else {
+      console.error(&#34;\n❌ An unexpected error occurred:&#34;, error);
+      process.exit(1);
+    }
+  }
+}
+
+// Run the main function
+main().catch(error =&gt; {
+  console.error(&#34;Unhandled error:&#34;, error);
+  process.exit(1);
+});
+</pre>
+      </details>
+      
+    </div>
+    
+    <div class="file-card">
+      <div class="file-card-header"><span class="file-icon">📄</span> tsconfig.json</div>
+      
+      <details>
+        <summary>Show contents</summary>
+        <pre>{
+  &#34;compilerOptions&#34;: {
+    &#34;target&#34;: &#34;ES2020&#34;,
+    &#34;module&#34;: &#34;commonjs&#34;,
+    &#34;lib&#34;: [&#34;ES2020&#34;],
+    &#34;outDir&#34;: &#34;./dist&#34;,
+    &#34;rootDir&#34;: &#34;./src&#34;,
+    &#34;strict&#34;: true,
+    &#34;esModuleInterop&#34;: true,
+    &#34;skipLibCheck&#34;: true,
+    &#34;forceConsistentCasingInFileNames&#34;: true,
+    &#34;resolveJsonModule&#34;: true,
+    &#34;moduleResolution&#34;: &#34;node&#34;
+  },
+  &#34;include&#34;: [&#34;src/**/*&#34;],
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;dist&#34;]
+}
+</pre>
+      </details>
+      
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section atl-section">
+  <div class="section-header"><span class="icon">📊</span><h2>Action Timeline</h2><span style="margin-left:auto;font-size:0.85rem;color:var(--text-muted)">27 actions</span></div>
+  <div class="section-body">
+    <details>
+      <summary>Show action timeline (27 actions, 10 tool calls)</summary>
+
+      <div class="atl-summary-bar" style="margin-top:0.75rem">
+        <div class="atl-stat"><strong>27</strong> <span>actions</span></div>
+        <div class="atl-stat"><strong>10</strong> <span>tool calls</span></div>
+        <div class="atl-stat"><strong>5</strong> <span>turns</span></div>
+        <div class="atl-stat"><strong>0ms</strong> <span>tool duration</span></div>
+        <div class="atl-stat"><strong class="atl-success">9</strong> <span>succeeded</span></div>
+        <div class="atl-stat"><strong class="atl-failure">1</strong> <span>failed</span></div>
+      </div>
+
+      <div class="atl-filter">
+        <input type="text" id="atl-search" placeholder="Filter timeline… (tool name, type, file path)" oninput="(function(v){document.querySelectorAll('.atl-row').forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(v)!==-1?'':'none'})})(this.value.toLowerCase())">
+      </div>
+
+      <div class="atl-list">
+        
+      </div>
+    </details>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <div class="section-header"><span class="icon">🔄</span><h2>Re-run Command</h2></div>
+  <div class="section-body">
+    <p style="font-size:0.85rem;color:var(--text-muted)">Copy and paste this command to reproduce this evaluation:</p>
+    <div style="position:relative">
+      <pre id="rerun-cmd">hyoka run --prompt-id identity-dp-js-ts-service-principal --config azure-mcp-skills/claude-sonnet-4.5</pre>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('rerun-cmd').textContent).then(()=>{this.textContent='✅ Copied!';setTimeout(()=>{this.textContent='📋 Copy'},2000)})" style="position:absolute;top:8px;right:8px;padding:4px 12px;background:var(--accent,var(--blue));color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

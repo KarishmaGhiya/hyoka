@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluation Summary — 20260501-160921</title>
+<style>
+  :root { --green: #22c55e; --red: #ef4444; --yellow: #eab308; --bg: #f8fafc; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --blue: #2563eb; --purple: #7c3aed; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; color: var(--text); background: var(--bg); line-height: 1.6; }
+  h1 { margin: 0 0 0.25rem 0; }
+  h2 { margin: 1.5rem 0 0.75rem 0; }
+  .subtitle { color: var(--text-muted); margin-bottom: 1.5rem; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .stats { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.25rem 0; }
+  .stat { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; text-align: center; min-width: 110px; }
+  .stat-value { font-size: 1.5rem; font-weight: 700; }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+  .analysis { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+  .analysis h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+  .analysis-content { white-space: pre-wrap; font-size: 0.9rem; line-height: 1.6; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  th { background: #f8fafc; padding: 0.75rem; text-align: center; font-size: 0.85rem; color: var(--text-muted); border-bottom: 2px solid var(--border); }
+  th:first-child { text-align: left; }
+  td { padding: 0.75rem; border-bottom: 1px solid #f1f5f9; text-align: center; vertical-align: top; }
+  td:first-child { text-align: left; }
+  .cell-pass { color: var(--green); }
+  .cell-fail { color: var(--red); }
+  .cell-icon { font-size: 1.1rem; }
+  .cell-score { font-weight: 700; font-size: 0.9rem; }
+  .cell-error { color: #991b1b; font-size: 0.8rem; }
+  .cell-duration { font-size: 0.75rem; color: var(--text-muted); }
+  .cell-files { font-size: 0.75rem; color: var(--text-muted); }
+  .cell-tools { font-size: 0.7rem; color: var(--purple); font-family: monospace; }
+  .cell-link { font-size: 0.75rem; margin-top: 0.25rem; }
+  .detail-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 2rem; }
+  .detail-table th { background: #f8fafc; padding: 0.6rem 0.75rem; text-align: left; font-size: 0.8rem; color: var(--text-muted); border-bottom: 2px solid var(--border); }
+  .detail-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; vertical-align: top; }
+  .tool-tag { display: inline-block; background: #f3f0ff; color: var(--purple); padding: 1px 6px; border-radius: 3px; font-size: 0.75rem; font-family: monospace; margin: 1px; }
+</style>
+</head>
+<body>
+<h1>📊 Evaluation Summary</h1>
+<div class="subtitle">Run: <strong>20260501-160921</strong> — 2026-05-01T23:09:21Z</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">56</div><div class="stat-label">Evaluations</div></div>
+  <div class="stat"><div class="stat-value" style="color:var(--green)">3</div><div class="stat-label">Passed</div></div>
+  <div class="stat"><div class="stat-value" style="color:var(--red)">46</div><div class="stat-label">Failed</div></div>
+  <div class="stat"><div class="stat-value" style="color:#f97316">7</div><div class="stat-label">Errors</div></div>
+  <div class="stat"><div class="stat-value">1245.7s</div><div class="stat-label">Duration</div></div>
+  <div class="stat"><div class="stat-value">113.0s</div><div class="stat-label">Avg Generation</div></div>
+  <div class="stat"><div class="stat-value">58.3s</div><div class="stat-label">Avg Review</div></div>
+</div>
+
+
+
+<div class="analysis">
+  <h2>🤖 AI Analysis</h2>
+  <div class="analysis-content">**TOOL USAGE &amp; RESOURCE IMPACT ANALYSIS**
+
+---
+
+### 1. TOOL USAGE COMPARISON
+
+- **Baseline configs** (e.g., `baseline/claude-opus-4.6`):
+  - Relied on generic tools: `powershell`, `view`, `create`, `edit`, `glob`, `grep`, `skill`.
+  - No Azure-specific tools; tool calls focused on file ops and shell commands.
+  - Tool call counts were high for basic ops (e.g., `powershell` 43× in 52 runs).
+
+- **Azure-MCP configs** (e.g., `azure-mcp/claude-opus-4.6`):
+  - Used Azure-specific tools: `azure-documentation`, `azure-get_azure_bestpractices`.
+  - Still used generic tools, but Azure tools appeared in ~25% of runs.
+  - Tool call diversity increased, but not frequency—Azure tools were used selectively.
+
+---
+
+### 2. RESOURCE IMPACT
+
+- **Biggest improvement with tools:**  
+  - No prompt showed a dramatic pass rate increase with tools; pass rates remained near 0% across configs.
+  - Some prompts (e.g., `storage-dp-java-crud`, `storage-mp-java-account-mgmt`, `storage-dp-js-ts-crud`, `storage-dp-js-ts-blob-manager`) had occasional passes, but not consistently tied to tool access.
+  - **Azure-specific tools** (e.g., `azure-documentation`) were used, but did not correlate with higher pass rates.
+
+- **Similar performance with/without tools:**  
+  - Most prompts (e.g., `identity-dp-js-ts-default-credential`, `key-vault-dp-js-ts-crud`, `cosmos-db-dp-js-ts-crud`) failed regardless of tool access.
+  - Prompts relying on basic CRUD or SDK usage did not benefit from tool access.
+
+---
+
+### 3. KNOWLEDGE vs TOOLS
+
+- **Baseline (no tools):**
+  - Agent relied on built-in model knowledge, generic shell/file ops, and code search (`glob`, `grep`).
+  - For SDK-specific tasks, this was insufficient—failures were common.
+
+- **Tool-enhanced runs:**
+  - Azure tools (`azure-documentation`, `azure-get_azure_bestpractices`) were most impactful for context, but not enough to drive success.
+  - Generic tools (`powershell`, `view`, `create`) remained the backbone of agent activity.
+
+---
+
+### 4. RECOMMENDATIONS
+
+- **Prompts needing more tools/resources:**
+  - Prompts with complex Azure flows (e.g., `identity-dp-js-ts-default-credential`, `key-vault-dp-js-ts-crud`) would benefit from:
+    - Live SDK API reference access.
+    - Example code snippet retrieval.
+    - Azure CLI/Portal integration for real resource validation.
+  - Add tools for:
+    - Automated test execution/validation.
+    - Real-time error feedback from Azure services.
+
+---
+
+### 5. QUALITY DELTA
+
+- **Pass rates:**  
+  - Remained extremely low (1% overall), with no config showing clear advantage.
+- **File counts &amp; durations:**  
+  - No significant difference between configs; durations were similar.
+- **Scores:**  
+  - Not provided, but pass/fail trends indicate minimal tool impact.
+
+---
+
+**Summary:**  
+Tool access (even Azure-specific) did not meaningfully improve outcomes. Agents need deeper integration with Azure SDK docs, live code examples, and validation tools to close the quality gap. Most prompts failed regardless of tool setup—indicating current tools are not sufficient for complex Azure SDK tasks.</div>
+</div>
+
+
+
+<h2>Prompt × Config Matrix</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Prompt</th>
+      <th>baseline-skills/claude-opus-4.6</th><th>baseline-skills/claude-sonnet-4.5</th><th>baseline/claude-opus-4.6</th><th>baseline/claude-sonnet-4.5</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">19/23</div>
+          <div class="cell-duration">174.1s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">19/23</div>
+          <div class="cell-duration">105.1s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">19/22</div>
+          <div class="cell-duration">196.7s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">20/23</div>
+          <div class="cell-duration">136.6s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>cosmos-db-dp-js-ts-crud</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#f97316">14/22</div>
+          <div class="cell-duration">162.6s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#f97316">16/22</div>
+          <div class="cell-duration">100.8s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">18/23</div>
+          <div class="cell-duration">180.4s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#f97316">15/21</div>
+          <div class="cell-duration">93.7s</div>
+          <div class="cell-files">3 files</div>
+          <div class="cell-link"><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#f97316">17/24</div>
+          <div class="cell-duration">265.8s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">✅</div>
+          
+          
+          <div class="cell-duration">116.0s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#f97316">17/23</div>
+          <div class="cell-duration">293.4s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#f97316">17/23</div>
+          <div class="cell-duration">124.9s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-default-credential</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">34.7s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">50.1s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">27.7s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">28.2s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-managed-identity</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">51.5s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">16/21</div>
+          <div class="cell-duration">208.1s</div>
+          <div class="cell-files">5 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">27.2s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">19/21</div>
+          <div class="cell-duration">153.2s</div>
+          <div class="cell-files">3 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-service-principal</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          <div class="cell-error" style="font-size:0.7rem">⚠️ Error</div>
+          
+          <div class="cell-duration">103.1s</div>
+          <div class="cell-files">0 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">16/20</div>
+          <div class="cell-duration">135.6s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">17/20</div>
+          <div class="cell-duration">79.9s</div>
+          <div class="cell-files">1 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">18/20</div>
+          <div class="cell-duration">125.0s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-crud</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">16/20</div>
+          <div class="cell-duration">163.7s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">17/19</div>
+          <div class="cell-duration">109.9s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">15/19</div>
+          <div class="cell-duration">158.1s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">17/20</div>
+          <div class="cell-duration">97.1s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-secret-config</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">28/30</div>
+          <div class="cell-duration">301.5s</div>
+          <div class="cell-files">8 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">27/28</div>
+          <div class="cell-duration">421.3s</div>
+          <div class="cell-files">10 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">24/28</div>
+          <div class="cell-duration">211.2s</div>
+          <div class="cell-files">8 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">26/30</div>
+          <div class="cell-duration">345.9s</div>
+          <div class="cell-files">11 files</div>
+          <div class="cell-link"><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>resource-manager-mp-js-ts-rg-crud</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">20/23</div>
+          <div class="cell-duration">215.7s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">21/23</div>
+          <div class="cell-duration">128.6s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">21/23</div>
+          <div class="cell-duration">189.0s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">21/23</div>
+          <div class="cell-duration">104.5s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>service-bus-dp-js-ts-crud</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">18/23</div>
+          <div class="cell-duration">168.8s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">22/26</div>
+          <div class="cell-duration">151.2s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#f97316">17/24</div>
+          <div class="cell-duration">155.9s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">19/24</div>
+          <div class="cell-duration">89.4s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">22/27</div>
+          <div class="cell-duration">205.1s</div>
+          <div class="cell-files">6 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">22/27</div>
+          <div class="cell-duration">310.0s</div>
+          <div class="cell-files">8 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">✅</div>
+          
+          
+          <div class="cell-duration">216.7s</div>
+          <div class="cell-files">6 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">21/26</div>
+          <div class="cell-duration">322.0s</div>
+          <div class="cell-files">8 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">22/23</div>
+          <div class="cell-duration">168.7s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">22/23</div>
+          <div class="cell-duration">112.2s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">22/23</div>
+          <div class="cell-duration">194.2s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">✅</div>
+          
+          
+          <div class="cell-duration">95.2s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-encrypted-uploader</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">38/40</div>
+          <div class="cell-duration">285.6s</div>
+          <div class="cell-files">7 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">35/39</div>
+          <div class="cell-duration">311.9s</div>
+          <div class="cell-files">8 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">37/38</div>
+          <div class="cell-duration">231.0s</div>
+          <div class="cell-files">7 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">31/38</div>
+          <div class="cell-duration">204.8s</div>
+          <div class="cell-files">7 files</div>
+          <div class="cell-link"><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><code>storage-mp-js-ts-account-mgmt</code></td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">19/23</div>
+          <div class="cell-duration">144.9s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline-skills/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">21/23</div>
+          <div class="cell-duration">127.3s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline-skills/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">19/22</div>
+          <div class="cell-duration">164.6s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline/claude-opus-4.6/report.html">View Report →</a></div>
+        
+      </td>
+      
+      <td>
+        
+          <div class="cell-icon">❌</div>
+          
+          <div class="cell-score" style="color:#eab308">20/23</div>
+          <div class="cell-duration">113.6s</div>
+          <div class="cell-files">4 files</div>
+          <div class="cell-link"><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline/claude-sonnet-4.5/report.html">View Report →</a></div>
+        
+      </td>
+      
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+<h2>Detailed Results</h2>
+<table class="detail-table">
+  <thead>
+    <tr>
+      <th>Prompt</th>
+      <th>Config</th>
+      <th>Status</th>
+      <th>Score</th>
+      <th>Duration</th>
+      <th>Files</th>
+      <th>Tools / Skills</th>
+      <th>Report</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">19/23</span></td>
+      <td>174.1s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">grep</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">19/23</span></td>
+      <td>105.1s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">19/22</span></td>
+      <td>196.7s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span></td>
+      <td><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">20/23</span></td>
+      <td>136.6s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span></td>
+      <td><a href="results/app-configuration/data-plane/js-ts/crud/app-configuration-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>cosmos-db-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#f97316;font-weight:700">14/22</span></td>
+      <td>162.6s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>cosmos-db-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#f97316;font-weight:700">16/22</span></td>
+      <td>100.8s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>cosmos-db-dp-js-ts-crud</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">18/23</span></td>
+      <td>180.4s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span></td>
+      <td><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>cosmos-db-dp-js-ts-crud</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#f97316;font-weight:700">15/21</span></td>
+      <td>93.7s</td>
+      <td>3</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/cosmos-db/data-plane/js-ts/crud/cosmos-db-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#f97316;font-weight:700">17/24</span></td>
+      <td>265.8s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">powershell</span><span class="tool-tag">view</span><span class="tool-tag">read_powershell</span><span class="tool-tag">glob</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 find-skills</span></td>
+      <td><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>✅</td>
+      <td>—</td>
+      <td>116.0s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span></td>
+      <td><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#f97316;font-weight:700">17/23</span></td>
+      <td>293.4s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">edit</span><span class="tool-tag">grep</span></td>
+      <td><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#f97316;font-weight:700">17/23</span></td>
+      <td>124.9s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/event-hubs/data-plane/js-ts/streaming/event-hubs-dp-js-ts-streaming/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-default-credential</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator produced no files — the agent did not invoke any file-write tools">Generator produced no files — the agen…</span></td>
+      <td>34.7s</td>
+      <td>0</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 find-skills</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-default-credential</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator produced no files — the agent did not invoke any file-write tools">Generator produced no files — the agen…</span></td>
+      <td>50.1s</td>
+      <td>0</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-default-credential</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator produced no files — the agent did not invoke any file-write tools">Generator produced no files — the agen…</span></td>
+      <td>27.7s</td>
+      <td>0</td>
+      <td></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-default-credential</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator produced no files — the agent did not invoke any file-write tools">Generator produced no files — the agen…</span></td>
+      <td>28.2s</td>
+      <td>0</td>
+      <td></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-default-credential/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-managed-identity</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator produced no files — the agent did not invoke any file-write tools">Generator produced no files — the agen…</span></td>
+      <td>51.5s</td>
+      <td>0</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 find-skills</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-managed-identity</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">16/21</span></td>
+      <td>208.1s</td>
+      <td>5</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-managed-identity</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator produced no files — the agent did not invoke any file-write tools">Generator produced no files — the agen…</span></td>
+      <td>27.2s</td>
+      <td>0</td>
+      <td></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-managed-identity</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">19/21</span></td>
+      <td>153.2s</td>
+      <td>3</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-managed-identity/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-service-principal</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>⚠️</td>
+      <td><span style="color:#6b7280;font-size:0.85rem" title="Generator produced no files — the agent did not invoke any file-write tools">Generator produced no files — the agen…</span></td>
+      <td>103.1s</td>
+      <td>0</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">powershell</span><span class="tool-tag">view</span><span class="tool-tag">read_powershell</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 find-skills</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-service-principal</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">16/20</span></td>
+      <td>135.6s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-service-principal</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">17/20</span></td>
+      <td>79.9s</td>
+      <td>1</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-service-principal</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">18/20</span></td>
+      <td>125.0s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/identity/data-plane/js-ts/auth/identity-dp-js-ts-service-principal/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">16/20</span></td>
+      <td>163.7s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">17/19</span></td>
+      <td>109.9s</td>
+      <td>4</td>
+      <td><span class="tool-tag">skill</span><span class="tool-tag">report_intent</span><span class="tool-tag">create</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-crud</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">15/19</span></td>
+      <td>158.1s</td>
+      <td>4</td>
+      <td><span class="tool-tag">skill</span><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-crud</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">17/20</span></td>
+      <td>97.1s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-secret-config</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">28/30</span></td>
+      <td>301.5s</td>
+      <td>8</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">task</span><span class="tool-tag">web_fetch</span><span class="tool-tag">read_agent</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-secret-config</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">27/28</span></td>
+      <td>421.3s</td>
+      <td>10</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">view</span><span class="tool-tag">read_powershell</span><span class="tool-tag">stop_powershell</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-secret-config</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">24/28</span></td>
+      <td>211.2s</td>
+      <td>8</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-secret-config</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">26/30</span></td>
+      <td>345.9s</td>
+      <td>11</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">view</span></td>
+      <td><a href="results/key-vault/data-plane/js-ts/crud/key-vault-dp-js-ts-secret-config/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>resource-manager-mp-js-ts-rg-crud</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">20/23</span></td>
+      <td>215.7s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">glob</span><span class="tool-tag">powershell</span><span class="tool-tag">grep</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>resource-manager-mp-js-ts-rg-crud</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">21/23</span></td>
+      <td>128.6s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>resource-manager-mp-js-ts-rg-crud</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">21/23</span></td>
+      <td>189.0s</td>
+      <td>4</td>
+      <td><span class="tool-tag">skill</span><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>resource-manager-mp-js-ts-rg-crud</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">21/23</span></td>
+      <td>104.5s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span></td>
+      <td><a href="results/resource-manager/management-plane/js-ts/crud/resource-manager-mp-js-ts-rg-crud/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>service-bus-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">18/23</span></td>
+      <td>168.8s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">skill</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 find-skills</span></td>
+      <td><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>service-bus-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">22/26</span></td>
+      <td>151.2s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>service-bus-dp-js-ts-crud</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#f97316;font-weight:700">17/24</span></td>
+      <td>155.9s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag">grep</span><span class="tool-tag">glob</span></td>
+      <td><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>service-bus-dp-js-ts-crud</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">19/24</span></td>
+      <td>89.4s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/service-bus/data-plane/js-ts/crud/service-bus-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">22/27</span></td>
+      <td>205.1s</td>
+      <td>6</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">22/27</span></td>
+      <td>310.0s</td>
+      <td>8</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">view</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>✅</td>
+      <td>—</td>
+      <td>216.7s</td>
+      <td>6</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">21/26</span></td>
+      <td>322.0s</td>
+      <td>8</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">edit</span><span class="tool-tag">view</span><span class="tool-tag">stop_powershell</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-blob-manager/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">22/23</span></td>
+      <td>168.7s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">22/23</span></td>
+      <td>112.2s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">22/23</span></td>
+      <td>194.2s</td>
+      <td>4</td>
+      <td><span class="tool-tag">skill</span><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>✅</td>
+      <td>—</td>
+      <td>95.2s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-crud/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-encrypted-uploader</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">38/40</span></td>
+      <td>285.6s</td>
+      <td>7</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-encrypted-uploader</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">35/39</span></td>
+      <td>311.9s</td>
+      <td>8</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-encrypted-uploader</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">37/38</span></td>
+      <td>231.0s</td>
+      <td>7</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">edit</span><span class="tool-tag">grep</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-encrypted-uploader</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">31/38</span></td>
+      <td>204.8s</td>
+      <td>7</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span><span class="tool-tag">powershell</span><span class="tool-tag">view</span></td>
+      <td><a href="results/storage/data-plane/js-ts/crud/storage-dp-js-ts-encrypted-uploader/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-mp-js-ts-account-mgmt</code></td>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">19/23</span></td>
+      <td>144.9s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline-skills/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-mp-js-ts-account-mgmt</code></td>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">21/23</span></td>
+      <td>127.3s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">skill</span><span class="tool-tag">create</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline-skills/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-mp-js-ts-account-mgmt</code></td>
+      <td>baseline/claude-opus-4.6</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">19/22</span></td>
+      <td>164.6s</td>
+      <td>4</td>
+      <td><span class="tool-tag">skill</span><span class="tool-tag">report_intent</span><span class="tool-tag">view</span><span class="tool-tag">powershell</span><span class="tool-tag">create</span><span class="tool-tag">edit</span><span class="tool-tag" style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0">📚 azure-identity-ts</span></td>
+      <td><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline/claude-opus-4.6/report.html">View →</a></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-mp-js-ts-account-mgmt</code></td>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>❌</td>
+      <td><span style="color:#eab308;font-weight:700">20/23</span></td>
+      <td>113.6s</td>
+      <td>4</td>
+      <td><span class="tool-tag">report_intent</span><span class="tool-tag">create</span></td>
+      <td><a href="results/storage/management-plane/js-ts/provisioning/storage-mp-js-ts-account-mgmt/baseline/claude-sonnet-4.5/report.html">View →</a></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+
+<h2>Duration Analysis (by Prompt)</h2>
+<table class="detail-table">
+  <thead><tr><th>Prompt</th><th>Min</th><th>Avg</th><th>Max</th></tr></thead>
+  <tbody>
+    
+    <tr><td><code>app-configuration-dp-js-ts-crud</code></td><td title="Config: baseline-skills/claude-sonnet-4.5">105.1s</td><td>153.1s</td><td title="Config: baseline/claude-opus-4.6">196.7s</td></tr>
+    
+    <tr><td><code>cosmos-db-dp-js-ts-crud</code></td><td title="Config: baseline/claude-sonnet-4.5">93.7s</td><td>134.4s</td><td title="Config: baseline/claude-opus-4.6">180.4s</td></tr>
+    
+    <tr><td><code>event-hubs-dp-js-ts-streaming</code></td><td title="Config: baseline-skills/claude-sonnet-4.5">116.0s</td><td>200.0s</td><td title="Config: baseline/claude-opus-4.6">293.4s</td></tr>
+    
+    <tr><td><code>identity-dp-js-ts-default-credential</code></td><td title="Config: baseline/claude-opus-4.6">27.7s</td><td>35.1s</td><td title="Config: baseline-skills/claude-sonnet-4.5">50.1s</td></tr>
+    
+    <tr><td><code>identity-dp-js-ts-managed-identity</code></td><td title="Config: baseline/claude-opus-4.6">27.2s</td><td>110.0s</td><td title="Config: baseline-skills/claude-sonnet-4.5">208.1s</td></tr>
+    
+    <tr><td><code>identity-dp-js-ts-service-principal</code></td><td title="Config: baseline/claude-opus-4.6">79.9s</td><td>110.9s</td><td title="Config: baseline-skills/claude-sonnet-4.5">135.6s</td></tr>
+    
+    <tr><td><code>key-vault-dp-js-ts-crud</code></td><td title="Config: baseline/claude-sonnet-4.5">97.1s</td><td>132.2s</td><td title="Config: baseline-skills/claude-opus-4.6">163.7s</td></tr>
+    
+    <tr><td><code>key-vault-dp-js-ts-secret-config</code></td><td title="Config: baseline/claude-opus-4.6">211.2s</td><td>320.0s</td><td title="Config: baseline-skills/claude-sonnet-4.5">421.3s</td></tr>
+    
+    <tr><td><code>resource-manager-mp-js-ts-rg-crud</code></td><td title="Config: baseline/claude-sonnet-4.5">104.5s</td><td>159.4s</td><td title="Config: baseline-skills/claude-opus-4.6">215.7s</td></tr>
+    
+    <tr><td><code>service-bus-dp-js-ts-crud</code></td><td title="Config: baseline/claude-sonnet-4.5">89.4s</td><td>141.3s</td><td title="Config: baseline-skills/claude-opus-4.6">168.8s</td></tr>
+    
+    <tr><td><code>storage-dp-js-ts-blob-manager</code></td><td title="Config: baseline-skills/claude-opus-4.6">205.1s</td><td>263.5s</td><td title="Config: baseline/claude-sonnet-4.5">322.0s</td></tr>
+    
+    <tr><td><code>storage-dp-js-ts-crud</code></td><td title="Config: baseline/claude-sonnet-4.5">95.2s</td><td>142.6s</td><td title="Config: baseline/claude-opus-4.6">194.2s</td></tr>
+    
+    <tr><td><code>storage-dp-js-ts-encrypted-uploader</code></td><td title="Config: baseline/claude-sonnet-4.5">204.8s</td><td>258.4s</td><td title="Config: baseline-skills/claude-sonnet-4.5">311.9s</td></tr>
+    
+    <tr><td><code>storage-mp-js-ts-account-mgmt</code></td><td title="Config: baseline/claude-sonnet-4.5">113.6s</td><td>137.6s</td><td title="Config: baseline/claude-opus-4.6">164.6s</td></tr>
+    
+  </tbody>
+</table>
+<p style="color:var(--text-muted);font-size:0.85rem">⏱ Slowest: <strong>key-vault-dp-js-ts-secret-config/baseline-skills/claude-sonnet-4.5</strong> · Fastest: <strong>identity-dp-js-ts-managed-identity/baseline/claude-opus-4.6</strong></p>
+
+
+
+
+<h2>Prompt Comparison</h2>
+<table class="detail-table">
+  <thead><tr><th>Prompt</th><th>Total</th><th>Passed</th><th>Failed</th><th>Pass Rate</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td><code>app-configuration-dp-js-ts-crud</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>cosmos-db-dp-js-ts-crud</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">1</td>
+      <td style="color:var(--red)">3</td>
+      <td><strong>25.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-default-credential</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-managed-identity</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>identity-dp-js-ts-service-principal</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-crud</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>key-vault-dp-js-ts-secret-config</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>resource-manager-mp-js-ts-rg-crud</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>service-bus-dp-js-ts-crud</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">1</td>
+      <td style="color:var(--red)">3</td>
+      <td><strong>25.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">1</td>
+      <td style="color:var(--red)">3</td>
+      <td><strong>25.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-encrypted-uploader</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-mp-js-ts-account-mgmt</code></td>
+      <td>4</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">4</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+<h2>Config Comparison</h2>
+<table class="detail-table">
+  <thead><tr><th>Config</th><th>Total</th><th>Passed</th><th>Failed</th><th>Pass Rate</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td>baseline-skills/claude-opus-4.6</td>
+      <td>14</td>
+      <td style="color:var(--green)">0</td>
+      <td style="color:var(--red)">14</td>
+      <td><strong>0.0%</strong></td>
+    </tr>
+    
+    <tr>
+      <td>baseline-skills/claude-sonnet-4.5</td>
+      <td>14</td>
+      <td style="color:var(--green)">1</td>
+      <td style="color:var(--red)">13</td>
+      <td><strong>7.1%</strong></td>
+    </tr>
+    
+    <tr>
+      <td>baseline/claude-opus-4.6</td>
+      <td>14</td>
+      <td style="color:var(--green)">1</td>
+      <td style="color:var(--red)">13</td>
+      <td><strong>7.1%</strong></td>
+    </tr>
+    
+    <tr>
+      <td>baseline/claude-sonnet-4.5</td>
+      <td>14</td>
+      <td style="color:var(--green)">1</td>
+      <td style="color:var(--red)">13</td>
+      <td><strong>7.1%</strong></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+<h2>Prompt Deltas (differ between configs)</h2>
+<table class="detail-table" style="width:100%">
+  <thead><tr><th style="min-width:200px">Prompt</th><th style="min-width:180px">Passes On</th><th style="min-width:180px">Fails On</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td style="color:var(--green);font-weight:600">baseline-skills/claude-sonnet-4.5</td>
+      <td style="color:var(--red);font-weight:600">baseline-skills/claude-opus-4.6</td>
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td style="color:var(--green);font-weight:600">baseline-skills/claude-sonnet-4.5</td>
+      <td style="color:var(--red);font-weight:600">baseline/claude-opus-4.6</td>
+    </tr>
+    
+    <tr>
+      <td><code>event-hubs-dp-js-ts-streaming</code></td>
+      <td style="color:var(--green);font-weight:600">baseline-skills/claude-sonnet-4.5</td>
+      <td style="color:var(--red);font-weight:600">baseline/claude-sonnet-4.5</td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td style="color:var(--green);font-weight:600">baseline/claude-opus-4.6</td>
+      <td style="color:var(--red);font-weight:600">baseline-skills/claude-opus-4.6</td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td style="color:var(--green);font-weight:600">baseline/claude-opus-4.6</td>
+      <td style="color:var(--red);font-weight:600">baseline-skills/claude-sonnet-4.5</td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-blob-manager</code></td>
+      <td style="color:var(--green);font-weight:600">baseline/claude-opus-4.6</td>
+      <td style="color:var(--red);font-weight:600">baseline/claude-sonnet-4.5</td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td style="color:var(--green);font-weight:600">baseline/claude-sonnet-4.5</td>
+      <td style="color:var(--red);font-weight:600">baseline-skills/claude-opus-4.6</td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td style="color:var(--green);font-weight:600">baseline/claude-sonnet-4.5</td>
+      <td style="color:var(--red);font-weight:600">baseline-skills/claude-sonnet-4.5</td>
+    </tr>
+    
+    <tr>
+      <td><code>storage-dp-js-ts-crud</code></td>
+      <td style="color:var(--green);font-weight:600">baseline/claude-sonnet-4.5</td>
+      <td style="color:var(--red);font-weight:600">baseline/claude-opus-4.6</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+document.querySelectorAll('.analysis-content').forEach(el => {
+  if (typeof marked !== 'undefined') {
+    el.innerHTML = marked.parse(el.textContent);
+    el.style.whiteSpace = 'normal';
+  }
+});
+</script>
+</body>
+</html>
