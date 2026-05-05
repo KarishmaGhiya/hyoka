@@ -25,8 +25,8 @@
 
 ## Configuration
 
-- **name:** baseline/claude-sonnet-4.5
 - **model:** claude-sonnet-4.5
+- **name:** baseline/claude-sonnet-4.5
 
 ## Environment & Configuration
 

@@ -23,8 +23,8 @@
 
 ## Configuration
 
-- **name:** baseline-skills/claude-opus-4.6
 - **model:** claude-opus-4.6
+- **name:** baseline-skills/claude-opus-4.6
 
 ## Environment & Configuration
 

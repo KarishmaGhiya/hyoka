@@ -25,8 +25,8 @@
 
 ## Configuration
 
-- **name:** baseline-skills/claude-sonnet-4.5
 - **model:** claude-sonnet-4.5
+- **name:** baseline-skills/claude-sonnet-4.5
 
 ## Environment & Configuration
 

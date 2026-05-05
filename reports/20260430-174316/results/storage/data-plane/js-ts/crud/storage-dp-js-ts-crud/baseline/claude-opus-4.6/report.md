@@ -25,8 +25,8 @@
 
 ## Configuration
 
-- **name:** baseline/claude-opus-4.6
 - **model:** claude-opus-4.6
+- **name:** baseline/claude-opus-4.6
 
 ## Environment & Configuration
 

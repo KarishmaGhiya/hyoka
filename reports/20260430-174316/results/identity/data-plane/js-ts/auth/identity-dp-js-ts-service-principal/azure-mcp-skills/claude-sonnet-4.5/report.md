@@ -23,8 +23,8 @@
 
 ## Configuration
 
-- **name:** azure-mcp-skills/claude-sonnet-4.5
 - **model:** claude-sonnet-4.5
+- **name:** azure-mcp-skills/claude-sonnet-4.5
 
 ## Environment & Configuration
 

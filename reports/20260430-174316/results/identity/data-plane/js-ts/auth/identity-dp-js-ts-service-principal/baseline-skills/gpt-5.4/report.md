@@ -23,8 +23,8 @@
 
 ## Configuration
 
-- **name:** baseline-skills/gpt-5.4
 - **model:** gpt-5.4
+- **name:** baseline-skills/gpt-5.4
 
 ## Environment & Configuration
 

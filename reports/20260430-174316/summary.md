@@ -1,240 +1,264 @@
-# JS/TS Evaluation Summary — April 30, 2026
+# Evaluation Summary: 20260430-174316
 
-## Run Details
+## Run Statistics
 
-- **Duration:** ~1 hour 37 minutes (started 5:43 PM, finished ~7:20 PM PT)
-- **Evaluations:** 167/168 completed (1 timed out)
-- **Scope:** 14 JS/TS prompts × 12 configs
-- **Pass rate:** 0/167 (none hit 100% criteria)
-- **File generation:** 139 evals generated files, 28 produced 0 files
+| Metric | Value |
+|--------|-------|
+| Run ID | `20260430-174316` |
+| Timestamp | 2026-05-01T00:43:16Z |
+| Total Prompts | 14 |
+| Total Configs | 12 |
+| Total Evaluations | 167 |
+| Passed | 0 |
+| Failed | 139 |
+| Errors | 28 |
+| Duration | 41681.8s |
 
-## Results by Config (avg review score)
+## Comparison Matrix
 
-| Config | Avg Score | Files Generated |
-|---|---|---|
-| `azure-mcp-skills/claude-opus-4.6` | **80.4%** | 50 |
-| `baseline-skills/claude-opus-4.6` | **80.0%** | 53 |
-| `baseline/claude-opus-4.6` | **79.5%** | 53 |
-| `baseline/claude-sonnet-4.5` | **78.5%** | 66 |
-| `baseline-skills/claude-sonnet-4.5` | **78.2%** | 70 |
-| `azure-mcp/claude-opus-4.6` | **77.7%** | 54 |
-| `azure-mcp/claude-sonnet-4.5` | **77.6%** | 61 |
-| `azure-mcp/gpt-5.4` | **77.5%** | 52 |
-| `baseline-skills/gpt-5.4` | **77.4%** | 47 |
-| `azure-mcp-skills/claude-sonnet-4.5` | **76.7%** | 62 |
-| `azure-mcp-skills/gpt-5.4` | **74.0%** | 51 |
-| `baseline/gpt-5.4` | **70.3%** | 51 |
+| Prompt | azure-mcp-skills/claude-opus-4.6 | azure-mcp-skills/claude-sonnet-4.5 | azure-mcp-skills/gpt-5.4 | azure-mcp/claude-opus-4.6 | azure-mcp/claude-sonnet-4.5 | azure-mcp/gpt-5.4 | baseline-skills/claude-opus-4.6 | baseline-skills/claude-sonnet-4.5 | baseline-skills/gpt-5.4 | baseline/claude-opus-4.6 | baseline/claude-sonnet-4.5 | baseline/gpt-5.4 |
+|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+| app-configuration-dp-js-ts-crud | ❌ 18/23 | ❌ 16/23 | ❌ 16/23 | ❌ 18/23 | ❌ 14/23 | ❌ 5/15 | ❌ 18/23 | ❌ 14/23 | ❌ 20/23 | ❌ 18/23 | ❌ 15/23 | ❌ 4/23 |
+| cosmos-db-dp-js-ts-crud | ❌ 15/22 | ❌ 13/22 | ❌ 15/22 | ❌ 14/22 | ❌ 13/22 | ❌ 17/22 | ❌ 12/22 | ❌ 13/22 | ❌ 16/21 | ❌ 14/22 | ❌ 14/22 | ❌ 4/22 |
+| event-hubs-dp-js-ts-streaming | ❌ 17/23 | ❌ 15/23 | ❌ 17/23 | ❌ 16/23 | ❌ 16/23 | ❌ 17/26 | ❌ 15/23 | ❌ 15/23 | ❌ 18/23 | ❌ 17/23 | ❌ 14/23 | ❌ 17/23 |
+| identity-dp-js-ts-default-credential | ⚠️ Error | ❌ 14/20 | ⚠️ Error | ⚠️ Error | ❌ 16/20 | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error |
+| identity-dp-js-ts-managed-identity | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error | ⚠️ Error | ❌ 13/21 | ⚠️ Error | ⚠️ Error | ❌ 17/21 | ⚠️ Error |
+| identity-dp-js-ts-service-principal | ❌ 15/20 | ⚠️ Error | ⚠️ Error | ❌ 13/20 | ⚠️ Error | ⚠️ Error | ⚠️ Error | ❌ 17/20 | ⚠️ Error | ⚠️ Error | ❌ 17/20 | ⚠️ Error |
+| key-vault-dp-js-ts-crud | ❌ 16/20 | ❌ 15/20 | ❌ 16/20 | ❌ 16/20 | ❌ 14/20 | ❌ 16/20 | ❌ 17/20 | ❌ 16/20 | ❌ 16/20 | ❌ 16/20 | ❌ 17/20 | ❌ 16/20 |
+| key-vault-dp-js-ts-secret-config | ❌ 24/28 | ❌ 24/28 | ❌ 25/28 | ❌ 25/28 | ❌ 25/28 | ❌ 27/28 | ❌ 25/28 | ❌ 26/28 | ❌ 25/28 | ❌ 26/28 | ❌ 25/28 | ❌ 26/28 |
+| resource-manager-mp-js-ts-rg-crud | ❌ 20/23 | ❌ 20/23 | ❌ 20/23 | ❌ 20/23 | ❌ 17/23 | ❌ 20/23 | ❌ 20/23 | ❌ 17/23 | ❌ 18/22 | ❌ 20/23 | ❌ 18/23 | ❌ 20/23 |
+| service-bus-dp-js-ts-crud | — | ❌ 13/23 | ❌ 16/23 | ❌ 14/23 | ❌ 15/23 | ❌ 14/23 | ❌ 13/23 | ❌ 13/23 | ❌ 17/22 | ❌ 16/23 | ❌ 14/23 | ❌ 16/23 |
+| storage-dp-js-ts-blob-manager | ❌ 22/27 | ❌ 19/27 | ❌ 21/27 | ❌ 20/27 | ❌ 21/27 | ❌ 22/27 | ❌ 21/27 | ❌ 21/27 | ❌ 20/27 | ❌ 21/27 | ❌ 19/27 | ❌ 19/27 |
+| storage-dp-js-ts-crud | ❌ 21/23 | ❌ 21/23 | ❌ 22/23 | ❌ 22/23 | ❌ 21/23 | ❌ 22/23 | ❌ 22/23 | ❌ 21/23 | ❌ 22/23 | ❌ 22/23 | ❌ 20/23 | ❌ 22/23 |
+| storage-dp-js-ts-encrypted-uploader | ❌ 37/40 | ❌ 35/40 | ❌ 5/23 | ❌ 35/40 | ❌ 32/40 | ❌ 35/40 | ❌ 36/37 | ❌ 30/36 | ❌ 7/34 | ❌ 29/35 | ❌ 32/37 | ❌ 35/40 |
+| storage-mp-js-ts-account-mgmt | ❌ 19/23 | ❌ 13/23 | ❌ 19/23 | ❌ 18/23 | ❌ 15/23 | ❌ 18/22 | ❌ 20/23 | ❌ 16/22 | ❌ 18/22 | ❌ 20/23 | ❌ 15/23 | ❌ 19/23 |
 
-## Results by Prompt (avg review score)
+## Detailed Results
 
-| Prompt | Avg Score | Files |
-|---|---|---|
-| `storage-dp-js-ts-crud` | **93.8%** 🟢 | 48 |
-| `key-vault-dp-js-ts-secret-config` | **90.5%** 🟢 | 106 |
-| `resource-manager-mp-js-ts-rg-crud` | **82.2%** | 48 |
-| `storage-mp-js-ts-account-mgmt` | **80.4%** | 48 |
-| `key-vault-dp-js-ts-crud` | **80.2%** | 48 |
-| `storage-dp-js-ts-encrypted-uploader` | **80.0%** | 82 |
-| `storage-dp-js-ts-blob-manager` | **78.8%** | 76 |
-| `identity-dp-js-ts-managed-identity` | **75.2%** | 14 |
-| `identity-dp-js-ts-service-principal` | **73.8%** | 11 |
-| `identity-dp-js-ts-default-credential` | **72.9%** | 8 |
-| `event-hubs-dp-js-ts-streaming` | **70.4%** | 48 |
-| `app-configuration-dp-js-ts-crud` | **68.8%** | 43 |
-| `service-bus-dp-js-ts-crud` | **63.6%** 🔴 | 44 |
-| `cosmos-db-dp-js-ts-crud` | **63.2%** 🔴 | 46 |
+| Prompt | Config | Result | Score | Duration | Files |
+|--------|--------|--------|-------|----------|-------|
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 18/23 | 248.6s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 16/23 | 248.0s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 16/23 | 319.7s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 18/23 | 252.7s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 14/23 | 239.8s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 5/15 | 140.3s | 2 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 18/23 | 245.7s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 14/23 | 263.8s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 20/23 | 293.5s | 3 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 18/23 | 240.2s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 15/23 | 211.0s | 4 |
+| [app-configuration-dp-js-ts-crud](results/app-configuration/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 4/23 | 169.9s | 2 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 15/22 | 293.0s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 13/22 | 204.8s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 15/22 | 207.5s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 14/22 | 313.5s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 13/22 | 226.8s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 17/22 | 332.1s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 12/22 | 310.0s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 13/22 | 187.8s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 16/21 | 258.8s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 14/22 | 254.4s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 14/22 | 191.0s | 4 |
+| [cosmos-db-dp-js-ts-crud](results/cosmos-db/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 4/22 | 220.9s | 2 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 17/23 | 299.1s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 15/23 | 204.7s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 17/23 | 269.9s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 16/23 | 285.9s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 16/23 | 258.5s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 17/26 | 242.7s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 15/23 | 247.7s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 15/23 | 220.0s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 18/23 | 305.3s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 17/23 | 238.1s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 14/23 | 204.9s | 4 |
+| [event-hubs-dp-js-ts-streaming](results/event-hubs/data-plane/js-ts/streaming/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 17/23 | 279.5s | 4 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 49.0s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 14/20 | 244.1s | 4 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 56.4s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 54.9s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 16/20 | 619.2s | 4 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 75.0s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 30.2s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 33.0s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 40.4s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 26.7s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 33.4s | 0 |
+| [identity-dp-js-ts-default-credential](results/identity/data-plane/js-ts/auth/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 37.3s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 47.2s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 50.3s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 51.5s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 50.7s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 59.7s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 69.1s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 28.7s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 13/21 | 405.2s | 7 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 50.3s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 31.1s | 0 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 17/21 | 434.3s | 7 |
+| [identity-dp-js-ts-managed-identity](results/identity/data-plane/js-ts/auth/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 34.2s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 15/20 | 222.9s | 1 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 45.0s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 82.4s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 13/20 | 150.6s | 1 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 39.7s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 43.3s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 18.4s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 17/20 | 297.2s | 5 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 23.5s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 24.6s | 0 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 17/20 | 239.8s | 4 |
+| [identity-dp-js-ts-service-principal](results/identity/data-plane/js-ts/auth/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | Generator produced no files — the agent did not invoke any file-write tools | 21.4s | 0 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 16/20 | 250.6s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 15/20 | 228.1s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 16/20 | 211.0s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 16/20 | 247.5s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 14/20 | 194.1s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 16/20 | 241.9s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 17/20 | 236.4s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 16/20 | 157.5s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 16/20 | 195.0s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 16/20 | 250.0s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 17/20 | 199.2s | 4 |
+| [key-vault-dp-js-ts-crud](results/key-vault/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 16/20 | 233.5s | 4 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 24/28 | 304.4s | 8 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 24/28 | 472.3s | 10 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 25/28 | 405.5s | 10 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 25/28 | 355.1s | 8 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 25/28 | 590.2s | 10 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 27/28 | 388.2s | 9 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 25/28 | 389.9s | 8 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 26/28 | 575.6s | 10 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 25/28 | 368.3s | 8 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 26/28 | 345.0s | 8 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 25/28 | 364.2s | 8 |
+| [key-vault-dp-js-ts-secret-config](results/key-vault/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 26/28 | 441.5s | 9 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 20/23 | 280.0s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 20/23 | 201.6s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 20/23 | 254.9s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 20/23 | 239.6s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 17/23 | 249.3s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 20/23 | 310.6s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 20/23 | 235.9s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 17/23 | 228.5s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 18/22 | 226.2s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 20/23 | 236.5s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 18/23 | 195.1s | 4 |
+| [resource-manager-mp-js-ts-rg-crud](results/resource-manager/management-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 20/23 | 237.7s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 13/23 | 252.3s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 16/23 | 297.3s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 14/23 | 324.0s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 15/23 | 223.7s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 14/23 | 216.2s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 13/23 | 271.5s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 13/23 | 293.1s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 17/22 | 232.6s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 16/23 | 269.4s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 14/23 | 231.2s | 4 |
+| [service-bus-dp-js-ts-crud](results/service-bus/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 16/23 | 223.7s | 4 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 22/27 | 370.3s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 19/27 | 327.4s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 21/27 | 384.0s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 20/27 | 376.0s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 21/27 | 428.1s | 8 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 22/27 | 402.4s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 21/27 | 370.6s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 21/27 | 429.9s | 7 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 20/27 | 344.1s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 21/27 | 365.7s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 19/27 | 342.0s | 6 |
+| [storage-dp-js-ts-blob-manager](results/storage/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 19/27 | 388.0s | 7 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 21/23 | 254.3s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 21/23 | 190.6s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 22/23 | 276.4s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 22/23 | 251.1s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 21/23 | 206.4s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 22/23 | 272.0s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 22/23 | 247.6s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 21/23 | 192.6s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 22/23 | 255.8s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 22/23 | 228.9s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 20/23 | 175.5s | 4 |
+| [storage-dp-js-ts-crud](results/storage/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 22/23 | 205.4s | 4 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 37/40 | 416.3s | 7 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 35/40 | 588.8s | 10 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 5/23 | 274.8s | 3 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 35/40 | 407.9s | 7 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 32/40 | 404.4s | 7 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 35/40 | 485.6s | 7 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 36/37 | 353.3s | 7 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 30/36 | 480.5s | 9 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 7/34 | 375.0s | 2 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 29/35 | 228.1s | 7 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 32/37 | 439.9s | 9 |
+| [storage-dp-js-ts-encrypted-uploader](results/storage/data-plane/js-ts/crud/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 35/40 | 420.8s | 7 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/azure-mcp-skills/claude-opus-4.6/report.md) | azure-mcp-skills/claude-opus-4.6 | ❌ | 19/23 | 321.3s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/azure-mcp-skills/claude-sonnet-4.5/report.md) | azure-mcp-skills/claude-sonnet-4.5 | ❌ | 13/23 | 323.6s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/azure-mcp-skills/gpt-5.4/report.md) | azure-mcp-skills/gpt-5.4 | ❌ | 19/23 | 320.4s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/azure-mcp/claude-opus-4.6/report.md) | azure-mcp/claude-opus-4.6 | ❌ | 18/23 | 279.3s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/azure-mcp/claude-sonnet-4.5/report.md) | azure-mcp/claude-sonnet-4.5 | ❌ | 15/23 | 248.7s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/azure-mcp/gpt-5.4/report.md) | azure-mcp/gpt-5.4 | ❌ | 18/22 | 307.9s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/baseline-skills/claude-opus-4.6/report.md) | baseline-skills/claude-opus-4.6 | ❌ | 20/23 | 265.6s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/baseline-skills/claude-sonnet-4.5/report.md) | baseline-skills/claude-sonnet-4.5 | ❌ | 16/22 | 229.6s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/baseline-skills/gpt-5.4/report.md) | baseline-skills/gpt-5.4 | ❌ | 18/22 | 291.5s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/baseline/claude-opus-4.6/report.md) | baseline/claude-opus-4.6 | ❌ | 20/23 | 289.6s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/baseline/claude-sonnet-4.5/report.md) | baseline/claude-sonnet-4.5 | ❌ | 15/23 | 264.0s | 4 |
+| [storage-mp-js-ts-account-mgmt](results/storage/management-plane/js-ts/provisioning/baseline/gpt-5.4/report.md) | baseline/gpt-5.4 | ❌ | 19/23 | 253.1s | 4 |
 
-## Worst-Performing Language-Level Criteria
+## Duration Analysis (by Prompt)
 
-| Pass Rate | Criteria |
-|---|---|
-| **10.0%** (27/270) | Logging via `@azure/logger` |
-| **20.4%** (55/270) | `RestError` Exception Handling |
-| **40.0%** (108/270) | Error Handling (general) |
-| **64.8%** (175/270) | `@azure/identity` for Authentication |
-| **68.5%** (185/270) | Client Constructor with Endpoint and Credential |
-| **72.6%** (196/270) | Pagination with `for-await-of` |
-| **75.2%** (203/270) | Best Practices |
-| **81.1%** (219/270) | Latest Package Versions |
-| **89.3%** (241/270) | LRO Pattern (`beginXxx` + `pollUntilDone`) |
-| **91.5%** (247/270) | Code Builds |
-| **93.3%** (252/270) | `package.json` with Correct Dependencies |
-| **96.3%** (260/270) | Async/Await Pattern |
-| **97.0%** (262/270) | Code Quality |
-| **100%** (270/270) | Correct `@azure/` Scoped Packages |
-| **100%** (270/270) | No Deprecated Packages |
+| Prompt | Min | Avg | Max |
+|--------|-----|-----|-----|
+| resource-manager-mp-js-ts-rg-crud | 195.1s (baseline/claude-sonnet-4.5) | 241.3s | 310.6s (azure-mcp/gpt-5.4) |
+| storage-dp-js-ts-crud | 175.5s (baseline/claude-sonnet-4.5) | 229.7s | 276.4s (azure-mcp-skills/gpt-5.4) |
+| app-configuration-dp-js-ts-crud | 140.3s (azure-mcp/gpt-5.4) | 239.4s | 319.7s (azure-mcp-skills/gpt-5.4) |
+| key-vault-dp-js-ts-crud | 157.5s (baseline-skills/claude-sonnet-4.5) | 220.4s | 250.6s (azure-mcp-skills/claude-opus-4.6) |
+| storage-dp-js-ts-blob-manager | 327.4s (azure-mcp-skills/claude-sonnet-4.5) | 377.4s | 429.9s (baseline-skills/claude-sonnet-4.5) |
+| storage-dp-js-ts-encrypted-uploader | 228.1s (baseline/claude-opus-4.6) | 406.3s | 588.8s (azure-mcp-skills/claude-sonnet-4.5) |
+| storage-mp-js-ts-account-mgmt | 229.6s (baseline-skills/claude-sonnet-4.5) | 282.9s | 323.6s (azure-mcp-skills/claude-sonnet-4.5) |
+| event-hubs-dp-js-ts-streaming | 204.7s (azure-mcp-skills/claude-sonnet-4.5) | 254.7s | 305.3s (baseline-skills/gpt-5.4) |
+| service-bus-dp-js-ts-crud | 216.2s (azure-mcp/gpt-5.4) | 257.7s | 324.0s (azure-mcp/claude-opus-4.6) |
+| identity-dp-js-ts-default-credential | 26.7s (baseline/claude-opus-4.6) | 108.3s | 619.2s (azure-mcp/claude-sonnet-4.5) |
+| identity-dp-js-ts-managed-identity | 28.7s (baseline-skills/claude-opus-4.6) | 109.4s | 434.3s (baseline/claude-sonnet-4.5) |
+| key-vault-dp-js-ts-secret-config | 304.4s (azure-mcp-skills/claude-opus-4.6) | 416.7s | 590.2s (azure-mcp/claude-sonnet-4.5) |
+| cosmos-db-dp-js-ts-crud | 187.8s (baseline-skills/claude-sonnet-4.5) | 250.0s | 332.1s (azure-mcp/gpt-5.4) |
+| identity-dp-js-ts-service-principal | 18.4s (baseline-skills/claude-opus-4.6) | 100.7s | 297.2s (baseline-skills/claude-sonnet-4.5) |
 
-## Prompt-Specific Criteria Failures (0% pass rate)
+⏱ **Slowest:** identity-dp-js-ts-default-credential/azure-mcp/claude-sonnet-4.5 · **Fastest:** identity-dp-js-ts-service-principal/baseline-skills/claude-opus-4.6
 
-- `Error handling for RestError` — 0/8 across multiple prompts
-- `Handles Key Vault errors via RestError` — 0/7
-- `Handles blob not found errors (404 status code) on download/delete` — 0/10
-- `Handles lease conflict errors (409 status code)` — 0/13
-- `NOT collecting all listed blobs into an array before processing` — 0/15
-- `completeMessage(), abandonMessage(), deadLetterMessage()` — 0/19
+## Prompt Comparison
 
-## Key Patterns Observed
+| Prompt | Total | Passed | Failed | Pass Rate |
+|--------|-------|--------|--------|----------|
+| app-configuration-dp-js-ts-crud | 12 | 0 | 12 | 0.0% |
+| cosmos-db-dp-js-ts-crud | 12 | 0 | 12 | 0.0% |
+| event-hubs-dp-js-ts-streaming | 12 | 0 | 12 | 0.0% |
+| identity-dp-js-ts-default-credential | 12 | 0 | 12 | 0.0% |
+| identity-dp-js-ts-managed-identity | 12 | 0 | 12 | 0.0% |
+| identity-dp-js-ts-service-principal | 12 | 0 | 12 | 0.0% |
+| key-vault-dp-js-ts-crud | 12 | 0 | 12 | 0.0% |
+| key-vault-dp-js-ts-secret-config | 12 | 0 | 12 | 0.0% |
+| resource-manager-mp-js-ts-rg-crud | 12 | 0 | 12 | 0.0% |
+| service-bus-dp-js-ts-crud | 11 | 0 | 11 | 0.0% |
+| storage-dp-js-ts-blob-manager | 12 | 0 | 12 | 0.0% |
+| storage-dp-js-ts-crud | 12 | 0 | 12 | 0.0% |
+| storage-dp-js-ts-encrypted-uploader | 12 | 0 | 12 | 0.0% |
+| storage-mp-js-ts-account-mgmt | 12 | 0 | 12 | 0.0% |
 
-1. **Logging is the biggest gap (10% pass rate):** Generators almost never include `@azure/logger` setup with `setLogLevel()`. This is the single most impactful area for skills to address.
+## Config Comparison
 
-2. **Error handling is weak (20-40% pass rate):** `RestError` with `statusCode` checks is rarely generated. Generators use generic `try/catch` instead of Azure-specific error handling patterns.
+| Config | Total | Passed | Failed | Pass Rate |
+|--------|-------|--------|--------|----------|
+| azure-mcp-skills/claude-opus-4.6 | 13 | 0 | 13 | 0.0% |
+| azure-mcp-skills/claude-sonnet-4.5 | 14 | 0 | 14 | 0.0% |
+| azure-mcp-skills/gpt-5.4 | 14 | 0 | 14 | 0.0% |
+| azure-mcp/claude-opus-4.6 | 14 | 0 | 14 | 0.0% |
+| azure-mcp/claude-sonnet-4.5 | 14 | 0 | 14 | 0.0% |
+| azure-mcp/gpt-5.4 | 14 | 0 | 14 | 0.0% |
+| baseline-skills/claude-opus-4.6 | 14 | 0 | 14 | 0.0% |
+| baseline-skills/claude-sonnet-4.5 | 14 | 0 | 14 | 0.0% |
+| baseline-skills/gpt-5.4 | 14 | 0 | 14 | 0.0% |
+| baseline/claude-opus-4.6 | 14 | 0 | 14 | 0.0% |
+| baseline/claude-sonnet-4.5 | 14 | 0 | 14 | 0.0% |
+| baseline/gpt-5.4 | 14 | 0 | 14 | 0.0% |
 
-3. **Auth criteria at 64.8%:** The updated criteria requiring production-aware credential usage (not just `DefaultAzureCredential`) catches many generators that use the simplest credential pattern.
-
-4. **Identity prompts generate very few files (8-14 total):** These are simpler auth-focused prompts, but the low file count suggests generators may be under-generating for these scenarios.
-
-5. **Complex, well-defined prompts score best:** `storage-crud` (93.8%) and `key-vault-secret-config` (90.5%) have the most specific criteria and the generators do well on them.
-
-6. **Cosmos DB and Service Bus score worst (~63%):** These services have complex patterns (partition keys, dead-lettering, message settlement) that generators consistently miss.
-
-7. **MCP configs don't significantly outperform baseline:** The Azure MCP tools provide marginal benefit (~0-1%) suggesting the current MCP server may not provide enough JS/TS-specific guidance.
-
-8. **Skills configs show marginal improvement (~1-2%):** The `azure-sdk-typescript@skills` plugin wasn't installed locally, so the "skills" configs may not have actually loaded the plugin skills during generation.
-
-9. **Claude Opus consistently leads:** Across all config variants, `claude-opus-4.6` outperforms `claude-sonnet-4.5` by ~1-3% and `gpt-5.4` by ~5-10%.
-
-10. **Service Bus dead-lettering never generated (0/19):** `completeMessage()`, `abandonMessage()`, and `deadLetterMessage()` patterns are completely absent from generated code.
-
-## TypeScript Skills Plugin — Gap Analysis
-
-### Current State
-
-- The `azure-sdk-typescript@skills` plugin is referenced in configs but **not installed locally** — no local plugin YAML exists
-- Generator skills directory (`skills/generator/`) has **zero SKILL.md files** — no local guidance for code generation
-- Reviewer skills are generic (build verification, version check) or **Java-only** (`java-sdk-validation`) — none target JS/TS Azure patterns
-- No service-specific criteria exist for any of the 8 Azure services covered by JS/TS prompts
-
-### Recommended Skills to Create
-
-Based on criteria failure rates, the TypeScript skills plugin should teach:
-
-1. **`@azure/logger` setup** (90% failure rate)
-   - Always import `setLogLevel` from `@azure/logger`
-   - Set log level based on environment variable
-   - Example: `setLogLevel("info")` for production, `setLogLevel("verbose")` for debugging
-
-2. **`RestError` handling patterns** (80% failure rate)
-   - Import `RestError` from `@azure/core-rest-pipeline`
-   - Check `statusCode` for specific HTTP errors (404, 409, etc.)
-   - Pattern: `catch (e) { if (e instanceof RestError && e.statusCode === 404) { ... } }`
-
-3. **Production-aware authentication** (35% failure rate)
-   - Use `ManagedIdentityCredential` in production, `DefaultAzureCredential` in development
-   - Environment-based credential selection pattern
-   - Never hardcode vault URLs or credentials
-
-4. **Service-specific patterns:**
-   - **Service Bus:** `completeMessage()`, `abandonMessage()`, `deadLetterMessage()` (0% pass rate)
-   - **Cosmos DB:** Partition key usage, `FeedResponse` iteration, error status codes (13% pass rate)
-   - **Storage:** Blob leasing with `BlobLeaseClient`, streaming upload with `uploadStream()`, NOT collecting blobs into array
-   - **Event Hubs:** Checkpointing with `updateCheckpoint()`, consumer/producer lifecycle
-
-5. **JS/TS-specific reviewer skill** — equivalent to `java-sdk-validation` but for TypeScript Azure SDK patterns
-
-## Configs Used
-
-12 configs organized in 4 tiers × 3 models:
-
-| Tier | claude-opus-4.6 | claude-sonnet-4.5 | gpt-5.4 |
-|---|---|---|---|
-| **baseline** | baseline/claude-opus-4.6 | baseline/claude-sonnet-4.5 | baseline/gpt-5.4 |
-| **baseline-skills** | baseline-skills/claude-opus-4.6 | baseline-skills/claude-sonnet-4.5 | baseline-skills/gpt-5.4 |
-| **azure-mcp** | azure-mcp/claude-opus-4.6 | azure-mcp/claude-sonnet-4.5 | azure-mcp/gpt-5.4 |
-| **azure-mcp-skills** | azure-mcp-skills/claude-opus-4.6 | azure-mcp-skills/claude-sonnet-4.5 | azure-mcp-skills/gpt-5.4 |
-
-All reviewers use the same 3-model panel: `claude-opus-4.6`, `gemini-3-pro-preview`, `gpt-4.1`.
-
-## Recommendations — Tiers & Models
-
-### Model Ranking
-
-| Model | Avg Score | Delta |
-|---|---|---|
-| claude-opus-4.6 | **79.4%** | baseline |
-| claude-sonnet-4.5 | **77.8%** | -1.6% |
-| gpt-5.4 | **74.8%** | -4.6% |
-
-### Tier Ranking
-
-| Tier | Avg Score |
-|---|---|
-| baseline-skills | **78.5%** |
-| azure-mcp | **77.6%** |
-| azure-mcp-skills | **77.0%** |
-| baseline | **76.1%** |
-
-### Recommendations
-
-1. **Drop gpt-5.4 for now** — it consistently trails by ~5% across all tiers. Not worth 4 extra evals per prompt unless specifically benchmarking OpenAI models.
-
-2. **Keep only 2 tiers: `baseline` and `baseline-skills`** — MCP adds complexity but no measurable benefit (+0.5% avg). Skills showed the most uplift (+2.4%), and that's *without the plugin actually being installed*. Once the plugin installation is fixed, skills configs could see a bigger jump.
-
-3. **Recommended config set (4 configs):**
-   - `baseline/claude-opus-4.6` — best raw model
-   - `baseline/claude-sonnet-4.5` — cost-effective comparison
-   - `baseline-skills/claude-opus-4.6` — skills uplift measurement
-   - `baseline-skills/claude-sonnet-4.5` — skills + cost-effective
-
-4. **Re-evaluate MCP after skills are working** — MCP and skills are both partially broken (plugin not installed), so tier comparisons are confounded. Fix the plugin, create JS/TS generator skills, then re-run for a clean signal.
-
-**Impact:** Cuts eval time from ~1.5 hours (12 configs) to ~30 minutes (4 configs) per language, enabling faster iteration as TypeScript skills are built out.
-
-## Timing Data
-
-**Total run time:** ~1 hour 37 minutes wall clock (167 evals ran sequentially)
-**Sum of all eval durations:** ~11.6 hours (cumulative across all evals)
-
-### Per-Model Average Duration
-
-| Model | Avg Total | Avg Generation | Avg Review | Evals |
-|---|---|---|---|---|
-| claude-opus-4.6 | **4.0 min** | 1.8 min | 2.7 min | 55 |
-| claude-sonnet-4.5 | **4.5 min** | 1.8 min | 2.8 min | 56 |
-| gpt-5.4 | **4.0 min** | 1.9 min | 2.6 min | 56 |
-
-### Per-Config Average Duration
-
-| Config | Avg Total | Avg Gen | Avg Review | Evals |
-|---|---|---|---|---|
-| baseline/claude-opus-4.6 | **3.6 min** | 96s | 153s | 14 |
-| baseline/gpt-5.4 | **3.8 min** | 106s | 153s | 14 |
-| baseline-skills/claude-opus-4.6 | **3.9 min** | 103s | 165s | 14 |
-| baseline-skills/gpt-5.4 | **3.9 min** | 106s | 161s | 14 |
-| azure-mcp-skills/gpt-5.4 | **4.1 min** | 128s | 147s | 14 |
-| baseline/claude-sonnet-4.5 | **4.2 min** | 99s | 165s | 14 |
-| azure-mcp/gpt-5.4 | **4.2 min** | 122s | 165s | 14 |
-| azure-mcp/claude-opus-4.6 | **4.3 min** | 114s | 165s | 14 |
-| azure-mcp-skills/claude-opus-4.6 | **4.3 min** | 112s | 173s | 13 |
-| azure-mcp-skills/claude-sonnet-4.5 | **4.3 min** | 102s | 179s | 14 |
-| azure-mcp/claude-sonnet-4.5 | **4.7 min** | 113s | 200s | 14 |
-| baseline-skills/claude-sonnet-4.5 | **4.8 min** | 125s | 172s | 14 |
-
-### Timing Observations
-
-- **Baseline configs are fastest** (~3.6–3.8 min) — no MCP/skills overhead
-- **Review takes ~60% of total time** — generation averages ~100-130s, review averages ~150-200s
-- **Claude Sonnet is slowest overall** despite being a smaller model — likely due to longer review times
-- **MCP configs add ~30s overhead** on average compared to their baseline counterparts
-- **With the recommended 4-config set**, estimated run time per language: ~4 configs × 14 prompts × 4 min = **~56 eval-minutes** (sequential wall time ~30 min with parallelism)
-
-## Recommendation — Generator vs Reviewer Models
-
-### Rationale
-
-- **Self-review bias**: Using the same model for generation and review leads to inflated scores — models tend to rate their own output more favorably
-- **Review cost**: Review takes ~60% of total eval time; trimming from 3 to 2 reviewers saves ~30-40s per eval
-- **Model diversity**: Keeping reviewers from different model families provides more robust scoring
-
-### Changes Applied
-
-| Role | Previous | Updated |
-|---|---|---|
-| Generator | claude-opus-4.6 / claude-sonnet-4.5 / gpt-5.4 | **claude-opus-4.6 / claude-sonnet-4.5** (dropped gpt-5.4 — 4 configs removed) |
-| Reviewer panel | claude-opus-4.6 + gemini-3-pro-preview + gpt-4.1 | **claude-sonnet-4.5 + gemini-3-pro-preview** (dropped opus to avoid self-review, dropped gpt-4.1) |
-
-### Key Principles
-
-1. **Avoid overlap between primary generator and reviewer** — claude-opus-4.6 is the top generator, so it was removed from the reviewer panel and replaced with claude-sonnet-4.5
-2. **Trim to 2 reviewers** — dropped gpt-4.1 (oldest model in the panel) to reduce review time
-3. **Keep model family diversity** — Anthropic (sonnet) + Google (gemini) ensures independent perspectives
-4. **Re-evaluate after next run** — compare scoring consistency with the 2-reviewer panel vs the previous 3-reviewer panel
