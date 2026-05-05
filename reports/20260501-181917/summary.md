@@ -160,3 +160,38 @@
 | storage-dp-js-ts-crud | azure-mcp-skills/claude-sonnet-4.5 | baseline-skills/claude-sonnet-4.5 |
 | storage-dp-js-ts-crud | azure-mcp-skills/claude-sonnet-4.5 | baseline/claude-sonnet-4.5 |
 
+## Regression Analysis: `service-bus-dp-js-ts-crud`
+
+**Run 2 avg: 78.2% → Run 3 avg: 55.6% (-22.6%)**
+
+### Root Causes
+
+#### 1. `baseline-skills` review panel completely failed → treated as 0%
+
+Log evidence: `"Review panel failed" error="all reviewers failed"`
+- `gemini-3-pro`: unavailable (known issue)
+- `claude-sonnet-4.5`: also failed for this eval (JSON parse error or timeout)
+
+The generation **succeeded** (4 files, 98s, `success: True`) but produced **no review scores** (0/0). This false-zero dragged the prompt average from ~75% down to 55.6%.
+
+#### 2. Reviewer criteria drift (baseline: 19/24 → 16/26)
+
+| Criteria | Run 2 | Run 3 | Issue |
+|----------|-------|-------|-------|
+| `Pagination with for-await-of` | ✅ | ❌ | Reviewer says "Not applicable" but marks FAIL |
+| `LRO Pattern` | ✅ | ❌ | Reviewer says "Not applicable" but marks FAIL |
+| `Best Practices` | ✅ | ❌ | Now stricter about connection string |
+| `abandonMessage()` | N/A | ❌ (new) | Criteria split from single `completeMessage()` criterion |
+| `deadLetterMessage()` | N/A | ❌ (new) | Same — generator only demonstrates `completeMessage()` |
+
+#### 3. Prompt/criteria conflict
+
+The prompt says: `"Create a ServiceBusClient using a connection string"` but criteria fail on `@azure/identity for Authentication` and `Client Constructor with Endpoint and Credential`.
+
+### Recommended Fixes
+
+1. Remove `gemini-3-pro` from reviewer panel (causes total failures)
+2. Update prompt to use `DefaultAzureCredential` instead of connection string
+3. Add `abandonMessage()` and `deadLetterMessage()` to prompt numbered steps
+4. Address reviewer inconsistency: "N/A" criteria should not be scored FAIL
+

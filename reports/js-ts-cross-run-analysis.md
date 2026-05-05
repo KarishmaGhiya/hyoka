@@ -157,12 +157,45 @@
 
 **Run 2:** 78.2% → **Run 3:** 55.6%
 
-This prompt regressed significantly. Possible causes:
-- Different config mix (Run 2 had opus; Run 3 is sonnet-only)
-- MCP configs may have introduced noise
-- Skills may be providing conflicting guidance for Service Bus
+**Root Cause Investigation (completed):**
 
-**Recommended fix:** Investigate the Run 3 service-bus reports to identify which criteria regressed and why.
+The regression has **three distinct causes**:
+
+#### 4a. `baseline-skills` review panel completely failed → scored as 0%
+
+The log shows `"all reviewers failed"` for this specific eval:
+- `gemini-3-pro` unavailable (known)
+- `claude-sonnet-4.5` also failed (likely JSON parse error or timeout)
+
+The generation **succeeded** (4 files, 98s) and the eval was marked `success: True`, but with **no review scores at all** (0/0). This dragged the average down from ~75% to 55.6%.
+
+#### 4b. Non-deterministic reviewer criteria application (baseline: 19/24 → 16/26)
+
+Between Run 2 and Run 3, the reviewer behavior changed:
+
+| Criteria | Run 2 | Run 3 | Issue |
+|----------|-------|-------|-------|
+| `Pagination with for-await-of` | ✅ Pass | ❌ Fail | Reviewer says "Not applicable to Service Bus" but marks FAIL |
+| `LRO Pattern (beginXxx + pollUntilDone)` | ✅ Pass | ❌ Fail | Reviewer says "Not applicable" but marks FAIL |
+| `Best Practices` | ✅ Pass | ❌ Fail | Now stricter about connection string auth |
+| `completeMessage() after processing` | ✅ Pass (1 criterion) | Split into 3 criteria | — |
+| `abandonMessage()` | N/A | ❌ Fail (new) | Generator only demos `completeMessage()` |
+| `deadLetterMessage()` | N/A | ❌ Fail (new) | Generator only demos `completeMessage()` |
+
+The total criteria count went from 24 → 26, with 3 regressions and 2 new failures from the split.
+
+#### 4c. Prompt/criteria conflict: prompt asks for connection string but criteria penalize it
+
+The prompt explicitly says:
+> "Create a ServiceBusClient using a connection string"
+
+Yet the reviewer fails `@azure/identity for Authentication` and `Client Constructor with Endpoint and Credential` — directly contradicting the prompt's own instructions.
+
+**Recommended fixes:**
+1. **Remove `gemini-3-pro`** from reviewer configs (broken — causes total panel failures)
+2. **Update prompt** to ask for `DefaultAzureCredential` (endpoint+credential) instead of connection string — align with criteria
+3. **Explicitly list** `abandonMessage()` and `deadLetterMessage()` in prompt numbered steps (they're in Evaluation Criteria but not in the prompt body)
+4. **Reviewer inconsistency**: Criteria marked as "N/A" should not be scored as FAIL — this is a reviewer prompt issue
 
 ### Gap 5: Gemini Reviewer Unavailable
 
@@ -231,7 +264,7 @@ Sparse-checkout caching avoids repeated git clones. First fetch ~3s, cache hit <
 
 ### Priority 2: Fix Regressions
 
-4. **service-bus-dp-js-ts-crud**: Investigate why it dropped from 78.2% to 55.6%
+4. **service-bus-dp-js-ts-crud**: ✅ Investigated — three root causes identified (see Gap 4 above): review panel failure, criteria drift, prompt/criteria conflict
 5. **identity-dp-js-ts-service-principal**: Skills caused -25% regression — check for conflicting skill instructions
 
 ### Priority 3: Infrastructure
